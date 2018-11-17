@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Sam_StatusCodes>
+			<version>1.0.1</version>
+		</Sam_StatusCodes>
+	</modules>
+	<global>
+		<helpers>
+			<sam_statuscodes>
+				<class>Sam_StatusCodes_Helper</class>
+			</sam_statuscodes>
+			<sfc_cybersource>
+				<rewrite>
+					<gateway_error>Sam_StatusCodes_Helper_Error</gateway_error>
+				</rewrite>
+			</sfc_cybersource>
+		</helpers>
+
+		<resources>
+			<statuscodes_setup>
+				<setup>
+					<module>Sam_StatusCodes</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</statuscodes_setup>
+			<statuscodes_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</statuscodes_write>
+			<statuscodes_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</statuscodes_read>
+		</resources>
+	</global>
+	<frontend>
+       <routers>
+          <sam_statuscodes>
+              <use>standard</use>
+              <args>
+                 <module>Sam_StatusCodes</module>
+                 <frontName>sam_statuscodes</frontName>
+              </args>
+           </sam_statuscodes>
+       </routers>
+    </frontend>
+	<default>
+		<sam_statuscodes>
+			<general>
+				<a_code>Street address matches, ZIP does not</a_code>
+				<b_code>Street address matches, but ZIP not verified.</b_code>
+				<c_code>Street address and ZIP not verified</c_code>
+				<d_code>Street address and ZIP match (International Only)</d_code>
+				<e_code>AVS data is invalid or AVS is not allowed for this card type.</e_code>
+				<f_code>Street address and postal code match (UK Only)</f_code>
+				<g_code>Non-U.S. issuing bank does not support AVS.</g_code>
+				<h_code>Card member's name does not match. Street address and postal code match.</h_code>
+				<i_code>Address information not verified for international transaction</i_code>
+				<k_code></k_code>
+				<l_code></l_code>
+				<m_code>Street address and postal code match (International Only)</m_code>
+				<n_code>Street address and ZIP code do not match</n_code>
+				<o_code></o_code>
+				<p_code>Zip code matches, street address unverifiable due to incompatible formats (International Only)
+				</p_code>
+				<r_code>System unavailable, retry</r_code>
+				<s_code>AVS not supported</s_code>
+				<t_code></t_code>
+				<u_code>Address information unavailable. Returned if the U.S. bank does not support non-U.S.</u_code>
+				<w_code>9-Digit ZIP matches, street address does not</w_code>
+				<x_code>9-Digit ZIP and street address match</x_code>
+				<y_code>5-Digit ZIP and street address match</y_code>
+				<z_code>5-Digit ZIP matches, street address does not</z_code>
+			</general>
+		</sam_statuscodes>
+	</default>
+</config>
