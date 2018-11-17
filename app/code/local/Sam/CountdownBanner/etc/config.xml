@@ -21,7 +21,7 @@
                 <class>Sam_CountdownBanner_Model</class>
             </sam_countdownbanner>
         </models>
-        <events>
+<!--        <events>
             <customer_login>
                 <observers>
                     <sam_countdownbanner>
@@ -31,7 +31,7 @@
                     </sam_countdownbanner>
                 </observers>
             </customer_login>
-        </events>
+        </events> -->
     </global>
     <frontend>
 	     <layout>

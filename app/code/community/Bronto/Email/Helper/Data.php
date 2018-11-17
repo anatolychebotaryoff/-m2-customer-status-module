@@ -159,10 +159,12 @@ class Bronto_Email_Helper_Data
      */
     public function canUseBronto($scope = 'default', $scopeId = 0)
     {
+
+//Mage::log('get api token 1: ' , null, 'bronto_custom.log');
         if (!$this->getApiToken($scope, $scopeId)) {
             return false;
         }
-
+//Mage::log('get api token 2: ' , null, 'bronto_custom.log');
         return (bool)$this->getAdminScopedConfig(self::XML_PATH_USE_BRONTO, $scope, $scopeId);
     }
 
@@ -193,6 +195,14 @@ class Bronto_Email_Helper_Data
      */
     public function canSendBronto(Mage_Core_Model_Email_Template $template, $storeId = null)
     {
+
+
+Mage::log('1 isEnabled: ' . $this->isEnabled('store', $storeId) , null, 'bronto_custom.log');
+Mage::log('2 canUseBronto: ' . $this->canUseBronto('store', $storeId), null, 'bronto_custom.log');
+Mage::log('2 getBrontoMessageId: ' . is_null($template->getBrontoMessageId()), null, 'bronto_custom.log');
+Mage::log('2 getTemplateSendType: ' . $template->getTemplateSendType(), null, 'bronto_custom.log');
+Mage::log('2 getId: ' . $template->getId(), null, 'bronto_custom.log');
+
         if ($this->isEnabled('store', $storeId) &&
             $this->canUseBronto('store', $storeId) &&
             !is_null($template->getBrontoMessageId()) &&

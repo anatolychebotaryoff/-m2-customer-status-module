@@ -254,12 +254,6 @@ class Bronto_Common_Model_Email_Template extends Mage_Core_Model_Email_Template
         $contacts = $queue->getContacts();
 
         $this->setSendQueue($queue);
-        if (!$message) {
-            Mage::log("MESSAGE IS NULL");
-            Mage::log($contact->email);
-            return;
-        }
-
         $this->setMessage($message);
         $this->setBrontoMessageId($message->getId());
         $this->setBrontoMessageName($message->getName());
@@ -339,6 +333,7 @@ class Bronto_Common_Model_Email_Template extends Mage_Core_Model_Email_Template
      */
     public function send($email, $name = null, array $variables = array())
     {
+        Mage::log('Send start' , null, 'bronto_custom.log');
         // In the rare case we got here w/o hitting sendTransactional first...
         if (!isset($variables['store']) || !is_object($variables['store'])) {
             // Get the current store view, as to not break things
@@ -347,6 +342,7 @@ class Bronto_Common_Model_Email_Template extends Mage_Core_Model_Email_Template
 
         // If not set to go through Bronto, fall through to magento sending
         if (!Mage::helper($this->_helper)->canSendBronto($this, $variables['store']->getId())) {
+            Mage::log('Send - Fall through Bronto' , null, 'bronto_custom.log');
             return parent::send($email, $name, $variables);
         }
 
@@ -358,6 +354,7 @@ class Bronto_Common_Model_Email_Template extends Mage_Core_Model_Email_Template
 
         // If messageId is empty, send through Magento
         if (empty($messageId)) {
+            Mage::log('Send - Message id not set' , null, 'bronto_custom.log');
             return parent::send($email, $name, $variables);
         }
 
@@ -422,13 +419,19 @@ class Bronto_Common_Model_Email_Template extends Mage_Core_Model_Email_Template
         if ($this->_queuable() && $apiHelper->canUseQueue('store', $queue->getStoreId())) {
             try {
                 $queue->save();
+
+                Mage::log('End start' , null, 'bronto_custom.log');
                 return true;
             } catch (Exception $e) {
                 $apiHelper->writeError('Failed to save email to queue for store ' . $queue->getStoreId() . ': ' . $e->getMessage());
+
+                Mage::log('End start' , null, 'bronto_custom.log');
                 return $this->sendDeliveryFromQueue($queue);
             }
         } else {
             $api = $apiHelper->getApi(null, 'store', $variables['store']->getId());
+
+            Mage::log('End start' , null, 'bronto_custom.log');
             return $this->sendDeliveryFromQueue($queue->setApi($api));
         }
     }
@@ -447,13 +450,16 @@ class Bronto_Common_Model_Email_Template extends Mage_Core_Model_Email_Template
      */
     public function sendTransactional($templateId, $sender, $email, $name, $vars = array(), $storeId = null)
     {
+        Mage::log('Send Email - Email Template (' . $templateId . ')' , null, 'bronto_custom.log');
         // If Template ID is 'nosend', then simply return false
         if ($templateId == 'nosend') {
+            Mage::log('No Send flag - Email Template (' . $templateId . ')' , null, 'bronto_custom.log');
             return false;
         }
 
         // If not set to go through Bronto, fall through to magento sending
         if (!Mage::helper($this->_helper)->canSendBronto($this, $storeId)) {
+            Mage::log('Fall Through flag - Email Template (' . $templateId . ')' , null, 'bronto_custom.log');
             return parent::sendTransactional($templateId, $sender, $email, $name, $vars, $storeId);
         } else {
             // If module enabled and template ID is not an instance of the api row, see if we can pull an instance
@@ -466,11 +472,13 @@ class Bronto_Common_Model_Email_Template extends Mage_Core_Model_Email_Template
                     $emailTemplate->load($templateId);
                 } else {
                     $this->setTemplateSendType('magento');
+                    Mage::log('Magento Send Type flag - Email Template (' . $templateId . ')' , null, 'bronto_custom.log');
                     return parent::sendTransactional($templateId, $sender, $email, $name, $vars, $storeId);
                 }
 
                 // If Template doesn't have a Bronto Message ID, send through magento
                 if (!$emailTemplate->getBrontoMessageId() || is_null($emailTemplate->getBrontoMessageId())) {
+                    Mage::log('Template Doesnt Have Bronto Message Id  - Email Template (' . $templateId . ')' , null, 'bronto_custom.log');
                     return parent::sendTransactional($templateId, $sender, $email, $name, $vars, $storeId);
                 }
 
@@ -529,7 +537,7 @@ class Bronto_Common_Model_Email_Template extends Mage_Core_Model_Email_Template
 
         // Send
         $this->setSentSuccess($this->send($email, $name, $vars));
-
+        Mage::log('End send - Email Template (' . $templateId . ')' , null, 'bronto_custom.log');
         return $this;
     }
 

@@ -38,6 +38,17 @@
 			</statuscodes_read>
 		</resources>
 	</global>
+	<frontend>
+       <routers>
+          <sam_statuscodes>
+              <use>standard</use>
+              <args>
+                 <module>Sam_StatusCodes</module>
+                 <frontName>sam_statuscodes</frontName>
+              </args>
+           </sam_statuscodes>
+       </routers>
+    </frontend>
 	<default>
 		<sam_statuscodes>
 			<general>

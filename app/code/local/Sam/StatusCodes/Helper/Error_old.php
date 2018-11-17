@@ -7,7 +7,21 @@ class Sam_StatusCodes_Helper_Error extends SFC_CyberSource_Helper_Gateway_Error
 	{
 		$reasonCode = (integer) $response->reasonCode;
 		$defaultError = Mage::getStoreConfig('payment/' . SFC_CyberSource_Model_Method::METHOD_CODE . '/default_error');
-
+//        switch ($reasonCode) {
+//            case 202:
+//                return 'Expiration Date Mismatch - The transaction was not approved because the expiration date is expired or did not match. Please verify the expiration date is correct and try again, or try a different form of payment.';
+//            case 200:
+//            case 520:
+//                return 'AVS Mismatch - The transaction was not approved because the address and/or zip code did not match what the issuer has on file. Please verify the address information is correct and try again, or try a different form of payment.';
+//            case 209:
+//            case 211:
+//            case 230:
+//                return 'CVV Mismatch - The transaction was not approved because the CVV code did not match. Please verify the CVV is correct and try again, or try a different form of payment.';
+//            case 0:
+//            default:
+//                return $defaultError;
+//        }
+		// Mage::log($response, null, 'mylogfile.log');
         if(isset($response->ccAuthReply)) {
             $avsCode = $response->ccAuthReply->avsCode;
             switch ($avsCode) {
@@ -60,13 +74,6 @@ class Sam_StatusCodes_Helper_Error extends SFC_CyberSource_Helper_Gateway_Error
                 default:
                     return $defaultError;
             }
-        } elseif(isset($response->invalidField)) {
-            $field = str_replace('c:billTo/c:', '', $response->invalidField);
-            $result = preg_replace('/(?<!\ )[A-Z]/', ' $0', $field);
-            $result = strtolower($result);
-            Mage::register('sam_wrong_input', $field);
-            $error = $this->__('Invalid data in %s field. Click %s to change it', $result, '<a id="statuscode-error" href="javascript:void(0);">here</a>');
-            return $error;
         } else {
             return $defaultError;
         }
@@ -74,6 +81,7 @@ class Sam_StatusCodes_Helper_Error extends SFC_CyberSource_Helper_Gateway_Error
 
 	protected function getConfigByCode($code)
 	{
+		$defaultError = Mage::getStoreConfig('payment/' . SFC_CyberSource_Model_Method::METHOD_CODE . '/default_error');
 		$resultCode = Mage::getStoreConfig('sam_statuscodes/general/' . $code);
 		return $resultCode;
 	}

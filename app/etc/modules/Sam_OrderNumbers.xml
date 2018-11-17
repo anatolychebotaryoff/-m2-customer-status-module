@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Sam_OrderNumbers>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends></depends>
+        </Sam_OrderNumbers>
+    </modules>
+</config>

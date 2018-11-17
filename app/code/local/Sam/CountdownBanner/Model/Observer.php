@@ -10,9 +10,9 @@ class Sam_CountdownBanner_Model_Observer
         $value = $dt->getTimestamp();
         $domain = Mage::getStoreConfig('web/cookie/cookie_domain');
 
-        //Mage::getModel('core/cookie')->set('countdown_banner_start_time',
+      //Mage::getModel('core/cookie')->set('countdown_banner_start_time',
       //    $value, null, null, $domain);
-      setcookie('countdown_banner_start_time', $value, time() + (86400 * 30), '/', 'discountfilterstore.com');
+      //setcookie('countdown_banner_start_time', $value, time() + (86400 * 30), '/', 'discountfilterstore.com');
     }
 
 }

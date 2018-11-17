@@ -1,3 +1,29 @@
+<style type="text/css">
+
+.yotpo .yotpo-display-wrapper {
+
+padding-bottom: 10px;
+
+}
+
+.bottomLine .text-m  {
+
+padding-left: 7px;
+font-weight: normal;
+vertical-align: middle;
+
+}
+
+ .single-course span.yotpo-stars {
+
+ float: none;
+
+}
+
+</style>
+
+
+
 <?php
 	$ids = $this->getProductIds();
 	$ids = explode(",", $ids);
@@ -10,7 +36,11 @@
 
     $_columnCount = 3; ?>
     <?php foreach ($ids as $id): ?>
-        <?php $_product = $modelProduct->load($id); ?>
+        <?php $_product = Mage::getModel('catalog/product')->load($id); ?>
+
+<?php //var_dump($_product->getId()); ?>
+<?php //var_dump($_product->getTypeInstance(true)); ?>
+
         <?php $package_qty = $_product->getPackageQty(); ?>
         <?php if (is_numeric($package_qty) && (int)$package_qty != 1) : ?>
             <?php $variant = $package_qty.'pk'; ?>
@@ -41,7 +71,7 @@
             $onClick = "onAddToCart('{$_product->getSku()}', '{$productName}', '{$_product->getFinalPrice()}', '1', '{$productCategory}', '{$variant}', '{$brand}' );";
         }?>
 		<div class="col-lg-4 col-md-6">
-			<div class="single-course">
+			<div class="single-course" data-product_url="<?php echo $_product->getProductUrl() ?>">
 				<div class="thumb">
 					<a href="<?php echo $productUrl ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image" onclick="onProductClick('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape($_product->getName()) ?>', 'Category', '<?php echo $productCategory ?>' , '<?php echo $variant ?>', '<?php echo $brand ?>' );">
 						<img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(198); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
@@ -65,9 +95,22 @@
 				<div class="course-box">
 					<?php if (!$_noLongerSold): ?>
 						<span><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false) ?></span><br>
+
+
 					<?php else:?>
 						<div class="price-box"></div>
 					<?php endif; ?>
+
+					<?php $this->helper('uswf_yotpo')->showBottomline($this, $_product); ?>
+
+					<script>
+					        jQuery(document).on("click", '.yotpo-bottomline a', function(event) {
+					            var ulr = jQuery(this).parents('.single-course').data('product_url');
+					            if (typeof ulr != "undefined") {
+					                window.location.href = ulr+"#customer-reviews";
+					            }
+					        });
+					</script>
 
 					<?php if( $_product->getNotForSale() ): ?>
 						<a title="<?php echo $this->__('View Details') ?>" class="course-status" onclick="onProductClick('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape($_product->getName()) ?>', 'Category', '<?php echo $productCategory ?>' , '<?php echo $variant ?>', '<?php echo $brand ?>' );setLocation('<?php echo $productUrl ?>')"><?php echo $this->__('View Details') ?></a>
@@ -86,4 +129,5 @@
 				</div>
 			</div>
 		</div>
+		<?php unset($_product);?>
 	<?php endforeach ?>

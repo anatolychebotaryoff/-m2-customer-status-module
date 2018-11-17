@@ -38,10 +38,10 @@ class Lyonscg_Catalog_Block_Product_Upsell_Item extends Mage_Catalog_Block_Produ
         $image_src = Mage::getBaseUrl('media') . self::CONFIG_BANNER_IMG_MEDIA_POSTFIX  .
            Mage::getStoreConfig('lyonscg_catalog/upsell_banner_conf/banner_image');
 
-        
+
         $variables = array(
             'banner_primary_text' => sprintf($banner_primary_text, $itemPrice),
-            'banner_secondary_text' =>  sprintf($banner_secondary_text, $itemPrice),
+            'banner_secondary_text' =>  sprintf($banner_secondary_text, $priceDiffer),
             'banner_text_color' => $banner_text_color,
             'banner_fill_color' => $banner_fill_color,
             'banner_border_color' => $banner_border_color,

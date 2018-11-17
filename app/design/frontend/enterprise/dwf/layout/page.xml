@@ -35,7 +35,7 @@ Default layout, loads most of the pages
         <block type="page/html" name="root" output="toHtml" template="page/2columns-right.phtml">
             <block type="page/html_head" name="head" as="head">
                 <action method="addJs"><script>jquery/jquery-2.2.3.min.js</script><group>loadgroup="jquery"</group></action>
-                <action method="addJs"><script>jquery/jquery.mobile.customized.min.js</script><group>loadgroup="after_jquery" defer</group></action>
+                <action method="addJs"><script>jquery/jquery.mobile.customized.min.js</script><group>loadgroup="after_jquery3" defer</group></action>
                 <action method="addJs"><script>jquery/jquery.iosslider.min.js</script><group>loadgroup="after_jquery2"</group></action>
             <block type="core/text" name="lazyload">
                 <action method="setText"><text><![CDATA[<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js?q=1"></script>]]></text></action>
