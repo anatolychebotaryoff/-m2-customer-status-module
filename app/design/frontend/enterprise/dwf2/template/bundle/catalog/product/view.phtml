@@ -1,0 +1,370 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php
+/* @var $this Mage_Bundle_Block_Catalog_Product_View */
+$_helper     = $this->helper( 'catalog/output' );
+$_helperUV   = $this->helper( 'uswf_universalvariable' );
+$_product    = $this->getProduct();
+$package_qty = $_product->getPackageQty();
+if ( is_numeric( $package_qty ) && (int) $package_qty != 1 ) {
+	$variant = $package_qty . 'pk';
+} else {
+	$variant = 'single';
+}
+$brand           = ( $_product->getAttributeText( 'manufacturer' ) ? $this->jsQuoteEscape( $_product->getAttributeText( 'manufacturer' ) ) : null );
+$productCategory = $this->helper( 'uswf_universalvariable' )->getAttributeValue( $_product->getId(), 'item_type' );
+$_noLongerSold   = $_product->getNotForSale();
+$_canShowClass   = false;
+if ( $_product->getResource()->getAttributeRawValue( $_product->getId(), 'subscription_enabled', Mage::app()->getStore() ) ) {
+	$_canShowClass = true;
+}
+if ( $this->isStartCustomization() ) {
+	$buttonTitle = $this->__( 'Update Cart' );
+} else {
+	$buttonTitle = $this->__( 'Add to Cart' );
+}
+?>
+<script type="text/javascript">
+	//<![CDATA[
+	addEvent(window, 'load', function () {
+		window.optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+	});
+	//]]>
+</script>
+<div class="container">
+	<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+	<div id="bundle-product-wrapper">
+		<div id="bundleProduct">
+			<div id="productView">
+				<form action="<?php echo $this->getSubmitUrl( $_product ) ?>" method="post"
+					  id="product_addtocart_form"<?php if ( $_product->getOptions() ): ?> enctype="multipart/form-data"<?php endif; ?>>
+
+					<?php echo $this->getChildHtml( 'upsell_products' ) ?>
+					<?php echo $this->getChildHtml( 'qubit_head_css' ) ?>
+
+					<div class="product-essential">
+						<div class="col-md-5 no-padding pdp-media-column">
+							<?php echo $this->getChildHtml( 'media' ) ?>
+						</div>
+
+						<div class="col-md-5 no-padding pdp-info-column">
+							<div class="product-main-info  <?php echo ( $_canShowClass ) ? 'pdpSbscribed' : ''; ?>">
+								<div class="product-name pdp--title">
+									<h2 class="product--title"><?php echo $_helper->productAttribute( $_product, $_product->getName(), 'name' ) ?></h2>
+								</div>
+								<div class="row-product row-yotpo">
+									<div class="yotpo-bottomLine-wrapper">
+										<?php $this->helper( 'uswf_yotpo' )->showBottomline( $this, $_product ); ?>
+									</div>
+									<div class="yotpo-QABottomLine-wrapper">
+										<?php $this->helper( 'uswf_yotpo' )->showQABottomline( $this, $_product ); ?>
+									</div>
+								</div>
+
+								<div class="cust-title" style="display:none;"></div>
+								<script>
+									addEvent(window, 'load', function () {
+										var params = document.location.search.toQueryParams(),
+											custTitle = jQuery('.cust-title');
+										if (params['cust-title'] !== undefined && custTitle.length) {
+											custTitle.text(decodeURIComponent(params['cust-title'].replace(/\+/g, "%20"))).css('display', '');
+										}
+									});
+								</script>
+
+								<?php echo $this->getChildHtml( 'product_type_data' ) ?>
+
+								<div class="price-display">
+									<?php echo $this->getPriceHtml( $_product ); ?>
+								</div>
+
+								<?php if ( ! $_noLongerSold && $_product->getShortDescription() ): ?>
+									<div class="short-description">
+										<h2 class="no-display"><?php echo $this->__( 'Quick Overview' ) ?></h2>
+										<div class="std"><?php echo $_helper->productAttribute( $_product, nl2br( $_product->getShortDescription() ), 'short_description' ) ?></div>
+									</div>
+								<?php elseif ( $_noLongerSold && $_product->getNotForSaleShorDescr() ): ?>
+									<div class="short-description">
+										<h2 class="no-display"><?php echo $this->__( 'Quick Overview' ) ?></h2>
+										<div class="std"><?php echo $_helper->productAttribute( $_product, nl2br( $_product->getNotForSaleShorDescr() ), 'not_for_sale_shor_descr' ) ?></div>
+									</div>
+								<?php endif; ?>
+
+								<?php if ( $marketingText = $_product->getMarketingMessage() ): ?>
+									<div class="marketing-message">
+										<?php echo $marketingText ?>
+									</div>
+								<?php endif; ?>
+
+								<?php echo $this->getChildHtml( 'alert_urls' ) ?>
+							</div>
+							<?php if ( $_noLongerSold ): ?>
+								<?php echo $this->getChildHtml( 'replaced_products' ) ?>
+							<?php else: ?>
+								<?php // echo $this->getChildHtml('tierprices') ?>
+								<?php echo $this->getChildHtml( 'extrahint' ) ?>
+
+								<div class="row-product bundle">
+									<?php echo $this->getTierPriceHtml(); ?>
+								</div>
+								<?php echo $this->getChildHtml( 'product.info.subscribe' ); ?>
+								<?php if ( $_product->isSaleable() ): ?>
+									<div class="add-to-cart bundle">
+										<div class="qty-block">
+											<label for="qty"><?php echo $this->__( 'Qty:' ) ?></label>
+											<input type="text" name="qty" id="qty" maxlength="12"
+												   value="<?php echo $this->getProductDefaultQty() * 1 ?>"
+												   title="<?php echo $this->__( 'Qty' ) ?>" class="input-text qty"/>
+										</div>
+										<button type="button" id="addToCartButton"
+												title="<?php echo $buttonTitle ?>"
+												class="button btn-cart"
+												onclick="onAddToCart('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape( $_product->getName() ) ?>', '<?php echo $_product->getFinalPrice() ?>', jQuery('#qty').val(), '<?php echo $productCategory ?>', '<?php echo $variant ?>', '<?php echo $brand ?>');window.productAddToCartForm.submit(this)">
+											<span><span><?php echo $buttonTitle ?></span></span></button>
+										<?php $canShowBtn = false;
+										$configValue      = Mage::getStoreConfig( 'web/hotdeals/hotdeal_link_param' );
+										$hotDeal          = Mage::registry( 'hotdeal' ); ?>
+										<?php if ( ! ( $this->getRequest()->getParam( $configValue ) ) ): ?>
+											<?php if ( Mage::getStoreConfig( 'autoship_general/general/enabled' ) == '1' ): ?>
+												<?php if ( $_product->getResource()->getAttributeRawValue( $_product->getId(), 'subscription_enabled', Mage::app()->getStore() ) ) {
+													$canShowBtn = true;
+												} ?>
+												<?php $subscrButtonTitle = $this->__( 'Subscribe' ); ?>
+												<?php if ( $canShowBtn ): ?>
+													<button
+															type="button"
+															title="<?php echo $subscrButtonTitle ?>"
+															id="subscribeBtn"
+															class="button btn-cart">
+														<span><span><?php echo $subscrButtonTitle ?></span></span>
+													</button>
+													<script type="text/javascript">
+														addEvent(window, 'load', function () {
+															$('subscribeBtn').observe('click', function () {
+																$('delivery-option-subscribe').click();
+																$('addToCartButton').click();
+															});
+															if ($('subscribeBtnPopup')) {
+																$('subscribeBtnPopup').observe('click', function () {
+																	$('delivery-option-subscribe').click();
+																	$('addToCartButton').click();
+																});
+															}
+														});
+													</script>
+												<?php endif; ?>
+											<?php endif; ?>
+										<?php endif; ?>
+									</div>
+								<?php endif; ?>
+								<?php echo $this->getChildHtml( 'other' ) ?>
+							<?php endif; ?>
+						</div>
+					</div>
+					<div class="clearer"></div>
+					<div class="no-display">
+						<input type="hidden" name="product" value="<?php echo $_product->getId() ?>"/>
+						<input type="hidden" name="related_product" id="related-products-field" value=""/>
+					</div>
+					<?php if ( $_product->isSaleable() && $this->hasOptions() ): ?>
+						<div id="options-container" style="display:none">
+							<div id="customizeTitle" class="page-title title-buttons">
+								<a href="#" onclick="Enterprise.Bundle.end(); return false;">
+									<small>&lsaquo;</small>
+									Go back to product detail</a>
+							</div>
+							<?php echo $this->getChildHtml( 'bundleSummary' ) ?>
+							<?php if ( $this->getChildChildHtml( 'container1' ) ): ?>
+								<?php echo $this->getChildChildHtml( 'container1', '', true, true ) ?>
+							<?php elseif ( $this->getChildChildHtml( 'container2' ) ): ?>
+								<?php echo $this->getChildChildHtml( 'container2', '', true, true ) ?>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
+				</form>
+				<div class="product-collateral">
+					<?php echo $this->getChildHtml( 'productTagList' ) ?>
+					<?php echo $this->getChildHtml( 'info_tabs' ) ?>
+					<?php echo $this->getChildHtml( 'product_additional_data' ) ?>
+					<?php echo $this->getChildHtml( 'advancedreview_custom' ) ?>
+				</div>
+
+				<div class="pdp--related">
+					<div class="pdp--section pdp--section__history box-collateral">
+						<div>
+							<h2>Related Products</h2>
+
+							<script id="history-template" type="text/x-handlebars-template">
+								{{#items}}
+								<article class="history--wrap col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3">
+									<a href="{{{item_url}}}">
+										<div class="history--entry">
+											<img class="entry--img" src="{{{img_url}}}" alt="image of {{{title}}}">
+											<h4 class="entry--title">{{{title}}}</h4>
+											<div class="entry--reviews">{{{reviews}}}</div>
+											<p class="entry--price"><span class="entry--price-value">{{{price}}}</span>{{#if
+												msrp}} <span
+														class="entry--price-msrp-label">MSRP:</span> <span
+														class="entry--price-msrp-value">{{{msrp}}}</span>{{/if}}
+											</p>
+										</div>
+									</a>
+								</article>
+								{{/items}}
+							</script>
+
+							<div id="PDPHistory"></div>
+						</div>
+
+					</div> <!-- /.history -->
+					<?php echo $this->getChildHtml( 'relatedProducts' ); ?>
+				</div>
+
+				<?php if($this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-content1" )->toHtml() != ""): ?>
+					<div class="pdp--section pdp--section__content1">
+						<?php echo $this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-content1" )->toHtml() ?>
+					</div>
+				<?php endif; ?>
+				<?php if($this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-infographic1" )->toHtml() != ""): ?>
+					<div class="pdp--section pdp--section__infographic1">
+						<?php echo $this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-infographic1" )->toHtml() ?>
+					</div>
+				<?php endif; ?>
+				<?php if($this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-content2" )->toHtml() != ""): ?>
+					<div class="pdp--section pdp--section__content2">
+						<?php echo $this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-content2" )->toHtml() ?>
+					</div>
+				<?php endif; ?>
+				<?php if($this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-infographic2" )->toHtml() != ""): ?>
+					<div class="pdp--section pdp--section__infographic2">
+						<?php echo $this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-infographic2" )->toHtml() ?>
+					</div>
+				<?php endif; ?>
+				<?php if($this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-content3" )->toHtml() != ""): ?>
+					<div class="pdp--section pdp--section__content3">
+						<?php echo $this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-content3" )->toHtml() ?>
+					</div>
+				<?php endif; ?>
+				<?php if($this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-infographic3" )->toHtml() != ""): ?>
+					<div class="pdp--section pdp--section__infographic3">
+						<?php echo $this->getLayout()->createBlock( 'cms/block' )->setBlockId( $_product->getSku() . "-infographic3" )->toHtml() ?>
+					</div>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	addEvent(window, 'load', function () {
+		<?php if ($this->isStartCustomization()): ?>
+		//Enterprise.Bundle.start();
+		<?php endif;?>
+		window.productAddToCartForm = new VarienForm('product_addtocart_form');
+		window.productAddToCartForm.submit = function (button, url) {
+			if (this.validator.validate()) {
+				var form = this.form;
+				var oldUrl = form.action;
+
+				if (url) {
+					form.action = url;
+				}
+				var e = null;
+				try {
+					this.form.submit();
+				} catch (e) {
+				}
+				this.form.action = oldUrl;
+				if (e) {
+					throw e;
+				}
+
+				if (button && button != 'undefined') {
+					button.disabled = true;
+				}
+			}
+		}.bind(window.productAddToCartForm);
+
+		window.productAddToCartForm.submitLight = function (button, url) {
+			if (this.validator) {
+				var nv = Validation.methods;
+				delete Validation.methods['required-entry'];
+				delete Validation.methods['validate-one-required'];
+				delete Validation.methods['validate-one-required-by-name'];
+				// Remove custom datetime validators
+				for (var methodName in Validation.methods) {
+					if (methodName.match(/^validate-datetime-.*/i)) {
+						delete Validation.methods[methodName];
+					}
+				}
+
+				if (this.validator.validate()) {
+					if (url) {
+						this.form.action = url;
+					}
+					this.form.submit();
+				}
+				Object.extend(Validation.methods, nv);
+			}
+		}.bind(window.productAddToCartForm);
+
+		Enterprise.Bundle.initialize();
+	});
+</script>
+
+<?php /** Google Enhanced Ecommerce js calls */ ?>
+<script type="text/javascript">
+	try {
+		ga('ec:addProduct', {
+			'id': '<?php echo $_product->getSku() ?>',
+			'name': '<?php echo $this->jsQuoteEscape( $_product->getName() ) ?>',
+			'category': '<?php echo $productCategory ?>',
+			'brand': '<?php echo $brand ?>',
+			'variant': '<?php echo $variant ?>'
+		});
+
+		ga('ec:setAction', 'detail');
+		ga('send', 'event', 'catalog', 'detail', {'nonInteraction': true});
+	} catch (e) {
+	}
+</script>
+
+<?php /** Delimiter appreas after the content */ ?>
+<script type="text/javascript">
+	var test = new PeriodicalExecuter(function (pe) {
+		if ($$('.yotpo .star-clickable .yotpo-stars .yotpo-icon').length > 0) {
+			$$('.yotpo-bottomLine-wrapper').first().insert({'after': "<div class='yotpo-delimiter-wrapper'> &nbsp;/&nbsp; </div>"});
+			pe.stop();
+		}
+	}, 0.2);
+</script>

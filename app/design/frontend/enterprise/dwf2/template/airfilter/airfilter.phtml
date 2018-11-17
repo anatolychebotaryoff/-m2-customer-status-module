@@ -1,0 +1,60 @@
+<div class="crumbHolder">
+    <?php echo $this->getChildHtml('breadcrumbs')
+    ?>
+</div>
+<?php echo $this->getChildHtml('airFilterLanding');
+$labels = $this->prepareSizesForFilter();
+$depthList = $this->getConfigList("depth"); ?>
+<form id="getSizeResult" method="get" action="<?php echo Mage::getBaseUrl(); ?>AirFilterFinder/result">
+    <ul class="optionList">
+        <?php foreach($depthList as $depth): ?>
+            <li class="depth<?php echo $depth; ?>">
+                <p class="titleLike"><?php echo $depth; ?>” Depth</p>
+                <select autocomplete="off">
+                    <option selected value="">-- Select <?php echo $depth; ?>” Filters --</option>
+                    <?php foreach($labels[$depth] as $label){ ?>
+                        <option value="<?php echo $label; ?>"><?php echo $label; ?></option>
+                    <?php } ?>
+                </select>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <div class="hidden"><input name="size" id="depthValue" type="hidden"/></div>
+</form>
+<div class="orFindByBrand">
+    <?php echo $this->getChildHtml('orFindByFilter'); ?>
+    <?php $brandList = $this->brandListData(); ?>
+    <ul id="brandSlect">
+        <?php foreach ($brandList as $brand) {?>
+            <li>
+                <a href="<?php echo Mage::getBaseUrl().$brand['url']; ?>">
+                    <img src="<?php echo $brand['img_url']; ?>" alt="<?php echo $brand['name']; ?>"/>
+                </a>
+            </li>
+        <?php } ?>
+    </ul>
+    <?php $brandSelect = $this->brandSelectData(); ?>
+    <div class="brandlistHolder">
+        <select name="brandlist" autocomplete="off" id="brandlist">
+            <option selected value="#">-- Find by Brand --</option>
+            <?php foreach($brandSelect as $cat){ ?>
+                <option value="<?php echo Mage::getBaseUrl().$cat['url']?>"><?php echo $cat['name']?></option>
+            <?php } ?>
+        </select>
+    </div>
+</div>
+<script type="text/javascript">
+    addEvent(window, 'load', function(){
+        Event.observe($("brandlist"),'change', function(){
+            window.location.href = this.value;
+        })
+        $$(".optionList li select").each(function(element) {
+            Event.observe(element,'change', function(){
+                if (this.value) {
+                   $('depthValue').value = this.value;
+                   $('getSizeResult').submit();
+                }
+            })
+        });
+    });
+</script>

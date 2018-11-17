@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_AdminAlert>
+            <version>0.1.0</version>
+        </USWF_AdminAlert>
+    </modules>
+    <global>
+        <models>
+            <uswf_adminalert>
+                <class>USWF_AdminAlert_Model</class>
+            </uswf_adminalert>
+        </models>
+    </global>
+    <adminhtml>
+        <events>
+            <admin_system_config_changed_section_payment>
+                <observers>
+                    <uswf_system_config_save>
+		        <type>singleton</type>
+                        <class>USWF_AdminAlert_Model_Observer</class>
+                        <method>onAdminSave</method>
+                    </uswf_system_config_save>
+                </observers>
+            </admin_system_config_changed_section_payment>
+        </events>
+    </adminhtml>
+</config>

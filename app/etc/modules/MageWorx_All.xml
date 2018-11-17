@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * MageWorx
+ * All Extension
+ *
+ * @category   MageWorx
+ * @package    MageWorx_All
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+-->
+<config>
+    <modules>
+        <MageWorx_All>
+            <active>true</active>
+            <codePool>local</codePool>
+            <extension_name>MageWorx All</extension_name>
+        </MageWorx_All>
+        <MageWorx_Adminhtml>
+            <active>false</active>
+        </MageWorx_Adminhtml>
+    </modules>
+</config>

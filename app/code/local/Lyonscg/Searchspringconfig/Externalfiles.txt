@@ -1,0 +1,17 @@
+/**
+ * Searchspringconfig Module fetches the correct search spring site id based on the url: dev, stage or production
+ * controlled via admin panel.
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_Searchspringconfig
+ * @copyright   Lyons Consulting Group (http://www.lyonscg.com)
+ * @author      Ashutosh Potdar (apotdar@lyonscg.com)
+ */
+
+### Module Files Outside this Directory
+
+# Module XML File
+app/etc/modules/Lyonscg_Searchspringconfig.xml
+
+# This is used in the following template file:
+app/design/frontend/enterprise/dwf/template/catalogsearch/form.mini.phtml

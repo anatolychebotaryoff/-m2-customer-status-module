@@ -599,14 +599,13 @@ class SFC_CyberSource_Model_Method extends Mage_Payment_Model_Method_Cc
             return $paymentToken;
         }
         catch (Exception $e) {
+            Mage::log('600', null, 'mylogfile.log');
+            Mage::log($e->getMessage(), null, 'mylogfile.log');
             // Whatever the exception, put up a generic error message
             Mage::log('Failed to find or save payment profile', Zend_Log::INFO, SFC_CyberSource_Helper_Data::LOG_FILE);
             Mage::log('Error: ' . $e->getMessage(), Zend_Log::INFO, SFC_CyberSource_Helper_Data::LOG_FILE);
-            // var_dump($e);
             // Throw new exception with generic message
-            Mage::throwException($e->getMessage());
-            // Mage::throwException(Mage::getStoreConfig('payment/' . SFC_CyberSource_Model_Method::METHOD_CODE . '/default_error'));
-
+            Mage::throwException(Mage::getStoreConfig('payment/' . SFC_CyberSource_Model_Method::METHOD_CODE . '/default_error'));
         }
     }
 
@@ -674,13 +673,13 @@ class SFC_CyberSource_Model_Method extends Mage_Payment_Model_Method_Cc
             }
         }
         catch (Exception $e) {
+            Mage::log('674', null, 'mylogfile.log');
+            Mage::log($e->getMessage(), null, 'mylogfile.log');
             // Whatever the exception, put up a generic error message
             Mage::log('Failed to update billing address!', Zend_Log::INFO, SFC_CyberSource_Helper_Data::LOG_FILE);
             Mage::log('Error: ' . $e->getMessage(), Zend_Log::INFO, SFC_CyberSource_Helper_Data::LOG_FILE);
             // Throw new exception with generic message
-            Mage::throwException($e->getMessage());
-             // Mage::throwException(Mage::getStoreConfig('payment/' . SFC_CyberSource_Model_Method::METHOD_CODE . '/default_error'));
-
+            Mage::throwException(Mage::getStoreConfig('payment/' . SFC_CyberSource_Model_Method::METHOD_CODE . '/default_error'));
         }
     }
 

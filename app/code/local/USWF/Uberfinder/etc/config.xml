@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Uberfinder>
+            <version>0.0.1</version>
+        </USWF_Uberfinder>
+    </modules>
+    <global>
+        <helpers>
+            <uswf_uberfinder>
+                <class>USWF_Uberfinder_Helper</class>
+            </uswf_uberfinder>
+        </helpers>
+    </global>
+
+    <frontend>
+        <routers>
+            <finder>
+                <use>standard</use>
+                <args>
+                    <module>USWF_Uberfinder</module>
+                    <frontName>uberfinder</frontName>
+                </args>
+            </finder>
+        </routers>
+    </frontend>
+</config>

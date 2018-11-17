@@ -1,0 +1,22 @@
+<div class="quiz-header">
+    <?php echo Mage::helper('uswf_comparedto')->getFaqTabHeaderImage();?>
+    <p><?php echo Mage::helper('uswf_comparedto')->getFaqTabHeaderText();?></p>
+</div>
+<div class="clear"></div>
+<?php $quiz = Mage::helper('uswf_comparedto')->getFaqTabQuiz();?>
+<?php if (!empty($quiz)):?>
+    <?php foreach ($quiz as $element):?>
+        <p class="quiz-question"><a href="javascript:void(0);"><?php echo $element['question'];?></a><span class="quiz-icon quiz-icon-closed"><span class="quiz-icon-plus">+</span><span class="quiz-icon-minus">-</span></span></p>
+        <div class="quiz-answer answer-closed"><?php echo $element['answer'];?></div>
+    <?php endforeach; ?>
+<?php endif;?>
+<script type="text/javascript">
+    //<![CDATA[
+    addEvent(window, 'load', function() {
+        jQuery('.quiz-question').click(function(){
+            jQuery(this).next().toggleClass('answer-closed');
+            jQuery(this).find('.quiz-icon').toggleClass('quiz-icon-closed')
+        })
+    });
+    //]]>
+</script>

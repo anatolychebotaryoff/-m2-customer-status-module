@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config> 
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <amrelater translate="title" module="amrelater">
+                                            <title>Fast Product Relator</title>
+                                        </amrelater>
+                                    </children>
+                                </config>
+                            </children>
+                        </system> 
+                     </children>
+                </admin> 
+			</resources>
+		</acl>
+        <translate>
+            <modules>
+                <Amasty_Relater>
+                    <files>
+                        <default>Amasty_Relater.csv</default>
+                    </files>
+                </Amasty_Relater>
+            </modules>
+        </translate>
+</config> 

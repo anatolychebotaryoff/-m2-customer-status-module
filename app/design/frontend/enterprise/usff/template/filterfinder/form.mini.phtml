@@ -1,0 +1,107 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this Mage_Core_Block_Template */
+/* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
+?>
+<link rel="stylesheet" type="text/css" href="//cdn.searchspring.net/autocomplete/autocomplete.css">
+<form id="search_mini_form2" action="/search" method="get">
+    <div class="form-search">
+        <div class="searchBorderBox">
+            <input id="search2" type="text" name="q" class="input-text searchspring-query" autocomplete="off"/>
+            <button type="submit" title="<?php echo $this->__('Go') ?>" class="button">Find Filter</button>
+            <script type="text/javascript"
+                    src="//cdn.searchspring.net/autocomplete/searchspring-autocomplete.min.js"></script>
+            <?php
+            $currentURL = Mage::helper('core/url')->getCurrentUrl();
+            $siteId = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/searchspring-prod', Mage::app()->getStore()->getId());
+            $siteProdURL = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/prod', Mage::app()->getStore()->getId());
+            $siteStageURL = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/stage', Mage::app()->getStore()->getId());
+            $stageSiteId = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/searchspring-stage', Mage::app()->getStore()->getId());
+            $siteProdURL = preg_replace("/(^\s+|\s+$)/", '', $siteProdURL);
+            $siteStageURL = preg_replace("/(^\s+|\s+$)/", '', $siteStageURL);
+            $siteId = preg_replace("/(^\s+|\s+$)/", '', $siteId);
+            $stageSiteId = preg_replace("/(^\s+|\s+$)/", '', $stageSiteId);
+
+            $ip_address = '';
+            $siteIdHasValue = 0;
+            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+            } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } else {
+                $ip_address = $_SERVER['REMOTE_ADDR'];
+            }
+
+            $ignore_ip_address = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/ip_addresses', Mage::app()->getStore()->getId());
+            $hide_js = FALSE;
+
+            $ignore_ip_address = preg_replace("/(^\s+|\s+$)/", '', $ignore_ip_address);
+
+            if (isset($ignore_ip_address) && $ignore_ip_address != '' && $ignore_ip_address) {
+                $ip_addrs = explode(",", $ignore_ip_address);
+                foreach ($ip_addrs as $ip_addr) {
+                    if ($ip_addr === $ip_address) {
+                        $hide_js = TRUE;
+                        break;
+                    }
+                }
+            }
+            ?>
+            <?php if (isset($siteStageURL) && $siteStageURL && $siteStageURL != '' && $stageSiteId != '' && !is_null($siteStageURL) && preg_match("/$siteStageURL/", $currentURL)): ?>
+                <?php $siteId = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/searchspring-stage', Mage::app()->getStore()->getId()); ?>
+                <?php $siteIdHasValue = 1; ?>
+            <?php elseif (isset($siteProdURL) && $siteProdURL && $siteProdURL != '' && $siteId != '' && !is_null($siteProdURL) && preg_match("/$siteProdURL/", $currentURL)): ?>
+                <?php $siteId = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/searchspring-prod', Mage::app()->getStore()->getId()); ?>
+                <?php $siteIdHasValue = 1; ?>
+            <?php endif; ?>
+
+            <?php if (!$hide_js): ?>
+                <?php if ($siteIdHasValue): ?>
+                    <script type="text/javascript">
+                        SearchSpring.Autocomplete.init({
+                            siteId: <?php echo "'$siteId'"; ?>,
+                            queryClass: 'searchspring-query',
+                            marketing: false
+                        });
+                    </script>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+        <script type="text/javascript">
+            addEvent(window, 'load', function() {
+                var searchForm2 = new Varien.searchForm(
+                    'search_mini_form2',
+                    'search2',
+                    '<?php echo $this->__('ex. "UKF8001"') ?>'
+                );
+                searchForm2.initAutocomplete(
+                    '<?php echo $this->helper('catalogsearch')->getSuggestUrl() ?>',
+                    'search_autocomplete'
+                );
+            });
+        </script>
+    </div>
+</form>

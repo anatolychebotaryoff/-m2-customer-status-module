@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageWorx
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MageWorx EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.mageworx.com/LICENSE-1.0.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.mageworx.com/ for more information
+ *
+ * @category   MageWorx
+ * @package    MageWorx_SeoSuite
+ * @copyright  Copyright (c) 2013 MageWorx (http://www.mageworx.com/)
+ * @license    http://www.mageworx.com/LICENSE-1.0.html
+ */
+
+/**
+ * SEO Suite extension
+ *
+ * @category   MageWorx
+ * @package    MageWorx_SeoSuite
+ * @author     MageWorx Dev Team
+ */
+ -->
+
+<config>
+    <menu>
+        <catalog translate="title" module="catalog">
+            <children>
+                <seo_templates translate="title" module="seosuite">
+                    <title>SEO Suite Templates</title>
+                    <action>mageworx_seosuite/adminhtml_seosuite_template/</action>
+                    <sort_order>100</sort_order>
+                </seo_templates>
+            </children>
+        </catalog>
+        <report>
+            <children>                                                
+                <seosuite translate="title" module="seosuite">
+                    <title>SEO Suite</title>                    
+                    <!--<depends>
+                        <config>mageworx_seo/seosuite/enabled</config>
+                    </depends>-->
+                    <sort_order>100</sort_order>
+                    <children>
+                        <product translate="title" module="seosuite">
+                            <title>Products</title>
+                            <action>mageworx_seosuite/adminhtml_seosuite_report_product/index</action>
+                            <sort_order>10</sort_order>
+                        </product>
+
+                        <category translate="title" module="seosuite">
+                            <title>Categories</title>
+                            <action>mageworx_seosuite/adminhtml_seosuite_report_category/index</action>
+                            <sort_order>20</sort_order>
+                        </category>
+
+                        <cms translate="title" module="seosuite">
+                            <title>CMS</title>
+                            <action>mageworx_seosuite/adminhtml_seosuite_report_cms/index</action>
+                            <sort_order>30</sort_order>
+                        </cms>
+                    </children>    
+                </seosuite>                
+            </children>
+        </report>    
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <catalog translate="title" module="catalog">
+                                        <title>Catalog Section</title>
+                                    </catalog>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <catalog translate="title" module="catalog">
+                        <title>Catalog</title>
+                        <sort_order>100</sort_order>
+                        <children>
+                            <seo_templates translate="title">
+                                <title>SEO Suite Templates</title>
+                            </seo_templates>
+                        </children>
+                    </catalog>
+
+                    <report>
+                        <children>
+                            <seosuite translate="title" module="seosuite">
+                                <title>SEO Suite</title>
+                                <children>
+                                    <product translate="title" module="seosuite">
+                                        <title>Products</title>                                            
+                                        <sort_order>10</sort_order>
+                                    </product>
+
+                                    <category translate="title" module="seosuite">
+                                        <title>Categories</title>
+                                        <sort_order>20</sort_order>
+                                    </category>
+
+                                    <cms translate="title" module="seosuite">
+                                        <title>CMS</title>
+                                        <sort_order>30</sort_order>
+                                    </cms>
+                                </children>
+                            </seosuite>
+                        </children>
+                    </report>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <mageworx_seo translate="title" module="seosuite">
+                                        <title>MageWorx &gt; SEO Suite Ultimate</title>
+                                        <sort_order>100</sort_order>
+                                        <children>                                         
+                                            <seosuite>
+                                                <title>SEO Suite</title>
+                                                <sort_order>100</sort_order>
+                                            </seosuite>
+                                            <richsnippets>
+                                                <title>Open Graph Protocol &amp; Rich Snippets</title>
+                                                <sort_order>120</sort_order>
+                                            </richsnippets>
+                                            <tools>
+                                                <title>Tools for SEO Suite extension</title>
+                                                <sort_order>140</sort_order>
+                                            </tools>
+                                        </children>
+                                    </mageworx_seo>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

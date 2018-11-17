@@ -1,0 +1,157 @@
+<?php
+/**
+ * Filterfinder Observer to save filterfinder data.
+ *
+ * @category Lyons
+ * @package  Lyonscg_FilterFinder
+ */
+/* @var $this Lyonscg_FilterFinder_Block_Adminhtml_Catalog_Product_Filterfinder */
+?>
+<?php $_htmlId = 'filterfinder' ?>
+<?php $_htmlClass = '' ?>
+<?php $_htmlName = 'filterfinderData' ?>
+
+<?php //$_htmlId      = $this->getHtmlId()  ?>
+<?php //$_htmlClass   = $this->getClass() ?>
+<?php //$_htmlName    = $this->getName() ?>
+<?php $_readonly = FALSE; ?>
+
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('lyonscg_filterfinder')->__('Filter Finder') ?></h4>
+    </div>
+    <fieldset>
+        <legend><?php echo Mage::helper('lyonscg_filterfinder')->__('Filter Finder') ?></legend>
+        <table cellspacing="0" class="form-list" id="table_filterfinder">
+            <tr>
+                <td class="label">FILTER FINDER</td>
+                <td colspan="10" class="grid filterfinder">
+                    <table cellspacing="0" class="data border" id="filterfinders_table">
+                        <col width="150" />
+                        <col width="150" />
+                        <col width="150" />
+                        <col width="150" />
+                        <thead>
+                            <tr class="headings">
+                                <th><?php echo Mage::helper('lyonscg_filterfinder')->__('Brand') ?></th>
+                                <th><?php echo Mage::helper('lyonscg_filterfinder')->__('Style') ?></th>
+                                <th><?php echo Mage::helper('lyonscg_filterfinder')->__('Location') ?></th>
+                                <th><?php echo Mage::helper('lyonscg_filterfinder')->__('Removal') ?></th>
+                                <th class="last"><?php echo Mage::helper('lyonscg_filterfinder')->__('Action') ?></th>
+                            </tr>
+                        </thead>
+                        <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td colspan="4" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var filterFinderRowTemplate = '<tr>'
+                                + '<td>'
+                                + '<select class="<?php echo $_htmlClass ?> required-entry" name="<?php echo $_htmlName ?>[{{index}}][filter_finder_brand]" id="filterfinder_row_{{index}}_filter_finder_brand">'
+                                <?php foreach ($this->getAllBrands() as $brandData): ?>
+                                + '<option value="<?php echo $brandData['value'] ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($brandData['label'])) ?></option>'
+                                <?php endforeach ?>
+                                + '</select></td>'
+                                + '<td><select class="<?php echo $_htmlClass ?> custgroup required-entry" name="<?php echo $_htmlName ?>[{{index}}][filter_finder_style]" id="filterfinder_row_{{index}}_filter_finder_style">'
+                                <?php foreach ($this->getAllStyles() as $styleData): ?>
+                                + '<option value="<?php echo $styleData['value'] ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($styleData['label'])) ?></option>'
+                                <?php endforeach ?>
+                                + '</select></td>'
+                                + '<td><select class="<?php echo $_htmlClass ?> custgroup required-entry" name="<?php echo $_htmlName ?>[{{index}}][filter_finder_location]" id="filterfinder_row_{{index}}_filter_finder_location">'
+                                <?php foreach ($this->getAllLocations() as $locationData): ?>
+                                + '<option value="<?php echo $locationData['value'] ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($locationData['label'])) ?></option>'
+                                <?php endforeach ?>
+                                + '</select></td>'
+                                + '<td><select class="<?php echo $_htmlClass ?> custgroup required-entry" name="<?php echo $_htmlName ?>[{{index}}][filter_finder_removal]" id="filterfinder_row_{{index}}_filter_finder_removal">'
+                                <?php foreach ($this->getAllRemovals() as $removalData): ?>
+                                + '<option value="<?php echo $removalData['value'] ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($removalData['label'])) ?></option>'
+                                <?php endforeach ?>
+                                + '</select></td>'
+                                + '<td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][delete]" class="delete" value="" id="filterfinder_row_{{index}}_delete" />'
+                                + '<button title="<?php echo Mage::helper('lyonscg_filterfinder')->__("Delete Filter Finder") ?>" type="button" class="scalable delete icon-btn delete-product-option" id="filterfinder_row_{{index}}_delete_button" onclick="return filterFinderControl.deleteItem(event);">'
+                                + '<span><span><span><?php echo Mage::helper('lyonscg_filterfinder')->__("Delete") ?></span></span></span></button></td>'
+                                + '</tr>';
+
+                                var filterFinderControl = {
+                                        template: new Template(filterFinderRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+                                        itemsCount: 0,
+                                        addItem: function() {
+                                        <?php if ($_readonly): ?>
+                                        if (arguments.length < 4) {
+                                            return;
+                                        }
+                                <?php endif; ?>
+                                //filter finder row with empty selected option by default, when new row added
+                                var data = {
+                                    filter_finder_brand: '<?php echo is_string($brands = $this->getAllBrands()) ? $brands : ''; ?>',
+                                    filter_finder_style: '<?php echo is_string($styles =  $this->getAllStyles()) ? $styles : ''; ?>',
+                                    filter_finder_location: '<?php echo is_string($locations = $this->getAllLocations()) ? $locations : ''; ?>',
+                                    filter_finder_removal: '<?php echo is_string($removals = $this->getAllRemovals()) ? $removals : ''; ?>',
+                                    readOnly: false,
+                                    index: this.itemsCount++
+                                };
+
+                                if (arguments.length >= 4) {
+                                    data.filter_finder_brand = arguments[0];
+                                    data.filter_finder_style = arguments[1];
+                                    data.filter_finder_location = arguments[2];
+                                    data.filter_finder_removal = arguments[3];
+                                }
+                                if (arguments.length == 5) {
+                                    data.readOnly = arguments[4];
+                                }
+
+                                Element.insert($('<?php echo $_htmlId ?>_container'), {
+                                    bottom: this.template.evaluate(data)
+                                });
+
+                                $('filterfinder_row_' + data.index + '_filter_finder_brand').value = data.filter_finder_brand;
+                                $('filterfinder_row_' + data.index + '_filter_finder_style').value = data.filter_finder_style;
+                                $('filterfinder_row_' + data.index + '_filter_finder_location').value = data.filter_finder_location;
+                                $('filterfinder_row_' + data.index + '_filter_finder_removal').value = data.filter_finder_removal;
+
+                                if (data.readOnly == '1') {
+                                    ['filter_finder_brand', 'filter_finder_style', 'filter_finder_location', 'filter_finder_removal', 'delete'].each(function(idx) {
+                                        $('filterfinder_row_' + data.index + '_' + idx).disabled = true;
+                                    });
+                                    $('filterfinder_row_' + data.index + '_delete_button').hide();
+                                }
+
+                                $('<?php echo $_htmlId ?>_container').select('input', 'select').each(function(el) {
+                                    Event.observe(el, 'change', el.setHasChanges.bind(el));
+                                });
+                            },
+                            disableElement: function(el) {
+                                el.disabled = true;
+                                el.addClassName('disabled');
+                            },
+                            deleteItem: function(event) {
+                                var tr = Event.findElement(event, 'tr');
+                                if (tr) {
+                                    Element.select(tr, '.delete').each(function(elem) {
+                                        elem.value = '1'
+                                    });
+                                    Element.select(tr, ['input', 'select']).each(function(elem) {
+                                        elem.hide()
+                                    });
+                                    Element.hide(tr);
+                                    Element.addClassName(tr, 'no-display template');
+                                }
+                                return false;
+                            }
+                        };
+                        <?php foreach ($this->filterfinderData() as $_item): ?>
+                        filterFinderControl.addItem('<?php echo $_item['filter_finder_brand'] ?>', '<?php echo $_item['filter_finder_style'] ?>', '<?php echo $_item['filter_finder_location'] ?>', '<?php echo $_item['filter_finder_removal'] ?>');
+                        <?php endforeach; ?>
+                        //]]>
+                    </script>
+                </td></tr>
+        </table>
+    </fieldset>
+</div>

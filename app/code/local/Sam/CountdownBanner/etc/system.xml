@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <SAM translate="label">
+            <label>SAM</label>
+            <sort_order>560</sort_order>
+        </SAM>
+    </tabs>
+    <sections>
+        <sam_countdownbanner translate="label" module="sam_countdownbanner">
+            <label>Countdown Banner</label>
+            <tab>SAM</tab>
+            <sort_order>60</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label" module="sam_countdownbanner">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <customer_group translate="label">
+                            <label>Customer group</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>sam_countdownbanner/system_config_source_customer_group</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_group>
+
+                    </fields>
+                </general>
+            </groups>
+        </sam_countdownbanner>
+    </sections>
+</config>

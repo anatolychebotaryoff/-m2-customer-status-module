@@ -1,0 +1,18 @@
+<div class="footer-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="footer">
+                    <p id="back-top"><a href="#top"><span></span></a></p>
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links')->toHtml() ?>
+                    <div class="clear"></div>
+                    <div class="footer-bottom">
+                        <address><?php echo $this->getCopyright() ?></address>	
+                        <?php echo $this->getChildHtml('paypal.partner.right.logo'); ?>					
+                    </div>
+                    <?php echo $this->getChildHtml('store_switcher') ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_CyberSource>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <SFC_CyberSource/>
+            </depends>
+        </USWF_CyberSource>
+    </modules>
+</config>

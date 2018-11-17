@@ -1,0 +1,131 @@
+<?php
+    $productParent = Mage::registry( 'current_product' );
+    $childProducts = $productParent->getTypeInstance( true )->getAssociatedProducts( $productParent );
+    $intervals     = array( "6 Months" => "6 Months", "12 Months" => "12 Months", "18 Months" => "18 Months" );
+    
+    if ( Mage::getStoreConfig( 'autoship_general/general/enabled' ) == '1' ) {
+        $autoshipProducts = array();
+        foreach ( $childProducts as $item ) {
+            $autoshipProducts[ $item->getId() ] = Mage::helper( 'autoship/platform' )->getPlatformProduct( $item )->getEnabled();
+        }
+        $jsonDataProducts = Mage::helper( 'core' )->jsonEncode( $autoshipProducts );
+    }
+?>
+
+
+<group class="radio--inline radio--inline__subscription row" data-toggle="buttons">
+    <label class="radio--wrap radio--wrap__subscribe btn btn-primary active">
+        <label>Do Not<br>Subscribe</label>
+        <input class="radio--input" type="radio" name="delivery-interval" value="" id="delivery-option-one-time"
+               checked/>
+        <input type="radio" name="delivery-option" value="one-time-delivery" id="delivery-option-one-time" checked/>
+    </label>
+    <?php foreach ( $intervals as $key => $interval ): ?>
+        <label class="radio--wrap btn btn-primary">
+            <label><?php echo str_replace( "Months", "MO", $key ); ?></label>
+            <input id="delivery-interval-package-<?php echo str_replace(" Months", "", $key); ?>" class="radio--input" type="radio" name="delivery-interval" value="<?php echo $interval; ?>"/>
+            <input type="radio" name="delivery-option" value="subscribe"/>
+        </label>
+    <?php endforeach; ?>
+
+</group>
+
+
+<!--
+    <tr class="subscribe-tr-none">
+        <td colspan="3">
+        </td>
+    </tr>
+    <tr>
+        <td class="a-center input" colspan="1">
+            <input type="radio"
+                   id="delivery-option-one-time"
+                   name="delivery-option"
+                   class="radio-subscribe"
+                   value="one-time-delivery"
+                   onclick="window.processSubscribeGroupedOption(this)"
+                />
+            <label for="delivery-option-one-time"></label>
+        </td>
+        <td colspan="2">
+            <span class="subscribe-pro">
+                <label for="delivery-option-one-time">Deliver once</label>
+            </span>
+        </td>
+    </tr>
+    <tr class="save-an-additional" >
+        <td colspan="3">
+            <span>
+                <b>Save an additional 10%</b>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td class="a-center input" >
+            <input type="radio"
+                   id="delivery-option-subscribe"
+                   name="delivery-option"
+                   class="radio-subscribe"
+                   value="subscribe"
+                   onclick="window.processSubscribeGroupedOption(this)"
+                />
+            <label for="delivery-option-subscribe"></label>
+        </td>
+        <td colspan="2">
+            <div class="subscribe-pro-div subscribe-pro">
+                <span class="deliver-every">Deliver every</span></br>
+                <span>
+                    <select id="delivery-interval"
+                            name="delivery-interval">
+                        <?php foreach ($intervals as $key => $interval): ?>
+                            <option id="delivery-interval-package-<?php echo str_replace(" Months", "", $key); ?>"
+                                    value="<?php echo $interval ?>">
+                                <?php echo $key ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </span>
+            </div>
+        </td>
+    </tr>
+-->
+<?php //endif; ?>
+
+<script type="text/javascript">
+    var jsonDataProducts = <?php echo $jsonDataProducts?>;
+    //<![CDATA[
+    addEvent(window, 'load', function () {
+        window.processSubscribeGroupedOption = function (input) {
+            var form = $('product_addtocart_form');
+            form.select('#subscrPro input[type=radio]:checked').each(function (element) {
+                if (element.name != input.name) {
+                    element.checked = false;
+                }
+            });
+        };
+        $('delivery-option-one-time').checked = true;
+
+        var form = $('product_addtocart_form');
+        form.select('input[type=radio]').each(function (element, index) {
+            if (index == 0) {
+                subscribeCheck(element);
+            }
+        });
+    });
+
+    //checking that subscription enabled
+    function subscribeCheck(input) {
+        var idPackag = parseInt($(input).readAttribute('data-packageid'));
+        if (!jsonDataProducts[idPackag]) {
+            $$('.subscribe-tr').each(function (element) {
+                $(element).hide();
+            });
+        } else {
+            $$('.subscribe-tr').each(function (element) {
+                $(element).show();
+            });
+        }
+    }
+
+    //]]>
+</script>

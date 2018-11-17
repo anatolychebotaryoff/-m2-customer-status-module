@@ -1,0 +1,95 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * Catalog advanced search form
+ *
+ * @see Mage_CatalogSearch_Block_Advanced_Form
+ */
+?>
+<?php $maxQueryLength= $this->helper('catalogsearch')->getMaxQueryLength();?>
+    <div class="homepage-label">
+        <h3 class="homepage-title">FILTER FINDER</h3>
+    </div>
+    <div class="search-by">
+    <h3>Search By:</h3>
+    </div>
+<?php //echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php
+$homeUrlSearch = Mage::helper('catalogsearch/data')->getAdvancedSearchUrl().'result';
+?>
+<form action="<?php echo $homeUrlSearch ?>" method="get" id="form-validate">
+<div class="fieldset-1">
+    <ul class="form-list" id="advanced-search-list">
+        <?php $_counter=1; foreach ($this->getSearchableAttributes() as $_attribute): ?>
+        <?php $_code = $_attribute->getAttributeCode() ?>
+        <?php if($_code == "brand" || $_code == "use" || $_code == "contaminant"): ?>
+        <?php if ($_counter%2!=0): ?>
+        <li class="fields">
+        <?php endif; ?>
+            <div class="field">
+                <div class="input-box">
+                <?php switch($this->getAttributeInputType($_attribute)):
+                    case 'select': ?>
+                        <?php echo $this->getAttributeSelectElement($_attribute,true,$this->getAttributeLabel($_attribute)) ?>
+                    <?php break;
+                    case 'yesno': ?>
+                        <?php echo $this->getAttributeYesNoElement($_attribute) ?>
+                    <?php break;
+                    case 'date': ?>
+                    <div class="range">
+                        <?php echo $this->getDateInput($_attribute, 'from') ?>
+                        -
+                        <?php echo $this->getDateInput($_attribute, 'to') ?>
+                    </div>
+                    <?php break;
+                    default: ?>
+                    <input type="text" name="<?php echo $_code ?>" id="<?php echo $_code ?>" value="<?php echo $this->escapeHtml($this->getAttributeValue($_attribute)) ?>" title="<?php echo $this->escapeHtml($this->getAttributeLabel($_attribute)) ?>"  class="input-text <?php echo $this->getAttributeValidationClass($_attribute) ?>"  maxlength="<?php echo $maxQueryLength;?>" />
+                <?php endswitch; ?>
+                </div>
+            </div>
+        <?php if ($_counter%2==0 || $_counter==count($this->getSearchableAttributes())): ?>
+        </li>
+        <?php endif; ?>
+        <?php $_counter++; endif; endforeach; ?>
+    </ul>
+    <?php /*<script type="text/javascript">decorateList('advanced-search-list')</script>*/ ?>
+</div>
+<!--<div class="buttons-set form-buttons btn-only">-->
+    <button type="submit" class="button" title="<?php echo $this->__('Search') ?>"><span><span><?php echo $this->__('Search') ?></span></span></button>
+<!--</div>-->
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+        addEvent(window, 'load', function() {
+            dataForm = new VarienForm('form-validate', true);
+            function searchFunction(sender) {
+                window.location.href = '<?php echo Mage::getUrl('catalogsearch/advanced/result')?>' + '?' + $(sender).id + '=' + $(sender).value;
+            }
+        });
+//]]>
+</script>

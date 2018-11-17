@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+-->
+<widgets>
+    <catalog_product_compare type="lyonscg_comparedto/product_widget_link" translate="name description" module="catalog">
+        <name>Product Compare</name>
+        <description>Compare 2 products</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <product1 translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Compared Product</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </product1>
+            <default1>
+                <visible>1</visible>
+                <required>0</required>
+                <label>If product is a Grouped product then select default selection, leave empty for no default</label>
+                <type>text</type>
+                <sort_order>12</sort_order>
+            </default1>
+            <options1 translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>If product is a Grouped product then select package quantities to show (Comma seperated list of package quantities)</label>
+                <type>text</type>
+                <sort_order>15</sort_order>
+            </options1>
+            <review1>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Compared Review</label>
+                <type>label</type>
+                <helper_block>
+                    <type>lyonscg_comparedto/catalog_product_review_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Review...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>20</sort_order>
+            </review1>
+            <product2 translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>OEM</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>30</sort_order>
+            </product2>
+            <default2>
+                <visible>1</visible>
+                <required>0</required>
+                <label>If product is a Grouped product then select default selection, leave empty for no default</label>
+                <type>text</type>
+                <sort_order>32</sort_order>
+            </default2>
+            <options2 translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>If product is a Grouped product then select package quantities to show (Comma seperated list of package quantities)</label>
+                <type>text</type>
+                <sort_order>35</sort_order>
+            </options2>
+            <review2>
+                <visible>1</visible>
+                <required>0</required>
+                <label>OEM Review</label>
+                <type>label</type>
+                <helper_block>
+                    <type>lyonscg_comparedto/catalog_product_review_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Review...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>40</sort_order>
+            </review2>
+            <attributes>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Attributes to Include</label>
+                <type>multiselect</type>
+                <source_model>lyonscg_comparedto/catalog_product_attribute_widget_chooser</source_model>
+                <sort_order>50</sort_order>
+            </attributes>
+            <text_block>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Text Block</label>
+                <type>textarea</type>
+                <sort_order>60</sort_order>
+            </text_block>
+            <user_defined1_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 1 Text</label>
+                <type>text</type>
+                <sort_order>70</sort_order>
+            </user_defined1_text>
+            <user_defined1_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 1 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>80</sort_order>
+            </user_defined1_low_cost>
+            <user_defined1_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 1 OEM Text</label>
+                <type>text</type>
+                <sort_order>90</sort_order>
+            </user_defined1_oem>
+            <user_defined2_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 2 Text</label>
+                <type>text</type>
+                <sort_order>100</sort_order>
+            </user_defined2_text>
+            <user_defined2_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 2 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>110</sort_order>
+            </user_defined2_low_cost>
+            <user_defined2_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 2 OEM Text</label>
+                <type>text</type>
+                <sort_order>120</sort_order>
+            </user_defined2_oem>
+            <user_defined3_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 3 Text</label>
+                <type>text</type>
+                <sort_order>130</sort_order>
+            </user_defined3_text>
+            <user_defined3_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 3 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>140</sort_order>
+            </user_defined3_low_cost>
+            <user_defined3_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 3 OEM Text</label>
+                <type>text</type>
+                <sort_order>150</sort_order>
+            </user_defined3_oem>
+            <user_defined4_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 4 Text</label>
+                <type>text</type>
+                <sort_order>160</sort_order>
+            </user_defined4_text>
+            <user_defined4_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 4 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>170</sort_order>
+            </user_defined4_low_cost>
+            <user_defined4_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 4 OEM Text</label>
+                <type>text</type>
+                <sort_order>180</sort_order>
+            </user_defined4_oem>
+            <user_defined5_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 5 Text</label>
+                <type>text</type>
+                <sort_order>190</sort_order>
+            </user_defined5_text>
+            <user_defined5_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 5 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>200</sort_order>
+            </user_defined5_low_cost>
+            <user_defined5_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 5 OEM Text</label>
+                <type>text</type>
+                <sort_order>210</sort_order>
+            </user_defined5_oem>
+            <template translate="label">
+                <label>Template</label>
+                <visible>0</visible>
+                <type>select</type>
+                <value>catalog/product/widget/compare.phtml</value>
+            </template>
+        </parameters>
+    </catalog_product_compare>
+</widgets>

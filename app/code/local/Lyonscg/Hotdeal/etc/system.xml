@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Controller for HotDeals
+ *
+ * @category   Lyons
+ * @package    Lyonscg_HotDeal
+ * @copyright  Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ * @author     Valentin Ponomarenko <vponomarenko@lyonscg.com>
+ */
+-->
+<config>
+    <sections>
+        <web>
+            <groups>
+                <hotdeals translate="label">
+                    <label>Hot Deals Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>300</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <hotdeal_link_param translate="label">
+                            <label>Parameter Name in Hot Deals Link</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>http://{site_url}/customgrp?{this_param}={group_id}</comment>
+                        </hotdeal_link_param>
+                        <cookie_customer_group translate="label">
+                            <label>Customer Group Id Cookie Lifetime</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Time in seconds before the customer group id cookie expires.</comment>
+                        </cookie_customer_group>
+                        <customer_group_ids_to_reset translate="label">
+                            <label>Customer Group Ids To Reset</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Value of format 2=5,3=5,4=1.  Please refer to tooltip the question mark
+                            icon.</comment>
+                            <tooltip>The first value is the updated customer group to get the deal and the
+                            second value is the customer group the customer will be reset to.  For e.g.,
+                            originally the customer belonged to group 5, but it was changed in the admin
+                            panel to 2 in order to get the deal on the product.  The cron will run in the
+                            night to swtich back the customer group id from 2 to 5.</tooltip>
+                        </customer_group_ids_to_reset>
+                    </fields>
+                </hotdeals>
+            </groups>
+        </web>
+    </sections>
+</config>

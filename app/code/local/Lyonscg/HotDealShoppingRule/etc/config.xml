@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_HotDealShoppingRule
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_HotDealShoppingRule
+ * @copyright   Copyright (c) 2014 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<config>
+    <modules>
+        <Lyonscg_HotDealShoppingRule>
+            <version>0.1.0</version>
+        </Lyonscg_HotDealShoppingRule>
+    </modules>
+    <frontend>
+        <routers>
+            <lyonscg_hotdealshoppingrule>
+                <use>standard</use>
+                <args>
+                    <module>Lyonscg_HotDealShoppingRule</module>
+                    <frontName>hotdealshoppingrule</frontName>
+                </args>
+            </lyonscg_hotdealshoppingrule>
+        </routers>
+        <translate>
+            <modules>
+                <Lyonscg_HotDealShoppingRule>
+                    <files>
+                        <default>Lyonscg_HotDealShoppingRule.csv</default>
+                    </files>
+                </Lyonscg_HotDealShoppingRule>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <lyonscg_hotdealshoppingrule>
+                    <file>lyonscg_hotdealshoppingrule.xml</file>
+                </lyonscg_hotdealshoppingrule>
+            </updates>
+        </layout>
+    </frontend>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <lyonscg_hotdealshoppingrule before="Mage_Adminhtml">Lyonscg_HotDealShoppingRule_Adminhtml</lyonscg_hotdealshoppingrule>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Lyonscg_HotDealShoppingRule>
+                    <files>
+                        <default>Lyonscg_HotDealShoppingRule.csv</default>
+                    </files>
+                </Lyonscg_HotDealShoppingRule>
+            </modules>
+        </translate>
+        <events>
+            <salesrule_rule_condition_combine>
+                <observers>
+                    <lyonscg_hotdealshoppingrule_add_condition>
+                        <class>Lyonscg_HotDealShoppingRule_Model_Observer</class>
+                        <method>addCookieCondition</method>
+                    </lyonscg_hotdealshoppingrule_add_condition>
+                </observers>
+            </salesrule_rule_condition_combine>
+        </events>
+    </adminhtml>
+    <global>
+        <models>
+            <lyonscg_hotdealshoppingrule>
+                <class>Lyonscg_HotDealShoppingRule_Model</class>
+                <resourceModel>lyonscg_hotdealshoppingrule_resource</resourceModel>
+            </lyonscg_hotdealshoppingrule>
+            <lyonscg_hotdealshoppingrule_resource>
+                <class>Lyonscg_HotDealShoppingRule_Model_Resource</class>
+                <deprecatedNode>lyonscg_hotdealshoppingrule_mysql4</deprecatedNode>
+                <entities>
+                    <!--
+                    <model>
+                        <table>table</table>
+                    </model>
+                    -->
+                </entities>
+            </lyonscg_hotdealshoppingrule_resource>
+        </models>
+        <resources>
+            <lyonscg_hotdealshoppingrule_setup>
+                <setup>
+                    <module>Lyonscg_HotDealShoppingRule</module>
+                </setup>
+            </lyonscg_hotdealshoppingrule_setup>
+        </resources>
+        <blocks>
+            <lyonscg_hotdealshoppingrule>
+                <class>Lyonscg_HotDealShoppingRule_Block</class>
+            </lyonscg_hotdealshoppingrule>
+        </blocks>
+        <helpers>
+            <lyonscg_hotdealshoppingrule>
+                <class>Lyonscg_HotDealShoppingRule_Helper</class>
+            </lyonscg_hotdealshoppingrule>
+        </helpers>
+    </global>
+</config>

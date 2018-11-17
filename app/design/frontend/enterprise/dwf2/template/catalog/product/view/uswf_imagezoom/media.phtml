@@ -1,0 +1,129 @@
+<?php
+    /** @var $this Mage_Catalog_Block_Product_View_Media */
+    /** @var $product Mage_Catalog_Model_Product */
+    $product = $this->getProduct();
+    /** @var $outputHelper Mage_Core_Block_Abstract */
+    $outputHelper = $this->helper('catalog/output');
+    $iosSliderItems = array();
+?>
+
+<?php foreach ($this->getChildGalleryImages() as $_image): ?>
+    <?php ob_start(); ?>
+    <div id="item">
+        <a  class="<?php echo (Mage::helper('uswf_imagezoom')->isZoomEnabled() && ($_image->getFile() == $product->getImage())) ? 'zoomThumbActive' : ''?> zoomThumbNotActive"
+            href="<?php echo Mage::helper('uswf_imagezoom')->getBigImageHtml($product, $_image->getFile())?>" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
+            rel="{gallery: 'pdp-gallery', smallimage: '<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile())->resize(308, 308);?>',largeimage: '<?php echo Mage::helper('uswf_imagezoom')->getBigImageHtml($product, $_image->getFile())?>'}"
+            <?php echo (Mage::helper('uswf_imagezoom')->isLightBoxEnabled() && ($_image->getFile() != $product->getImage())) ? 'data-lightbox="pdp-gallery" data-title="' . $this->escapeHtml($_image->getLabel()) . '"' : '';?> id="<?php echo $_image->getId();?>">
+            <img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail', $_image->getFile())->resize(95, 95);?>" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>"/>
+        </a>
+    </div>
+    <?php $iosSliderItems[$_image->getId()] = ob_get_contents(); ?>
+    <?php ob_end_clean(); ?>
+<?php endforeach; ?>
+
+<script>
+    <?php echo "var iosSliderItems = ". json_encode($iosSliderItems) . ";\n"; ?>
+
+    addEvent(window, 'load', function() {
+        window.addIosSliderItem = function (input) {
+            var qty = parseInt($(input).readAttribute('data-packageqty'));
+            if (qty) {
+                var id = 'package-qty-' + qty;
+                var itemHTML = iosSliderItems[id];
+                if (jQuery('.iosSlider .slider #item #' + id).length == 0) {
+                    var iosSlider = jQuery('.iosSlider');
+                    var uswfZoom = jQuery('.uswf-zoom');
+                    var count = jQuery('.iosSlider .slider #item').length;
+
+                    if (count > 2) {
+                        jQuery('.next, .prev').css({'display': 'block'});
+                    }
+                    iosSlider.iosSlider('addSlide', itemHTML, count + 1);
+
+                    <?php if (Mage::helper('uswf_imagezoom')->isZoomEnabled()):?>
+                        var img = jQuery(".zoomPad img")[0];
+                        uswfZoom.removeData('jqzoom');
+                        jQuery(".zoomPad", uswfZoom).remove();
+                        uswfZoom.append(img);
+                        uswfZoom.jqzoom(<?php echo Mage::helper('uswf_imagezoom')->getImageZoomOptions()?>);
+                        iosSlider.iosSlider('update');
+                        iosSlider.iosSlider('goToSlide', count-1);
+                    <?php endif;?>
+                }
+            }
+        };
+
+        count = 0;
+        jQuery('.iosSlider .slider #item').each(function () {
+            count++;
+        });
+        if (count > 1) {
+            jQuery('.iosSlider').iosSlider({
+                snapToChildren: true,
+                desktopClickDrag: true,
+                keyboardControls: true,
+                onSliderLoaded: sliderTest,
+                onSlideStart: sliderTest,
+                onSlideComplete: slideComplete,
+                navNextSelector: jQuery('.next'),
+                navPrevSelector: jQuery('.prev')
+            });
+            jQuery('.next, .prev').css({'display': 'block'});
+        }
+        
+        function sliderTest(args) {
+            try {
+                //console.log(args);
+            } catch (err) {
+            }
+        }
+        function slideComplete(args) {
+            jQuery('.next, .prev').removeClass('unselectable');
+            if (args.currentSlideNumber == 1) {
+                jQuery('.prev').addClass('unselectable');
+            } else if (args.currentSliderOffset == args.data.sliderMax) {
+                jQuery('.next').addClass('unselectable');
+            }
+        }
+
+        <?php if (Mage::helper('uswf_imagezoom')->isZoomEnabled()):?>
+            jQuery('.uswf-zoom').jqzoom(<?php echo Mage::helper('uswf_imagezoom')->getImageZoomOptions()?>);
+        <?php endif;?>
+    });
+</script>
+
+<p class="product-image">
+    <?php echo Mage::helper('uswf_banners')->getPDPBanner($product);?>
+    <a href="<?php echo Mage::helper('uswf_imagezoom')->getBigImageHtml($product)?>" class="uswf-zoom" title="<?php echo $this->escapeHtml($this->getImageLabel());?>" rel="pdp-gallery"
+        <?php echo (Mage::helper('uswf_imagezoom')->isLightBoxEnabled()) ? 'data-lightbox="pdp-gallery" data-title="' . $this->escapeHtml($this->getImageLabel()) . '"' : '';?>>
+        <img src="<?php echo $this->helper('catalog/image')->init($product, 'image')->resize(308, 308)?>" alt="<?php echo $this->escapeHtml($this->getImageLabel());?>" />
+    </a>
+</p>
+
+<?php if (count($this->getGalleryImages()) > 0): ?>
+    <div class="more-views">
+        <h2><?php echo $this->__('More Views') ?></h2>
+        <div class="container imagezoom">
+            <div class="iosSlider">
+                <div class="slider">
+                <?php $index = 0; ?>
+                <?php foreach ($this->getGalleryImages() as $_image): ?>
+                    <div id="item">
+                        <a class="<?php echo (Mage::helper('uswf_imagezoom')->isZoomEnabled() && ($_image->getFile() == $product->getImage())) ? 'zoomThumbActive' : ''?> zoomThumbNotActive"
+                           href="<?php echo Mage::helper('uswf_imagezoom')->getBigImageHtml($product, $_image->getFile())?>" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
+                           rel="{gallery: 'pdp-gallery', smallimage: '<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile())->resize(308, 308);?>',largeimage: '<?php echo Mage::helper('uswf_imagezoom')->getBigImageHtml($product, $_image->getFile())?>'}"
+                            <?php echo (Mage::helper('uswf_imagezoom')->isLightBoxEnabled() && ($_image->getFile() != $product->getImage())) ? 'data-lightbox="pdp-gallery" data-title="' . $this->escapeHtml($_image->getLabel()) . '"' : '';?>>
+                                <img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail', $_image->getFile())->resize(95, 95);?>" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>"/>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+                </div>
+            </div>
+            <div class = 'next'></div>
+            <div class = 'prev unselectable'></div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php foreach ($this->getChildGalleryImages() as $_image):?>
+<?php endforeach;?>

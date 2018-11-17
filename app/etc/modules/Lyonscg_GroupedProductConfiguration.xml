@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_GroupedProductConfiguration>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Itoris_GroupedProductConfiguration/>
+            </depends>
+        </Lyonscg_GroupedProductConfiguration>
+    </modules>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <LitExtension_SocialLogin>
+            <active>false</active>
+            <codePool>community</codePool>
+        </LitExtension_SocialLogin>
+    </modules>
+</config>

@@ -1,0 +1,58 @@
+<?php if ($this->helper('yotpo')->isModuleEnabled()):?>
+    <script>
+        if (typeof yotpo != 'undefined') {
+            yotpo.initWidgets();
+
+            /*adapt catalog grid size*/
+            function setHeight(column) {
+                var maxHeight = 0;
+                column.each(function() {
+                    if(jQuery(this).height() > maxHeight) {
+                        maxHeight = jQuery(this).height();
+                    }
+                });
+                column.height(maxHeight);
+            };
+            function setHeightAdvanced(base, prefix, main, secondary) {
+                var column = jQuery(prefix + ' ' + main, jQuery(base));
+                var maxHeight = 0;
+                var maxOuterHeight = 0;
+                column.each(function() {
+                    if (jQuery(this).height() > maxHeight) {
+                        maxHeight = jQuery(this).height();
+                    }
+                    if (jQuery(this).outerHeight(true) > maxOuterHeight) {
+                        maxOuterHeight = jQuery(this).outerHeight(true);
+                    }
+                });
+                if (maxHeight > 0) {
+                    column = jQuery(prefix, jQuery(base));
+                    column.each(function () {
+                        var element = jQuery(main, jQuery(this));
+                        if (element.length > 0) {
+                            element.height(maxHeight);
+                        } else {
+                            element = jQuery(secondary, jQuery(this));
+                            element.height(maxOuterHeight + element.height());
+                        }
+                    });
+                }
+            };
+            jQuery('.category-products .products-grid').each(function(key, element) {
+                jQuery('.product-image').css('min-height', '198px');
+                setHeight(jQuery('.product-image', jQuery(element)));
+                setHeight(jQuery('.product-shop .product-name', jQuery(element)));
+                setHeight(jQuery('.product-shop .price-box', jQuery(element)));
+            });
+            new PeriodicalExecuter(function(pe) {
+                if(yotpo.state == 'ready'){
+                    pe.stop();
+                    jQuery('.category-products .products-grid li.item *').css("height","");
+                    jQuery('.category-products .products-grid').each(function(key, element) {
+                        setHeightAdvanced(element, '.product-shop', '.yotpo.bottomLine', '.price-box');
+                    });
+                }
+            }, 0.25);
+        }
+    </script>
+<?php endif;?>

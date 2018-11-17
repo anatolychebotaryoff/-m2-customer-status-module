@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <qubit_universalvariable>
+            <groups>
+                <QuBit_UniversalVariable_Settings>
+                    <fields>
+                        <uv_email_link_param translate="label">
+                            <label>Email parameter name for further usage in UV.user</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <QuBit_UniversalVariable_Enabled>1</QuBit_UniversalVariable_Enabled>
+                            </depends>
+                        </uv_email_link_param>
+                        <uv_email_cookie_lifetime translate="label">
+                            <label>Cookie lifetime of email value extracted from landing page params</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <QuBit_UniversalVariable_Enabled>1</QuBit_UniversalVariable_Enabled>
+                            </depends>
+                            <comment>Time in seconds</comment>
+                        </uv_email_cookie_lifetime>
+                    </fields>
+                </QuBit_UniversalVariable_Settings>
+            </groups>
+        </qubit_universalvariable>
+    </sections>
+</config>

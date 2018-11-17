@@ -1,0 +1,59 @@
+<!-- Featured Categories-->
+<?php 
+
+$category_id = $this->getData('category_id');
+
+$category = Mage::getModel('catalog/category'); 
+
+
+    $_categories = Mage::getModel('catalog/category')->getCollection();
+    $_categories->addAttributeToFilter('entity_id', array('eq' => $category_id));
+    $_categories->addAttributeToSelect('featured_category');
+    $_categories->addAttributeToSelect('name');
+    $_categories->addAttributeToSelect('url_path');
+    $_categories->addAttributeToSelect('thumbnail');
+    $_categories->addAttributeToSelect('parent_id');
+    $_categories->addAttributeToSelect('level');
+    $_categories->setStoreId(Mage::app()->getStore());
+
+
+?>
+<?php $_helper = Mage::helper('catalog/category') ?>
+<?php $currentCategory = Mage::registry('current_category') ?>
+    <?php foreach($_categories as $_category): ?>
+    <?php $thumbnailUrl = Mage::getBaseUrl('media').'catalog/category/'.$_category->getThumbnail(); ?>
+    <li style="width: 33%; min-width: 286px; vertical-align: top; display: inline-block;">
+        <a style="color: #999999" href="<?php echo $_helper->getCategoryUrl($_category) ?>">
+        <div style="width: 50px; display: inline-block; text-align: center; vertical-align: middle">
+            <img style="max-height: 50px;"  src="<?php echo $thumbnailUrl; ?>" />
+        </div>
+        <h4 style="line-height: 50px; font-size: larger; margin-top: 0.5em; display: inline-block">
+            <?php echo $_category->getName(); ?>
+        </h4></a>
+        <?php 
+            $_subcategories = Mage::getModel('catalog/category')->getCollection()
+                ->addAttributeToSelect('featured_category')
+                ->addAttributeToSelect('name')
+                ->addAttributeToSelect('url_path')
+                ->addAttributeToSelect('parent_id')
+                ->addAttributeToSelect('level')
+                ->addAttributeToFilter('parent_id', array('eq' => $_category->getId()))
+                ->addAttributeToSort('position', 'asc'); 
+            if (count($_subcategories) > 0): ?>
+        <ul style="list-style-type: none">
+            <?php foreach($_subcategories as $_subcategory): ?>
+            <?php
+                $checkIsFeatured = $_subcategory->getData('featured_category');
+            ?>
+            <li style="padding: 3px">
+                <a href="<?php echo $_helper->getCategoryUrl($_subcategory) ?>">
+                    <?php echo $_subcategory->getName() ?>
+                </a>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+              <?php endif; ?>
+
+    </li>
+    <?php endforeach; ?>
+

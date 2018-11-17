@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <lyonscg_airfilter translate="label">
+            <label>Air Filter</label>
+            <tab>lyonscg</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>151</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <air_filter_details translate="label">
+                    <label>Air Filter Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>10</sort_order>
+                    <fields>
+                        <dfs_brand_category translate="label">
+                            <label>Category ID that contains brand subcategories</label>
+                            <frontend_type>text</frontend_type>
+                            <tooltip>All first-level subcategories of this category will be shown as brands on Air Filter page</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>0</sort_order>
+                        </dfs_brand_category>
+                        <dfs_size_attr_code translate="label">
+                            <label>Attribute code that contains sizes</label>
+                            <frontend_type>text</frontend_type>
+                            <tooltip>Attribute code that contains sizes for air filter</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>2</sort_order>
+                        </dfs_size_attr_code>
+                        <dfs_depth_list translate="label">
+                            <label>List of depth parameters to parse</label>
+                            <frontend_type>text</frontend_type>
+                            <tooltip>Set list of depthes in format "1,2,4", without spaces.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>3</sort_order>
+                        </dfs_depth_list>
+                        <dfs_mpr_list translate="label">
+                            <label>List of mprs to parse</label>
+                            <frontend_type>text</frontend_type>
+                            <tooltip>Please mind that column count on air filter result page will be equal to the mpr
+                                count you set here. Format for setting - "1,2,4" without spaces.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>4</sort_order>
+                        </dfs_mpr_list>
+                        <dfs_category_list translate="label">
+                            <label>ID's of the categories for air filter result page</label>
+                            <frontend_type>text</frontend_type>
+                            <tooltip>ID's of the categories that play role of the rows on the air filter result page.
+                                By default those are "Tier1 Air Filters (ID: 577)" and "3M Filtrete Air Filters (ID: 578)".
+                                Any number of categories is possible, just mind that each id is additional row on the
+                                result page slider. Format for setting - "1,2,4" without spaces.</tooltip>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>5</sort_order>
+                        </dfs_category_list>
+                    </fields>
+                </air_filter_details>
+            </groups>
+        </lyonscg_airfilter>
+    </sections>
+</config>

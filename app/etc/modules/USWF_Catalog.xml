@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <USWF_Catalog>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Lyonscg_Catalog/>
+                <Mage_Catalog/>
+            </depends>
+        </USWF_Catalog>
+    </modules>
+</config>

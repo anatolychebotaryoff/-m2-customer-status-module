@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Improved Cache Clearing/Warming
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_ImprovedCache
+ * @copyright   Copyright (c) 2014 Lyons Consulting Group (http://www.lyonscg.com)
+ * @author      Nick Hughart (nhughart@lyonscg.com)
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <lyonscg_improvedcache translate="title" module="lyonscg_improvedcache">
+                                        <title>Improved Cache</title>
+                                        <sort_order>10</sort_order>
+                                    </lyonscg_improvedcache>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

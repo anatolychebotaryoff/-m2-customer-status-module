@@ -1,0 +1,37 @@
+<?php
+/**
+ * featured Categories Template
+ *
+ * @category     Enterprice
+ * @package      Enterprice_Usff
+ * @copyright    Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ * @author       Alexandr Pomelov (apomelov@lyonsg.com)
+ */
+?>
+<div class="featured-container">
+    <div class="featured-wrap">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('fridge_filters_category')->toHtml() ?>
+    </div>
+    <div class="featured-wrap second">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('fridge_3m_filtrette_filters_category')->toHtml() ?>
+    </div>
+    <div class="featured-wrap">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('fridge_water_test_kits_category')->toHtml() ?>
+    </div>
+    <div class="featured-wrap last">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('fridge_faucet_mount_filters_category')->toHtml() ?>
+    </div>
+    <div class="secondrow">&nbsp;</div>
+    <div class="featured-wrap">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('fridge_pitchers_and_filters_category')->toHtml() ?>
+    </div>
+    <div class="featured-wrap second">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('fridge_inline_filters_category')->toHtml() ?>
+    </div>
+    <div class="featured-wrap">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('fridge_undersink_filters_category')->toHtml() ?>
+    </div>
+    <div class="featured-wrap last">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('fridge_whole_house_filters_category')->toHtml() ?>
+    </div>
+</div>

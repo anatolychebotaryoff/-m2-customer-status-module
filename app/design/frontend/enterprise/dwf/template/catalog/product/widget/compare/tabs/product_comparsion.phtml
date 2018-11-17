@@ -1,0 +1,18 @@
+<?php list($header, $body) = $this->getContent();?>
+<table class="compare-page-table">
+    <tr class="compare-page-table-header">
+        <td></td>
+        <?php foreach ($header as $class => $text):?>
+            <td class="<?php echo $class;?>"><?php echo $text; ?></td>
+        <?php endforeach;?>
+    </tr>
+    <?php $i = 1;?>
+    <?php foreach($body as $row):?>
+        <tr class="compare-page-table-row <?php echo $i++%2 ? '' : 'even';?>">
+            <td class="compare-page-table-label"><?php echo $this->__($row['label']) ?></td>
+            <?php foreach ($row['content'] as $text):?>
+                <td><?php echo $text; ?></td>
+            <?php endforeach;?>
+        </tr>
+    <?php endforeach;?>
+</table>

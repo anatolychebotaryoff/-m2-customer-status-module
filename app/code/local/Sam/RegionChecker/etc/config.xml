@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+      <modules>
+          <Sam_RegionChecker>
+              <version>0.0.1</version>
+          </Sam_RegionChecker>
+      </modules>
+      <global>
+          <helpers>
+              <sam_regionchecker>
+                  <class>Sam_RegionChecker_Helper</class>
+              </sam_regionchecker>
+          </helpers>
+          <models>
+              <sam_regionchecker>
+                  <class>Sam_RegionChecker_Model</class>
+              </sam_regionchecker>
+          </models>
+      </global>
+
+      <adminhtml>
+
+          <events>
+
+              <sales_order_place_before>
+                  <observers>
+                      <sam_regionchecker>
+                          <class>Sam_RegionChecker_Model_Observer</class>
+                          <method>checkRegion</method>
+                      </sam_regionchecker>
+                  </observers>
+              </sales_order_place_before>
+
+          </events>
+
+      </adminhtml>
+
+
+</config>

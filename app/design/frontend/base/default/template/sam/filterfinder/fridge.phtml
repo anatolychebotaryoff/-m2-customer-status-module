@@ -1,0 +1,108 @@
+<img src="<?php echo $this->getSkinUrl()?>/images/opc-ajax-loader.gif" style="display: none;">
+<div class="dfs-bootstrap">
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#finderModal">Run UberFinder</button>
+    <div id="finderModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h1 class="text-center modal-title" >Choose your filter category</h1>
+                    <p class="text-center">We'll help you find what you need, step by step.</p>
+                </div>
+                <div class="uber--home modal-body">
+                    <div class="filterfinder-popup active">
+                        <div class="filterfinder-popup-placeholder"></div>
+                        <div class="filterfinder-popup-inner">
+                            <div class="finder row">
+                                <div class="col-sm-4">
+                                    <div class="uber--tile" data-finder="wholeHouse">
+                                        <span class="uber--icon fa fa-desktop fa-4x"></span>
+                                        <span class="uber--title">Whole House</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="uber--tile" data-finder="air">
+                                        <span class="uber--icon fa fa-folder-o fa-4x"></span>
+                                        <span class="uber--title">Air</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="uber--tile" data-finder="refrigerator">
+                                        <span class="uber--icon fa fa-map-o fa-4x"></span>
+                                        <span class="uber--title">Refrigerator</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uber--finder uber--finder__fridge no-display" data-finder-modal="refrigerator">
+                                <div class="filterfinder-popup-header">
+                                    <h3><span>Refrigerator</span></h3>
+                                    <span class="close"></span>
+                                </div>
+                                <div class="filterfinder popup">
+                                    <div class="ffcontent">
+                                        <!-- stage 1 -->
+                                        <section class="uber--section uber--section-1 open" data-section="filter_finder_brand" data-next="filter_finder_style">
+                                            <div class="clicker">
+                                                <span class="info" data-title="Brand">Brand</span>
+                                            </div>
+                                            <ul class="section--content" data-toggle="buttons"><ul>
+                                        </section>
+                                        <!-- stage 2 -->
+                                        <section class="uber--section uber--section-2 none" data-section="filter_finder_style" data-next="filter_finder_location">
+                                            <div class="clicker">
+                                                <span class="info" data-title="Style">Style</span>
+                                            </div>
+                                            <ul class="section--content" data-toggle="buttons"></ul>
+                                        </section>
+                                        <!-- stage 3 -->
+                                        <section class="uber--section uber--section-3 none" data-section="filter_finder_location" data-next="filter_finder_removal">
+                                            <div class="clicker">
+                                                <span class="info" data-title="Location">Location</span>
+                                            </div>
+                                            <ul class="section--content" data-toggle="buttons"></ul>
+                                        </section>
+                                        <!-- stage 4 -->
+                                        <section class="uber--section uber--section-4 none" data-section="filter_finder_removal" data-next="filter_finder_results">
+                                            <div class="clicker">
+                                                <span class="info" data-title="Filter Removal">Filter Removal</span>
+                                            </div>
+                                            <ul class="section--content" data-toggle="buttons"></ul>
+                                        </section>
+                                        <!-- results -->
+                                        <section class="uber--section uber--section-results none" data-section="filter_finder_results">
+                                            <div class="clicker">
+                                                <span class="info" data-title="Result Section">Search Results</span>
+                                            </div>
+                                            <ul class="section--content" data-toggle="buttons"></ul>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    //[5761,5771,5781,5801,5811,5821,5831,5841,5851,5861,5871,5881,5891,5901,5911,6481,6641,6801,6961,6121,6041]}
+    //Amana 5761
+    // Bottom freezer 6481
+    //back of the freedge 6121
+    //Filter Removal  6001
+    //[FUNCTION] handlebarsHelper() - attr: filter_finder_brand, value: null
+    var samFormKey="<?php echo Mage::getModel('core/session')->getFormKey()?>";
+    function samAddtoCart(product_id){
+//        var qty = jQuery('#qty'+product_id).val();
+        var qty = 1;
+        var url ='/samfilter/?product_id='+product_id+'&qty='+qty;
+//        var url ='/checkout/cart/add/product/'+product_id+'/form_key/'+samFormKey;
+        document.location = url;
+        //console.log(url);
+    }
+    var uberWidget = new uberFinder;
+    uberWidget.init();
+</script>

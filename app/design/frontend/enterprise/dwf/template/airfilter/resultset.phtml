@@ -1,0 +1,215 @@
+<?php
+$size = $this->getSize();
+$rows = $this->getConfigList("category");
+$mervs = $this->getConfigList("mpr");
+$_helperUV = $this->helper('uswf_universalvariable');
+$_curProducts = null;
+?>
+<?php /*
+<div class="crumbHolder">
+    <?php $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
+    $breadcrumbs->addCrumb('home',
+        array('label'=>Mage::helper('cms')->__('Home'),
+            'title'=>Mage::helper('cms')->__('Home Page'),
+            'link'=>Mage::getBaseUrl())
+    );
+    $breadcrumbs->addCrumb('AirFilter', array('label'=>'Air Filter',
+        'title'=>'Air Filter',
+        'link'=>'/AirFilterFinder')
+    );
+    $breadcrumbs->addCrumb('AirFilterResult', array('label'=>$size,
+        'title'=>'Air Filter Result Page')
+    );
+    echo $this->getLayout()->getBlock('breadcrumbs')->toHtml(); ?>
+</div>
+ */ ?>
+<style>
+
+#mervresults {
+    display: none;
+}
+
+.merv-column {
+    display: none;
+}
+
+.airfilter-results {
+    display: block;
+}
+
+@media screen and (max-width: 767px) {
+    
+    .airfilter-results {
+        display:none;
+    }
+    #mervresults {
+        display:block;
+    }
+}
+
+
+</style>
+<div id="airfilter-sizes" class="airfilter-sizes">
+    <div id="size" class="size"><?php echo $size; ?></div>
+    <div id="actual-size" class="actual-size"></div>
+</div>
+
+<div id="mervresults">
+<?php
+
+        $sizeId = Mage::getModel('catalog/product')->getResource()->getAttribute("size_advertised")->getSource()->getOptionId($size);
+        
+        $products = Mage::getModel('catalog/product')
+            ->getCollection()
+            ->addAttributeToFilter("attribute_set_id", 10)
+            ->addAttributeToFilter("not_for_sale", array("neq" => 1))
+            ->addAttributeToFilter("air_filter_finder", 1)
+            ->addAttributeToFilter("size_advertised", $sizeId);
+
+        $rawIds = $products->getAllIds();
+        $idString = "{" . implode("}{", $rawIds) . "}";
+
+
+	$filter = Mage::getModel("widget/template_filter");
+
+        echo $filter->filter('{{widget type="uswf_airmerv/product_widget_link" category="10971" template="cms/airmerv.phtml" ids="'.$idString.'"}}');
+        
+
+?>
+</div>
+</div>
+
+
+<?php if($mervs): ?>
+<div class="airfilter-results">
+    <div class="leftSection">
+        <ul class="categoryRow">
+            <?php foreach($rows as $row): $category = Mage::getModel('catalog/category')->load($row); ?>
+                <li>
+                    <a href="<?php echo Mage::getBaseUrl().$category->getUrlPath(); ?>">
+                        <img
+                            src="<?php echo Mage::getBaseUrl('media').'catalog/category/'.$category->getThumbnail(); ?>"
+                            alt="<?php echo $category->getName(); ?> image"
+                        />
+                    </a>
+                </li>
+            <?php endforeach ?>
+        </ul>
+        <?php $mervOptionsList = $this->getMervAdminLabel($mervs[0]); ?>
+        <ul class="mervOptionList">
+            <?php foreach($mervOptionsList as $option): ?>
+                <li><?php echo $option['label']; ?></li>
+            <?php endforeach ?>
+        </ul>
+    </div>
+    <div class="rightSection">
+        <div class="top">
+            <ul class="pagination">
+                <?php $pagCount = count($mervs) - 2;
+                $sliderPosition = $this->getSliderPosition();
+                if ($sliderPosition > $pagCount){
+                    $sliderPosition = $pagCount;
+                }
+                $j=0;
+                for ($i = $pagCount; $i != 0; $i--) { $j++; ?>
+                    <li class="<?php echo ($j == $sliderPosition)? 'active' : ''; ?>">&nbsp;</li>
+                <?php } ?>
+            </ul>
+            <div class="prev"><div class="clickarea">&nbsp;</div></div>
+            <div class="next"><div class="clickarea">&nbsp;</div></div>
+        </div>
+        <div id="sliderHolder">
+            <ul class="mervColumns">
+                <?php $actualSizeOutput = true; ?>
+                <?php foreach($mervs as $merv): ?>
+                    <li>
+                        <ul class="mervRovs">
+                            <?php $i = 0; foreach($rows as $row):
+                                $i++;
+                                if($_product = $this->prepareProduct($row, $merv, $size)): ?>
+                                    <?php $_curProducts =  $_product; ?>
+                                    <?php $package_qty = $_product->getPackageQty(); ?>
+                                    <?php if (is_numeric($package_qty) && (int)$package_qty != 1) : ?>
+                                        <?php $variant = $package_qty.'pk'; ?>
+                                    <?php else : ?>
+                                        <?php $variant = 'single'; ?>
+                                    <?php endif; ?>
+                                    <?php $brand = ($_product->getAttributeText('manufacturer') ? $this->jsQuoteEscape($_product->getAttributeText('manufacturer')) : null); ?>
+                                    <?php $productCategory = $_helperUV->getAttributeValue($_product->getId(), 'item_type'); ?>
+                                    <li class="<?php echo ($i % 2 == 0)?  "even" : "odd" ?>">
+                                        <?php $productName = $_product->getName(); ?>
+                                        <?php $buttonTitle = '<span><span>Add to Cart</span></span>'; ?>
+                                        <?php if ($_product->getTypeId() == 'bundle') {
+                                            $locationUrl = $this->getUrl('bundle/cart/add') . 'id' . DS . $_product->getId();
+                                            $onClick = "onAddToCart('{$_product->getSku()}', '{$productName}', '{$_product->getFinalPrice()}', '1', '{$productCategory}', '{$variant}', '{$brand}' );";
+                                        } elseif ($_product->getTypeId() == 'grouped') {
+                                            $locationUrl = $_product->getProductUrl();
+                                            $buttonTitle = '<span><span>View Details</span></span>';
+                                            $onClick = "onProductClick('{$_product->getSku()}', '{$productName}', 'Category', '{$productCategory}', '{$variant}', '{$brand}');";
+                                        } else {
+                                            $locationUrl = $this->getAddToCartUrl($_product);
+                                            $onClick = "onAddToCart('{$_product->getSku()}', '{$productName}', '{$_product->getFinalPrice()}', '1', '{$productCategory}', '{$variant}', '{$brand}' );";
+                                        } ?>
+                                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="product-image" onclick="onProductClick('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape($_product->getName()) ?>', 'Category', '<?php echo $productCategory ?>' , '<?php echo $variant ?>', '<?php echo $brand ?>' );">
+                                            <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(152) ?>" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" />
+                                        </a>
+                                        <div class="product-shop2">
+                                            <?php if($_product->isSaleable()): ?>
+                                                <?php if($_product->getPackageQty()): ?>
+                                                    <?php $formattedPrice = Mage::helper('core')->currency($_product->getFinalPrice()/$_product->getPackageQty(), true, false); ?>
+                                                    <div class="pack"><?php echo $formattedPrice; ?> each</div>
+                                                <?php endif; ?>
+                                                <?php echo $this->getPriceHtml($_product, true, '-new') ?>
+                                                <div class="actions">
+                                                    <?php if($_product->isSaleable()): ?>
+                                                        <button type="button" class="button btn-cart" onclick="<?php echo $onClick ?>setLocation('<?php echo $locationUrl ?>')"><?php echo $buttonTitle ?></button>
+                                                    <?php else: ?>
+                                                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </li>
+                                    <?php if ($actualSizeOutput): ?>
+                                        <script type="text/javascript">
+                                            addEvent(window, 'load', function() {
+                                                $('actual-size').insert('<?php echo $this->__('Actual Size') . ': ' . $_product->getSizeActual() ?>');
+                                                <?php $actualSizeOutput = false ?>
+                                            });
+                                        </script>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <li class="<?php echo ($i % 2 == 0)?  "even" : "odd" ?>"><img src="<?php echo $this->getSkinUrl('images/no_size.jpg') ?>" /></li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <li>
+                                <ul class="mervOptions">
+                                    <?php $options = $this->getMervOptionsByIdProduct($merv, $_curProducts);
+                                    foreach($options as $option):
+                                        switch ($option['label']) {
+                                            case "checkbox[no]":
+                                                echo "<li>&nbsp;</li>";
+                                                break;
+                                            case "checkbox[yes]": ?>
+                                                <li>
+                                                    <img class="tick" src="<?php echo $this->getSkinUrl('images/ait.png') ?>" alt="Air Filter Tick"
+                                                    />
+                                                </li>
+                                                <?php break;
+                                            default: ?>
+                                                <li><?php echo $this->removeFormatText($option['label']); ?></li>
+                                                <?php break;
+                                        }
+                                        ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <div class="bottom">&nbsp;</div>
+    </div>
+</div>
+<?php endif ?>

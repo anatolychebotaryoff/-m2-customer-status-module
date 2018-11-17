@@ -1,0 +1,20 @@
+/**
+ * Add support for HasOffers integration
+ *
+ * @category  Lyons
+ * @package   Lyonscg_HasOffers
+ * @author    Logan Montgomery <lmontgomery@lyonscg.com>
+ * @copyright Copyright (c) 2015 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+app/etc/modules/Lyonscg_HasOffers.xml
+    module xml
+
+app/code/local/Lyonscg/Sales/Model/Order/Api.php
+    add new data to api v1
+
+app/code/local/Lyonscg/Sales/Model/Order/Api/V2.php
+    add new data to avi v2
+
+app/code/local/Lyonscg/Sales/etc/wsdl.xml
+    add new fields to wsdl

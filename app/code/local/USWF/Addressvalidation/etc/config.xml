@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Addressvalidation>
+            <version>0.1.0</version>
+        </USWF_Addressvalidation>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <uswf_addressvalidation>
+                    <file>uswf/addressvalidation.xml</file>
+                </uswf_addressvalidation>
+            </updates>
+        </layout>
+        <events>
+            <controller_action_layout_generate_blocks_after>
+                <observers>
+                    <uswf_addressvalidation>
+                        <type>singleton</type>
+                        <class>USWF_Addressvalidation_Model_Observer</class>
+                        <method>controllerActionLayoutGenerateBlocksAfter</method>
+                    </uswf_addressvalidation>
+                </observers>
+            </controller_action_layout_generate_blocks_after>
+        </events>
+    </frontend>
+    <global>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <customer_edit>USWF_Addressvalidation_Block_Rewrite_Adminhtml_Customer_Edit</customer_edit>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+</config>

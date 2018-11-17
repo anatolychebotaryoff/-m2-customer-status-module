@@ -1,0 +1,19 @@
+<?php echo $this->getCartFooterJs(); ?>
+<script type="text/javascript">
+//<![CDATA[
+addEvent(window, 'load', function() {
+    //HP, Jun:
+    checkout.submit = function (params, action) {
+        alert('OG: update cart / remove line item');
+        //OG.Controller.updateCart();
+        this.__proto__.submit(params, action);
+    };
+
+    checkout.LightcheckoutSubmit() = function () {
+        alert('OG: place order');
+        //OG.Controller.placeOrder();
+        this.__proto__.LightcheckoutSubmit(params, action);
+    };
+});
+//]]>
+</script>

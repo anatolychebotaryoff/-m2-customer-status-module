@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_AttributeOptionImage>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <JR_AttributeOptionImage/>
+            </depends>
+        </Lyonscg_AttributeOptionImage>
+    </modules>
+</config>

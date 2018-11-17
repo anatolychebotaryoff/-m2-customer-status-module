@@ -1,0 +1,43 @@
+<?php
+
+/*
+ * Template for rendering a product's price from a CMS page
+ *
+ */
+
+$productId = $this->getProductId();
+$attributeId = $this->getAttributeId();
+
+
+if ($attributeId == 'price') {
+
+    $product = Mage::getModel('catalog/product')->load($productId);
+    $productBlock = $this->getLayout()->createBlock('catalog/product_price');
+    echo $productBlock->getPriceHtml($product); 
+
+} else if ($attributeId == 'priceraw')  {
+
+    $product = Mage::getModel('catalog/product')->load($productId);
+    echo $product->getFinalPrice();
+
+} else {
+
+    try {
+
+    $attributeValue = Mage::getResourceModel('catalog/product')->getAttributeRawValue($productId, $attributeId, Mage::app()->getStore());
+    
+    } catch (Exception $e) {
+        Mage::logException($e);
+    }
+
+    if ($this->getLabel()) {
+      
+        $product = Mage::getModel('catalog/product')->setStoreId(Mage::app()->getStore())->setData($attributeId, $attributeValue);
+        echo $product->getAttributeText($attributeId);
+        
+    } else {
+        echo $attributeValue;
+    }
+}
+
+?>

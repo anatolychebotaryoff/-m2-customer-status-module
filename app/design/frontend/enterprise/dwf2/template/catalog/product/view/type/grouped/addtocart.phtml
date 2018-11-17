@@ -1,0 +1,408 @@
+<?php
+    /**
+     * Template file for grouped products to show in the right nav on the pdp
+     *
+     * @category   Lyons
+     * @package    Lyonscg
+     * @copyright  Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+     * @author     Mark Hodge (mhodge@lyonscg.com)
+     */
+?>
+<?php $_helperUV = $this->helper( 'uswf_universalvariable' ); ?>
+<?php $_blockAutoship = $this->getLayout()->createBlock( 'autoship/product_view_type_grouped_subscribe' ); ?>
+<?php $_buttonTitle = $this->__( 'Add to Cart' ); ?>
+<?php $this->setPreconfiguredValue(); ?>
+<?php $_product = $this->getProduct(); ?>
+<?php $_blockAutoship->setProduct( $_product ); ?>
+<?php $package_qty = $_product->getPackageQty(); ?>
+<?php if ( is_numeric( $package_qty ) && (int) $package_qty != 1 ) : ?>
+    <?php $variant = $package_qty . 'pk'; ?>
+<?php else : ?>
+    <?php $variant = 'single'; ?>
+<?php endif; ?>
+<?php $brand = ( $_product->getAttributeText( 'manufacturer' ) ? $this->jsQuoteEscape( $_product->getAttributeText( 'manufacturer' ) ) : null ); ?>
+<?php $productCategory = $_helperUV->getAttributeValue( $_product->getId(), 'item_type' ); ?>
+<?php //$_associatedProducts = $this->getAssociatedProducts(); ?>
+<?php $_associatedProducts = $this->getSaleableAssociatedProducts(); ?>
+<?php $_hasAssociatedProducts = count( $_associatedProducts ) > 0; ?>
+<?php $_notForSale = $_product->getNotForSale() ?>
+<?php $_isSaleableGroup = true; ?>
+
+<?php if ( $this->isSaleableGroup() ): ?>
+    <?php if ( $_hasAssociatedProducts && ! $_notForSale ): ?>
+        
+        <?php $_lowestPrice = PHP_INT_MAX; ?>
+        <?php $_lowestMsrp = PHP_INT_MAX; ?>
+        <?php $singleQtyPrice = PHP_INT_MAX; ?>
+        <?php
+        foreach ( $_associatedProducts as $_item ) {
+            
+            $itemQty        = $_item->getPackageQty();
+            $itemFinalPrice = $_item->getFinalPrice();
+            
+            $_itemPrice = $itemFinalPrice / ( $itemQty || 1 );
+            $_itemMsrp  = $_item->getMsrp();
+            
+            if ( $itemQty == 1 ) {
+                $singleQtyPrice = $_itemPrice;
+            }
+            
+            $_item->setData( 'unit_price', $_itemPrice );
+            $_lowestPrice = ( $_itemPrice < $_lowestPrice ? $_itemPrice : $_lowestPrice );
+            $_lowestMsrp  = ( $_itemMsrp < $_lowestMsrp ? $_itemMsrp : $_lowestMsrp );
+        }
+        ?>
+
+        <form action="<?php echo $this->getSubmitUrl( $_product ) ?>" method="post"
+              id="product_addtocart_form"<?php if ( $_product->getOptions() ): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <?php if ( $_product->getData( 'nfs_product' ) ) : ?>
+                <input type="hidden" name="nfs-product" value="1"/>
+            <?php endif; ?>
+            <input type="hidden" name="grouped-product-name" value="<?php echo $_product->getName() ?>"/>
+            <input type="hidden" name="grouped-product-id" value="<?php echo $_product->getId() ?>"/>
+            <input type="hidden" name="grouped-product-url" value="<?php echo $_product->getProductUrl() ?>"/>
+            <div class="row">
+                <div class="col-md-12">
+
+
+                    <div class="selection--wrap">
+                        <!--data-table grouped-items-table subscribePro" >-->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="product--price">
+                                    <div class="price--total"><?php echo Mage::helper( 'core' )->currency( $_lowestPrice ); ?></div>
+                                    <div class="price--each">
+
+                                        <!-- <?php echo Mage::helper( 'core' )->currency( $singleQtyPrice ); ?> <?php echo $this->__( 'each' ) ?><br/> -->
+                                        <?php if ( $_lowestPrice <= $_lowestMsrp ): ?>
+                                            <span class="price--msrp"><?php echo $this->__( 'MSRP' ) ?><?php echo Mage::helper( 'core' )->currency( $_lowestMsrp ) ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <group class="radio--inline radio--inline__pack row" data-toggle="buttons">
+                                    <?php if ( $_hasAssociatedProducts ): ?>
+                                        <?php foreach ( $_associatedProducts as $_item ): ?>
+                                            <?php $packageQty = $_item->getPackageQty(); ?>
+                                            <?php $_finalPriceInclTax = $this->helper( 'tax' )->getPrice( $_item, $_item->getFinalPrice(), true ) ?>
+                                            <?php if ( $_product->isSaleable() ): ?>
+                                                <label for="super_group[<?php echo $_item->getId() ?>]"
+                                                       id="choose-quantity" class="radio--wrap btn btn-primary"
+                                                       onclick="processGroupedSelection(this); /*window.processGroupedOption(this)*/">
+                                                    <?php if ( $_item->isSaleable() ) : ?>
+                                                        <!-- Added to ensure grouped product ID is passed for parsing -->
+                                                        <input type="radio" data-item="<?php echo $_item->getId(); ?>"
+                                                               id="super_group[<?php echo $_item->getId() ?>]"
+                                                               autocomplete="off"
+                                                               name="super_group[<?php echo $_item->getId() ?>]"
+                                                               maxlength="12" value="<?php echo $_item->getQty() * 1 ?>"
+                                                               title="<?php echo $this->__( 'Qty' ) ?>"
+                                                               class="option-validate radio-package"
+                                                               onclick="window.processGroupedOption(this)"
+                                                               data-packageqty="<?php echo $_item->getPackageQty() ?>"
+                                                               data-packageid="<?php echo $_item->getId() ?>"/>
+                                                    <?php else: ?>
+                                                        <p class="availability out-of-stock">
+                                                            <span><?php echo $this->__( 'Out of stock' ) ?></span></p>
+                                                    <?php endif; ?>
+                                                    <p class="ind-price" id="ind-price-<?php echo $_item->getId() ?>">
+                                                        <?php echo Mage::helper( 'core' )->currency( $_item->getUnitPrice() / $packageQty ); ?>
+                                                        each
+                                                    </p>
+                                                    <p class="product-pack-size-icon">
+                                                        <?php for ( $iPack = 0; $iPack < $packageQty; $iPack ++ ): ?>
+                                                            <svg class="pack-icons" width="16px" height="46px"
+                                                                 viewBox="0 0 16 46" version="1.1"
+                                                                 xmlns="http://www.w3.org/2000/svg"
+                                                                 xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                <title>Refridgerator filter icon</title>
+                                                                <desc></desc>
+                                                                <defs></defs>
+                                                                <g id="filter" stroke="none" stroke-width="1"
+                                                                   fill="none" fill-rule="evenodd">
+                                                                    <path d="M16,10 L16,5 C16,2 14,0 11,0 L5,0 C2,0 0,2 0,5 L0,41 C0,44 2,46 5,46 L11,46 C14,46 16,44 16,41 L16,12 L0,12 L0,10 L16,10 Z"
+                                                                          id="filter" fill="#9B9B9B"></path>
+                                                                </g>
+                                                            </svg>
+                                                        <?php endfor; ?>
+                                                    </p>
+                                                    <p class="product-pack-size-label">
+                                                        <?php echo $packageQty; ?> PACK
+                                                    </p>
+                                                    
+                                                    <?php if ( $this->getCanShowProductPrice( $_product ) && false == true ): ?>
+                                                        <?php if ( $this->getCanShowProductPrice( $_item ) ): ?>
+                                                            <span class="price-box">
+                                                        <span class="regular-price"
+                                                              id="product-price-<?php echo $_item->getId() ?>">
+                                                            <?php echo Mage::helper( 'core' )->currency( $_item->getFinalPrice() ) ?>
+                                                            <span class="price-simple hidden"><?php echo Mage::helper( 'core' )->currency( $_item->getFinalPrice(), false, false ) ?></span>
+                                                        </span>
+                                                    </span>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                    <input type="hidden" class="item-msrp-price"
+                                                           data-item="<?php echo $_item->getId() ?>"
+                                                           value="<?php echo $_item->getMsrp() ?>"/>
+                                                    <input type="hidden" class="item-price"
+                                                           data-item="<?php echo $_item->getId() ?>"
+                                                           value="<?php echo $_item->getFinalPrice() ?>"/>
+                                                </label>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <div>
+                                            <span><?php echo $this->__( 'No options of this product are available.' ) ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                </group>
+                            </div>
+                        </div>
+                        <hr/>
+                        <?php if ( Mage::getStoreConfig( 'autoship_general/general/enabled' ) == '1' ): ?>
+                            <div class="row subscribe-tr">
+                                <div class="col-md-3">
+                                    <span class="pdp--subscription-heading">Save 10%<br/>Deliver every:</span>
+                                </div>
+                                <div class="col-md-9">
+                                    <group class="radio--inline radio--inline__subscription row" data-toggle="buttons">
+                                        <div id="subscrPro">
+                                            <?php echo $this->getChildHtml( 'autoship.product.subscription', true, true ) ?>
+                                            <div class="popUp" id="subscrPopUp" style="display: none;">
+                                                <div id="popUpClose">Close</div>
+                                                <?php echo $this->getLayout()->createBlock( 'cms/block' )->setBlockId( 'subscr_popup_content' )->toHtml(); ?>
+                                                <a class="falseBtn" href="#">Subscribe</a>
+                                            </div>
+                                        </div>
+                                    </group>
+                                </div>
+                            </div>
+                            <hr/>
+                        <?php endif; ?>
+                        <div class="row radio--inline__submit">
+                            <div class="radio--wrap">
+                                <button type="button" title="<?php echo $_buttonTitle ?>" id="addToCartButtonMain"
+                                        onclick="onAddToCart('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape( $_product->getName() ) ?>', jQuery('.radio-subscribe:checked').parents('tr').find('.item-price').val(), '1', '<?php echo $productCategory ?>', '<?php echo $variant ?>', '<?php echo $brand ?>');window.productAddToCartForm.submit(this)">
+                                    <span><span><?php echo $_buttonTitle ?></span></span></button>
+                                <?php echo $this->getChildHtml( 'grouped_product_edit_right' ); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="subscribtion" id="subscrPro" style="display: none;">
+                    <div class="top">&nbsp;</div>
+                    <p class="text">Save an additional 10%
+                        with our No Worries
+                        Subscription! <a class="fireBtn" href="#">Learn More</a></p>
+                    <a class="falseBtn" href="#">Subscribe</a>
+                    <div class="popUp" id="subscrPopUp" style="display: none;">
+                        <div id="popUpClose">Close</div>
+                        <?php echo $this->getChildHtml( 'subscr_popup_content' ); ?>
+                        <a class="falseBtn" href="#">Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script type="text/javascript">
+            //<![CDATA[
+            addEvent(window, 'load', function () {
+                var params = {};
+                window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
+                    params[key] = value;
+                });
+
+                if (params["packageqty"]) { jQuery("[data-packageqty='"+params['packageqty']+"']")[0].parentElement.click(); }
+                else { jQuery("[data-packageqty='1']")[0].parentElement.click(); }
+            });
+
+            window.productAddToCartForm = new VarienForm('product_addtocart_form');
+            window.productAddToCartForm.submit = function (button, url) {
+                var canSubmit = false;
+                ;
+                var options = document.getElementsByClassName('option-validate');
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].checked === true) {
+                        canSubmit = true;
+                    }
+                }
+                if (canSubmit) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+
+                    if (url) {
+                        form.action = url;
+                    }
+                    var e = null;
+                    try {
+                        this.form.submit();
+                    } catch (e) {
+                    }
+                    this.form.action = oldUrl;
+                    if (e) {
+                        throw e;
+                    }
+
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
+                    }
+                } else {
+                    alert('Please specify the quantity of product(s).');
+                }
+            }.bind(window.productAddToCartForm);
+
+            window.productAddToCartForm.freeshipping = function (input) {
+                var form = this.form;
+
+                form.select('.subscribePro input[type=radio]:checked').each(function (element) {
+                    if (element.name != input.name) {
+                        element.checked = false;
+                    } else {
+                        var price = parseFloat(element.up('tr').select('.price-box')[0].select('.price-simple')[0].innerHTML);
+                        <?php if (Mage::getStoreConfig('carriers/freeshipping/active')): ?>
+                        var freeShippingAmount = <?php echo (float) Mage::getStoreConfig('carriers/freeshipping/free_shipping_subtotal') ?>;
+
+                        if (price >= freeShippingAmount) {
+                            var freeShipping = document.getElementsByClassName('free-shipping');
+                            if (freeShipping[0]) {
+                                freeShipping[0].show();
+                            }
+                        } else {
+                            var freeShipping = document.getElementsByClassName('free-shipping');
+                            if (freeShipping[0]) {
+                                freeShipping[0].hide();
+                            }
+                        }
+                        <?php endif; ?>
+                    }
+                });
+            }.bind(window.productAddToCartForm);
+
+            window.productAddToCartForm.submitLight = function (button, url) {
+                if (this.validator) {
+                    var nv = Validation.methods;
+                    delete Validation.methods['required-entry'];
+                    delete Validation.methods['validate-one-required'];
+                    delete Validation.methods['validate-one-required-by-name'];
+                    // Remove custom datetime validators
+                    for (var methodName in Validation.methods) {
+                        if (methodName.match(/^validate-datetime-.*/i)) {
+                            delete Validation.methods[methodName];
+                        }
+                    }
+
+                    if (this.validator.validate()) {
+                        if (url) {
+                            this.form.action = url;
+                        }
+                        this.form.submit();
+                    }
+                    Object.extend(Validation.methods, nv);
+                }
+            }.bind(window.productAddToCartForm);
+
+            window.processGroupedSelection = function (label) {
+
+                var input = $(label.getAttribute("for"));
+                var item = input.getAttribute("data-item");
+
+                if ($$(".price--msrp .price").length > 0) {
+
+                    var msrpPrice = parseFloat($$(".item-msrp-price[data-item='"+ item +"']")[0].value);
+                    $$(".price--msrp .price")[0].innerHTML = "$" + msrpPrice.toFixed(2);
+
+                }
+
+
+                var totalPrice = parseFloat($$(".item-price[data-item='"+ item +"']")[0].value) ;
+                $$(".price--total .price")[0].innerHTML = "$" + totalPrice.toFixed(2);
+
+                var form = $('product_addtocart_form');
+                form.select('input[type=radio].radio-package:checked').each(function (element) {
+                    element.checked = false;
+                });
+
+                $(input).click();
+
+            };
+
+            window.processGroupedOption = function(input) {
+                subscribeCheck(input);
+            };
+
+            window.processGroupedOptionOld = function (input) {
+                <?php if(Mage::getStoreConfig('autoship_general/general/enabled') == '1'): ?>
+                //showSubscribeBlock(input);
+                <?php endif; ?>
+                var form = $('product_addtocart_form');
+                form.select('.subscribePro .each span.price').each(function (element) {
+
+                });
+                form.select('#choose-quantity input[type=radio]:checked').each(function (element) {
+                    var elements = [];
+                    var selector = 'tr';
+                    var parent_elem = element;
+                    var ishaveselector = selector !== undefined;
+                    while ((parent_elem = parent_elem.parentElement) !== null) {
+                        if (parent_elem.nodeType !== Node.ELEMENT_NODE) {
+                            continue;
+                        }
+                        if (parent_elem.match(selector)) {
+                            elements.push(parent_elem);
+                            continue;
+                        }
+                    }
+                    var price = $(elements[0].select('.each span.price')[0]);
+
+                    if (element.name != input.name) {
+                        element.checked = false;
+                        if (price) {
+                            price.setStyle({
+                                color: '#999',
+                            });
+                        }
+                    } else {
+                        if (price) {
+                            price.setStyle({
+                                color: '#E97913',
+                            });
+                        }
+                    }
+                });
+                var qty = parseInt($(input).readAttribute('data-packageqty'));
+                if (qty) {
+                    $('package-qty-' + qty).click();
+                }
+                $('delivery-interval-package-' + qty*6).selected=true;
+            };
+
+            function showSubscribeBlock(input) {
+                $('subscrPro').hide();
+                if (input.checked) {
+                    if (input.next().select('.checker')[0] != null) {
+                        $('subscrPro').show();
+                    }
+                }
+            }
+
+            $$('a.fireBtn').invoke('observe', 'click', function (e) {
+                $('subscrPopUp').show();
+                e.preventDefault();
+            });
+            $$('a.falseBtn').invoke('observe', 'click', function (e) {
+                //$$('input:checked.option-validate')[0].next().select('.delivery-option-subscribe')[0].click();
+                $('addToCartButtonMain').click();
+                e.preventDefault();
+            });
+            var popUpClose = $('popUpClose');
+            if (popUpClose){
+                popUpClose.observe('click', function (e) {
+                    $('subscrPopUp').hide();
+                });
+            }
+
+            //});
+            //]]>
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

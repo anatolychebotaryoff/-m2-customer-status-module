@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_FlatTableFixes>
+            <version>0.1.0</version>
+        </Lyonscg_FlatTableFixes>
+    </modules>
+    <global>
+        <resources>
+            <lyonscg_flattablefixes_setup>
+                <setup>
+                    <module>Lyonscg_FlatTableFixes</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>default_setup</use>
+                </connection>
+            </lyonscg_flattablefixes_setup>
+        </resources>
+    </global>
+</config>

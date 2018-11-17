@@ -1,0 +1,151 @@
+<?php if($this->getEnabled()): ?>
+	<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/bestseller/bestseller_global.css'); ?>">
+<?php
+	$result = array();
+	$pro = array();
+	//$this->setLimit(3);
+	$bestseller_collection = $this->getBestsellerProductNew();
+	foreach($bestseller_collection as $collection){
+		$pro[] = $collection->getEntityId();
+	}
+    if($this->getChooseProducts() == "1" || $this->getChooseProducts() == "4") {
+		$result = $pro;
+	}elseif($this->getChooseProducts() == "2") {
+	   $result = $this->getProductIds();
+	}else{
+		if($this->getSortOrder() == 1){
+			$result = array_unique(array_merge($pro, $this->getProductIds()));
+		}elseif($this->getSortOrder() == 2){
+			$result = array_unique(array_merge($this->getProductIds(),$pro));
+		}else{
+			$result = array_unique(array_merge($pro, $this->getProductIds()));
+			shuffle($result);
+		}
+	}
+	$upperLimit = ($this->getLimit()) ? $this->getLimit() : 1; 
+	$itemPerRow = ($this->getItemsPerRow()) ? $this->getItemsPerRow() : 1 ;
+	$_columnCount = ($this->getItemsPerRow()) ? $this->getItemsPerRow() : 1 ;
+	
+?>
+
+<?php if($this->getDisplayHeader()): ?>
+	<div class="titles">
+		<h3><?php if(count($result) > 0) { echo $this->getHeader(); } ?></h3>
+	</div>
+<?php endif; ?>
+
+<?php foreach($result as $key => $_result): $key++?>
+	<?php if($key == 1 || $key % 4 == 0): ?>
+		<div style="margin-bottom: 2%;" class="section group bestseller-hp">
+	<?php endif; ?>
+			<?php $_product = $this->getProducts($_result); ?>
+			<?php if(!$_product){continue;} ?>
+			<div class="col span_1_of_3 col-shadow-1">
+				<section>
+					<div class="hp-col-left product-info">
+						<?php if($this->getProductsPrice()): ?>
+							<span class="bestseller-price" id="bestseller-product-price-<?php echo $_product->getId()?>">
+							<?php echo $this->getPriceHtml($_product, true); ?>
+							</span>
+						<?php endif ?>
+						<?php if($this->getReview()): ?>
+							<div class="row-product row-yotpo">
+								<div class="yotpo-bottomLine-wrapper">
+									<span class="hidden yotpo-data" data-url="<?php echo $_product->getProductUrl() ?>"></span>
+									<?php $this->helper('uswf_yotpo')->showBottomline($this, $_product); ?>
+								</div>
+							</div>
+						<?php endif ?>
+						<h2 class="product-name">
+							<a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo $this->htmlEscape($_product['name']) ?>"><?php echo $this->htmlEscape($_product['name']) ?></a>
+						</h2>
+						<div class="actions" style="display:block !important">
+							<?php if($this->getAddToCart()): ?>
+								<?php $_helperUV = $this->helper('uswf_universalvariable'); ?>
+								<?php $package_qty = $_product->getPackageQty(); ?>
+								<?php if (is_numeric($package_qty) && (int)$package_qty != 1) : ?>
+									<?php $variant = $package_qty.'pk'; ?>
+								<?php else : ?>
+									<?php $variant = 'single'; ?>
+								<?php endif; ?>
+								<?php $brand = ($_product->getAttributeText('manufacturer') ? $this->jsQuoteEscape($_product->getAttributeText('manufacturer')) : null); ?>
+								<?php $_noLongerSold = $_product->getNotForSale() ?>
+								<?php $buttonTitle = 'Add to Cart'; ?>
+								<?php $productName = $this->jsQuoteEscape($_product->getName()) ?>
+								<?php $productCategory = $_helperUV->getAttributeValue($_product->getId(), 'item_type'); ?>
+								<?php if ($_product->getTypeId() == 'bundle') {
+									$locationUrl = $this->getUrl('bundle/cart/add') . 'id' . DS . $_product->getId();
+									$onClick = "onAddToCart('{$_product->getSku()}', '{$productName}', '{$_product->getFinalPrice()}', '1', '{$productCategory}', '{$variant}', '{$brand}');";
+								} elseif ($_product->getTypeId() == 'grouped') {
+									$locationUrl = $_product->getProductUrl();
+									$buttonTitle = 'View Details';
+									$onClick = "onProductClick('{$_product->getSku()}', '{$productName}', 'Category', '{$productCategory}', '{$variant}', '{$brand}');";
+								} else {
+									$locationUrl = $this->getAddToCartUrl($_product);
+									$onClick = "onAddToCart('{$_product->getSku()}', '{$productName}', '{$_product->getFinalPrice()}', '1', '{$productCategory}', '{$variant}', '{$brand}');";
+								}?>
+								<?php if( $_product->getNotForSale() ): ?>
+									<button type="button" title="<?php echo $this->__('View Details') ?>" class="button btn-cart" onclick="onProductClick('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape($_product->getName()) ?>', 'Category', '<?php echo $productCategory ?>' , '<?php echo $variant ?>', '<?php echo $brand ?>' );setLocation('<?php echo $_product->getProductUrl() ?>')"><span><span><?php echo $this->__('View Details') ?></span></span></button>
+								<?php elseif($_product->isSaleable()): ?>
+									<button type="button" title="<?php echo $this->__($buttonTitle) ?>" class="button btn-cart" onclick="<?php echo $onClick ?>setLocation('<?php echo $locationUrl ?>')"><span><span><?php echo $this->__($buttonTitle) ?></span></span></button>
+								<?php else: ?>
+									<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+								<?php endif; ?>
+							<?php endif; ?>
+						</div>
+					</div>
+					<div class="hp-col-right">
+						<a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="bestseller-product-image">
+							<img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(($this->getImageHeight()) ? $this->getImageHeight() : 135,($this->getImageWidth()) ? $this->getImageWidth() : 135); ?>" alt="<?php echo $this->htmlEscape($_product['name']) ?>"/>
+						</a>
+					</div>
+				</section>
+			</div>
+	<?php if(count($result) == $key || $key % 3 == 0): ?>
+		</div>
+	<?php endif; ?>
+<?php endforeach; ?>
+
+	<script type="text/javascript">
+		jQuery(window).bind('load',function(){
+			/*For review section at home page*/
+			new PeriodicalExecuter(function(pe) {
+				if (typeof yotpo != 'undefined') {
+					if (yotpo.state == 'ready') {
+						pe.stop();
+						var elemCol = document.getElementsByClassName("standalone-bottomline");
+						for (var i = 0; i < elemCol.length; i++) {
+							var item = elemCol.item(i);
+							if (jQuery(item).parents('.product-info').length) {
+								item.addEventListener('click',
+									function (event) {
+										event.stopPropagation();
+										var ulr = jQuery(this).parents('.product-info').find('.yotpo-data').data('url');
+										if (typeof ulr != "undefined") {
+											setLocation(ulr + "#customer-reviews");
+										}
+									},
+									false);
+							}
+						}
+						changeMaxHeight();
+					}
+				}else{
+					changeMaxHeight();
+					pe.stop();
+				}
+			}, 0.25);
+		});
+		jQuery(window).bind('resize',function(){
+			changeMaxHeight();
+		});
+		function  changeMaxHeight(){
+			jQuery('.bestseller-hp .col').css({'height' : ''});
+			var maxHeight = Math.max.apply(null, jQuery('.bestseller-hp .col').map(function ()
+			{
+				return jQuery(this).outerHeight();
+			}).get());
+			jQuery('.bestseller-hp .col').height(maxHeight);
+		}
+	</script>
+ <?php endif; ?>

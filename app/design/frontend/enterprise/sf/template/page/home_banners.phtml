@@ -1,0 +1,28 @@
+<?php if (Mage::helper('uswf_smartfit')->isBannersEnabled()):?>
+    <script>
+        jQuery(function(){
+            jQuery('#camera_wrap').camera(<?php echo Mage::helper('uswf_smartfit')->getCameraConfig();?>);
+        });
+    </script>
+    <div class="slider-showcase">
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <?php echo Mage::helper('uswf_smartfit')->getTopLeftBanner();?>
+                <?php echo Mage::helper('uswf_smartfit')->getBottomLeftBanner();?>
+            </div>
+            <?php if ($sliderBanners = Mage::helper('uswf_smartfit')->getSliderBanners()):?>
+                <div class="col-md-9 col-sm-12">
+                    <div class="slider_wrapper">
+                        <div class="camera_wrap" id="camera_wrap">
+                            <?php echo $sliderBanners;?>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            <?php endif;?>
+        </div>
+    </div>
+    <div class="additional-info-1">
+        <?php echo Mage::helper('uswf_smartfit')->getBottomBanner();?>
+    </div>
+<?php endif;?>

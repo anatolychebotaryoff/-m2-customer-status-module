@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Sam_FilterFinder>
+            <version>1.0.0</version>
+        </Sam_FilterFinder>
+    </modules>
+    <global>
+        <blocks>
+            <sam_filterfinder>
+                <class>Sam_FilterFinder_Block</class>
+            </sam_filterfinder>
+        </blocks>
+        <helpers>
+            <sam_filterfinder>
+                <class>Sam_FilterFinder_Helper</class>
+            </sam_filterfinder>
+        </helpers>
+        <models>
+            <sam_filterfinder>
+                <class>Sam_FilterFinder_Model</class>
+            </sam_filterfinder>
+        </models>
+    </global>
+
+    <frontend>
+        <routers>
+            <samfilter>
+                <use>standard</use>
+                <args>
+                    <module>Sam_FilterFinder</module>
+                    <frontName>samfilter</frontName>
+                </args>
+            </samfilter>
+        </routers>
+
+    </frontend>
+</config>

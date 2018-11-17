@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <onestepcheckout_index_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="uswf_googleplaces/general/active"><script>prototype/window.js</script></action>
+            <action method="addCss" ifconfig="uswf_googleplaces/general/active">
+                <stylesheet>uswf/googleplaces/prototype/windows/themes/popup-address.css</stylesheet>
+            </action>
+        </reference>
+
+        <reference name="before_body_end">
+            <block type="core/template" name="onestepcheckout.googleplaces" template="uswf/googleplaces/onestepcheckout/script.phtml" />
+        </reference>
+    </onestepcheckout_index_index>
+
+</layout>

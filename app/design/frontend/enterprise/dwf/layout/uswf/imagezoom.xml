@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<layout>
+    
+    <catalog_product_view>
+        <reference name="head">
+            <action method="addCss"><name>css/uswf/imagezoom.css</name></action>
+            <action method="addCss"><name>css/uswf/lightbox.css</name></action>
+            <action method="addJs"><script>jquery/jquery.iosslider.min.js</script><group>loadgroup="after_jquery2" </group></action>
+            <action method="addJs"><script>uswf/jquery.jqzoom.custom.js</script><group>loadgroup="after_jquery2" </group></action>
+            <action method="addJs"><script>uswf/lightbox.min.js</script><group>loadgroup="after_jquery" </group></action>
+            <block type="core/text" name="lazyload">
+                <action method="setText"><text><![CDATA[<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js?q=56"></script>]]></text></action>
+            </block>
+        </reference>
+        <reference name="product.info">
+            <action method="unsetChild"><name>product.info.media</name></action>
+            <block type="catalog/product_view_media"
+                   name="product.info.media"
+                   as="media"
+                   template="catalog/product/view/uswf_imagezoom/media.phtml">
+                <block type="catalog/product_view" name="product.videoblock" as="static_video_block" template="catalog/product/view/videoblock.phtml"/>
+            </block>
+        </reference>
+    </catalog_product_view>
+    
+    <review_product_list>
+        <reference name="head">
+            <action method="addCss"><name>css/uswf/imagezoom.css</name></action>
+            <action method="addJs"><script>jquery/jquery.iosslider.min.js</script><group>loadgroup="after_jquery2" </group></action>
+            <action method="addJs"><script>uswf/jquery.jqzoom.custom.js</script><group>loadgroup="after_jquery2" </group></action>
+            <action method="addJs"><script>uswf/lightbox.min.js</script><group>loadgroup="after_jquery" </group></action>
+        </reference>
+        <reference name="product.info">
+            <action method="unsetChild"><name>product.info.media</name></action>
+            <block type="catalog/product_view_media"
+                   name="product.info.media"
+                   as="media"
+                   template="catalog/product/view/uswf_imagezoom/media.phtml"/>
+        </reference>
+    </review_product_list>
+    
+</layout>

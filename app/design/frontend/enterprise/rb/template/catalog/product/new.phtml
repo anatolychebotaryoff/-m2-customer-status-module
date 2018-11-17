@@ -1,0 +1,106 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+?>
+
+<?php if (($_products = $this->getProductCollection()) && $_products->getSize() && Mage::helper('uswf_replacementbrand')->isNewProductSliderEnabled()): ?>
+<div class="page-title category-title">
+        <h1><?php echo $this->__('New Products') ?></h1>
+</div>
+<?php $_columnCount = count($_products->getItems()); ?>
+    <?php $i=0; foreach ($_products->getItems() as $_product): ?>
+        <?php if ($i++%$_columnCount==0): ?>
+        <div class="carousel_wrapper">
+            <ul class="products-grid row" id="new-carousel">
+            <?php endif ?>
+                <li class="new-product-item <?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>" itemscope itemtype="http://schema.org/product">
+                    <div class="new-poduct_wrapper">
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(228) ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>"/></a>
+                        <div class="product-shop">
+                            <?php echo $this->getPriceHtml($_product, true, '-new') ?>
+                            <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" itemprop="name"><?php echo $this->htmlEscape($_product->getName()) ?></a></h3>
+                            <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                            <div class="desc_grid" itemprop="description"><?php $small_getDescription = strip_tags($_product->getShortDescription());
+                             if (strlen($small_getDescription) < 70) echo($small_getDescription);
+                             else { echo mb_substr($small_getDescription, 0, 70,'UTF-8').'...';} ?></div>
+                            <div class="actions">
+                                <?php if($_product->isSaleable()): ?>
+                                    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span class="fa fa-shopping-cart"></span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                                <?php else: ?>
+                                    <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                                <?php endif; ?>
+                                <ul class="add-to-links">
+                                    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                        <li><a title="<?php echo $this->__('Add to Wishlist') ?>" href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" rel="tooltip" class="link-wishlist my-button"><span class="fa fa-star"></span></a></li>
+                                    <?php endif; ?>
+                                    <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                                        <li><span class="separator">|</span> <a  title="<?php echo $this->__('Add to Compare') ?> " href="<?php echo $_compareUrl ?>" rel="tooltip" class="link-compare my-button"><span class="fa fa-compress"></span></a></li>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php $_product = Mage::getModel('catalog/product')->load($_product->getId()); ?>
+                        <div class="label-product">             
+                            <?php if($_product->getData('new')){echo '<span class="new">'.$this->__('New!').'</span>';  }?>
+                            <?php if($_product->getData('sale')){echo '<span class="sale">'.$this->__('Sale!').'</span>';  }?>
+                        </div>
+                    </div>
+                </li>
+            <?php if ($i%$_columnCount==0 || $i==count($_products)): ?>
+            </ul>
+        </div>
+        <?php endif ?>
+    <?php endforeach; ?>
+<script>
+    jQuery("#new-carousel").flexisel({
+        visibleItems: 4,
+        animationSpeed: 300,
+        autoPlay: true,
+        autoPlaySpeed: 5000,
+        pauseOnHover: true,
+        touch: true,
+        enableResponsiveBreakpoints: true,
+        responsiveBreakpoints: { 
+            portrait: { 
+                changePoint:480,
+                visibleItems: 1
+            }, 
+            landscape: { 
+                changePoint:640,
+                visibleItems: 2
+            },
+            tablet: { 
+                changePoint:768,
+                visibleItems: 2
+            }
+        }
+    });
+</script>
+
+<?php endif; ?>

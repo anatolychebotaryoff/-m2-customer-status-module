@@ -1,0 +1,81 @@
+<div id="hardness-wrapper">
+    <div class="row">
+        <div class="col-md-12 widget-header"><h3>DISCOVER YOUR WATER HARDNESS</h3></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <div class="widget-info">
+                    <p class="with-star">Hard water reduces the life of your pipes and appliances and can damage your clothes and
+                        skin.</p>
+                    <p class="with-star">85% of Americans suffer from the effects of hard water.</p>
+                    <p  style="font-size: 19px; text-align: center;" >Search your zip code below to discover the level of hardness in your area.</p>
+                </div>
+                <div class="hardness-search-form">
+                    <form id="hardness-form" type="post">
+                        <input id="zip-code" type="text" name="zipcode" placeholder="Enter 5-Digit Zip Code Here"
+                               pattern="^[0-9]{5}$" maxlength="5" required
+                               oninput="checkZipMess()">
+                        <button onclick="checkZip()">Search</button>
+                    </form>
+                </div>
+                <p style="font-size: 16px; text-align: center; font-style: italic; margin-top: 15px;">Hardness levels are based on averages taken <br>
+                    from EPA water quality samples in your area.</p>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('hardness_infographic')->toHtml(); ?>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function checkZipMess() {
+
+        var ZIPField = document.getElementById("zip-code");
+
+        // Build the constraint checker
+        var constraint = new RegExp("[0-9]{5}", "");
+
+        if (ZIPField.value != "") {
+            // Check it!
+            if (constraint.test(ZIPField.value)) {
+                ZIPField.setCustomValidity("");
+            }
+            else {
+                ZIPField.setCustomValidity("This is not a five digit zip code. Please try again.");
+            }
+        } else {
+            ZIPField.setCustomValidity("Please input your Zip code.");
+        }
+    }
+
+    function checkZip() {
+        jQuery('#hardness-form').submit(function (e) {
+            e.preventDefault();
+        });
+        var ZIPField = document.getElementById("zip-code");
+
+        var constraint = new RegExp("[0-9]{5}", "");
+
+        if (ZIPField.value != "") {
+            // Check it!
+            if (constraint.test(ZIPField.value)) {
+                jQuery.ajax({
+                    url: "<?php echo Mage::getBaseUrl(); ?>hardness/ajax/checkzip/",
+                    type: "POST",
+                    data: 'zip_code=' + ZIPField.value,
+                    success: function (data) {
+                        if (data['result']) {
+                            jQuery(document.getElementById('hardness-wrapper')).html(data['html']);
+                        } else {
+                            alert('We do not currently have any information on that zip code. Please pick another zip code or contact our customer service department at 1-800-277-3458.');
+                        }
+                        return false;
+                    }
+                });
+            }
+        }
+    }
+</script>

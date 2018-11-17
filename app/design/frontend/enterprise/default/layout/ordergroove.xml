@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+	<onestepcheckout_index_index>
+		<reference name="footer">
+			<block type="ordergroove/footer" name="ordergroove.footer.cart" as="ordergroove.footer" template="ordergroove/subscription/footer/onepage_checkout.phtml">
+				<action method="setActionId"><param>3</param></action>
+			</block>
+		</reference>
+	</onestepcheckout_index_index>
+	
+	<!-- OwnProduct specific fields -->
+	<checkout_onepage_index>
+		<!--reference name="checkout.onepage.review">
+			<action method="setTemplate"><template>ordergroove/subscription/cart_onepage_review.phtml</template></action>
+		</reference-->
+		<reference name="footer">
+			<block type="ordergroove/footer" name="ordergroove.footer.cart" as="ordergroove.footer" template="ordergroove/subscription/footer/onepage_checkout.phtml">
+				<action method="setActionId"><param>3</param></action>
+			</block>
+		</reference>
+	</checkout_onepage_index>
+	
+	<checkout_cart_index>
+		<reference name="footer">
+			<block type="ordergroove/footer" name="ordergroove.footer.checkout.cart" as="ordergroove.footer" template="ordergroove/subscription/footer/checkout_cart.phtml">
+				<action method="setActionId"><param>2</param></action>
+			</block>
+		</reference>
+	</checkout_cart_index>
+	
+	<checkout_onepage_success>
+		<reference name="checkout.success">
+            <action method="setTemplate"><template>ordergroove/subscription/success.phtml</template></action>
+        </reference>
+		<!--reference name="content">
+            <block type="ordergroove/subscription" name="subscription" as="subscription" before="-" template="ordergroove/subscription/success_create.phtml" />
+        </reference-->
+		<reference name="footer">
+			<block type="ordergroove/footer" name="ordergroove.footer.order.success" as="ordergroove.footer" template="ordergroove/subscription/footer/order_success.phtml">
+				<action method="setActionId"><param>4</param></action>
+			</block>
+		</reference>
+    </checkout_onepage_success>
+	
+	<catalog_product_view>
+		<reference name="footer">
+			<block type="ordergroove/footer" name="ordergroove.footer.product.detail" as="ordergroove.footer" template="ordergroove/subscription/footer/product_detail.phtml">
+				<action method="setActionId"><param>1</param></action>
+			</block>
+		</reference>
+	</catalog_product_view>
+	
+	<catalog_category_default>
+		<!--reference name="product_list">
+			<action method="setTemplate"><template>ordergroove/subscription/product_list.phtml</template></action>
+		</reference-->
+		<reference name="footer">
+			<block type="ordergroove/footer" name="ordergroove.footer.category" as="ordergroove.footer" template="ordergroove/subscription/footer/category.phtml">
+				<action method="setActionId"><param>6</param></action>
+			</block>
+		</reference>
+	</catalog_category_default>
+	
+	<catalog_category_view>
+		<!--reference name="product_list">
+			<action method="setTemplate"><template>ordergroove/subscription/product_list.phtml</template></action>
+		</reference-->
+		<reference name="footer">
+			<block type="ordergroove/footer" name="ordergroove.footer.category" as="ordergroove.footer" template="ordergroove/subscription/footer/category.phtml">
+				<action method="setActionId"><param>6</param></action>
+			</block>
+		</reference>
+	</catalog_category_view>
+	
+	<ordergroove_account_index>
+		<label>My Auto Delivery</label>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		<reference name="content">
+			<block type="core/template" name="ordergroove.msi.container" as="ordergroove.msi.container" template="ordergroove/subscription/msi_container.phtml" />
+		</reference>
+		<reference name="footer">
+			<block type="ordergroove/footer" name="ordergroove.footer.account" as="ordergroove.footer" template="ordergroove/subscription/footer/account.phtml" />
+		</reference>
+	</ordergroove_account_index>
+	
+	<customer_account>
+		<reference name="customer_account_navigation">
+				<action method="addLink" translate="label" module="customer"><name>account_delivery</name><path>ordergroove/account/index</path><label>My Auto Delivery</label></action>
+		</reference>
+    </customer_account>
+	<!--need testing-->
+	<harapartners_ordergroove_checkout_cart_index>
+		<update handle="checkout_cart_index" />
+	</harapartners_ordergroove_checkout_cart_index>
+
+</layout>

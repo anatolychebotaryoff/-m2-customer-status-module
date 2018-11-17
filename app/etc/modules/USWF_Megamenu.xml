@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Megamenu>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Cmsmart_Megamenu/>
+            </depends>
+        </USWF_Megamenu>
+    </modules>
+</config>

@@ -1,0 +1,27 @@
+
+<?php
+/**
+ * @see USWF_ComparePage_Block_Adminhtml_Catalog_Form_Renderer_Fieldset_Compare_Products_Element
+ */
+?>
+<?php $_element = $this->getElement() ?>
+<?php
+    $elementToggleCode = $_element->getToggleCode() ? $_element->getToggleCode()
+        : 'toggleValueElements(this, this.parentNode.parentNode)';
+?>
+
+<tr class="<?php echo trim($_element->getClassGroup()); ?>">
+    <td class="label"><?php echo trim($this->getElementLabelHtml()) ?></td>
+    <td></td>
+    <td class="scope-label"><span class="nobr"><?php echo $this->getScopeLabel() ?></span></td>
+    <?php if ($this->canDisplayUseDefault()): ?>
+        <td class="value use-default">
+        </td>
+    <?php endif; ?>
+</tr>
+<tr class="<?php echo $_element->getClass(); ?> <?php echo trim($_element->getClassGroup()); ?>">
+    <td class="value" colspan="4">
+        <?php echo trim($this->getElementHtml()) ?>
+    </td>
+</tr>
+

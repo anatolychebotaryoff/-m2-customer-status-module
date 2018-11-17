@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <uswf_linkscatalog translate="label" module="uswf_linkscatalog">
+            <label>Links Catalog</label>
+            <tab>uswf</tab>
+            <sort_order>50</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label" module="uswf_linkscatalog">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <links_to_merv_rating translate="label">
+                            <label>MERV Rating (Overall)</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Example -> Links to: http://www.discountfilterstore.com/merv-ratings-explained.html</comment>
+                            <validate>validate-url</validate>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </links_to_merv_rating>
+                        <links_to_mpr translate="label">
+                            <label>Microparticle Performance Rating (MPR)</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Example -> Links to: http://www.discountfilterstore.com/microparticle-performance-rating.html</comment>
+                            <validate>validate-url</validate>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </links_to_mpr>
+                    </fields>
+                </general>
+            </groups>
+        </uswf_linkscatalog>
+    </sections>
+</config>

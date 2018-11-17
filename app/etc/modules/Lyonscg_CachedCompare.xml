@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_CachedCompare>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends></depends>
+        </Lyonscg_CachedCompare>
+    </modules>
+</config>

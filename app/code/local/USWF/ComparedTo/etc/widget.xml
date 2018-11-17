@@ -1,0 +1,889 @@
+<?xml version="1.0"?>
+<widgets>
+    <catalog_product_compare_new type="uswf_comparedto/product_widget_link" translate="name description" module="catalog">
+        <name>New Product Compare</name>
+        <description>Compare 2 products</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <product1_custom_name translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <value></value>
+                <label>Tier1 product name (left empty for autofill)</label>
+                <type>text</type>
+                <sort_order>7</sort_order>
+            </product1_custom_name>
+            <product1 translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Compared Tier1 Product</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </product1>
+            <default1>
+                <visible>1</visible>
+                <required>0</required>
+                <label>If product is a Grouped product then select default selection, leave empty for no default</label>
+                <type>text</type>
+                <sort_order>12</sort_order>
+            </default1>
+            <options1 translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>If product is a Grouped product then select package quantities to show (Comma seperated list of package quantities)</label>
+                <type>text</type>
+                <sort_order>15</sort_order>
+            </options1>
+            <review_detail_product1>
+                <visible>1</visible>
+                <required>0</required>
+                <value></value>
+                <label>Review Product1(detail)</label>
+                <type>textarea</type>
+                <sort_order>18</sort_order>
+            </review_detail_product1>
+            <quality_icons_product1 type="complex" translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>Static Block Id for Product1(quality-icons)</label>
+                <value>0</value>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/cms_block_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Block...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>19</sort_order>
+            </quality_icons_product1>
+            <label1 translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <value>Recommended Low-Cost Alternative</value>
+                <label>Tier1 Title Bar Text</label>
+                <type>text</type>
+                <sort_order>21</sort_order>
+            </label1>
+            <desc_font_size1>
+                <visible>1</visible>
+                <required>1</required>
+                <value>17</value>
+                <label>Font size (product description)</label>
+                <type>text</type>
+                <sort_order>22</sort_order>
+            </desc_font_size1>
+            <desc_bold1>
+                <visible>1</visible>
+                <required>1</required>
+                <value>no</value>
+                <label>Font bold (product description)</label>
+                <type>select</type>
+                <values>
+                    <no>
+                        <label>Normal</label>
+                        <value>400</value>
+                    </no>
+                    <yes>
+                        <label>Bold</label>
+                        <value>600</value>
+                    </yes>
+                </values>
+                <sort_order>23</sort_order>
+            </desc_bold1>
+            <ribbon_pos1>
+                <visible>1</visible>
+                <required>1</required>
+                <value>left</value>
+                <label>Ribbon Position Tier1</label>
+                <type>select</type>
+                <values>
+                    <yes>
+                        <label>Left</label>
+                        <value>left</value>
+                    </yes>
+                    <no>
+                        <label>Right</label>
+                        <value>right</value>
+                    </no>
+                </values>
+                <sort_order>24</sort_order>
+            </ribbon_pos1>
+            <details1>
+                <visible>1</visible>
+                <required>1</required>
+                <value></value>
+                <label>Details Tab Text For Tier1</label>
+                <type>textarea</type>
+                <sort_order>25</sort_order>
+            </details1>
+            <compatibility1>
+                <visible>1</visible>
+                <required>1</required>
+                <value></value>
+                <label>Compatibility Tab Text For Tier1</label>
+                <type>textarea</type>
+                <sort_order>26</sort_order>
+            </compatibility1>
+            <product2_custom_name translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <value></value>
+                <label>OEM product name (left empty for autofill)</label>
+                <type>text</type>
+                <sort_order>28</sort_order>
+            </product2_custom_name>
+            <product2 translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Compared OEM Product</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>30</sort_order>
+            </product2>
+            <default2>
+                <visible>1</visible>
+                <required>0</required>
+                <label>If product is a Grouped product then select default selection, leave empty for no default</label>
+                <type>text</type>
+                <sort_order>32</sort_order>
+            </default2>
+            <options2 translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>If product is a Grouped product then select package quantities to show (Comma seperated list of package quantities)</label>
+                <type>text</type>
+                <sort_order>35</sort_order>
+            </options2>
+            <review_detail_product2>
+                <visible>1</visible>
+                <required>0</required>
+                <value></value>
+                <label>Review Product2(detail)</label>
+                <type>textarea</type>
+                <sort_order>38</sort_order>
+            </review_detail_product2>
+            <quality_icons_product2 type="complex" translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>Static Block Id for Product2(quality-icons)</label>
+                <value>0</value>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/cms_block_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Block...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>39</sort_order>
+            </quality_icons_product2>
+            <label2 translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <value>Your Current Selection</value>
+                <label>OEM Title Bar Text</label>
+                <type>text</type>
+                <sort_order>41</sort_order>
+            </label2>
+            <ribbon_pos2>
+                <visible>1</visible>
+                <required>1</required>
+                <value>right</value>
+                <label>Ribbon Position OEM</label>
+                <type>select</type>
+                <values>
+                    <yes>
+                        <label>Left</label>
+                        <value>left</value>
+                    </yes>
+                    <no>
+                        <label>Right</label>
+                        <value>right</value>
+                    </no>
+                </values>
+                <sort_order>42</sort_order>
+            </ribbon_pos2>
+            <details2>
+                <visible>1</visible>
+                <required>1</required>
+                <value></value>
+                <label>Details Tab Text For OEM</label>
+                <type>textarea</type>
+                <sort_order>43</sort_order>
+            </details2>
+            <compatibility2>
+                <visible>1</visible>
+                <required>1</required>
+                <value></value>
+                <label>Compatibility Tab Text For OEM</label>
+                <type>textarea</type>
+                <sort_order>44</sort_order>
+            </compatibility2>
+            <tier_price_output>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Output tier prices</label>
+                <type>select</type>
+                <values>
+                    <no>
+                        <label>No</label>
+                        <value>0</value>
+                    </no>
+                    <yes>
+                        <label>Yes</label>
+                        <value>1</value>
+                    </yes>
+                </values>
+                <sort_order>46</sort_order>
+            </tier_price_output>
+            <active_tabs>
+                <visible>1</visible>
+                <required>1</required>
+                <value>uswf_comparedto/product_widget_tabs_productcomparsion,uswf_comparedto/product_widget_tabs_instructions,uswf_comparedto/product_widget_tabs_faq,uswf_comparedto/product_widget_tabs_compatibility,uswf_comparedto/product_widget_tabs_details</value>
+                <label>Enabled Tabs</label>
+                <type>multiselect</type>
+                <values>
+                    <product_comparsion>
+                        <label>Product Comparsion</label>
+                        <value>uswf_comparedto/product_widget_tabs_productcomparsion</value>
+                    </product_comparsion>
+                    <instructions>
+                        <label>Instructions</label>
+                        <value>uswf_comparedto/product_widget_tabs_instructions</value>
+                    </instructions>
+                    <faq>
+                        <label>FAQ</label>
+                        <value>uswf_comparedto/product_widget_tabs_faq</value>
+                    </faq>
+                    <compatibility>
+                        <label>Compatibility</label>
+                        <value>uswf_comparedto/product_widget_tabs_compatibility</value>
+                    </compatibility>
+                    <details>
+                        <label>Details</label>
+                        <value>uswf_comparedto/product_widget_tabs_details</value>
+                    </details>
+                </values>
+                <sort_order>48</sort_order>
+            </active_tabs>
+            <display_sku>
+                <visible>1</visible>
+                <required>1</required>
+                <value>yes</value>
+                <label>Display SKU</label>
+                <type>select</type>
+                <values>
+                    <yes>
+                        <label>Yes</label>
+                        <value>1</value>
+                    </yes>
+                    <no>
+                        <label>No</label>
+                        <value>0</value>
+                    </no>
+                </values>
+                <sort_order>49</sort_order>
+            </display_sku>
+            <tier1_position>
+                <visible>1</visible>
+                <required>1</required>
+                <value>0</value>
+                <label>Tier1 Product Position</label>
+                <type>select</type>
+                <values>
+                    <left>
+                        <label>Left</label>
+                        <value>0</value>
+                    </left>
+                    <right>
+                        <label>Right</label>
+                        <value>1</value>
+                    </right>
+                </values>
+                <sort_order>49</sort_order>
+            </tier1_position>
+            <attributes>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Attributes to Include</label>
+                <type>multiselect</type>
+                <source_model>lyonscg_comparedto/catalog_product_attribute_widget_chooser</source_model>
+                <sort_order>50</sort_order>
+            </attributes>
+            <user_defined1_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 1 Text</label>
+                <type>text</type>
+                <sort_order>70</sort_order>
+            </user_defined1_text>
+            <user_defined1_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 1 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>80</sort_order>
+            </user_defined1_low_cost>
+            <user_defined1_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 1 OEM Text</label>
+                <type>text</type>
+                <sort_order>90</sort_order>
+            </user_defined1_oem>
+            <user_defined2_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 2 Text</label>
+                <type>text</type>
+                <sort_order>100</sort_order>
+            </user_defined2_text>
+            <user_defined2_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 2 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>110</sort_order>
+            </user_defined2_low_cost>
+            <user_defined2_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 2 OEM Text</label>
+                <type>text</type>
+                <sort_order>120</sort_order>
+            </user_defined2_oem>
+            <user_defined3_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 3 Text</label>
+                <type>text</type>
+                <sort_order>130</sort_order>
+            </user_defined3_text>
+            <user_defined3_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 3 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>140</sort_order>
+            </user_defined3_low_cost>
+            <user_defined3_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 3 OEM Text</label>
+                <type>text</type>
+                <sort_order>150</sort_order>
+            </user_defined3_oem>
+            <user_defined4_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 4 Text</label>
+                <type>text</type>
+                <sort_order>160</sort_order>
+            </user_defined4_text>
+            <user_defined4_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 4 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>170</sort_order>
+            </user_defined4_low_cost>
+            <user_defined4_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 4 OEM Text</label>
+                <type>text</type>
+                <sort_order>180</sort_order>
+            </user_defined4_oem>
+            <user_defined5_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 5 Text</label>
+                <type>text</type>
+                <sort_order>190</sort_order>
+            </user_defined5_text>
+            <user_defined5_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 5 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>200</sort_order>
+            </user_defined5_low_cost>
+            <user_defined5_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 5 OEM Text</label>
+                <type>text</type>
+                <sort_order>210</sort_order>
+            </user_defined5_oem>
+            <template translate="label">
+                <label>Template</label>
+                <visible>0</visible>
+                <type>select</type>
+                <value>catalog/product/widget/compare_new.phtml</value>
+            </template>
+        </parameters>
+    </catalog_product_compare_new>
+    <catalog_product_compare_air_filter type="uswf_comparedto/product_widget_link_airfilter" translate="name description" module="catalog">
+        <name>New Product Compare For Air Filters</name>
+        <description>Compare 2 air filters</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <quantity>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Enter quantity for comparsion (should be greater than package quantity and should be divided by package quantity without a remainder)</label>
+                <type>text</type>
+                <sort_order>5</sort_order>
+            </quantity>
+            <product1_custom_name translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <value></value>
+                <label>Tier1 product name (left empty for autofill)</label>
+                <type>text</type>
+                <sort_order>7</sort_order>
+            </product1_custom_name>
+            <product1_merv1 translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Tier1 AirFilter (MERV #1)</label>
+                <type>label</type>
+                <helper_block>
+                    <type>uswf_comparedto/adminhtml_catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </product1_merv1>
+            <product1_merv2 translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>Tier1 AirFilter (MERV #2)</label>
+                <type>label</type>
+                <helper_block>
+                    <type>uswf_comparedto/adminhtml_catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>11</sort_order>
+            </product1_merv2>
+            <product1_merv3 translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>Tier1 AirFilter (MERV #3)</label>
+                <type>label</type>
+                <helper_block>
+                    <type>uswf_comparedto/adminhtml_catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>12</sort_order>
+            </product1_merv3>
+            <review1>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Compared Review</label>
+                <type>label</type>
+                <helper_block>
+                    <type>lyonscg_comparedto/catalog_product_review_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Review...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>20</sort_order>
+            </review1>
+            <label1 translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <value>Recommended Low-Cost Alternative</value>
+                <label>Tier1 Title Bar Text</label>
+                <type>text</type>
+                <sort_order>21</sort_order>
+            </label1>
+            <desc_font_size1>
+                <visible>1</visible>
+                <required>1</required>
+                <value>17</value>
+                <label>Font size (product description)</label>
+                <type>text</type>
+                <sort_order>22</sort_order>
+            </desc_font_size1>
+            <desc_bold1>
+                <visible>1</visible>
+                <required>1</required>
+                <value>no</value>
+                <label>Font bold (product description)</label>
+                <type>select</type>
+                <values>
+                    <no>
+                        <label>Normal</label>
+                        <value>400</value>
+                    </no>
+                    <yes>
+                        <label>Bold</label>
+                        <value>600</value>
+                    </yes>
+                </values>
+                <sort_order>23</sort_order>
+            </desc_bold1>
+            <ribbon_pos1>
+                <visible>1</visible>
+                <required>1</required>
+                <value>left</value>
+                <label>Ribbon Position Tier1</label>
+                <type>select</type>
+                <values>
+                    <yes>
+                        <label>Left</label>
+                        <value>left</value>
+                    </yes>
+                    <no>
+                        <label>Right</label>
+                        <value>right</value>
+                    </no>
+                </values>
+                <sort_order>24</sort_order>
+            </ribbon_pos1>
+            <details1>
+                <visible>1</visible>
+                <required>1</required>
+                <value></value>
+                <label>Details Tab Text For Tier1</label>
+                <type>textarea</type>
+                <sort_order>25</sort_order>
+            </details1>
+            <compatibility1>
+                <visible>1</visible>
+                <required>1</required>
+                <value></value>
+                <label>Compatibility Tab Text For Tier1</label>
+                <type>textarea</type>
+                <sort_order>26</sort_order>
+            </compatibility1>
+            <product2_custom_name translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <value></value>
+                <label>OEM product name (left empty for autofill)</label>
+                <type>text</type>
+                <sort_order>28</sort_order>
+            </product2_custom_name>
+            <product2_merv1 translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>OEM AirFilter (MERV #1)</label>
+                <type>label</type>
+                <helper_block>
+                    <type>uswf_comparedto/adminhtml_catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>30</sort_order>
+            </product2_merv1>
+            <product2_merv2 translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>OEM AirFilter (MERV #2)</label>
+                <type>label</type>
+                <helper_block>
+                    <type>uswf_comparedto/adminhtml_catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>31</sort_order>
+            </product2_merv2>
+            <product2_merv3 translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>OEM AirFilter (MERV #3)</label>
+                <type>label</type>
+                <helper_block>
+                    <type>uswf_comparedto/adminhtml_catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>32</sort_order>
+            </product2_merv3>
+            <review2>
+                <visible>1</visible>
+                <required>0</required>
+                <label>OEM Review</label>
+                <type>label</type>
+                <helper_block>
+                    <type>lyonscg_comparedto/catalog_product_review_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Review...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>40</sort_order>
+            </review2>
+            <label2 translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <value>Your Current Selection</value>
+                <label>OEM Title Bar Text</label>
+                <type>text</type>
+                <sort_order>41</sort_order>
+            </label2>
+            <ribbon_pos2>
+                <visible>1</visible>
+                <required>1</required>
+                <value>right</value>
+                <label>Ribbon Position OEM</label>
+                <type>select</type>
+                <values>
+                    <yes>
+                        <label>Left</label>
+                        <value>left</value>
+                    </yes>
+                    <no>
+                        <label>Right</label>
+                        <value>right</value>
+                    </no>
+                </values>
+                <sort_order>42</sort_order>
+            </ribbon_pos2>
+            <details2>
+                <visible>1</visible>
+                <required>1</required>
+                <value></value>
+                <label>Details Tab Text For OEM</label>
+                <type>textarea</type>
+                <sort_order>43</sort_order>
+            </details2>
+            <compatibility2>
+                <visible>1</visible>
+                <required>1</required>
+                <value></value>
+                <label>Compatibility Tab Text For OEM</label>
+                <type>textarea</type>
+                <sort_order>44</sort_order>
+            </compatibility2>
+            <active_tabs>
+                <visible>1</visible>
+                <required>1</required>
+                <value>uswf_comparedto/product_widget_tabs_productcomparsion,uswf_comparedto/product_widget_tabs_instructions,uswf_comparedto/product_widget_tabs_faq,uswf_comparedto/product_widget_tabs_compatibility,uswf_comparedto/product_widget_tabs_details</value>
+                <label>Enabled Tabs</label>
+                <type>multiselect</type>
+                <values>
+                    <product_comparsion>
+                        <label>Product Comparsion</label>
+                        <value>uswf_comparedto/product_widget_tabs_productcomparsion</value>
+                    </product_comparsion>
+                    <instructions>
+                        <label>Instructions</label>
+                        <value>uswf_comparedto/product_widget_tabs_instructions</value>
+                    </instructions>
+                    <faq>
+                        <label>FAQ</label>
+                        <value>uswf_comparedto/product_widget_tabs_faq</value>
+                    </faq>
+                    <compatibility>
+                        <label>Compatibility</label>
+                        <value>uswf_comparedto/product_widget_tabs_compatibility</value>
+                    </compatibility>
+                    <details>
+                        <label>Details</label>
+                        <value>uswf_comparedto/product_widget_tabs_details</value>
+                    </details>
+                </values>
+                <sort_order>48</sort_order>
+            </active_tabs>
+            <display_sku>
+                <visible>1</visible>
+                <required>1</required>
+                <value>yes</value>
+                <label>Display SKU</label>
+                <type>select</type>
+                <values>
+                    <yes>
+                        <label>Yes</label>
+                        <value>1</value>
+                    </yes>
+                    <no>
+                        <label>No</label>
+                        <value>0</value>
+                    </no>
+                </values>
+                <sort_order>49</sort_order>
+            </display_sku>
+            <tier1_position>
+                <visible>1</visible>
+                <required>1</required>
+                <value>0</value>
+                <label>Tier1 Product Position</label>
+                <type>select</type>
+                <values>
+                    <left>
+                        <label>Left</label>
+                        <value>0</value>
+                    </left>
+                    <right>
+                        <label>Right</label>
+                        <value>1</value>
+                    </right>
+                </values>
+                <sort_order>49</sort_order>
+            </tier1_position>
+            <attributes>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Attributes to Include</label>
+                <type>multiselect</type>
+                <source_model>lyonscg_comparedto/catalog_product_attribute_widget_chooser</source_model>
+                <sort_order>50</sort_order>
+            </attributes>
+            <user_defined1_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 1 Text</label>
+                <type>text</type>
+                <sort_order>70</sort_order>
+            </user_defined1_text>
+            <user_defined1_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 1 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>80</sort_order>
+            </user_defined1_low_cost>
+            <user_defined1_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 1 OEM Text</label>
+                <type>text</type>
+                <sort_order>90</sort_order>
+            </user_defined1_oem>
+            <user_defined2_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 2 Text</label>
+                <type>text</type>
+                <sort_order>100</sort_order>
+            </user_defined2_text>
+            <user_defined2_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 2 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>110</sort_order>
+            </user_defined2_low_cost>
+            <user_defined2_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 2 OEM Text</label>
+                <type>text</type>
+                <sort_order>120</sort_order>
+            </user_defined2_oem>
+            <user_defined3_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 3 Text</label>
+                <type>text</type>
+                <sort_order>130</sort_order>
+            </user_defined3_text>
+            <user_defined3_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 3 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>140</sort_order>
+            </user_defined3_low_cost>
+            <user_defined3_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 3 OEM Text</label>
+                <type>text</type>
+                <sort_order>150</sort_order>
+            </user_defined3_oem>
+            <user_defined4_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 4 Text</label>
+                <type>text</type>
+                <sort_order>160</sort_order>
+            </user_defined4_text>
+            <user_defined4_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 4 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>170</sort_order>
+            </user_defined4_low_cost>
+            <user_defined4_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 4 OEM Text</label>
+                <type>text</type>
+                <sort_order>180</sort_order>
+            </user_defined4_oem>
+            <user_defined5_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>User Defined 5 Text</label>
+                <type>text</type>
+                <sort_order>190</sort_order>
+            </user_defined5_text>
+            <user_defined5_low_cost>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 5 Low Cost Text</label>
+                <type>text</type>
+                <sort_order>200</sort_order>
+            </user_defined5_low_cost>
+            <user_defined5_oem>
+                <visible>1</visible>
+                <required>0</required>
+                <label>--- User Defined 5 OEM Text</label>
+                <type>text</type>
+                <sort_order>210</sort_order>
+            </user_defined5_oem>
+            <template translate="label">
+                <label>Template</label>
+                <visible>0</visible>
+                <type>select</type>
+                <value>catalog/product/widget/compare_new.phtml</value>
+            </template>
+        </parameters>
+    </catalog_product_compare_air_filter>
+</widgets>

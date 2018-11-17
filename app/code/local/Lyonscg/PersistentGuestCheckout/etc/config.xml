@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg Persistent Guest Checkout
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_PersistentGuestCheckout
+ * @copyright   Copyright (c) 2014 Lyons Consulting Group (http://www.lyonscg.com)
+ * @author      Nick Hughart (nhughart@lyonscg.com)
+ */
+-->
+<config>
+    <modules>
+        <Lyonscg_PersistentGuestCheckout>
+            <version>1.0.0</version>
+        </Lyonscg_PersistentGuestCheckout>
+    </modules>
+    <global>
+        <models>
+            <lyonscg_persistentguestcheckout>
+                <class>Lyonscg_PersistentGuestCheckout_Model</class>
+            </lyonscg_persistentguestcheckout>
+        </models>
+        <helpers>
+            <lyonscg_persistentguestcheckout>
+                <class>Lyonscg_PersistentGuestCheckout_Helper</class>
+            </lyonscg_persistentguestcheckout>
+        </helpers>
+    </global>
+    <frontend>
+        <events>
+            <controller_action_predispatch_checkout_onepage_saveMethod>
+                <observers>
+                    <lyonscg_persistentguestcheckout_checkout_onepage_saveMethod>
+                        <class>lyonscg_persistentguestcheckout/observer</class>
+                        <method>beforeSaveMethod</method>
+                    </lyonscg_persistentguestcheckout_checkout_onepage_saveMethod>
+                </observers>
+            </controller_action_predispatch_checkout_onepage_saveMethod>
+        </events>
+
+    </frontend>
+</config>

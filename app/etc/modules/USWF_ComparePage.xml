@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_ComparePage>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Yotpo_Yotpo/>
+            </depends>
+        </USWF_ComparePage>
+    </modules>
+</config>

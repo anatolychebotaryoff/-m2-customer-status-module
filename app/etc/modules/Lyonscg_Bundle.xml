@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Bundle>
+            <active>false</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Bundle/>
+
+            </depends>
+        </Lyonscg_Bundle>
+    </modules>
+</config>

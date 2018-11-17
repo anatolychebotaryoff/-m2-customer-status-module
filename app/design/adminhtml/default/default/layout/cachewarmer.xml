@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Lyonscg
+ * @package     Lyonscg_CacheWarmer
+ * @copyright   Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Richard Loerzel (rloerzel@lyonscg.com)
+ */
+-->
+
+<layout>   
+    <adminhtml_cache_index>
+        <reference name="cache.additional" >
+            <action method="setTemplate"><template>cachewarmer/additional.phtml</template></action>
+        </reference>
+    </adminhtml_cache_index>
+</layout>

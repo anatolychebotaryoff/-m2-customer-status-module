@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CacheWarmer Adminhtml XML
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_CacheWarmer
+ * @copyright   Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Richard Loerzel (rloerzel@lyonscg.com) 
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <cachewarmer translate="title" module="cachewarmer">
+                                        <title>Cache Warmer</title>
+                                        <sort_order>1</sort_order> 
+                                    </cachewarmer>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

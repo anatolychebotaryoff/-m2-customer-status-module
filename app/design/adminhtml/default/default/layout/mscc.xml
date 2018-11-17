@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <mscc_adminhtml_myform_index>
+        <update handle="mscc_myform_index"/>
+        <reference name="content">
+            <block type="adminhtml/template" name="myform" template="mscc/myform.phtml"/>
+        </reference>
+    </mscc_adminhtml_myform_index>
+</layout>

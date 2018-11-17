@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_OneStepCheckout
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_OneStepCheckout>
+            <version>0.0.1</version>
+        </USWF_OneStepCheckout>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_onestepcheckout>
+                <class>USWF_OneStepCheckout_Block</class>
+            </uswf_onestepcheckout>
+            <onestepcheckout>
+                <rewrite>
+                    <checkout>USWF_OneStepCheckout_Block_Checkout</checkout>
+                </rewrite>
+            </onestepcheckout>
+        </blocks>
+        <helpers>
+            <uswf_onestepcheckout>
+                <class>USWF_OneStepCheckout_Helper</class>
+            </uswf_onestepcheckout>
+            <onestepcheckout>
+                <rewrite>
+                    <checkout>USWF_OneStepCheckout_Helper_Checkout</checkout>
+                </rewrite>
+            </onestepcheckout>
+            <lyonscg_checkout>
+                <rewrite>
+                    <data>USWF_OneStepCheckout_Helper_Data</data>
+                </rewrite>
+            </lyonscg_checkout>
+            <models>
+                <uswf_onestepcheckout>
+                    <class>USWF_OneStepCheckout_Model</class>
+                </uswf_onestepcheckout>
+            </models>
+        </helpers>
+        <events>
+            <!--possibly the issue was fixed(PayPal Orders w/o Email Addresses)-->
+            <!--<controller_front_init_before>-->
+                <!--<observers>-->
+                    <!--<uswf_onestepcheckout_controller_front_init_before>-->
+                        <!--<class>USWF_OneStepCheckout_Model_Observer</class>-->
+                        <!--<method>controllerFrontInitBefore</method>-->
+                    <!--</uswf_onestepcheckout_controller_front_init_before>-->
+                <!--</observers>-->
+            <!--</controller_front_init_before>-->
+
+            <sales_model_service_quote_submit_after>
+                <observers>
+                    <uswf_sales_model_service_quote_submit_after>
+                        <type>model</type>
+                        <class>USWF_OneStepCheckout_Model_Observer</class>
+                        <method>setCustomerCommentOnFrontend</method>
+                    </uswf_sales_model_service_quote_submit_after>
+                </observers>
+            </sales_model_service_quote_submit_after>
+        </events>
+        <models>
+            <customer>
+                <rewrite>
+                    <address>USWF_OneStepCheckout_Model_Customer_Address</address>
+                </rewrite>
+            </customer>
+        </models>
+    </global>
+    <frontend>
+        <routers>
+            <checkout>
+                <args>
+                    <modules>
+                        <USWF_OneStepCheckout before="Idev_OneStepCheckout">USWF_OneStepCheckout</USWF_OneStepCheckout>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+        <events>
+            <checkout_cart_product_add_after>
+                <observers>
+                    <uswf_onestepcheckout_checkout_cart_product_add_after>
+                        <type>model</type>
+                        <class>USWF_OneStepCheckout_Model_Observer</class>
+                        <method>checkoutCartProductAddAfter</method>
+                    </uswf_onestepcheckout_checkout_cart_product_add_after>
+                    <lyonscg_checkout_checkout_cart_product_add_after>
+                        <type>disabled</type>
+                    </lyonscg_checkout_checkout_cart_product_add_after>
+                </observers>
+            </checkout_cart_product_add_after>
+
+            <checkout_type_onepage_save_order>
+                <observers>
+                    <onestepcheckout_save_customercomment>
+                        <type>disabled</type>
+                    </onestepcheckout_save_customercomment>
+                </observers>
+            </checkout_type_onepage_save_order>
+        </events>
+    </frontend>
+
+    <default>
+        <onestepcheckout>
+            <general>
+                <max_height_order_review>200px</max_height_order_review>
+            </general>
+            <google_recaptcha>
+                <google_recaptcha_url>https://www.google.com/recaptcha/api/siteverify</google_recaptcha_url>
+            </google_recaptcha>
+        </onestepcheckout>
+        <!--possibly the issue was fixed(PayPal Orders w/o Email Addresses)-->
+        <!--<web>-->
+            <!--<uswf_routers>-->
+                <!--<uswf_onestepcheckout_persistent>-->
+                    <!--<area>frontend</area>-->
+                    <!--<class>USWF_OneStepCheckout_Controller_Router</class>-->
+                <!--</uswf_onestepcheckout_persistent>-->
+            <!--</uswf_routers>-->
+        <!--</web>-->
+    </default>
+</config>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Storelocator>
+            <version>1.0</version>
+        </USWF_Storelocator>
+    </modules>
+    
+    <global>
+        <models>
+            <storelocator_mysql4>
+                <rewrite>
+                    <storelocator_collection>USWF_Storelocator_Model_Mysql4_Storelocator_Collection</storelocator_collection>
+                </rewrite>
+            </storelocator_mysql4>
+        </models>
+    </global>
+</config>

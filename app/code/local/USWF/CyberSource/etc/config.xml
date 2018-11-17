@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_CyberSource
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_CyberSource>
+            <version>0.0.1</version>
+        </USWF_CyberSource>
+    </modules>
+    <global>
+        <helpers>
+            <uswf_cybersource>
+                <class>USWF_CyberSource_Helper</class>
+            </uswf_cybersource>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <sfc_cybersource>
+                <args>
+                    <modules>
+                        <USWF_CyberSource before="SFC_CyberSource">USWF_CyberSource</USWF_CyberSource>
+                    </modules>
+                </args>
+            </sfc_cybersource>
+        </routers>
+    </admin>
+</config>

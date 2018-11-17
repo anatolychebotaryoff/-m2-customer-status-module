@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_AirFilter
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_AirFilter>
+            <version>0.0.1</version>
+        </USWF_AirFilter>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_airfilter>
+                <class>USWF_AirFilter_Block</class>
+            </uswf_airfilter>
+            <airfilter>
+                <rewrite>
+                    <resultset>USWF_AirFilter_Block_Resultset</resultset>
+                </rewrite>
+            </airfilter>
+        </blocks>
+        <helpers>
+            <uswf_airfilter>
+                <class>USWF_AirFilter_Helper</class>
+            </uswf_airfilter>
+        </helpers>
+    </global>
+</config>

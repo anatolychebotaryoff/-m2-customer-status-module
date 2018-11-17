@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_GroupedProductConfiguration>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Itoris_GroupedProductConfiguration/>
+                <Lyonscg_Review/>
+            </depends>
+        </USWF_GroupedProductConfiguration>
+    </modules>
+</config>

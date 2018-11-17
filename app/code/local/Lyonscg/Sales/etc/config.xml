@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Sales>
+            <version>0.1.0</version>
+        </Lyonscg_Sales>
+    </modules>
+    <global>
+        <models>
+            <sales>
+                <rewrite>
+                    <order_api>Lyonscg_Sales_Model_Order_Api</order_api>
+                    <order_api_v2>Lyonscg_Sales_Model_Order_Api_V2</order_api_v2>
+                </rewrite>
+            </sales>
+        </models>
+    </global>
+</config>

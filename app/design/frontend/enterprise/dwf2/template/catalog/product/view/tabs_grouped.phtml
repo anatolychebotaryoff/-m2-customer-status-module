@@ -1,0 +1,295 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ */
+?>
+<?php $_helper = $this->helper( 'catalog/output' ); ?>
+<?php $product = Mage::registry( 'current_product' ); ?>
+<?php $_product = Mage::getModel( 'catalog/product' )->load( $product->getId() );//$this->getProduct(); ?>
+<?php $_noLongerSold = $_product->getNotForSale(); ?>
+<?php $_description = $_product->getDescription(); ?>
+<?php $_noLongerSoldDescr = $_product->getNotForSaleDescr() ?>
+<?php $compatibleList = Mage::helper( 'uswf_catalog' )->getProductCompatibleList( $_product ); ?>
+<?php $_helperLinksCatalog = $this->helper( 'uswf_linkscatalog' ); ?>
+
+<?php
+$_specAttributes = array();
+$_specsTabHtml   = '';
+if ( $_product->getHasSpecs() ) {
+	// try to get spec html
+	$_specsTabHtml = trim( $_helper->productAttribute( $_product, $_product->getSpecsTabHtml(), 'specs_tab_html' ) );
+}
+
+if ( ! $_specsTabHtml ) {
+	// get attributes if we don't have html for spec tab
+	$attributesCollection = Mage::getResourceModel( 'catalog/product_attribute_collection' );
+	$attributesCollection->setAttributeGroupFilter( 37 );
+	foreach ( $attributesCollection as $attribute ) {
+		if ( ! $attribute->getIsVisibleOnFront() ) {
+			continue;
+		}
+
+		$valLabel = $_product->getResource()->getAttribute( $attribute->getAttributeCode() )->getFrontendLabel();
+		$valReal  = $_product->getData( $attribute->getAttributeCode() );
+		$valAttr  = $_product->getResource()->getAttribute( $attribute->getAttributeCode() )->getFrontend()->getValue( $_product );
+		if ( $valReal && $valAttr != '' ) {
+			$_specAttributes[ $attribute->getAttributeCode() ] = array(
+				'label' => $this->escapeHtml( $valLabel ),
+				'value' => $valAttr,
+				'code'  => $attribute->getAttributeCode()
+			);
+		}
+	}
+}
+
+$_showSpecsTab = ( ! empty( $_specsTabHtml ) || ! empty( $_specAttributes ) );
+?>
+<div id="pdp--tabs" class="container">
+	<ul class="product-tabs rulo">
+		<?php /*$count_taps = 0; foreach ($this->getTabs() as $_index => $_tab): ?>
+        <?php if($this->getChildHtml($_tab['alias'])): ?>
+            <li id="product_tabs_<?php echo $_tab['alias'] ?>" class="<?php echo $count_taps==0?' active first':(($_index==count($this->getTabs())-1)?' last':'')?>"><a href="#"><?php echo $_tab['title']?></a></li>
+        <?php $count_taps++; endif; ?>
+    <?php endforeach;*/ ?>
+		<li id="product_tabs_features" class="active first">
+			<a href="#"><?php echo 'Product Information (How It Works)' ?></a>
+		</li>
+		<?php if ( $_product->getHasInstructions() ): ?>
+			<li id="product_tabs_instructions">
+				<a href="#"><?php echo 'Installation and FAQ\'s' ?></a>
+			</li>
+		<?php endif; ?>
+		<?php if ( $_product->getHas_contaminants() ): ?>
+			<li id="product_tabs_contaminants">
+				<a href="#"><?php echo 'Product Details' ?></a>
+			</li>
+		<?php endif; ?>
+		<?php if ( ( $_product->getHasComparables() && $_product->getComparablesTabHtml() != '' ) || ( count( $compatibleList ) ) ): ?>
+			<li id="product_tabs_comparables">
+				<a href="#"><?php echo 'Extra Features and Parts' ?></a>
+			</li>
+		<?php endif; ?>
+		<li id="product_tabs_reviews" class="last">
+			<a href="#"><?php echo $this->__( 'Reviews' ); ?></a>
+		</li>
+	</ul>
+	<div class="clear"></div>
+
+	<?php //////// FEATURES TAB /////// ?>
+	<div class="box-collateral product-tabs-content" id="product_tabs_features_contents">
+		<div class="std">
+			<?php echo $this->getChildHtml('additional'); ?>
+		</div>
+	</div>
+
+	<?php /////// CONTAMINANTS TAB //////// ?>
+	<?php if ( $_product->getHasContaminants() ): ?>
+		<div class="box-collateral product-tabs-content" id="product_tabs_contaminants_contents">
+			<?php echo $this->getChildHtml('description'); ?>
+		</div>
+	<?php endif; ?>
+
+	<?php ////// COMPARABLES TAB ///// ?>
+	<?php if ( ( $_product->getHasComparables() && $_product->getComparablesTabHtml() != '' ) ): ?>
+		<div class="box-collateral product-tabs-content" id="product_tabs_comparables_contents">
+			<?php echo $_helper->productAttribute( $_product, $_product->getComparablesTabHtml(), 'comparables_tab_html' ) ?>
+		</div>
+	<?php elseif ( count( $compatibleList ) ): ?>
+		<div class="box-collateral product-tabs-content" id="product_tabs_comparables_contents">
+			<div class="box-compatible">
+				<h2><?php echo $this->__( 'The %s is comparable with the following part numbers', $_product->getSku() ) ?></h2>
+				<div class="box-collateral-content">
+					<table class="data-table" id="box-compatible-table">
+						<tbody>
+						<?php $_columns = count( $compatibleList ) < 6 ? 1 : ( count( $compatibleList ) < 12 ? 2 : 4 ); ?>
+						<?php $_rows = ceil( count( $compatibleList ) / $_columns ) ?>
+						<?php $chunks = array_chunk( $compatibleList, $_rows ); ?>
+						<?php for ( $i = 0; $i < $_rows; $i ++ ): ?>
+							<tr>
+								<?php for ( $j = 0; $j < $_columns; $j ++ ): ?>
+									<?php $element = array_shift( $chunks[ $j ] ); ?>
+									<?php if ( isset( $element['brand'] ) ): ?>
+										<td><b><?php echo $element['brand'] ?></b></td>
+									<?php else: ?>
+										<td><?php echo $element['part'] ?></td>
+									<?php endif; ?>
+								<?php endfor; ?>
+							</tr>
+						<?php endfor; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	<?php endif; ?>
+
+	<?php ////// INSTRUCTIONS TAB ////// ?>
+	<?php if ( $_product->getHasInstructions() ): ?>
+		<div class="box-collateral product-tabs-content" id="product_tabs_instructions_contents">
+			<h2><?php echo $this->__( 'Instructions' ) ?></h2>
+			<?php $instructionsTabHtml = $_product->getInstructionsTabHtml() ?>
+			<?php if ( ! empty( $instructionsTabHtml ) ): ?>
+				<?php echo $_helper->productAttribute( $_product, $instructionsTabHtml, 'instructions_tab_html' ) ?>
+			<?php else: ?>
+				<?php $_instrAttributes = array(); ?>
+				<?php for ( $i = 0; $i < 10; $i ++ ): ?>
+					<?php $_instrAttributes[] = 'instructions_step_' . ( $i + 1 ); ?>
+				<?php endfor; ?>
+				<?php $attributesCollection = Mage::getResourceModel( 'catalog/product_attribute_collection' ) ?>
+				<?php $attributesCollection->addFieldToFilter( 'attribute_code', array( 'in' => $_instrAttributes ) ) ?>
+				<ol class="instructions-attributes">
+					<?php $_instrAttributes = array(); ?>
+					<?php foreach ( $attributesCollection as $attribute ): ?>
+						<?php $_attributeCode = $attribute->getAttributeCode() ?>
+						<?php $valAtrr = $_product->getResource()->getAttribute( $_attributeCode )->getFrontend()->getValue( $_product ) ?>
+						<?php if ( ! empty( $valAtrr ) ): ?>
+							<?php $_instrAttributes[ str_replace( 'instructions_step_', '', $_attributeCode ) ] = $valAtrr ?>
+						<?php endif; ?>
+					<?php endforeach; ?>
+
+					<?php $i = 1;
+					ksort( $_instrAttributes ) ?>
+					<?php foreach ( $_instrAttributes as $key => $_instrAttribute ): ?>
+						<li class="<?php echo 'instructions_step_' . $key ?>">
+							<label class="title"><?php echo $i . '. ';
+								$i ++; ?></label>
+							<label class="value"><?php echo $_instrAttribute ?></label>
+						</li>
+					<?php endforeach; ?>
+				</ol>
+			<?php endif; ?>
+
+			<?php if ( $_product->getHasResetInstr() ): ?>
+				<h2><?php echo $this->__( 'Resetting Your Filter Change Indicator' ) ?></h2>
+				<div class="box-collateral-content">
+					<?php $_resetAttributes = array(); ?>
+					<?php for ( $i = 0; $i < 5; $i ++ ): ?>
+						<?php $_resetAttributes[] = 'instr_reset_filter_step_' . ( $i + 1 ); ?>
+					<?php endfor; ?>
+					<?php $attributesCollection = Mage::getResourceModel( 'catalog/product_attribute_collection' ) ?>
+					<?php $attributesCollection->addFieldToFilter( 'attribute_code', array( 'in' => $_resetAttributes ) ) ?>
+
+					<ol class="reset-attributes">
+						<?php $_resetAttributes = array(); ?>
+						<?php foreach ( $attributesCollection as $attribute ): ?>
+							<?php $_attributeCode = $attribute->getAttributeCode() ?>
+							<?php $valAtrr = $_product->getResource()->getAttribute( $_attributeCode )->getFrontend()->getValue( $_product ) ?>
+							<?php if ( ! empty( $valAtrr ) ): ?>
+								<?php $_resetAttributes[ str_replace( 'instr_reset_filter_step_', '', $_attributeCode ) ] = $valAtrr ?>
+							<?php endif; ?>
+						<?php endforeach; ?>
+
+						<?php $i = 1;
+						ksort( $_resetAttributes ) ?>
+						<?php foreach ( $_resetAttributes as $key => $_resetAttribute ): ?>
+							<li class="<?php echo 'instr_reset_filter_step_' . $key ?>">
+								<label class="title"><?php echo $i . '. ';
+									$i ++; ?></label>
+								<label class="value"><?php echo $_resetAttribute ?></label>
+							</li>
+						<?php endforeach; ?>
+					</ol>
+				</div>
+			<?php endif; ?>
+		</div>
+	<?php endif; ?>
+
+	<?php //////// REVIEWS TAB /////// ?>
+	<div class="box-collateral product-tabs-content" id="product_tabs_reviews_contents">
+		<h2><?php echo $this->__( 'Reviews' ) ?></h2>
+		<div id="yotpo-placeholder"></div>
+		<?php $this->helper( 'uswf_yotpo' )->showWidget( $this, $_product ); ?>
+	</div>
+
+	<script type="text/javascript">
+		//<![CDATA[
+		addEvent(window, 'load', function () {
+			Varien.Tabs = Class.create();
+			Varien.Tabs.prototype = {
+				initialize: function (selector) {
+					var self = this;
+					$$(selector + ' a').each(this.initTab.bind(this));
+				},
+
+				initTab: function (el) {
+					el.href = 'javascript:void(0)';
+					if ($(el.parentNode).hasClassName('active')) {
+						this.showContent(el);
+					}
+					el.observe('click', this.showContent.bind(this, el));
+				},
+
+				showContent: function (a) {
+					var li = $(a.parentNode), ul = $(li.parentNode);
+					ul.select('li').each(function (el) {
+						var contents = $(el.id + '_contents');
+						if (el == li) {
+							el.addClassName('active');
+							contents.show();
+						} else {
+							el.removeClassName('active');
+							contents.hide();
+						}
+					});
+				}
+			}
+
+			pdpTabs = new Varien.Tabs('.product-tabs');
+
+			function firstReview() {
+				var reviewTabA = $$('#product_tabs_reviews > a');
+				if (reviewTabA.length > 0) {
+					pdpTabs.showContent(reviewTabA[0]);
+				}
+				return true;
+			}
+
+			var hash = document.location.hash;
+			if (hash == '#customer-reviews' || hash == '#review-form') {
+				firstReview();
+			}
+			new PeriodicalExecuter(function (pe) {
+				$$('.yotpo .star-clickable > a').each(function (element) {
+					element.on('click', function (event) {
+						pdpTabs.showContent($$('#product_tabs_reviews a').first());
+					});
+				});
+				$$('.yotpo.QABottomLine .ask-question').each(function (element) {
+					element.on('click', function (event) {
+						pdpTabs.showContent($$('#product_tabs_reviews a').first());
+						Element.scrollTo($$('.write-question-wrapper')[0]);
+					});
+				});
+				pe.stop();
+			}, 0.25);
+		});
+		//]]>
+	</script>
+</div>

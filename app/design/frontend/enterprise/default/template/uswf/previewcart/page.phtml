@@ -1,0 +1,63 @@
+<div class="previewcart">
+    <div class="box-previewcart">
+        <div class="previewcart-left">
+            <?php $_product = $this->getProduct(); ?>
+            <div class="previewcart-left-mess">
+                <img src="<?php echo $this->getSkinUrl('images/previewcart/box-cart.png'); ?>"/>
+                <p><?php echo $this->__('Added to Cart'); ?></p>
+            </div>
+            <a href="<?php echo $this->getProductUrl(); ?>">
+                <img id="image" src="<?php echo $this->helper('catalog/image')->init($_product, 'image'); ?>" alt="<?php echo $this->escapeHtml($this->getImageLabel()); ?>" title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>" />
+            </a>
+        </div>
+        <div class="previewcart-right">
+            <div class="previewcart-left-mess">
+                <p><?php echo $this->__('Cart Subtotal:'); ?> <span><?php echo Mage::helper('core')->currency($this->getSubtotal(), true, false); ?></span></p>
+                <?php $freeShippingSubtotal = $this->getFreeShippingSubtotal(); ?>
+                <?php if ($freeShippingSubtotal > 0):?>
+                    <p>Add <span><?php echo Mage::helper('core')->currency($freeShippingSubtotal, true, false); ?></span> to qualify for FREE Shipping</p>
+                <?php endif ?>
+            </div>
+            <div class="actions">
+                <button type="button" title="<?php echo $this->__('Cart') ?>" class="button first" onclick="setLocation('<?php echo $this->getUrl('checkout/cart') ?>')"><span><span><?php echo $this->__('Cart') ?></span></span></button>
+                <button type="button" title="<?php echo $this->__('Proceed to checkout (%s item)', $this->getSummaryCount()) ?>" class="button last" onclick="setLocation('<?php echo $this->getCheckoutUrl() ?>')"><span><span><?php echo $this->__('Proceed to checkout (%s item)', $this->getSummaryCount()) ?></span></span></button>
+            </div>
+        </div>
+    </div>
+    <div class="category-products">
+        <?php echo $this->getChildHtml('upsell_products'); ?>
+        <?php echo $this->getChildHtml('crosssell'); ?>
+    </div>
+    <div class="box-previewcart last">
+        <div class="previewcart-right">
+            <div class="previewcart-left-mess">
+                <p><?php echo $this->__('Cart Subtotal:'); ?> <span><?php echo Mage::helper('core')->currency($this->getSubtotal(), true, false); ?></span></p>
+            </div>
+            <div class="actions">
+                <button type="button" title="<?php echo $this->__('Cart') ?>" class="button first" onclick="setLocation('<?php echo $this->getUrl('checkout/cart') ?>')"><span><span><?php echo $this->__('Cart') ?></span></span></button>
+                <button type="button" title="<?php echo $this->__('Proceed to checkout (%s item)', $this->getSummaryCount()) ?>" class="button last" onclick="setLocation('<?php echo $this->getCheckoutUrl() ?>')"><span><span><?php echo $this->__('Proceed to checkout (%s item)', $this->getSummaryCount()) ?></span></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(window).bind('load',function(){
+        /*For review section at home page*/
+        new PeriodicalExecuter(function(pe) {
+            if (typeof yotpo != 'undefined') {
+                if (yotpo.state == 'ready') {
+                    pe.stop();
+                    jQuery(document).on("click", '.yotpo-bottomline a', function(event) {
+                        var ulr = jQuery(this).parents('li.item').data('product_url');
+                        if (typeof ulr != "undefined") {
+                            window.location.href = ulr+"#customer-reviews";
+                        }
+                    });
+                }
+            }else{
+                pe.stop();
+            }
+        }, 0.25);
+    });
+</script>

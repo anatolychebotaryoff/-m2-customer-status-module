@@ -1,0 +1,29 @@
+<?php
+/**
+ * @see USWF_CheckboxSelect_Block_Adminhtml_Catalog_Form_Renderer_Fieldset_Element
+ */
+?>
+
+<?php $_element = $this->getElement() ?>
+<?php $containerId = $_element->getContainerId() ?>
+
+<?php if ($_element->getType()=='hidden'): ?>
+<tr>
+    <td class="hidden" colspan="100"><?php echo trim($_element->getElementHtml()) ?></td>
+</tr>
+<?php else: ?>
+<tr>
+    <td></td><td></td><td></td>
+    <td class="value">
+            <a href="#" onclick="return checkboxSelectAll('<?php echo $containerId ?>', true);">Select All</a>
+            <?php //echo trim($this->getElementHtml()) ?>
+            <span class="separator">|</span>
+            <a href="#" onclick="return checkboxSelectAll('<?php echo $containerId ?>', false)">Unselect All</a>
+            <?php if ($_element->getNote()) : ?>
+                <p class="note"><?php echo $_element->getNote() ?></p>
+            <?php endif; ?>
+    </td>
+</tr>
+<?php endif; ?>
+
+

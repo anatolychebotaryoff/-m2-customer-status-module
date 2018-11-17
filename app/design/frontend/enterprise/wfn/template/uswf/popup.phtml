@@ -1,0 +1,14 @@
+<?php if (Mage::helper('uswf_popup')->isPopupEnabled()):?>
+    <div id="uswf_popup" style="<?php echo Mage::helper('uswf_popup')->getPopupStyle();?>">
+        <?php echo Mage::helper('uswf_popup')->getCmsBlock();?>
+    </div>
+    <script>
+        addEvent(window, 'load', function() {
+            setTimeout(function() {
+                    jQuery('#uswf_popup').bPopup(<?php echo Mage::helper('uswf_popup')->getPopupJSParams();?>);
+                },
+                <?php echo Mage::helper('uswf_popup')->getPopupDelay();?>
+            );
+        });
+    </script>
+<?php endif;?>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_CheckboxSelect>
+            <version>0.1.0</version>
+        </USWF_CheckboxSelect>
+    </modules>
+
+    <global>
+        <models>
+            <uswf_checkboxselect>
+                <class>USWF_CheckboxSelect_Model</class>
+                <resourceModel>uswf_checkboxselect_resource</resourceModel>
+            </uswf_checkboxselect>
+        </models>
+        <blocks>
+            <uswf_checkboxselect>
+                <class>USWF_CheckboxSelect_Block</class>
+            </uswf_checkboxselect>
+        </blocks>
+    </global>
+
+    <adminhtml>
+        <events>
+            <adminhtml_catalog_product_edit_prepare_form>
+                <observers>
+                    <uswf_checkboxselect_adminhtml_catalog_product_edit_prepare_form>
+                        <type>singleton</type>
+                        <class>uswf_checkboxselect/observer</class>
+                        <method>adminhtmlCatalogCategoryEditPrepareForm</method>
+                    </uswf_checkboxselect_adminhtml_catalog_product_edit_prepare_form>
+                </observers>
+            </adminhtml_catalog_product_edit_prepare_form>
+        </events>
+        <layout>
+            <updates>
+                <uswf_checkboxselect>
+                    <file>uswf/checkboxselect/checkboxselect.xml</file>
+                </uswf_checkboxselect>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

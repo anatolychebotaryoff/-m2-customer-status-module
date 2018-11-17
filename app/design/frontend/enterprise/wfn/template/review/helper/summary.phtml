@@ -1,0 +1,63 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php if ($this->getReviewsCount()): ?>
+    <div class="ratings">
+        <?php if ($this->getRatingSummary()):?>
+            <div class="rating-box">
+                <div class="rating" style="width:<?php echo $this->getRatingSummary() ?>%"></div>
+            </div>
+        <?php endif;?>
+        <p class="rating-links">
+            <?php
+            /**
+             * lmontgomery - 2014-12-05
+             * The review links here don't work, nor do they work on DFS
+             * added a check to make sure the review page version of this block shows the original links
+             * and the PDP page version shows the links that actually work with the PDP.
+             */
+            ?>
+            <?php if (Mage::app()->getRequest()->getRequestedActionName() == 'review'): ?>
+                <?php /* these links should display on the reviews page */ ?>
+                <a href="<?php echo $this->getReviewsUrl() ?>#customer-reviews" class="review"><?php echo $this->__('Read %d Review(s)', $this->getReviewsCount()) ?></a>
+                <!--<span class="separator">|</span>-->
+                <a href="<?php echo $this->getReviewsUrl() ?>#review-form" class="write-review"><?php echo $this->__('Write a Review') ?></a>
+            <?php elseif (Mage::app()->getRequest()->getRequestedRouteName() == 'review' && Mage::app()->getRequest()->getRequestedActionName() == 'view'): ?>
+                <?php /* these links should display on the view individual review page */ ?>
+                <a href="<?php echo $this->getProduct()->getProductUrl(); ?>#customer-reviews" class="review"><?php echo $this->__('Read %d Review(s)', $this->getReviewsCount()) ?></a>
+                <!--<span class="separator">|</span>-->
+                <a href="<?php echo $this->getProduct()->getProductUrl(); ?>#review-form" class="write-review"><?php echo $this->__('Write a Review') ?></a>
+            <?php else: ?>
+                <?php /* these links should display on the PDP */ ?>
+                <a onclick="firstReview();" href="#customer-reviews" class="review"><?php echo $this->__('Read %d Review(s)', $this->getReviewsCount()) ?></a>
+                <!--<span class="separator">|</span>-->
+                <a onclick="firstReview();" href="#review-form" class="write-review"><?php echo $this->__('Write a Review') ?></a>
+            <?php endif; ?>
+        </p>
+    </div>
+<?php elseif ($this->getDisplayIfEmpty()): ?>
+    <p class="no-rating"><a onclick="firstReview();" href="#review-form"><?php echo $this->__('Be the first to review this product') ?></a></p>
+<?php endif; ?>

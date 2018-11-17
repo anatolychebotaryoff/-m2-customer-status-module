@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <lyonscg translate="label">
+            <label>Lyonscg</label>
+            <sort_order>101</sort_order>
+        </lyonscg>
+    </tabs>
+    <sections>
+        <lyonscg_catalog translate="label">
+            <label>Upsell Banner</label>
+            <tab>lyonscg</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>150</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <upsell_banner_conf translate="label">
+                    <label>Upsell Banner Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>10</sort_order>
+                    <fields>
+                        <banner_primary_text translate="label">
+                            <label>Banner Primary Text</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </banner_primary_text>
+                        <banner_secondary_text translate="label">
+                            <label>Banner Secondary Text </label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>20</sort_order>
+                        </banner_secondary_text>
+                        <banner_text_color translate="label">
+                            <label>Banner Text Color</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Lyonscg_Catalog_Model_system_config_source_textcolor</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>30</sort_order>
+                        </banner_text_color>
+                        <banner_fill_color translate="label">
+                            <label>Banner Fill Color</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Lyonscg_Catalog_Model_system_config_source_fillcolor</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>40</sort_order>
+                        </banner_fill_color>
+
+                        <banner_image translate="label tooltip comment">
+                            <label>Banner Left Image</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">wysiwyg/Qubit</upload_dir>
+                            <base_url type="media" scope_info="1">wysiwyg/Qubit</base_url>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>50</sort_order>
+                        </banner_image>
+
+
+                    </fields>
+                </upsell_banner_conf>
+            </groups>
+        </lyonscg_catalog>
+    </sections>
+</config>

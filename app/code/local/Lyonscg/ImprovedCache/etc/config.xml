@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Improved Cache Clearing/Warming
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_ImprovedCache
+ * @copyright   Copyright (c) 2014 Lyons Consulting Group (http://www.lyonscg.com)
+ * @author      Nick Hughart (nhughart@lyonscg.com)
+ */
+-->
+<config>
+    <modules>
+        <Lyonscg_ImprovedCache>
+            <version>1.0.0</version>
+        </Lyonscg_ImprovedCache>
+    </modules>
+    <global>
+        <models>
+            <lyonscg_improvedcache>
+                <class>Lyonscg_ImprovedCache_Model</class>
+                <resourceModel>lyonscg_improvedcache_resource</resourceModel>
+            </lyonscg_improvedcache>
+            <lyonscg_improvedcache_resource>
+                <class>Lyonscg_ImprovedCache_Model_Resource</class>
+                <entities>
+                    <cache_item>
+                        <table>lyonscg_improvedcache_cache_item</table>
+                    </cache_item>
+                </entities>
+            </lyonscg_improvedcache_resource>
+        </models>
+        <helpers>
+            <lyonscg_improvedcache>
+                <class>Lyonscg_ImprovedCache_Helper</class>
+            </lyonscg_improvedcache>
+        </helpers>
+        <resources>
+            <lyonscg_improvedcache_setup>
+                <setup>
+                    <module>Lyonscg_ImprovedCache</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </lyonscg_improvedcache_setup>
+        </resources>
+    </global>
+    <adminhtml>
+        <events>
+            <catalog_category_save_after>
+                <observers>
+                    <lyonscg_improvedcache>
+                        <type>singleton</type>
+                        <class>lyonscg_improvedcache/observer</class>
+                        <method>clearCategoryCache</method>
+                    </lyonscg_improvedcache>
+                </observers>
+            </catalog_category_save_after>
+            <catalog_product_save_after>
+                <observers>
+                    <lyonscg_improvedcache>
+                        <type>singleton</type>
+                        <class>lyonscg_improvedcache/observer</class>
+                        <method>clearProductCache</method>
+                    </lyonscg_improvedcache>
+                </observers>
+            </catalog_product_save_after>
+            <catalogrule_after_apply>
+                <observers>
+                    <!-- Disable enterprise pagecache observer which does nothing helpful -->
+                    <enterprise_pagecache>
+                        <type>disabled</type>
+                    </enterprise_pagecache>
+                    <lyonscg_improvedcache>
+                        <type>singleton</type>
+                        <class>lyonscg_improvedcache/observer</class>
+                        <method>clearProductsCache</method>
+                    </lyonscg_improvedcache>
+                </observers>
+            </catalogrule_after_apply>
+        </events>
+    </adminhtml>
+    <frontend>
+        <events>
+            <catalog_product_collection_load_after>
+                <observers>
+                    <lyonscg_improvedcache>
+                        <class>lyonscg_improvedcache/observer</class>
+                        <method>trackCollection</method>
+                    </lyonscg_improvedcache>
+                </observers>
+            </catalog_product_collection_load_after>
+            <catalog_category_collection_load_after>
+                <observers>
+                    <lyonscg_improvedcache>
+                        <class>lyonscg_improvedcache/observer</class>
+                        <method>trackCollection</method>
+                    </lyonscg_improvedcache>
+                </observers>
+            </catalog_category_collection_load_after>
+        </events>
+    </frontend>
+    <crontab>
+        <jobs>
+            <lyonscg_improvedcache_warm_stores>
+                <schedule>
+                    <config_path>lyonscg_improvedcache/warming/schedule_store_cron</config_path>
+                </schedule>
+                <run>
+                    <model>lyosncg_improvedcache/observer::warmStores</model>
+                </run>
+            </lyonscg_improvedcache_warm_stores>
+            <!-- TODO: Add cron to auto-warm pages -->
+        </jobs>
+    </crontab>
+    <default>
+        <lyonscg_improvedcache>
+            <general>
+                <enabled>0</enabled>
+                <logging>0</logging>
+            </general>
+            <flushing>
+                <block_core_clear>1</block_core_clear>
+                <clear_category>1</clear_category>
+                <clear_product>1</clear_product>
+            </flushing>
+            <warming>
+                <excludes>\.(jpg|jpeg|gif|png|css|js|ico)$
+checkout.*
+catalog\/product_compare.*
+customer\/account.*</excludes>
+                <enable_store_cron>0</enable_store_cron>
+                <schedule_store_cron>0 2 * * *</schedule_store_cron>
+                <store_limit>1000</store_limit>
+                <!--
+                <enable_cron>0</enable_cron>
+                <category_limit>50</category_limit>
+                -->
+                <request_timeout>5</request_timeout>
+                <connection_timeout>15</connection_timeout>
+                <threads>4</threads>
+            </warming>
+        </lyonscg_improvedcache>
+    </default>
+</config>

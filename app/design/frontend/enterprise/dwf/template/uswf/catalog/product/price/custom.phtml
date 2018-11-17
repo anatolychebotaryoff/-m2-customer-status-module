@@ -1,0 +1,43 @@
+<?php $_product = $this->getParentBlock()->getProduct(); ?>
+<?php $cookie = Mage::getSingleton('core/cookie'); ?>
+<?php $hd_groupid = $cookie->get('hd_groupid_'.$_product->getId()); ?>
+<?php if ($hd_groupid): ?>
+    <?php $_product->setCustomerGroupId($hd_groupid); ?>
+<?php endif; ?>
+<?php $snippetPrices = $_product->getFinalPrice(); ?>
+<?php $itemMsrps = $_product->getMsrp(); ?>
+
+<?php if ($_product->isGrouped()): ?>
+    <?php $snippetPrices = array(); ?>
+    <?php $itemMsrps = array(); ?>
+    <?php $_associatedProducts = $this->getParentBlock()->getAssociatedProducts(); ?>
+    <?php foreach($_associatedProducts as $_item): ?>
+        <?php if ($hd_groupid): ?>
+            <?php $_item->setCustomerGroupId($hd_groupid); ?>
+        <?php endif; ?>
+        <?php $snippetPrices[] = $_item->getFinalPrice(); ?>
+        <?php $itemMsrps[] = $_item->getMsrp(); ?>
+    <?php endforeach; ?>
+    <?php $_finalPrice = reset($snippetPrices); $_msrpsPrice = reset($itemMsrps);?>
+    <div class="grouped-price">
+        <?php echo Mage::helper('core')->currency($_finalPrice); ?>
+        <?php if ($_msrpsPrice > 0): ?>
+            <?php $_savePercent = 100 - round(($_finalPrice / $_msrpsPrice) * 100); ?>
+            <?php if ($_savePercent > 0 && $_msrpsPrice): ?>
+                <span class="price-msrp">Save <?php echo $_savePercent ?>% <span style="color: #999;">(MSRP: <?php echo Mage::helper('core')->currency($_msrpsPrice, true, false); ?>)</span></span>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+<?php else: ?>
+    <div class="grouped-price">
+        <?php echo Mage::helper('core')->currency($snippetPrices); ?><br/>
+        <?php if ($itemMsrps > 0): ?>
+            <?php $_savePercent = 100 - round(($snippetPrices / $itemMsrps) * 100); ?>
+            <?php if ($_savePercent > 0 && $itemMsrps): ?>
+                <span class="price-msrp">Save <?php echo $_savePercent ?>% <span>(MSRP: <?php echo Mage::helper('core')->currency($itemMsrps, true, false); ?>)</span></span>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+

@@ -1,0 +1,11 @@
+<?php $_helper = $this->helper('catalog/product_compare'); ?>
+<?php $_count = $_helper->getItemCount(); ?>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery("#content-compare-select").click(function(event) {
+            event.preventDefault();
+            popWin('<?php echo $_helper->getListUrl() ?>','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes');
+        });
+    });
+</script>

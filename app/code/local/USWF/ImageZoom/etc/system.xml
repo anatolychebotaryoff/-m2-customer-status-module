@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <catalog translate="label">
+            <groups>
+                <imagezoom translate="label">
+                    <label>USWF Catalog Image Zoom</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>2</sort_order>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable zoom</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </enabled>
+                        <zoom_type translate="label">
+                            <label>Zoom type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>uswf_imagezoom/source_type</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>20</sort_order>
+                        </zoom_type>
+                        <zoom_width translate="label">
+                            <label>Pop up window width</label>
+                            <tooltip>px</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>30</sort_order>
+                        </zoom_width>
+                        <zoom_height translate="label">
+                            <label>Pop up window height</label>
+                            <tooltip>px</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>40</sort_order>
+                        </zoom_height>
+                        <big_image_width translate="label">
+                            <label>Width of big image will be resized to</label>
+                            <tooltip>px</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>44</sort_order>
+                        </big_image_width>
+                        <big_image_height translate="label">
+                            <label>Height of big image will be resized to</label>
+                            <tooltip>px</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>45</sort_order>
+                        </big_image_height>
+                        <zoom_offset_x translate="label">
+                            <label>Pop up window x offset</label>
+                            <tooltip>px, always positive</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>50</sort_order>
+                        </zoom_offset_x>
+                        <zoom_offset_y translate="label">
+                            <label>Pop up window y offset</label>
+                            <tooltip>px, always positive</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>60</sort_order>
+                        </zoom_offset_y>
+                        <zoom_position translate="label">
+                            <label>Zoom position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>uswf_imagezoom/source_position</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>70</sort_order>
+                        </zoom_position>
+                        <preload_images translate="label">
+                            <label>Preload large images</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>80</sort_order>
+                        </preload_images>
+                        <preload_text translate="label">
+                            <label>Text to show while preloading images</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>90</sort_order>
+                        </preload_text>
+                        <title translate="label">
+                            <label>Show image title at zoomed image top</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>100</sort_order>
+                        </title>
+                        <lens translate="label">
+                            <label>Show lens over base image</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>110</sort_order>
+                        </lens>
+                        <image_opacity translate="label">
+                            <label>Base image opacity 0-1 (only for Reverse zoom type)</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>120</sort_order>
+                        </image_opacity>
+                        <show_effect translate="label">
+                            <label>Show effect</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>uswf_imagezoom/source_showEffect</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>130</sort_order>
+                        </show_effect>
+                        <hide_effect translate="label">
+                            <label>Hide effect</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>uswf_imagezoom/source_hideEffect</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>140</sort_order>
+                        </hide_effect>
+                        <fadein_speed translate="label">
+                            <label>Fade in speed in ms</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>150</sort_order>
+                        </fadein_speed>
+                        <fadeout_speed translate="label">
+                            <label>Fade out speed in ms</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>160</sort_order>
+                        </fadeout_speed>
+                        <lightbox_enabled translate="label">
+                            <label>Enable light box gallery</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>170</sort_order>
+                        </lightbox_enabled>
+                    </fields>
+                </imagezoom>
+            </groups>
+        </catalog>
+    </sections>
+</config>

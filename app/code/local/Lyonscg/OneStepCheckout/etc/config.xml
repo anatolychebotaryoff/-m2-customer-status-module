@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_OneStepCheckout>
+            <version>0.1.0</version>
+        </Lyonscg_OneStepCheckout>
+    </modules>
+    <global>
+        <helpers>
+            <onestepcheckout>
+                <rewrite>
+                    <checkout>Lyonscg_OneStepCheckout_Helper_Checkout</checkout>
+                </rewrite>
+            </onestepcheckout>
+        </helpers>
+        <models>
+            <onestepcheckout>
+                <rewrite>
+                    <observers_presetDefaults>Lyonscg_OneStepCheckout_Model_Observers_PresetDefaults</observers_presetDefaults>
+                </rewrite>
+            </onestepcheckout>
+        </models>
+        <blocks>
+            <onestepcheckout>
+                <rewrite>
+                    <checkout>Lyonscg_OneStepCheckout_Block_Checkout</checkout>
+                </rewrite>
+            </onestepcheckout>
+        </blocks>
+    </global>
+    <frontend>
+        <routers>
+            <onestepcheckout>
+                <args>
+                    <modules>
+                        <lyonscg_onestepcheckout before="Mage_Checkout">Lyonscg_OneStepCheckout</lyonscg_onestepcheckout>
+                    </modules>
+                </args>
+            </onestepcheckout>
+        </routers>
+    </frontend>
+</config>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_CaptureAdminOrders>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Lyonscg_CaptureAdminOrders />
+            </depends>
+        </USWF_CaptureAdminOrders>
+    </modules>
+</config>

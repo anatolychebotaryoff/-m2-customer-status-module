@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_Yotpo
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_Yotpo>
+            <version>0.0.3</version>
+        </USWF_Yotpo>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_yotpo>
+                <class>USWF_Yotpo_Block</class>
+            </uswf_yotpo>
+        </blocks>
+        <helpers>
+            <uswf_yotpo>
+                <class>USWF_Yotpo_Helper</class>
+            </uswf_yotpo>
+        </helpers>
+        <models>
+            <uswf_yotpo>
+                <class>USWF_Yotpo_Model</class>
+            </uswf_yotpo>
+            <advancedreviews>
+                <class>AW_AdvancedReviews_Model</class>
+                <resourceModel>advancedreviews_mysql4</resourceModel>
+            </advancedreviews>
+            <advancedreviews_mysql4>
+                <class>AW_AdvancedReviews_Model_Mysql4</class>
+                <entities>
+                    <helpfulness>
+                        <table>aw_advancedreviews_helpfulness</table>
+                    </helpfulness>
+                    <abuse>
+                        <table>aw_advancedreviews_abuse</table>
+                    </abuse>
+                    <proscons>
+                        <table>aw_advancedreviews_pc</table>
+                    </proscons>
+                    <proscons_store>
+                        <table>aw_advancedreviews_pc_store</table>
+                    </proscons_store>
+                    <proscons_vote>
+                        <table>aw_advancedreviews_pc_vote</table>
+                    </proscons_vote>
+                    <recommend>
+                        <table>aw_advancedreviews_recommend</table>
+                    </recommend>
+                </entities>
+            </advancedreviews_mysql4>
+        </models>
+        <resources>
+            <uswf_yotpo_setup>
+                <setup>
+                    <module>USWF_Yotpo</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </uswf_yotpo_setup>
+        </resources>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <uswf_yotpo>
+                    <file>uswf/yotpo/yotpo.xml</file>
+                </uswf_yotpo>
+            </updates>
+        </layout>
+    </frontend>
+</config>

@@ -1,0 +1,6 @@
+# Lyonscg_PersistentGuestCheckout
+
+## Module Files Outside this Directory
+
+### Module XML File
+    app/etc/modules/Lyonscg_PersistentGuestCheckout.xml

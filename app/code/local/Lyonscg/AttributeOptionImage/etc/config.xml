@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_AttributeOptionImage>
+            <version>0.1.0</version>
+        </Lyonscg_AttributeOptionImage>
+    </modules>
+    <global>
+        <helpers>
+            <lyonscg_attributeoptionimage>
+                <class>Lyonscg_AttributeOptionImage_Helper</class>
+            </lyonscg_attributeoptionimage>
+            <attributeoptionimage>
+                <rewrite>
+                    <data>Lyonscg_AttributeOptionImage_Helper_Data</data>
+                </rewrite>
+            </attributeoptionimage>
+            <cms>
+                <rewrite>
+                    <wysiwyg_images>Lyonscg_AttributeOptionImage_Helper_Cms_Wysiwyg_Images</wysiwyg_images>
+                </rewrite>
+            </cms>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <lyonscg_attributeoptionimage before="JR_AttributeOptionImage">Lyonscg_AttributeOptionImage_Adminhtml</lyonscg_attributeoptionimage>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

@@ -1,0 +1,12 @@
+Lyonscg_PageCacheFilter
+===================================================================================================
+
+=== Module XML File
+    app/etc/modules/Lyonscg_PageCacheFilter.xml
+
+=== Backend Layout Files
+    app/design/adminhtml/default/default/layout/lyonscg_pagecachefilter.xml
+
+
+
+

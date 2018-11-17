@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Lyonscg_PersistentCookie>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Lyonscg_PersistentCookie>
+    </modules>
+</config>

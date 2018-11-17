@@ -1,0 +1,289 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php
+/* @var $this Mage_Bundle_Block_Catalog_Product_View */
+$_helper = $this->helper('catalog/output');
+$_helperUV = $this->helper('uswf_universalvariable');
+$_product = $this->getProduct();
+$package_qty = $_product->getPackageQty();
+if (is_numeric($package_qty) && (int)$package_qty != 1) {
+    $variant = $package_qty.'pk';
+} else {
+    $variant = 'single'; 
+}
+$brand = ($_product->getAttributeText('manufacturer') ? $this->jsQuoteEscape($_product->getAttributeText('manufacturer')) : null);
+$productCategory = $_helperUV->getAttributeValue($_product->getId(), 'item_type');
+$_noLongerSold = $_product->getNotForSale();
+if ($this->isStartCustomization()) {
+    $buttonTitle = $this->__('Update Cart');
+} else {
+    $buttonTitle = $this->__('Add to Cart');
+}
+?>
+<script type="text/javascript">
+//<![CDATA[
+    addEvent(window, 'load', function() {
+        window.optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+    });
+//]]>
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div id="bundle-product-wrapper">
+    <div id="bundleProduct">
+        <div id="productView" class="product-view">
+            <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+
+            <?php echo $this->getChildHtml('upsell_products') ?>
+            <?php echo $this->getChildHtml('hotdeal_alert') ?>
+
+            <div class="product-essential">
+                <div class="product-img-box">
+                    <?php echo $this->getChildHtml('media') ?>
+                </div>
+                <div class="product-shop">
+                    <div class="product-main-info">
+                        <div class="product-name">
+                            <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                        </div>
+
+                        <div class="cust-title" style="display:none;"></div>
+                        <script>
+                            addEvent(window, 'load', function() {
+                                var params = document.location.search.toQueryParams(),
+                                    custTitle = jQuery('.cust-title');
+                                if (params['cust-title'] !== undefined && custTitle.length) {
+                                    custTitle.text(decodeURIComponent(params['cust-title'].replace(/\+/g, "%20"))).css('display', '');
+                                }
+                            });
+                        </script>
+
+                        <?php if (!$_noLongerSold && $_product->getShortDescription()):?>
+                            <div class="short-description">
+                                <h2><?php echo $this->__('Quick Overview') ?></h2>
+                                <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+                            </div>
+                        <?php elseif($_noLongerSold && $_product->getNotForSaleShorDescr()): ?>
+                            <div class="short-description">
+                                <h2><?php echo $this->__('Quick Overview') ?></h2>
+                                <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getNotForSaleShorDescr()), 'not_for_sale_shor_descr') ?></div>
+                            </div>
+                        <?php endif; ?>
+                        <?php echo $this->getChildHtml('extrahint') ?>
+                        
+                        <div class="bundle-price-data">
+                            <?php echo $this->getChildHtml('product_type_data') ?>
+                            <?php echo $this->getTierPriceHtml(); ?>
+                            <?php echo $this->getChildHtml('alert_urls') ?>
+                        </div>
+                    </div>
+                    <?php if($_noLongerSold): ?>
+                        <?php echo $this->getChildHtml('replaced_products') ?>
+                    <?php else: ?>
+                        <?php // echo $this->getChildHtml('tierprices') ?>
+
+<!--                        --><?php //if (Mage::getStoreConfig('carriers/freeshipping/active')): ?>
+<!--                            <div class="free-shipping">-->
+<!--                                <a href="--><?php //echo $this->getBaseUrl() . 'shipping.html' ?><!--" target="_blank">-->
+<!--                                    <img src="" />-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        --><?php //endif; ?>
+
+                        <?php if($_product->isSaleable()): ?>
+                            <div class="add-to-cart">
+                                <div class="qty-block">
+                                    <label for="qty"><?php echo $this->__('Qty:') ?></label>
+                                    <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+                                </div>
+                                <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="onAddToCart('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape($_product->getName()) ?>', '<?php echo $_product->getFinalPrice() ?>', jQuery('#qty').val(), '<?php echo $productCategory ?>', '<?php echo $variant ?>', '<?php echo $brand ?>');window.productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php echo $this->getChildHtml('other') ?>
+                        <?php echo $this->getChildHtml('addto') ?>
+
+                        <div class="row-product">
+                            <div class="yotpo-bottomLine-wrapper">
+                                <?php $this->helper('uswf_yotpo')->showBottomline($this, $_product); ?>
+                            </div>
+                            <div class="yotpo-QABottomLine-wrapper">
+                                <?php $this->helper('uswf_yotpo')->showQABottomline($this, $_product); ?>
+                            </div>
+                            <?php //echo $this->getReviewsSummaryHtml($_product, false, true)?>
+
+                            <?php if ($this->canEmailToFriend()): ?>
+                                <p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="wrapper-sidebar-responsive"></div>
+            </div>
+            <div class="product-collateral">
+                <?php $_description = $this->getChildHtml('description') ?>
+                <?php if($_description):?>
+                    <div class="box-collateral box-description">
+                        <?php echo $_description ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="clearer"></div>
+            <div class="no-display">
+                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                <input type="hidden" name="related_product" id="related-products-field" value="" />
+            </div>
+            <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
+                <div id="options-container" style="display:none">
+                    <div id="customizeTitle" class="page-title title-buttons">
+                        <h1><?php echo $this->__('Customize %s', $_helper->productAttribute($_product, $_product->getName(), 'name')) ?></h1>
+                        <a href="#" onclick="Enterprise.Bundle.end(); return false;"><small>&lsaquo;</small> Go back to product detail</a>
+                    </div>
+                    <?php echo $this->getChildHtml('bundleSummary') ?>
+                    <?php if ($this->getChildChildHtml('container1')):?>
+                        <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                    <?php elseif ($this->getChildChildHtml('container2')):?>
+                        <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                    <?php endif;?>
+                </div>
+            <?php endif;?>
+            </form>
+            <div class="product-collateral">
+                <?php $_additional = $this->getChildHtml('additional') ?>
+                <?php if($_additional):?>
+                    <div class="box-collateral box-additional">
+                        <?php echo $_additional ?>
+                    </div>
+                <?php endif;?>
+
+                <?php echo $this->getChildHtml('productTagList') ?>
+                <?php echo $this->getChildHtml('info_tabs') ?>
+                <?php echo $this->getChildHtml('product_additional_data') ?>
+                <?php echo $this->getChildHtml('advancedreview_custom') ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    addEvent(window, 'load', function() {
+        <?php if ($this->isStartCustomization()): ?>
+        //Enterprise.Bundle.start();
+        <?php endif;?>
+        window.productAddToCartForm = new VarienForm('product_addtocart_form');
+        window.productAddToCartForm.submit = function (button, url) {
+            if (this.validator.validate()) {
+                var form = this.form;
+                var oldUrl = form.action;
+
+                if (url) {
+                    form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            }
+        }.bind(window.productAddToCartForm);
+
+        window.productAddToCartForm.submitLight = function (button, url) {
+            if (this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                // Remove custom datetime validators
+                for (var methodName in Validation.methods) {
+                    if (methodName.match(/^validate-datetime-.*/i)) {
+                        delete Validation.methods[methodName];
+                    }
+                }
+
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(window.productAddToCartForm);
+
+        Enterprise.Bundle.initialize();
+    });
+</script>
+<script type="text/javascript">
+    addEvent(window, 'load', function() {
+        var freeShipImageUrl = "<?php echo $this->getSkinUrl('images/free-shipping.png') ?>";
+        var overShipImageUrl = "<?php echo $this->getSkinUrl('images/freeShippingOver.png') ?>";
+        var freeShippingSubtotal = <?php echo Mage::getStoreConfig('carriers/freeshipping/free_shipping_subtotal') ?>;
+        var productPrice = <?php echo ($_product->getPrice())? round($_product->getPrice(), 2) : '0'; ?>;
+
+        var price = $$('.block-cart-header span.price')[0].innerHTML;
+        price = price.replace('$', '');
+        price = price.replace(',', '');
+        price = price * 1;
+        var img = $$('div.free-shipping a img')[0];
+        if (typeof img !== 'undefined') {
+            if ((price + productPrice) >= freeShippingSubtotal) {
+                img.src = freeShipImageUrl;
+            } else {
+                img.src = overShipImageUrl;
+            }
+        }
+    });
+</script>
+
+<?php /** Google Enhanced Ecommerce js calls */ ?>
+<script type="text/javascript">
+    try {
+        ga('ec:addProduct', {
+            'id'        :   '<?php echo $_product->getSku() ?>',
+            'name'      :   '<?php echo $this->jsQuoteEscape($_product->getName()) ?>',
+            'category'  :   '<?php echo $productCategory ?>',
+            'brand'     :   '<?php echo $brand ?>',
+            'variant'   :   '<?php echo $variant ?>'
+        });
+
+        ga('ec:setAction', 'detail');
+        ga('send', 'event', 'catalog', 'detail', {'nonInteraction': true});
+    } catch (e) {}
+</script>

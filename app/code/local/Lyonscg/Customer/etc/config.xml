@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Customer>
+            <version>0.1.0</version>
+        </Lyonscg_Customer>
+    </modules>
+    <frontend>
+        <routers>
+            <customer>
+                <args>
+                    <modules>
+                        <lyonscg_customer before="Mage_Customer">Lyonscg_Customer</lyonscg_customer>
+                    </modules>
+                </args>
+            </customer>
+        </routers>
+    </frontend>
+</config>

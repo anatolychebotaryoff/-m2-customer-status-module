@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <uswf_previewcart_index_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <action method="addCss"><name>css/uswf/previewcart.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="uswf_previewcart/page" name="previewcart.page" template="uswf/previewcart/page.phtml">
+                <block type="uswf_previewcart/upsell" name="previewcart.upsell" as="upsell_products" template="uswf/previewcart/products_box.phtml">
+                    <action method="setTitle"><name>Hottest Deals</name></action>
+                    <action method="setUpsellTgtrPositionLimit"><columns>4</columns></action>
+                    <block type="core/template" name="product.price.custom" as="product_price_custom" template="uswf/previewcart/price/custom.phtml"/>
+                </block>
+                <block type="uswf_previewcart/crosssell" name="previewcart.crosssell" as="crosssell" template="uswf/previewcart/products_box.phtml">
+                    <action method="setTitle"><name>Recommended Products</name></action>
+                    <block type="core/template" name="product.price.custom" as="product_price_custom" template="uswf/previewcart/price/custom.phtml"/>
+                </block>
+            </block>
+        </reference>
+    </uswf_previewcart_index_index>
+
+</layout>

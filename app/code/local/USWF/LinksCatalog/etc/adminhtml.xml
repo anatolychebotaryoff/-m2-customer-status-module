@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <uswf_linkscatalog translate="title" module="uswf_linkscatalog">
+                                        <title>Links Catalog</title>
+                                        <sort_order>200</sort_order>
+                                    </uswf_linkscatalog>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

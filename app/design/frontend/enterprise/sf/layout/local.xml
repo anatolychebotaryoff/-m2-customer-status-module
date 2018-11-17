@@ -1,0 +1,12 @@
+<layout version="0.1.0">
+    <onestepcheckout_index_index>
+        <reference name="head">
+            <action method="removeItem"><type>skin_js</type><name>onestepcheckout/js/window.js</name></action>
+            <action method="removeItem"><type>skin_js</type><name>onestepcheckout/js/onestepcheckout.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/sfc_cybersource/sop_checkout.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>onestepcheckout/js/window.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>onestepcheckout/js/onestepcheckout.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>qs/js/validationform.js</name></action>
+        </reference>
+    </onestepcheckout_index_index>
+</layout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <placeholders>
+        <qubit_universalvariable>
+            <block>universal_variable_main/uv</block>
+            <placeholder>UNIVERSAL_VARIABLE</placeholder>
+            <container>Lyonscg_UniversalVariable_Model_Container_Uv</container>
+            <cache_lifetime>86400</cache_lifetime>
+        </qubit_universalvariable>
+    </placeholders>
+</config>

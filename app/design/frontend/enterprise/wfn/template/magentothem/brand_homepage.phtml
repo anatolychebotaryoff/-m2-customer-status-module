@@ -1,0 +1,70 @@
+<div class="bx-slider-brand">
+<div class="homepage-label">
+<h3 class="homepage-title">POPULAR BRAND</h3>
+<h6>Shop All Brands</h6>
+</div>
+<div id="gallery-wrap">
+    <ul id="gallery">
+        <?php
+        $attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', 'brand');
+        if ($attribute->usesSource()) {
+            $options = $attribute->getSource()->getAllOptions(false);
+        }
+        $i=0;
+        $countOptions = count($options);
+
+        foreach($options as $option):
+			$brandUrlSearch = Mage::helper('catalogsearch/data')->getAdvancedSearchUrl().'result/?brand='.$option['value']; 
+            $checkUrlImage = Mage::helper('attributeoptionimage')->getAttributeOptionImage($option['value']);
+            if(Mage::helper('attributeoptionimage')->getAttributeOptionThumb($option['value']) == 'popular' && $checkUrlImage):
+            if($i%2==0):
+        ?>
+            <li><a href="<?php echo $brandUrlSearch ?>"><img src="<?php echo Mage::helper('attributeoptionimage')->getAttributeOptionImage($option['value']); ?>" alt="" /></a>
+        <?php else:?>
+            <a href="<?php echo $brandUrlSearch ?>"><img src="<?php echo Mage::helper('attributeoptionimage')->getAttributeOptionImage($option['value']); ?>" alt="" /></a></li>
+        <?php endif;
+              ++$i;
+              if($countOptions%2==1 && $i == $countOptions - 1):
+                  echo "</li>";
+              endif;
+            endif;
+        endforeach;?>
+    </ul>
+</div>
+<div id="gallery-controls">
+    <a href="#" id="gallery-prev">&lt;</a>
+    <a href="#" id="gallery-next">&gt;</a>
+</div>
+</div>
+<script type="text/javascript">
+    addEvent(window, 'load', function() {
+
+        // Gallery
+        if(jQuery("#gallery").length){
+            // Declare variables
+            var totalImages = jQuery("#gallery > li").length,
+            imageWidth = jQuery("#gallery > li:first").outerWidth(true),
+            totalWidth = imageWidth * totalImages,
+            visibleImages = Math.round(jQuery("#gallery-wrap").width() / imageWidth),
+            visibleWidth = visibleImages * imageWidth,
+            stopPosition = (visibleWidth - totalWidth);
+    
+            jQuery("#gallery").width(totalWidth);
+    
+            jQuery("#gallery-prev").click(function(){
+            if(jQuery("#gallery").position().left < 0 && !jQuery("#gallery").is(":animated")){
+            jQuery("#gallery").animate({left : "+=" + imageWidth + "px"});
+            }
+            return false;
+            });
+    
+            jQuery("#gallery-next").click(function(){
+            if(jQuery("#gallery").position().left > stopPosition && !jQuery("#gallery").is(":animated")){
+            jQuery("#gallery").animate({left : "-=" + imageWidth + "px"});
+            }
+            return false;
+            });
+        }
+
+    });
+</script>

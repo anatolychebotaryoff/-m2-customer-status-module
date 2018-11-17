@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Lyonscg_Adminhtml
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_Adminhtml
+ * @copyright   Copyright (c) 2015 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Eugene Nazarov (enazarov@lyonscg.com)
+ */
+-->
+<config>
+    <modules>
+        <Lyonscg_Adminhtml>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>Mage_Adminhtml</depends>
+        </Lyonscg_Adminhtml>
+    </modules>
+</config>

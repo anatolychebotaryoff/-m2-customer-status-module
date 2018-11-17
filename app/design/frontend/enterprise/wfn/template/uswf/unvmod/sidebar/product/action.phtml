@@ -1,0 +1,13 @@
+<?php $_helper = $this->helper('catalog/product_compare'); ?>
+<?php $_count = $_helper->getItemCount(); ?>
+<?php $_url = $this->getLayout()->getBlock('lyonscg_cachedcompare_sidebar')->getProductAddToCompareUrl() ?>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        var compareSelect = jQuery("#content-compare-select");
+        if ( compareSelect != 'undefined' ) {
+            compareSelect.attr('href', '<?php echo $_url; ?>');
+            compareSelect.attr('rel', 'nofollow');
+        }
+    });
+</script>

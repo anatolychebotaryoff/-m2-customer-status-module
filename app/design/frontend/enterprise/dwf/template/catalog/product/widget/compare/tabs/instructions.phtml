@@ -1,0 +1,13 @@
+<?php $tier1Product = $this->getWidget()->getData('tier1_product');?>
+<?php if ($tier1Product->getHasInstructions()): ?>
+    <ol class="instructions-attributes">
+        <?php for($i = 1; $i <= 10; $i++): ?>
+            <?php if ($instructions = $tier1Product->getData('instructions_step_' . (string) $i)): ?>
+                <li class="<?php echo 'instructions_step_' . $i ?>">
+                    <span class="prefix"><?php echo $i;?></span>
+                    <span class="value"><?php echo $instructions ?></span>
+                </li>
+            <?php endif; ?>
+        <?php endfor; ?>
+    </ol>
+<?php endif; ?>

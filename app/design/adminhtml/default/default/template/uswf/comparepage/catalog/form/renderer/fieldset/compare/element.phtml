@@ -1,0 +1,39 @@
+
+<?php
+/**
+ * @see USWF_ComparePage_Block_Adminhtml_Catalog_Form_Renderer_Fieldset_Element
+ */
+?>
+<?php $_element = $this->getElement() ?>
+<?php $this->checkFieldDisable() ?>
+<?php
+    $elementToggleCode = $_element->getToggleCode() ? $_element->getToggleCode()
+        : 'toggleValueElements(this, this.parentNode.parentNode)';
+?>
+
+<?php if ($_element->getType()=='hidden'): ?>
+<tr>
+    <td class="hidden" colspan="100"><?php echo trim($_element->getElementHtml()); ?></td>
+</tr>
+<?php else: ?>
+<tr class="<?php echo trim($_element->getClassGroup()); ?>">
+    <td class="label"><?php echo trim($this->getElementLabelHtml()) ?></td>
+    <td class="value">
+        <?php if ($this->usedDefault()){$_element->setClass($_element->getClass().' disabled');} ?>
+        <?php echo trim($this->getElementHtml()) ?>
+        <?php if ($_element->getNote()) : ?>
+            <p class="note"><?php echo $_element->getNote(); ?></p>
+        <?php endif; ?>
+    </td>
+    <?php if ($this->canDisplayScopeLabel()): ?>
+    <td class="scope-label"><span class="nobr"><?php echo $this->getScopeLabel(); ?></span></td>
+    <?php endif; ?>
+    <?php if ($this->canDisplayUseDefault()): ?>
+    <td class="value use-default">
+        <input class="comparepage_use_default" <?php if($_element->getReadonly()):?> disabled="disabled"<?php endif; ?> type="checkbox" name="comparepage_use_default[<?php echo $_element->getHtmlId() ?>]" id="<?php echo $_element->getHtmlId() ?>_default"<?php if ($this->usedDefault()): ?> checked="checked"<?php endif; ?> onclick="toggleValueElements(this, this.parentNode.parentNode)"/>
+        <label for="<?php echo $_element->getHtmlId() ?>_default" class="normal"><?php echo $this->__('Use Default Value') ?></label>
+    </td>
+    <?php endif; ?>
+</tr>
+<?php endif; ?>
+

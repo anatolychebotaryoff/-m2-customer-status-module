@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<config>
+    <menu>
+        <promo>
+            <children>
+                <uswf_giftpurchase translate="title" module="uswf_giftpurchase">
+                    <title>Gift with Purchase</title>
+                    <action>adminhtml/gift_quote/</action>
+                    <depends><module>Mage_Sales</module></depends>
+                </uswf_giftpurchase>
+            </children>
+        </promo>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <promo>
+                        <children>
+                            <uswf_giftpurchase translate="title" module="uswf_giftpurchase">
+                                <title>Gift with Purchase</title>
+                            </uswf_giftpurchase>
+                        </children>
+                    </promo>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <uswf_giftpurchase translate="title" module="uswf_giftpurchase">
+                                        <title>Gift with Purchase</title>
+                                    </uswf_giftpurchase>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

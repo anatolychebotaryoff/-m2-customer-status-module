@@ -1,0 +1,13 @@
+<?php list($header, $body) = $this->getContent();?>
+<table class="compare-page-table">
+    <tr class="compare-page-table-header">
+        <?php foreach ($header as $class => $text):?>
+            <td class="<?php echo $class;?>"><?php echo $text; ?></td>
+        <?php endforeach;?>
+    </tr>
+    <tr>
+        <?php foreach ($body as $text):?>
+            <td><?php echo $text; ?></td>
+        <?php endforeach;?>
+    </tr>
+</table>

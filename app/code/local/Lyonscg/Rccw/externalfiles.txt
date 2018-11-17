@@ -1,0 +1,17 @@
+/**
+ * RCCW
+ *
+ * @category     Lyonscg
+ * @package      Lyonscg_Rccw
+ * @copyright    Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ * @author       Ashutosh Potdar (apotdar@lyonscg.com)
+ */
+
+### Module Files Outside this Directory
+
+# Module XML File
+app/etc/modules/Lyonscg_Rccw.xml
+
+# Shell script file
+shell/lyonscg/rccw.php
+shell/lyonscg/bootstrap.php

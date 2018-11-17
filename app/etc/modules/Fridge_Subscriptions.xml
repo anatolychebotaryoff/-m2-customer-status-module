@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Fridge_Subscriptions>
+			<active>true</active>
+			<codePool>local</codePool>
+		</Fridge_Subscriptions>
+	</modules>
+</config>

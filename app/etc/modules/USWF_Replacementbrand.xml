@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Replacementbrand>
+            <active>false</active>
+            <codePool>local</codePool>
+        </USWF_Replacementbrand>
+    </modules>
+</config>

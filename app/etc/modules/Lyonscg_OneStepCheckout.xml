@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_OneStepCheckout>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Idev_OneStepCheckout/>
+
+            </depends>
+        </Lyonscg_OneStepCheckout>
+    </modules>
+</config>

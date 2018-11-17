@@ -1,0 +1,90 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product description template
+ *
+ * @see Mage_Catalog_Block_Product_View_Description
+ */
+?>
+<?php $_description = $this->getProduct()->getDescription(); ?>
+<?php $noLongerSold = $this->getProduct()->getNotForSale() ?>
+<?php $noLongerSoldDescription = $this->getProduct()->getNotForSaleDescr() ?>
+<?php $_installationGuideVariable = Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('guide_installation')->getValue('text') ?>
+<?php $_userGuideVariable = Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('guide_user')->getValue('text') ?>
+
+<?php $_bullets = array(); ?>
+<?php $_bullets[1] = $this->getProduct()->getData('descr_bullet_1'); ?>
+<?php $_bullets[2] = $this->getProduct()->getData('descr_bullet_2'); ?>
+<?php $_bullets[3] = $this->getProduct()->getData('descr_bullet_3'); ?>
+<?php $_bullets[4] = $this->getProduct()->getData('descr_bullet_4'); ?>
+
+<?php $_countryMfg = $this->getProduct()->getCountryOfManufacture(); ?>
+<?php $_afterMarketPrivate = $this->getProduct()->getAttributeText('oem_aftermarket_private'); ?>
+
+<?php if (($noLongerSold && $noLongerSoldDescription) || (!$noLongerSold && ($_description || !empty($_bullets)))): ?>
+<div class="box-collateral">
+    <h2><?php echo $this->__('Details') ?></h2>
+    <div class="box-collateral-content std<?php echo ($noLongerSold ? ' red': '') ?>">
+        <?php if($noLongerSold): ?>
+            <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $noLongerSoldDescription, 'not_for_sale_descr') ?>
+        <?php elseif ($_description): ?>
+            <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?>
+        <?php endif; ?>
+            <ul>
+                <?php if (!empty($_bullets)): ?>
+                    <?php foreach($_bullets as $key => $_bullet): ?>
+                        <?php if (!empty($_bullet)): ?>
+                            <li><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_bullet, 'descr_bullet_' . $key) ?></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php if ($_countryMfg == 'US'): ?>
+                        <li><?php echo $this->__('Made in the U.S.A.') ?></li>
+                    <?php endif; ?>
+                    <?php if ($_afterMarketPrivate == 'OEM'): ?>
+                        <li><?php echo $this->__('Genuine OEM Product') ?></li>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php if ($_installationGuide = $this->getProduct()->getGuideInstallation()): ?>
+                    <li class="installation_guide">
+                        <a href="<?php echo $this->getBaseUrl() . $_installationGuideVariable . $_installationGuide ?>" target="_blank">
+                            <?php echo $this->__('Installation Guide for %s', $this->getProduct()->getSku()) ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if ($_userGuide = $this->getProduct()->getGuideUser()): ?>
+                    <li class="user_guide">
+                        <a href="<?php echo $this->getBaseUrl() . $_userGuideVariable . $_userGuide ?>" target="_blank">
+                            <?php echo $this->__('User Guide for %s', $this->getProduct()->getSku()) ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>

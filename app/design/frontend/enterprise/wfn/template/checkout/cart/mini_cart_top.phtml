@@ -1,0 +1,43 @@
+<div class="block-cart-header">
+    <?php $_cartQty = $this->getSummaryCount(); ?>
+    <div class="cart-left"></div>
+    <a href="/checkout/cart">
+    <div class="cart">
+                <div class="cart-img" id="mini-cart-number"><?php if($this->helper('checkout/cart')->getSummaryCount()){echo $this->helper('checkout/cart')->getSummaryCount();}else{echo '0';} ?>
+                </div>
+            <?php
+                $cartPrice = Mage::helper('uswf_design/checkout')->formatPrice($this->getSubtotal(), false);
+                $forcedFontSize = mb_strlen($cartPrice) >= 9 ? 'digits9 ' : '';
+            ?>
+            <div class="price <?php echo $forcedFontSize;?>" id="mini-cart-price"><?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()); ?>
+            <?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
+                <?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?>
+            <?php endif; ?></div>
+    </div>
+    </a>
+    <div class="checkout">
+        <?php
+            if (!Mage::helper('onestepcheckout')->isRewriteCheckoutLinksEnabled()) {
+                $_checkoutUrl = $this->getUrl('checkout/onepage');
+            }
+            else {
+                $_checkoutUrl = $this->getUrl('onestepcheckout', array('_secure'=>true));
+            }
+        ?>
+        <a href="<?php echo $_checkoutUrl; ?>">CHECKOUT</a>
+    </div>
+    <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+    <div class="actions">
+        <?php echo $this->getChildHtml('extra_actions') ?>
+        <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button" onclick="setLocation('<?php echo $_checkoutUrl; ?>')"><span><span><?php echo $this->__('Checkout') ?></span></span></button>
+    </div>
+    <?php endif ?>
+    <?php $_items = $this->getRecentItems() ?>
+
+    <?php if(count($_items)): ?>
+
+    <?php else: ?>
+        <div id="header-items" class="empty"></div>
+    <?php endif ?>
+    <div class="cart-right"></div>
+</div>

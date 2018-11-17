@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_RequireAssociated>
+            <version>0.1.0</version>
+        </USWF_RequireAssociated>
+    </modules>
+    <global>
+        <models>
+            <uswf_requireassociated>
+                <class>USWF_RequireAssociated_Model</class>
+            </uswf_requireassociated>
+        </models>
+        <events>
+            <catalog_product_save_before>
+                <observers>
+                    <uswf_requireassociated>
+                        <class>uswf_requireassociated/observer</class>
+                        <method>catalogProductSaveBefore</method>
+                    </uswf_requireassociated>
+                </observers>
+            </catalog_product_save_before>
+        </events>
+    </global>
+</config>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_CMS
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_CMS>
+            <version>0.0.5</version>
+        </USWF_CMS>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_cms>
+                <class>USWF_CMS_Block</class>
+            </uswf_cms>
+            <cms>
+                <rewrite>
+                    <page>USWF_CMS_Block_Page</page>
+                </rewrite>
+            </cms>
+        </blocks>
+        <helpers>
+            <uswf_cms>
+                <class>USWF_CMS_Helper</class>
+            </uswf_cms>
+        </helpers>
+        <models>
+            <uswf_cms>
+                <class>USWF_CMS_Model</class>
+            </uswf_cms>
+        </models>
+        <resources>
+            <uswf_cms_setup>
+                <setup>
+                    <module>USWF_CMS</module>
+                </setup>
+            </uswf_cms_setup>
+        </resources>
+        <page>
+            <layouts>
+                <uswf_ro translate="label">
+                    <label>RO 1 column</label>
+                    <template>uswf/cms/ro/ro_1column.phtml</template>
+                    <layout_handle>ro_page</layout_handle>
+                </uswf_ro>
+            </layouts>
+        </page>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <uswf_cms>
+                    <file>uswf/cms/ro.xml</file>
+                </uswf_cms>
+            </updates>
+        </layout>
+        <events>
+            <adminhtml_cms_page_edit_tab_design_prepare_form>
+                <observers>
+                    <showBreadcrumbsData>
+                        <class>uswf_cms/observer</class>
+                        <method>addBreadcrumbsData</method>
+                    </showBreadcrumbsData>
+                </observers>
+            </adminhtml_cms_page_edit_tab_design_prepare_form>
+        </events>
+    </adminhtml>
+    <frontend>
+        <layout>
+            <updates>
+                <uswf_cms>
+                    <file>uswf/cms.xml</file>
+                    <file>uswf/cms/ro.xml</file>
+                </uswf_cms>
+            </updates>
+        </layout>
+        <events>
+            <cms_page_render>
+                <observers>
+                    <uswf_cms_ro>
+                        <class>uswf_cms/observer</class>
+                        <method>cmsPageRender</method>
+                    </uswf_cms_ro>
+                </observers>
+            </cms_page_render>
+        </events>
+    </frontend>
+</config>

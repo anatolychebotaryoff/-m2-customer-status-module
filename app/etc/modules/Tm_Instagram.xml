@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <Tm_Instagram>
+            <active>false</active>
+            <codePool>local</codePool>            
+        </Tm_Instagram>
+    </modules>
+</config>

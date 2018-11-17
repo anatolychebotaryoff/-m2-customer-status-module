@@ -1,0 +1,21 @@
+<?php
+/**
+ * Category title template
+ *
+ * @see Mage_Catalog_Block_Category_View
+ *
+ * @category     Enterprice
+ * @package      Enterprice_Usff
+ * @copyright    Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ * @author       Alexandr Pomelov (apomelov@lyonsg.com)
+ */
+?>
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = $this->getCurrentCategory();
+?><div class="page-title category-title">
+<?php if($this->IsRssCatalogEnable()): ?>
+    <a href="<?php echo $this->getRssLink() ?>" title="<?php echo $this->__('Subscribe to RSS Feed') ?>" class="rss-feed"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
+<?php endif; ?>
+    <h1><?php echo $_helper->categoryAttribute($_category, $this->getCurrentCategory()->getName(), 'name') ?></h1>
+</div>

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<config>
+    <sections>
+        <uswf_logbacktrace translate="label" module="uswf_logbacktrace">
+            <label>Log Backtrace</label>
+            <tab>uswf</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <sort_order>100</sort_order>
+                    <fields>
+                        <extversion translate="label">
+                            <label>Extension Version Number</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>uswf_logbacktrace/adminhtml_version</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </extversion>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </active>
+                        <size translate="label">
+                            <label>File Size</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>uswf_logbacktrace/adminhtml_system_config_form_size</frontend_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </size>
+                        <download translate="label">
+                            <label>Download</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>uswf_logbacktrace/adminhtml_system_config_form_button_download</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <comment><![CDATA[Download log file]]></comment>
+                        </download>
+                        <clean translate="label">
+                            <label>Clean</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>uswf_logbacktrace/adminhtml_system_config_form_button_clean</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <comment><![CDATA[Clean log file]]></comment>
+                        </clean>
+                    </fields>
+                </general>
+            </groups>
+        </uswf_logbacktrace>
+    </sections>
+</config>

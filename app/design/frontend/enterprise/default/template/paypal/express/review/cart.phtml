@@ -1,0 +1,19 @@
+<tr>
+    <td colspan="4">
+    <div class="shipping_fields" id="paypalShippingEditShopping"> </div>
+        <div class="shipping_fields" id="paypalCart">
+            <div class="field-shipping">
+                <a href="<?php echo $this->getUrl('checkout/cart') ?>">
+                    <img class="edit_shopping_img" src="<?php echo $this->getSkinUrl('images/edit_shopping.png')?>" />
+                </a>
+            </div>
+            <div class="field-shipping">
+                <span class="shopping-title"><?php echo $this->__('Shipping Method') ?></span>
+                <?php
+                echo $this->getChild('shipping_method')->toHtml(); ?>
+            </div>
+
+            <?php echo $this->getChildHtml('agreements'); ?>
+        </div>
+    </td>
+</tr>

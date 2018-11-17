@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Configuration / Lyonscg_PersistentCookie
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_PersistentCookie
+ * @copyright   Copyright (c) 2014 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<config>
+    <modules>
+        <Lyonscg_PersistentCookie>
+            <version>0.1.0</version>
+        </Lyonscg_PersistentCookie>
+    </modules>
+    <global>
+        <models>
+            <lyonscg_persistentcookie>
+                <class>Lyonscg_PersistentCookie_Model</class>
+            </lyonscg_persistentcookie>
+            <persistent>
+                <rewrite>
+                    <observer>Lyonscg_PersistentCookie_Model_Observer</observer>
+                </rewrite>
+            </persistent>
+        </models>
+    </global>
+</config>

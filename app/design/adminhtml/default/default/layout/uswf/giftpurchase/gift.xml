@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<layout>
+    <adminhtml_gift_quote_index>
+        <reference name="content">
+            <block type="uswf_giftpurchase/adminhtml_gift_quote" name="gift_quote"/>
+        </reference>
+    </adminhtml_gift_quote_index>
+    <adminhtml_gift_quote_edit>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>mage/adminhtml/uswf/giftpurchase/giftproduct.js</name><params/><if/><condition>can_load_rules_js</condition></action>
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="setCanLoadRulesJs"><flag>1</flag></action>
+        </reference>
+        <reference name="left">
+            <block type="uswf_giftpurchase/adminhtml_gift_quote_edit_tabs" name="gift_quote_edit_tabs">
+                <block type="uswf_giftpurchase/adminhtml_gift_quote_edit_tab_main" name="gift_quote_edit_tab_main"/>
+                <block type="uswf_giftpurchase/adminhtml_gift_quote_edit_tab_conditions" name="gift_quote_edit_tab_conditions"/>
+                <block type="uswf_giftpurchase/adminhtml_gift_quote_edit_tab_giftproduct" name="gift_quote_edit_tab_giftproduct"/>
+                <action method="addTab"><name>main_section</name><block>gift_quote_edit_tab_main</block></action>
+                <action method="addTab"><name>conditions_section</name><block>gift_quote_edit_tab_conditions</block></action>
+                <action method="addTab"><name>gift_product_section</name><block>gift_quote_edit_tab_giftproduct</block></action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="uswf_giftpurchase/adminhtml_gift_quote_edit" name="gift_quote_edit"/>
+        </reference>
+        <reference name="js">
+            <block type="uswf_giftpurchase/adminhtml_gift_quote_edit_js" template="promo/js.phtml" />
+        </reference>
+    </adminhtml_gift_quote_edit>
+</layout>

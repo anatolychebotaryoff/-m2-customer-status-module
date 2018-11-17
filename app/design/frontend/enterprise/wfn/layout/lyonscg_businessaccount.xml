@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<layout>
+    <customer_logged_out>
+        <reference name="top.links">
+            <action method="addLink" translate="label title" module="customer"><label>Business Account</label><url>business-account.html</url><title>Business Account</title><prepare>true</prepare><urlParams><_direct>business-account.html</_direct></urlParams><position>12</position></action>
+        </reference>
+    </customer_logged_out>
+
+    <businessaccount_index_index translate="label">
+        <label>Business Account Form</label>
+        <reference name="head">
+            <action method="setTitle" translate="title" module="lyonscg_businessaccount"><title>Business Account</title></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setHeaderTitle" translate="title" module="lyonscg_businessaccount"><title>Business Account</title></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="businessContactForm" template="lyonscg_businessaccount/form.phtml"/>
+        </reference>
+    </businessaccount_index_index>
+
+    <businessaccount_index_international translate="label">
+        <label>Business Account Form</label>
+        <reference name="head">
+            <action method="setTitle" translate="title" module="lyonscg_businessaccount"><title>International Business Account</title></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setHeaderTitle" translate="title" module="lyonscg_businessaccount"><title>International Business Account</title></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="businessContactForm" template="lyonscg_businessaccount/form.phtml"/>
+        </reference>
+    </businessaccount_index_international>
+</layout>

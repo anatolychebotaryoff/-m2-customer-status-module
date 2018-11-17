@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Sales>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Sales/>
+
+            </depends>
+        </Lyonscg_Sales>
+    </modules>
+</config>

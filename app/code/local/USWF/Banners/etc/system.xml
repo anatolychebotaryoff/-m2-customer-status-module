@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <uswf_banners translate="label">
+            <label>Banners</label>
+            <tab>lyonscg</tab>
+            <class>separator-top</class>
+            <frontend_type>text</frontend_type>
+            <sort_order>170</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <frontend_model>uswf_banners/system_config_form</frontend_model>
+            <groups>
+                <default translate="label">
+                    <label>Enter data for creating new banner and click "Save Config"</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>0</sort_order>
+                    <fields>
+                        <banner_name translate="label">
+                            <label>Banner Name</label>
+                            <comment>Please set name for this banner</comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>10</sort_order>
+                        </banner_name>
+                        <image translate="label">
+                            <label>Banner Image</label>
+                            <comment>Please set image for banner</comment>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">banners</upload_dir>
+                            <base_url type="media" scope_info="1">banners</base_url>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>20</sort_order>
+                        </image>
+                        <hor>
+                            <label>Stick To</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>uswf_banners/source_position_horizontal</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>30</sort_order>
+                        </hor>
+                        <hor_pos translate="label">
+                            <label>Horizontal Position</label>
+                            <tooltip>px</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>40</sort_order>
+                        </hor_pos>
+                        <ver>
+                            <label>Stick To</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>uswf_banners/source_position_vertical</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>50</sort_order>
+                        </ver>
+                        <ver_pos translate="label">
+                            <label>Vertical Position</label>
+                            <tooltip>px</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>60</sort_order>
+                        </ver_pos>
+                    </fields>
+                </default>
+            </groups>
+        </uswf_banners>
+    </sections>
+</config>

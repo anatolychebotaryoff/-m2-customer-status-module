@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Amasty_Relater>
+            <version>1.0.1</version>
+        </Amasty_Relater>
+    </modules>
+    <global>
+        <models>
+            <amrelater>
+                <class>Amasty_Relater_Model</class>
+                <resourceModel>amrelater_mysql4</resourceModel>
+            </amrelater>
+            <amrelater_mysql4>
+                <class>Amasty_Relater_Model_Mysql4</class>
+            </amrelater_mysql4>
+
+            <catalog_resource_eav_mysql4>
+                <rewrite>
+                    <product_link>Amasty_Relater_Model_Catalog_Mysql4_Product_Link</product_link>
+                </rewrite>
+            </catalog_resource_eav_mysql4>
+        </models>
+        
+        <resources>
+            <amrelater_setup>
+                <setup>
+                    <module>Amasty_Relater</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </amrelater_setup>
+            
+            <amrelater_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </amrelater_write>
+            
+            <amrelater_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </amrelater_read>
+        </resources>
+
+        <blocks>
+            <amrelater>
+                <class>Amasty_Relater_Block</class>
+            </amrelater>
+        </blocks>
+         
+        <helpers>
+            <amrelater>
+                <class>Amasty_Relater_Helper</class>
+            </amrelater>
+        </helpers>
+    </global>
+    
+   <adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <amrelater translate="title" module="amrelater">
+                                            <title>Fast Product Relator</title>
+                                        </amrelater>
+                                    </children>
+                                </config>
+                            </children>
+                        </system> 
+                     </children>
+                </admin> 
+			</resources>
+		</acl>
+        <translate>
+            <modules>
+                <Amasty_Relater>
+                    <files>
+                        <default>Amasty_Relater.csv</default>
+                    </files>
+                </Amasty_Relater>
+            </modules>
+        </translate>
+    </adminhtml> 
+    
+    <default>
+        <amrelater>
+           <general>
+                <type_upsell>0</type_upsell>
+                <type_cross>0</type_cross>
+                <type_related>0</type_related>
+            </general>
+        </amrelater>
+    </default>
+</config>

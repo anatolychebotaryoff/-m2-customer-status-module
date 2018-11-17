@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+
+<config>
+    <modules>
+        <Lyonscg_Usff>
+            <version>1.1.1</version>
+        </Lyonscg_Usff>
+    </modules>
+    <global>
+        <resources>
+            <lyonscg_usff_setup>
+                <setup>
+                    <module>Lyonscg_Usff</module>
+                    <!-- the following line should removed as it is not being used anywhere -->
+                    <!-- class>Lyonscg_Usff_Model_Resource_Setup</class -->
+                </setup>
+            </lyonscg_usff_setup>
+        </resources>
+        <helpers>
+            <usff>
+                <class>Lyonscg_Usff_Helper</class>
+            </usff>
+        </helpers>
+    </global>
+    <default>
+        <websites>
+            <ff>
+                <design>
+                    <header>
+                            <logo_src>images/fridgefilters_logo2.png</logo_src>
+                    </header>
+                </design>
+            </ff>
+        </websites>
+    </default>
+ </config>

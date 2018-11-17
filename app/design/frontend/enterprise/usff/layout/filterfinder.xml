@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <filterfinder_index_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/filterfinder.js</name><group>loadgroup="after_jquery" defer</group></action>
+        </reference>
+        <remove name="breadcrumbs"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/fftemplate.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="lyonscg_filterfinder/filterFinder" name="filterfinder" template="filterfinder/filterfinder.phtml">
+                <block type="core/template" name="top.search" as="ffsearch" template="filterfinder/form.mini.phtml"/>
+            </block>
+        </reference>
+    </filterfinder_index_index>
+</layout>

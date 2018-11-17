@@ -1,0 +1,330 @@
+<?php $apiKey = Mage::getStoreConfig('uswf_googleplaces/general/google_map_api');?>
+<?php $active = Mage::getStoreConfig('uswf_googleplaces/general/active');?>
+<?php if ($apiKey): ?>
+    <?php if ($active): ?>
+        <div id="popup_info_address" class="med-font" style="display:none;">
+            <h2>We weren't able to confirm this address.</h2>
+            <span>Please double-check the address you entered:</span>
+            <div class="wrap-address"></div>
+            <div class="wrap-btn-active">
+                <a href="javascript:void(0);" class="btn btn-keep-address" role="button" data-track="true">Keep Address as Entered</a>
+                <a href="javascript:void(0);" class="btn btn-cancel-address" role="button">Edit This Address</a>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $apiKey; ?>&libraries=places&callback=initAddress&language=en"></script>
+    <script type="text/javascript">
+        var autocompleteBilling, autocompleteShipping;
+        var componentFormType = {
+            locality: 'long_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+        };
+
+        function initAddress() {
+            initialize();
+        }
+        // [START region_fillform]
+        function fillInAddress(componentForm, autocomplete) {
+            var addressText = ["", ""];
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+            if (place.place_id === undefined) {
+                document.getElementById(componentForm.name_place_id).value = '';
+                window.bcallbackEvent('billing:country_id');
+                return;
+            }
+
+            for (var component in componentForm) {
+                var elem = document.getElementById(componentForm[component]);
+                if (elem) {
+                    elem.value = '';
+                    elem.disabled = false;
+                }
+            }
+
+            for (var i = 0; i < place.address_components.length; i++) {
+                var _addressType = place.address_components[i].types[0];
+                if (_addressType == 'country') {
+                    var b = place.address_components[i];
+                    place.address_components[i] = place.address_components[0];
+                    place.address_components[0] = b;
+                }
+            }
+            // Get each component of the address from the place details
+            // and fill the corresponding field on the form.
+            for (var i = 0; i < place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if (componentForm[addressType]) {
+                    if (addressType == 'country') {
+                        $(componentForm.name_country_id).setValue(place.address_components[i]['short_name']);
+                        billingRegionUpdater.update();
+                    } else if(addressType == 'administrative_area_level_1') {
+                        jQuery('[id$="' + componentForm.name_region_id + '"] > option').each(function(item) {
+                            if (this.title == place.address_components[i]['long_name']) {
+                                jQuery('[id$="' + componentForm.name_region_id + '"]').val(this.value).change();
+                            }
+                        });
+                        document.getElementById(componentForm[addressType]).value = place.address_components[i]['long_name'];
+                    } else {
+                        document.getElementById(componentForm[addressType]).value = place.address_components[i][componentFormType[addressType]];
+                    }
+                }
+                if (addressType == 'route') {
+                    addressText[1] = place.address_components[i]['long_name'];
+                }
+                if (addressType == 'street_number') {
+                    addressText[0] = place.address_components[i]['long_name'];
+                }
+            }
+
+            var tmpLine1 = addressText[0] + ' ' + addressText[1];
+            document.getElementById(componentForm.name_input_id).value = tmpLine1.trim();
+
+            //Validation
+            allowedCountries = '<?php echo Mage::getStoreConfig(QS_Addressvalidation_Helper_Data::XML_PATH_VALIDATION_COUNTRY); ?>';
+            alloweCountriesArr = allowedCountries.split(',');
+            // Validation Billing or Shipping
+            if ($('billing:use_for_shipping_yes').checked) {
+                validation_type = 'billing';
+            } else {
+                validation_type = 'shipping';
+            }
+            var form = new FreaksForm('onestepcheckout-form','<?php echo Mage::getUrl('addressvalidation/validation/validate',array('_secure'=>true));?>',true,validation_type + ':street1',validation_type + ':street2',validation_type + ':city',validation_type + ':region_id',validation_type + ':region',validation_type + ':postcode',validation_type + ':country_id','onestepcheckout-place-order',validation_type + '_address_list', alloweCountriesArr);
+            form.validator.validate();
+
+            window.bcallbackEvent('billing:country_id');
+        }
+        // [END region_fillform]
+
+        function initialize() {
+            var componentFormBilling = {
+                locality: 'billing:city',
+                country: 'billing:country_id',
+                administrative_area_level_1: 'billing:region',
+                postal_code: 'billing:postcode',
+                name_region_id: 'billing:region_id',
+                name_country_id: 'billing:country_id',
+                name_input_id: 'billing:street1'
+            };
+            var componentFormShipping = {
+                locality: 'shipping:city',
+                country: 'shipping:country_id',
+                administrative_area_level_1: 'shipping:region',
+                postal_code: 'shipping:postcode',
+                name_region_id: 'shipping:region_id',
+                name_country_id: 'shipping:country_id',
+                name_input_id: 'shipping:street1'
+            };
+
+            // Create the autocomplete object, restricting the search
+            // to geographical location types.
+            autocompleteBilling = new google.maps.places.Autocomplete(
+                /** @type {HTMLInputElement} */ (document.getElementById('billing:street1')), {
+                    types: ['geocode']
+                });
+            // When the user selects an address from the dropdown,
+            // populate the address fields in the form.
+            google.maps.event.addListener(autocompleteBilling, 'place_changed', function () {
+                fillInAddress(componentFormBilling, autocompleteBilling);
+            });
+
+            // Create the autocomplete object, restricting the search
+            // to geographical location types.
+            autocompleteShipping = new google.maps.places.Autocomplete(
+                /** @type {HTMLInputElement} */ (document.getElementById('shipping:street1')), {
+                    types: ['geocode']
+                });
+            // When the user selects an address from the dropdown,
+            // populate the address fields in the form.
+            google.maps.event.addListener(autocompleteShipping, 'place_changed', function () {
+                fillInAddress(componentFormShipping, autocompleteShipping);
+            });
+        }
+
+        <?php if ($active): ?>
+            function checkGoogleAddress(e) {
+                var form = new VarienForm('onestepcheckout-form');
+                if (!form.validator.validate()) {
+                    return;
+                }
+
+                var result = function(data1, data2={valid:true}) {
+                    var onShowW = function () {
+                        document.getElementById("popup_info_address").setAttribute("style", "display:block");
+                        $('overlay_modal').observe('click', function (e) {
+                            win.close();
+                        } );
+                        $$('#popup_info_address .btn-keep-address')
+                            .shift()
+                            .observe('click', function (e) {
+                                win.close();
+                                onestepcheckoutSave(e);
+                            });
+                        $$('#popup_info_address .btn-cancel-address')
+                            .shift()
+                            .observe('click', function (e) {
+                                win.close();
+                            });
+                    };
+                    var win = new Window({className: "popup-address", closable:false, onShow: onShowW, zIndex:3000, closeOnEsc:false, destroyOnClose: true, recenterAuto:true, resizable: false, width:540, height:240, minimizable: false, maximizable: false, draggable: false});
+                    win.setCloseCallback(function(){
+                        document.getElementById("popup_info_address").setAttribute("style", "display:none");
+                        return true;
+                    });
+
+                    var oldArr = $$('#popup_info_address .wrap-address .address');
+                    oldArr.each(function(item) {
+                        item.remove();
+                    });
+
+                    var html = "";
+                    var popUp = false;
+                    if (!data1.valid) {
+                        var addressOrigin = data1.address_orig;
+                        html = "<div class='address'>" +
+                            addressOrigin.address + "<br>" +
+                            addressOrigin.locality + ", " +
+                            addressOrigin.administrative_area_level_1 + " " +
+                            addressOrigin.postal_code + ", " +
+                            addressOrigin.country +
+                            "<br></div>";
+                        popUp = true;
+                    }
+                    if (!data2.valid) {
+                        var addressOrigin2 = data2.address_orig;
+                        html = html + "<div class='address'>" +
+                            addressOrigin2.address + "<br>" +
+                            addressOrigin2.locality + ", " +
+                            addressOrigin2.administrative_area_level_1 + " " +
+                            addressOrigin2.postal_code + ", " +
+                            addressOrigin2.country +
+                            "<br></div>";
+                        popUp = true;
+                    }
+
+                    if (popUp) {
+                        $$('#popup_info_address .wrap-address')
+                            .shift()
+                            .insert(html);
+                        win.setContent("popup_info_address", false, false);
+                        win.showCenter(true, 50);
+                    } else {
+                       onestepcheckoutSave(e);
+                    }
+                };
+
+                if ($('billing:use_for_shipping_yes').checked) {
+                    jQuery.when(checkGeocodeAddress('billing'))
+                        .done(result)
+                        .fail(function(ex) {
+                            console.log("Geocode was not successful for the following reason: " + ex);
+                        });
+                } else {
+                    jQuery.when(checkGeocodeAddress('billing'), checkGeocodeAddress('shipping'))
+                        .done(result)
+                        .fail(function(ex) {
+                            console.log("Geocode was not successful for the following reason: " + ex);
+                        });
+                }
+            }
+            function checkGeocodeAddress(validationType) {
+                var deferred = jQuery.Deferred();
+                var geocoder = new google.maps.Geocoder();
+                var selectAddress = jQuery("[id='"+validationType+"-address-select']");
+                if (selectAddress.length && !selectAddress.find("option[value='']:selected").length) {
+                    var addressTmp = jQuery("[id='billing-address-select'] :selected").text().split(',').map(function(e){return e.trim();});
+                    var addressLine1 = addressTmp[1];
+                    var city = addressTmp[2];
+                    var regionPostcode = addressTmp[3].split(' ');
+                    var postcode = regionPostcode.pop();
+                    var region = regionPostcode.join(' ');
+                    var country = addressTmp[4];
+                } else {
+                    var addressLine1 = jQuery("[id='" + validationType + ":street1']").val().trim();
+                    var city = jQuery("[id='" + validationType + ":city']").val().trim();
+                    var region = '';
+                    if (jQuery("[id='" + validationType + ":region_id']").css('display') != 'none') {
+                        region = jQuery("[id='" + validationType + ":region_id'] :selected").text().trim();
+                    } else {
+                        region = jQuery("[id='" + validationType + ":region']").val().trim();
+                    }
+                    var country = jQuery("[id='" + validationType + ":country_id'] :selected").text().trim();
+                    var postcode = jQuery("[id='" + validationType + ":postcode']").val().trim();
+                }
+
+                var addressType = {
+                    street_number: '',
+                    route: ''
+                };
+                var componentAddress = {
+                    locality: 'required',
+                    administrative_area_level_1: 'required',
+                    country: 'required'
+                    //postal_code: 'required'
+                };
+                var componentAddressOrigin = {
+                    address: addressLine1,
+                    locality: city,
+                    administrative_area_level_1: region,
+                    country: country
+                    //postal_code: postcode
+                };
+
+                var address = addressLine1 + ', ' + city + ', ' + region + ' ' + postcode + ', ' + country;
+                geocoder.geocode( { 'address': address}, function(results, status) {
+                    var checkAddress = false;
+                    var resultAddress = {};
+                    var componentAddressResult = {};
+                    var resultCount = 0;
+                    switch (status) {
+                        case google.maps.GeocoderStatus.INVALID_REQUEST:
+                        case google.maps.GeocoderStatus.ZERO_RESULTS:
+                        case google.maps.GeocoderStatus.OK:
+                            //check address
+                            if (results.length == 1) {
+                                //create the line1
+                                for (var i = 0; i < results[0].address_components.length; i++) {
+                                    if (results[0].address_components[i].types[0] == "street_number") {
+                                        addressType.street_number = results[0].address_components[i]['long_name'];
+                                    }
+                                    if (results[0].address_components[i].types[0] == "route") {
+                                        addressType.route = results[0].address_components[i]['long_name'];
+                                    }
+                                }
+                                var tmpLine1 = addressType.street_number + ' ' + addressType.route;
+                                componentAddressResult.address = tmpLine1.trim();
+
+                                //create the other line
+                                for (var i = 0; i < results[0].address_components.length; i++) {
+                                    if (componentAddress[results[0].address_components[i].types[0]] == 'required') {
+                                        componentAddressResult[results[0].address_components[i].types[0]] = results[0].address_components[i]['long_name'];
+                                    }
+                                }
+
+                                //check the line
+                                for (var k in componentAddressOrigin) {
+                                    if (componentAddressOrigin[k] == componentAddressResult[k]) {
+                                        resultCount++;
+                                    }
+                                }
+                                if (Object.keys(componentAddressOrigin).length == resultCount) {
+                                    checkAddress = true;
+                                }
+                            }
+                            break;
+                        default:
+                            deferred.reject(status);
+                            break;
+                    }
+                    resultAddress.valid = checkAddress;
+                    componentAddressOrigin.postal_code = postcode;
+                    resultAddress.address_orig = componentAddressOrigin;
+                    deferred.resolve(resultAddress);
+                });
+                return deferred.promise();
+            }
+        <?php endif; ?>
+    </script>
+<?php endif; ?>

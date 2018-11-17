@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CacheWarmer System XML
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_CacheWarmer
+ * @copyright   Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Richard Loerzel (rloerzel@lyonscg.com) 
+ */
+-->
+<config>
+    <tabs>
+        <lyonscg translate="label">
+            <label>Lyonscg Extensions</label>
+            <sort_order>150</sort_order>
+        </lyonscg>
+    </tabs>
+    <sections>
+        <cachewarmer translate="label">
+            <label>Cache Warmer</label>
+            <tab>lyonscg</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <setting>
+                    <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <max_execution_time translate="label">
+                            <label>max_execution_time</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_execution_time>
+                        <memory_limit translate="label">
+                            <label>memory_limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </memory_limit>
+                        <proc_nice translate="label">
+                            <label>proc_nice</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </proc_nice>
+                        <batch_size translate="label">
+                            <label>cURL Batch Size</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </batch_size>
+                        <log_load translate="label">
+                            <label>Log Server Load Average</label>
+                            <frontend_type>select</frontend_type> 
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </log_load>
+                        <max_pos translate="label">
+                            <label>DEBUG: Max number of URLs</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_pos>
+                    </fields>
+                </setting>
+            </groups>
+        </cachewarmer>
+    </sections>
+</config>

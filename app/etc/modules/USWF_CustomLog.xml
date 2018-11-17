@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_CustomLog>
+            <active>true</active>
+            <codePool>local</codePool>
+        </USWF_CustomLog>
+    </modules>
+</config>

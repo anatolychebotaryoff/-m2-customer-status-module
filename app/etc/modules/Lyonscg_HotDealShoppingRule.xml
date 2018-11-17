@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_HotDealShoppingRule>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Enterprise_CustomerSegment />
+            </depends>
+        </Lyonscg_HotDealShoppingRule>
+    </modules>
+</config>

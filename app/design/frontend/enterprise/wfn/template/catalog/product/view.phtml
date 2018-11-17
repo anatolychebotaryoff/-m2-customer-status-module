@@ -1,0 +1,437 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php $_helperUV = $this->helper('uswf_universalvariable') ?>
+<?php $_tierPrices = $this->getTierPrices(); ?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<?php $package_qty = $_product->getPackageQty(); ?>
+<?php if (is_numeric($package_qty) && (int)$package_qty != 1) : ?>
+    <?php $variant = $package_qty.'pk'; ?>
+<?php else : ?>
+    <?php $variant = 'single'; ?>
+<?php endif; ?>
+<?php $brand = ($_product->getAttributeText('manufacturer') ? $this->jsQuoteEscape($_product->getAttributeText('manufacturer')) : null); ?>
+<?php $productCategory = $_helperUV->getAttributeValue($_product->getId(), 'item_type'); ?>
+<?php $_product_data = array (
+    'variant' => $variant,
+    'brand' => $brand,
+    'category' => $productCategory
+);
+?>
+
+<?php $_tierPrices = Mage::getBlockSingleton('catalog/product_price')->getTierPrices($_product); ?>
+<?php $_noLongerSold = $_product->getNotForSale() ?>
+<?php
+$canSubscribe = false;
+if($_product->getResource()->getAttributeRawValue($_product->getId(), 'subscription_enabled', Mage::app()->getStore()))
+{
+    $canSubscribe = true;
+}
+?>
+<script type="text/javascript">
+    addEvent(window, 'load', function() {
+        optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+    });
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+    <div class="product-view">
+<!--        <div id="trigger-filter" class="trigger-filter" title="click to hide"></div>-->
+        <div id="content-filter-cat" class="content-filter-cat">
+            <div class="content-selcect-compare">
+                <?php $_html = $this->getChildHtml('lyonscg_cachedcompare_sidebar'); ?>
+                <?php echo $_html; ?>
+            </div>
+        </div>
+
+    <div class="product-essential row-fluid">
+        <?php echo $this->getChildHtml('upsell_products') ?>
+        <?php echo $this->getChildHtml('hotdeal_alert') ?>
+    <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+        
+        <div class="product-img-box span4">
+            <?php echo $this->getChildHtml('media') ?>
+        </div>
+        
+        <div class="product-shop span6">
+            <div class="product-name">
+                <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                <div class="cust-title" style="display:none;"></div>
+                <script>
+                    addEvent(window, 'load', function() {
+                        var params = document.location.search.toQueryParams(),
+                            custTitle = jQuery('.cust-title');
+                        if (params['cust-title'] !== undefined && custTitle.length) {
+                            custTitle.text(decodeURIComponent(params['cust-title'].replace(/\+/g, "%20"))).css('display', '');
+                        }
+                    });
+                </script>
+            </div>
+
+
+            <?php if ($richSnippet = $this->helper('yotpo/richSnippets')->getRichSnippet($this)): ?>
+            <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" style="display:none">
+
+                   <span itemprop="ratingValue"><?php echo $richSnippet["average_score"]; ?></span>
+                   <span itemprop="ratingCount"><?php echo $richSnippet["reviews_count"]; ?></span>
+
+            </div>
+            <?php endif; ?>
+            <div class="review-links">
+                <div class="yotpo-bottomLine-wrapper">
+                    <?php $this->helper('uswf_yotpo')->showBottomline($this, $_product); ?>
+                </div>
+                <div class="yotpo-QABottomLine-wrapper">
+                    <?php $this->helper('uswf_yotpo')->showQABottomline($this, $_product); ?>
+                </div>
+                <?php // echo $this->getReviewsSummaryHtml($_product, false, true) ?>
+            </div>
+            
+            <?php if ($_noLongerSold && $_product->getNotForSaleShorDescr()): ?>
+            <div class="short-description">
+                <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getNotForSaleShorDescr()), 'not_for_sale_shor_descr') ?></div>
+            </div>
+            <?php endif; ?>
+
+            <?php if ($marketingText = $_product->getMarketingMessage()): ?>
+                <div class="marketing-message">
+                    <?php echo $marketingText; ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($_noLongerSold): ?>
+                <?php echo $this->getChildHtml('replaced_products') ?>
+            <?php else: ?>
+                <?php echo $this->getChildHtml('alert_urls') ?>
+                <?php echo $this->getChildHtml('product_type_data') ?>
+                <?php echo $this->getChildHtml('extrahint') ?>
+
+                <!--<div class="add-to-box">
+                    <?php /*echo $this->getChildHtml('addto') ?>
+                                <?php if ($this->canEmailToFriend()): ?>
+                                <p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
+                                <?php endif;*/ ?>
+                </div>-->
+
+                <div class="discount-price-add-to-boxadd-to-box">
+		    <?php if (count($_tierPrices) > 0): ?>
+                    <div class="price-discount">
+                        <ul class="content-prices">
+                            <li>
+                                <ul class="title">
+                                    <li>Quantity</li>
+                                    <li class="price">Unit Price</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <?php
+                                    $count = count($_tierPrices);
+                                    $i = 1;
+                                    foreach($_tierPrices as $_tierPrice){
+                                        if($i == 1) {
+                                            $from[$i] = ($_tierPrice['price_qty'] <= 2) ? 2:$_tierPrice['price_qty'];
+                                            $priceT[$i] = $_tierPrice['price'];
+                                        }else{
+                                            $from[$i] = $_tierPrice['price_qty'];
+                                            $to[$i - 1] = $_tierPrice['price_qty'] - 1;
+                                            $priceT[$i] = $_tierPrice['price'];
+                                        }
+                                        $i++;
+                                    }
+                                    if($count > 1):
+                                    for($j = 0; $j <= $count ; $j++):
+                                        if($j == 0):
+                                ?>
+                                            <ul class="content">
+                                                <li>
+                                                    <span class="qty">
+                                                        <?php
+                                                        if($from[$j+1] == 2){
+                                                            echo '1';
+                                                        }else{
+                                                            echo '1 - '.($from[$j+1] - 1);
+                                                        }
+                                                        ?>
+                                                    </span>
+                                                </li>
+                                                <li class="price">
+                                                    <span class="regular-price">
+                                                    <span class="price"><?php echo sprintf("$%0.2f",$_product->getFinalPrice()); ?></span>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        <?php elseif($j>0 && $j<$count): ?>
+                                            <ul class="content">
+                                                <li>
+                                                    <span class="qty">
+                                                        <?php
+                                                        if($from[$j] == $to[$j]){
+                                                            echo $from[$j];
+                                                        }else{
+                                                            echo $from[$j].' - '.$to[$j];
+                                                        }
+                                                        ?>
+                                                    </span>
+                                                </li>
+                                                <li class="price">
+                                                    <span class="regular-price">
+                                                    <?php if ((int)$_tierPrices[$j-1]['isfixed']) : ?>
+                                                        <span class="price"><?php echo sprintf("$%0.2f",$priceT[$j]); ?></span>
+                                                    <?php else: ?>
+                                                        <span class="price"><?php echo sprintf("$%0.2f",Mage::helper('uswf_bundle')->getPercentagePrice($_product->getFinalPrice(),$priceT[$j])); ?></span>
+                                                    <?php endif; ?>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        <?php else: ?>
+                                            <ul class="content">
+                                                <li>
+                                                    <span class="qty"><?php echo $_tierPrice['price_qty']; ?> +</span>
+                                                </li>
+                                                <li class="price">
+                                                    <span class="regular-price">
+                                                    <?php if ((int)$_tierPrices[$j-1]['isfixed']) : ?>
+                                                            <span class="price"><?php echo sprintf("$%0.2f",$priceT[$j]); ?></span>
+                                                        <?php else: ?>
+                                                            <span class="price"><?php echo sprintf("$%0.2f",Mage::helper('uswf_bundle')->getPercentagePrice($_product->getFinalPrice(),$priceT[$j])); ?></span>
+                                                    <?php endif; ?>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        <?php endif;?>
+                                    <?php
+                                        endfor;
+                                        else:
+                                    ?>
+                                            <ul class="content">
+                                                <li>
+                                                    <span class="qty"><?php echo $_tierPrice['price_qty']; ?> +</span>
+                                                </li>
+                                                <li class="price">
+                                                    <span class="regular-price">
+                                                    <?php if ((int)$_tierPrices[0]['isfixed']) : ?>
+                                                        <span class="price"><?php echo sprintf("$%0.2f",$_tierPrice['price']); ?></span>
+                                                    <?php else: ?>
+                                                            <span class="price"><?php echo sprintf("$%0.2f",Mage::helper('uswf_bundle')->getPercentagePrice($_product->getFinalPrice(),$priceT[1])); ?></span>
+                                                    <?php endif; ?>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                    <?php endif;?>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <?php endif; // $_product->getTierPrice() ?>
+                    <?php if ($_product->isSaleable()):?>
+                        <div class="add-to-box">
+                            <?php if($_product->isSaleable()): ?>
+                                <?php $this->getChild('addtocart')->setProductData($_product_data); ?>
+                                <?php echo $this->getChildHtml('addtocart'); ?>
+
+                            <?php endif; ?>
+                        <?php echo $this->getChildHtml('extra_buttons') ?>
+                        </div>
+                    <?php elseif ($_product->isSaleable()): ?>
+                        <div class="add-to-box">
+                            <?php if($_product->isSaleable()): ?>
+                                <?php $this->getChild('addtocart')->setProductData($_product_data); ?>
+                                <?php echo $this->getChildHtml('addtocart'); ?>
+
+                            <?php endif; ?>
+                            <?php echo $this->getChildHtml('extra_buttons') ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php echo $this->getChildHtml('other');?>
+
+                    <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                        <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                    <?php endif;?>
+
+                    <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                        <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                    <?php endif;?>
+                </div>
+            <?php endif; // no longer sold ?>
+
+            <!--<div class="product-social">
+                <!-- AddThis Button BEGIN -->
+                <!--<div class="addthis_toolbox addthis_default_style ">
+                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                <a class="addthis_button_tweet"></a>
+                <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+                <a class="addthis_counter addthis_pill_style"></a>
+                </div>
+                <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4fce36935105cb6e"></script>
+                <!-- AddThis Button END -->
+            <!--</div>-->
+            
+            <div class="product-more-info">
+                <?php if (!$_noLongerSold): ?>
+                <div class="info-col1 span6">
+                    <a href="javascript:void(0)">
+                       <a href="shipping-policy-rates.html" target="_blank"><img src="<?php echo $this->getSkinUrl('images/fast-free-shipping-promo.png') ?>" /></a>
+                    </a>
+                </div>
+                <?php endif; ?>
+                <div class="info-col2 span6">
+                    <?php if($_product->getFinalPrice($this->getProductDefaultQty($this->getProduct())) < $_product->getPrice()){ $canShowBtn = false;}else{$canShowBtn = true;} ?>
+                    <?php if ($canSubscribe && $canShowBtn): ?>
+                    <a href="javascript:void(0)">
+                        <a href="worry-free-water-auto-ship-program.html"><img src="<?php echo $this->getSkinUrl('images/subscribe-promo.png') ?>" /></a>
+                    </a>
+                <?php endif; ?>
+                </div>
+            </div>
+
+        </div> <!-- product-shop -->
+
+        <div class="clearer"></div>
+        <div class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+        </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        addEvent(window, 'load', function() {
+            productAddToCartForm = new VarienForm('product_addtocart_form');
+            productAddToCartForm.submit = function(button, url) {
+                if (this.validator.validate()) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+    
+                    if (url) {
+                       form.action = url;
+                    }
+                    var e = null;
+                    try {
+                        this.form.submit();
+                        <?php // 347011 - lmontgomery - used to try to add charity donation to cart here ?>
+                    } catch (e) {
+                    }
+                    this.form.action = oldUrl;
+                    if (e) {
+                        throw e;
+                    }
+    
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
+                    }
+                }
+            }.bind(productAddToCartForm);
+            productAddToCartForm.submitLight = function(button, url){
+                if(this.validator) {
+                    var nv = Validation.methods;
+                    delete Validation.methods['required-entry'];
+                    delete Validation.methods['validate-one-required'];
+                    delete Validation.methods['validate-one-required-by-name'];
+                    // Remove custom datetime validators
+                    for (var methodName in Validation.methods) {
+                        if (methodName.match(/^validate-datetime-.*/i)) {
+                            delete Validation.methods[methodName];
+                        }
+                    }
+    
+                    if (this.validator.validate()) {
+                        if (url) {
+                            this.form.action = url;
+                        }
+                        this.form.submit();
+                    }
+                    Object.extend(Validation.methods, nv);
+                }
+            }.bind(productAddToCartForm);
+            jQuery('#content-filter-cat .block-compare').prepend('<span class="close"><img src="<?php echo $this->getSkinUrl()?>/images/button-close.png" /></span>');
+            var compare_select = false;
+            jQuery('button.compare-select, span.select-compare-list').click(function(){ //alert('rulo');
+                if(!compare_select){
+                    jQuery('.content-selcect-compare .block-compare').show('slow');
+                    compare_select = true;
+                }else{
+                    jQuery('.content-selcect-compare .block-compare').hide('slow');
+                    compare_select = false;
+                }
+            });
+            jQuery('#content-filter-cat .block-compare span.close').click(function(){
+                jQuery('.content-selcect-compare .block-compare').hide('slow');
+                compare_select = false;
+            });
+        });
+    //]]>
+    </script>
+    </div>
+    <div style="clear: both;"></div>
+    <div class="product-collateral row-fluid">
+        <?php echo $this->getChildHtml('info_tabs') ?>
+        <?php echo $this->getChildHtml('product_additional_data') ?>
+    </div>
+    <?php echo $this->getChildHtml('relatedProducts'); ?>
+</div>
+<?php
+
+$urlCustom = Mage::getBaseUrl().'custom';
+?>
+<script type="text/javascript">
+    addEvent(window, 'load', function() {
+        jQuery("select").uniform();
+        <?php // 347011 - lmontgomery - productAddToCartCharity used to be here ?>
+    });
+</script>
+
+<?php /** Google Enhanced Ecommerce js calls */ ?>
+<script type="text/javascript">
+    try {
+        ga('ec:addProduct', {
+            'id'        :   '<?php echo $_product->getSku() ?>',
+            'name'      :   '<?php echo $this->jsQuoteEscape($_product->getName()) ?>',
+            'category'  :   '<?php echo $productCategory ?>',
+            'brand'     :   '<?php echo $brand ?>',
+            'variant'   :   '<?php echo $variant ?>'
+        });
+
+        ga('ec:setAction', 'detail');
+        ga('send', 'event', 'catalog', 'detail', {'nonInteraction': true});
+    } catch (e) {}
+</script>
+
+
+<script type="text/javascript" src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
+<script type="text/javascript">
+	try{
+		var product_code = "<?php echo $_product->getSku() ?>";
+		IntelliSuggest.init({siteId:'jvevbl', context:'Product/' + product_code, seed:product_code});
+		IntelliSuggest.viewItem({sku:product_code});
+	} catch(err) {}
+</script>

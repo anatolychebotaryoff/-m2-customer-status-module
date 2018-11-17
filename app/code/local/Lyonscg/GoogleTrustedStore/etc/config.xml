@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_GoogleTrustedStore>
+            <version>0.1.0</version>
+        </Lyonscg_GoogleTrustedStore>
+    </modules>
+    <global>
+        <models>
+            <lyonscg_googletrustedstore>
+                <class>Lyonscg_GoogleTrustedStore_Model</class>
+            </lyonscg_googletrustedstore>
+            <googletrustedstore>
+                <rewrite>
+                    <feeder>Lyonscg_GoogleTrustedStore_Model_Feeder</feeder>
+                </rewrite>
+            </googletrustedstore>
+        </models>
+    </global>
+</config>

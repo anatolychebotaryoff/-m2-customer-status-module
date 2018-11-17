@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout>
+    <catalog_product_view>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/uswf/yotpo/yotpo_view.js</name>
+                <group>loadgroup="after_prototype"</group>
+            </action>
+        </reference>
+    </catalog_product_view>
+</layout>

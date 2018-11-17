@@ -1,0 +1,5 @@
+app/etc/modules/Lyonscg_Review.xml
+    module definition xml
+
+app/design/adminhtml/default/default/template/lyonscg/refreshreview/index.phtml
+    refresh button template

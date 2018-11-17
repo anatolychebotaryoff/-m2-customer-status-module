@@ -1,0 +1,20 @@
+<?php
+$_product = $this->getProduct();
+$_productYotpoReview = $_product->getYotpoReview();
+?>
+
+<div class="ratings">
+    <div class="review-links">
+        <?php $this->helper('uswf_yotpo')->showBottomline($this, $_product); ?>
+    </div>
+    <?php if ($_productYotpoReview->getDetail() !== ''): ?>
+        <p class="rating-description">
+            "<?php echo $this->helper('core')->stripTags($_productYotpoReview->getDetail()); ?>"
+        </p>
+    <?php endif; ?>
+
+    <?php if (!is_null($_productYotpoReview->getBlockId())): ?>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($_productYotpoReview->getBlockId())->toHtml(); ?>
+    <?php endif; ?>
+</div>
+

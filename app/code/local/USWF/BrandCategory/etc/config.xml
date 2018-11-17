@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_BrandCategory>
+            <version>1.0.0</version>
+        </USWF_BrandCategory>
+    </modules>
+    <global>
+        <models>
+            <uswf_brandcategory>
+                <class>USWF_BrandCategory_Model</class>
+                <resourceModel>uswf_brandcategory_resource</resourceModel>
+            </uswf_brandcategory>
+            <uswf_brandcategory_resource>
+                <class>USWF_BrandCategory_Model_Resource</class>
+                <entities>
+                    <record>
+                        <table>uswf_brand_category</table>
+                    </record>
+                </entities>
+            </uswf_brandcategory_resource>
+        </models>
+        <blocks>
+            <uswf_brandcategory>
+                <class>USWF_BrandCategory_Block</class>
+            </uswf_brandcategory>
+        </blocks>
+        <helpers>
+            <uswf_brandcategory>
+                <class>USWF_BrandCategory_Helper</class>
+            </uswf_brandcategory>
+        </helpers>
+        <resources>
+            <uswf_brandcategory_setup>
+                <setup>
+                    <module>USWF_BrandCategory</module>
+                </setup>
+            </uswf_brandcategory_setup>
+        </resources>
+        <events>
+            <catalog_entity_attribute_save_after>
+                <observers>
+                    <brand_category_save>
+                        <class>uswf_brandcategory/observer</class>
+                        <method>updateBrandCategories</method>
+                    </brand_category_save>
+                </observers>
+            </catalog_entity_attribute_save_after>
+        </events>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+		            <modules>
+                        <uswf_brandcategory after="Mage_Adminhtml">USWF_BrandCategory_Adminhtml</uswf_brandcategory>
+                    </modules>
+                </args>
+
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <system>
+                <children>
+                    <uswf_brandcategory translate="title" module="uswf_brandcategory">
+                        <title> Brand Category Records</title>
+                        <sort_order>100</sort_order>
+                        <action>adminhtml/brandcategory/</action>
+                    </uswf_brandcategory>
+                </children>
+            </system>
+        </menu>
+    </adminhtml>
+</config>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_PaypalRevenue>
+            <version>1.0.0</version>
+        </Lyonscg_PaypalRevenue>
+    </modules>
+    <global>
+        <models>
+            <lyonscg_paypalrevenue>
+                <class>Lyonscg_PaypalRevenue_Model</class>
+            </lyonscg_paypalrevenue>
+            <paypal>
+                <rewrite>
+                    <config>Lyonscg_PaypalRevenue_Model_Paypal_Config</config>
+                </rewrite>
+            </paypal>
+        </models>
+        <helpers>
+            <lyonscg_paypalrevenue>
+                <class>Lyonscg_PaypalRevenue_Helper</class>
+            </lyonscg_paypalrevenue>
+        </helpers>
+    </global>
+</config>

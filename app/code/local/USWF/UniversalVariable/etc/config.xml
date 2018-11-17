@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_UniversalVariable
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_UniversalVariable>
+            <version>0.0.3</version>
+        </USWF_UniversalVariable>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_universalvariable>
+                <class>USWF_UniversalVariable_Block</class>
+            </uswf_universalvariable>
+            <universal_variable_main>
+                    <class>USWF_UniversalVariable_Block</class>
+            </universal_variable_main>
+        </blocks>
+        <helpers>
+            <uswf_universalvariable>
+                <class>USWF_UniversalVariable_Helper</class>
+            </uswf_universalvariable>
+        </helpers>
+        <models>
+            <uswf_universalvariable>
+                <class>USWF_UniversalVariable_Model</class>
+            </uswf_universalvariable>
+            <universal_variable_main>
+                <rewrite>
+                    <page_observer>USWF_UniversalVariable_Model_Page_Observer</page_observer>
+                </rewrite>
+            </universal_variable_main>
+        </models>
+        <resources>
+            <uswf_universalvariable_setup>
+                <setup>
+                    <module>USWF_UniversalVariable</module>
+                </setup>
+            </uswf_universalvariable_setup>
+        </resources>
+    </global>
+    <frontend>
+        <events>
+            <controller_action_layout_load_before>
+                <observers>
+                    <QuBit_UniversalVariable_Model_Page_Observer>
+                        <type>disabled</type>
+                    </QuBit_UniversalVariable_Model_Page_Observer>
+                </observers>
+            </controller_action_layout_load_before>
+            <controller_action_layout_render_before>
+                <observers>
+                    <QuBit_UniversalVariable_Model_Page_Observer>
+                        <type>singleton</type>
+                        <class>universal_variable_main/page_observer</class>
+                        <method>setUniversalVariable</method>
+                    </QuBit_UniversalVariable_Model_Page_Observer>
+                </observers>
+            </controller_action_layout_render_before>
+            <set_campaign_email>
+                <observers>
+                    <uswf_universalvariable>
+                        <class>uswf_universalvariable/observer</class>
+                        <method>setCampaignEmail</method>
+                    </uswf_universalvariable>
+                </observers>
+            </set_campaign_email>
+        </events>
+        <layout>
+            <updates>
+                <uswf_universalvariable>
+                    <file>uswf/universalvariable.xml</file>
+                </uswf_universalvariable>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <qubit_universalvariable>
+            <QuBit_UniversalVariable_Settings>
+                <uv_email_link_param>campaign_email</uv_email_link_param>
+                <uv_email_cookie_lifetime>86400</uv_email_cookie_lifetime>
+            </QuBit_UniversalVariable_Settings>
+        </qubit_universalvariable>
+    </default>
+</config>

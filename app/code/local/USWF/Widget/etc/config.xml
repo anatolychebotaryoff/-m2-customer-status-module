@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_Widget
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_Banners>
+            <version>0.0.1</version>
+        </USWF_Banners>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_widget>
+                <class>USWF_Widget_Block</class>
+            </uswf_widget>
+            <lyonscg_widget>
+                <rewrite>
+                    <category>USWF_Widget_Block_Category</category>
+                </rewrite>
+            </lyonscg_widget>
+        </blocks>
+        <helpers>
+            <uswf_widget>
+                <class>USWF_Widget_Helper</class>
+            </uswf_widget>
+        </helpers>
+    </global>
+</config>

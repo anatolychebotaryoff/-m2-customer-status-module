@@ -1,0 +1,54 @@
+
+<?php
+$labels = $this->prepareSizesForFilter();
+$depthList = $this->getConfigList("depth");
+$sizeAirFilter = array();
+foreach ($depthList as $depth) {
+    $lengthAirFilter = array();
+    $widthAirFilter = array();
+    foreach($labels[$depth] as $key => $label){
+        $res = explode('x',$label);
+        if (count($res) == 3) {
+            $sizeAirFilter[$depth]['length'][trim($res[0])] = $key;
+            $sizeAirFilter[$depth]['width'][trim($res[1])] = $key;
+        } else {
+            $sizeAirFilter[$depth]['length'][' '] = $key;
+            $sizeAirFilter[$depth]['width'][trim($res[1])] = $key;
+        }
+    }
+}
+foreach($sizeAirFilter as $key => $val){
+    $sizeAirFilter[$key]['length'] = array_flip($sizeAirFilter[$key]['length']);
+    $sizeAirFilter[$key]['width'] = array_flip($sizeAirFilter[$key]['width']);
+}
+?>
+
+<input type="text" id="size_length_inches" />
+<span class="filter-input-spacer">x</span>
+<input id="size_width_inches"/>
+<span class="filter-input-spacer">x</span>
+<label class="air-filter-finder-label">
+    <select class="air-filter-finder-select" id="size_thickness_inches">
+    <?php foreach($depthList as $depth): ?>
+        <option value='<?php echo $depth ?>' ><?php echo $depth ?></option>
+    <?php endforeach ?>
+    </select>
+</label>
+
+<script type="text/javascript">
+    var sizeAirFilter = <?php echo json_encode($sizeAirFilter); ?>;
+    jQuery( "#size_length_inches" ).autocomplete( {source: []} );
+    jQuery( "#size_width_inches" ).autocomplete( {source: []} );
+    jQuery( "#size_thickness_inches" ).change(function() {
+        jQuery( "#size_length_inches" ).val('');
+        jQuery( "#size_width_inches" ).val('');
+        var length = jQuery.map(sizeAirFilter[jQuery(this).val()]['length'], function(value, index) {
+            return value.toString();
+        });
+        var width = jQuery.map(sizeAirFilter[jQuery(this).val()]['width'], function(value, index) {
+            return value.toString();
+        });
+        jQuery( "#size_length_inches" ).autocomplete( "option", "source", length );
+        jQuery( "#size_width_inches" ).autocomplete( "option", "source", width );
+    }).change();
+</script>

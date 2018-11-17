@@ -1,0 +1,32 @@
+<?php $giftProductRuleText = $this->getPopupText(); ?>
+
+<?php if ($giftProductRuleText):?>
+    <div class="overlay"></div>
+    <div class="giftcheckout-popup" id="giftcheckout-popup" style="display: none">
+        <div class="giftcheckout-popup-wrapper">
+            <div class="giftcheckout-popup-contents">
+                <p class="popup-text"><?php echo $giftProductRuleText; ?></p>
+                <p class="close"><a href="javascript:void(0);">×</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        jQuery(window).bind('load',function() {
+            var popupCookie = Mage.Cookies.get('<?php echo USWF_GiftPurchase_Helper_Data::GIFTCHECKOUT_POPUP_COOKIE; ?>');
+            if (popupCookie == true) {
+                jQuery('.overlay').fadeIn(200, function() {
+                    var $popup_id = jQuery("#giftcheckout-popup");
+                    $popup_id.fadeIn();
+                    Mage.Cookies.set('<?php echo USWF_GiftPurchase_Helper_Data::GIFTCHECKOUT_POPUP_COOKIE; ?>',false);
+                });
+            }
+            jQuery('.giftcheckout-popup .close, .overlay').click(function () {
+                jQuery('.overlay, .giftcheckout-popup').fadeOut(200);
+            });
+        });
+
+        //]]>
+    </script>
+<?php endif;?>

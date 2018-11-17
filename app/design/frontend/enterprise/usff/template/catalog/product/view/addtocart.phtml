@@ -1,0 +1,50 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php $_helperUV = $this->helper('uswf_universalvariable'); ?>
+<?php $_product = $this->getProduct(); ?>
+<?php $package_qty = $_product->getPackageQty(); ?>
+<?php if (is_numeric($package_qty) && (int)$package_qty != 1) : ?>
+    <?php $variant = $package_qty.'pk'; ?>
+<?php else : ?>
+    <?php $variant = 'single'; ?>
+<?php endif; ?>
+<?php $brand = ($_product->getAttributeText('manufacturer') ? $this->jsQuoteEscape($_product->getAttributeText('manufacturer')) : null); ?>
+<?php $productCategory =  $_helperUV->getAttributeValue($_product->getId(), 'item_type'); ?>
+<?php $buttonTitle = $this->__('Add to Cart'); ?>
+<?php if($_product->isSaleable()): ?>
+    <?php if(!$_product->isGrouped() && $_product->getTypeId() !== Mage_Catalog_Model_Product_Type::TYPE_BUNDLE): ?>
+        <div class="add-to-cart">
+            <div class="qty-block">
+                <label for="qty"><?php echo $this->__('Qty:') ?></label>
+                <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+            </div>
+            <div class="clear"></div>
+            <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="onAddToCart('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape($_product->getName()) ?>', '<?php echo $_product->getFinalPrice() ?>', '1', '<?php echo $productCategory ?>', '<?php echo $variant ?>', '<?php echo $brand ?>');window.productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+            <?php echo $this->getChildHtml('', true, true) ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

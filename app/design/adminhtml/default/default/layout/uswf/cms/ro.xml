@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<layout>
+
+    <adminhtml_cms_page_edit>
+        <reference name="cms_page_edit_tabs">
+            <block type="uswf_cms/adminhtml_cms_page_edit_tab_ro" name="cms_page_edit_tab_ro"/>
+            <action method="addTab"><name>ro_section</name><block>cms_page_edit_tab_ro</block></action>
+        </reference>
+    </adminhtml_cms_page_edit>
+
+</layout>

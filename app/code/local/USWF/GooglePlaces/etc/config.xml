@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_GooglePlaces>
+            <version>0.1.0</version>
+        </USWF_GooglePlaces>
+    </modules>
+    <global>
+        <helpers>
+            <uswf_googleplaces>
+                <class>USWF_GooglePlaces_Helper</class>
+            </uswf_googleplaces>
+        </helpers>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <uswf_googleplaces>
+                    <file>uswf/googleplaces.xml</file>
+                </uswf_googleplaces>
+            </updates>
+        </layout>
+    </frontend>
+</config>

@@ -1,0 +1,75 @@
+<?php
+/**
+ * Subscribe Pro - Subscriptions Management Extension
+ *
+ * PHP version 5
+ *
+ * LICENSE: This source file is subject to commercial source code license of SUBSCRIBE PRO INC.
+ *
+ * @category  SFC
+ * @package   SFC_Autoship
+ * @author    Garth Brantley <garth@subscribepro.com>
+ * @copyright 2009-2016 SUBSCRIBE PRO INC. All Rights Reserved.
+ * @license   http://www.subscribepro.com/terms-of-service/ Subscribe Pro Terms of Service
+ * @link      http://www.subscribepro.com/
+ *
+ */
+$subscription = $this->getSubscription();
+
+$childBlocks = array('product_info', 'delivery_date', 'delivery_frequency');
+
+foreach($childBlocks as $child) {
+    $this->getChild('newsubscription.'. $child)->setSubscription($subscription);
+}
+
+?>
+
+<div class="page-title">
+	<h1><?php echo $this->__("Create New Product Subscription") ?></h1>
+</div>
+
+<div class="new-subscription subscription">
+    <div class="top-row">
+    	<div class="product-info-block">
+    		<?php echo $this->getChildHtml('newsubscription.product_info') ?>
+    	</div>
+    	<div class="block delivery-date-block">
+    		<?php echo $this->getChildHtml('newsubscription.delivery_date') ?>
+    	</div>
+    	<div class="clearer"></div>
+    </div><!-- end top-row -->
+    <div class="bottom-row">
+    	<div class="bottom-left">
+	    	<div class="bottom-top">
+	  			<div class="block frequency-block">
+	  				<?php echo $this->getChildHtml('newsubscription.delivery_frequency') ?>
+	  			</div>
+	  			<div class="clearer"></div>
+	    	</div><!-- end bottom-top -->
+    	</div><!-- end bottom-left -->
+    	<div class="bottom-right">
+            <div class="summary-block">
+                <div class="messages"></div>
+            </div>
+    		<div id="newsubscription_submit">
+    			<ul class="messages"></ul>
+                <div class="subscribe-button-block">
+                    <?php $buttonTitle = $this->__('Subscribe Now'); ?>
+                    <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" id="subscribe" href="<?php echo $this->getPostActionUrl() ?>"><span><span><?php echo $buttonTitle ?></span></span></button>
+                </div><!-- end subscribe-button-block -->
+    		</div>
+    	</div><!-- end bottom-right -->
+    </div><!-- end bottom-row -->
+</div><!-- end new-subscription -->
+
+<div style="clear:both;"></div>
+
+<div id="updated-subscription-content" style="display:none;"></div>
+
+<script type="text/javascript">
+//<![CDATA[
+    var regionsJson =
+        <?php echo $this->helper('directory')->getRegionJson() ?>
+        ;
+//]]>
+</script>

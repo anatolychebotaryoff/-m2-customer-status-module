@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_LayeredNav>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends></depends>
+        </USWF_LayeredNav>
+    </modules>
+</config>

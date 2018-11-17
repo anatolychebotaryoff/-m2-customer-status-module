@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<widgets>
+    <air_merv_widget type="uswf_airmerv/product_widget_link" translate="name description" module="catalog">
+        <name>Air Merv Widget</name>
+        <description>Compare 4 Air Filters by Merv</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            
+            <ids translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Products</label>
+                <type>label</type>
+                <helper_block>
+                    <type>uswf_airmerv/adminhtml_catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Products...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </ids>
+            <category>
+                <label>Category</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>text</type>
+            </category>
+            <template>
+                <label>Template</label>
+                <visible>0</visible>
+                <type>select</type>
+                <value>cms/airmerv.phtml</value>
+            </template>
+        </parameters>
+    </air_merv_widget>
+</widgets>

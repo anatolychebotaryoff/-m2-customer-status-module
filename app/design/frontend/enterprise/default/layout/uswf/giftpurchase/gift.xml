@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<layout>
+    <checkout_cart_index>
+        <reference name="head">
+            <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
+        </reference>
+        <reference name="before_body_end">
+            <block type="uswf_giftpurchase/checkout_cart_popup" name="gift_checkout_cart_popup" as="gift.checkout.cart.popup" template="uswf/giftpurchase/checkout/cart/popup.phtml"/>
+        </reference>
+    </checkout_cart_index>
+</layout>

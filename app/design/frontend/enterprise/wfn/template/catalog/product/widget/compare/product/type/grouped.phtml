@@ -1,0 +1,136 @@
+<table class="data-table grouped-items-table subscribePro" >
+    <tbody>
+    <?php
+    $product = $this->getProduct();
+    $_associatedProducts = Mage::helper('uswf_comparedto')->getAssociatedProducts($product);
+    $isTier1 = $product->getData('is_tier1');
+    $oemPrices = $this->getData('oem_prices');
+    $tierPriceOutput = $this->getData('tier_price_output');
+    ?>
+    <?php if ($_associatedProducts): ?>
+        <input type="hidden" name="back_url" value="<?php echo Mage::helper('core/url')->getCurrentUrl() ?>"/>
+
+        <?php foreach ($_associatedProducts as $_item): ?>
+            <?php $options = $product->getExtOptions(); ?>
+            <?php if (!empty($options) && !in_array($_item->getPackageQty(), $options)): ?>
+                <?php continue; ?>
+            <?php endif; ?>
+            <?php if ($product->isSaleable()): ?>
+                <tr>
+                    <td class="a-center input">
+                        <?php if ($_item->isSaleable()) : ?>
+                            <?php $defaultOption = $product->getExtDefaultOption(); ?>
+                            <input type="radio" autocomplete="off" id="radio-<?php echo $_item->getId() ?>" name="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty()*1 ?>" title="<?php echo $this->__('Qty') ?>" class="css-checkbox input-text qty option-validate" onclick="product_addtocart_form<?php echo $product->getIndex() ?>checkSelection(this)"<?php echo (!empty($defaultOption) && $isTier1 && $defaultOption == $_item->getPackageQty()) ? ' checked="checked"' : '' ?> />
+                            <label for="radio-<?php echo $_item->getId() ?>" class="css-label"></label>
+                        <?php else: ?>
+                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                            <span class="ind-price" id="compare-ind-price-<?php echo $_item->getId() ?>">
+                                <?php if ($_item->getTypeId() == 'bundle'): ?>
+                                    <?php
+                                    $selectionCollection = $_item->getTypeInstance(true)->getSelectionsCollection($_item->getTypeInstance(true)->getOptionsIds($_item), $_item);
+                                    $_itemProductTotal = 0;
+                                    ?>
+                                    <?php foreach ($selectionCollection as $option) : ?>
+                                        <?php $optionPackageQty = $option->getPackageQty();?>
+                                        <?php $_itemProductTotal += $optionPackageQty ? $optionPackageQty  * $option->getSelectionQty() : $option->getSelectionQty(); ?>
+                                    <?php endforeach; ?>
+                                    <span class="qty"><?php echo $_itemProductTotal ?>&nbsp;<?php echo $this->__('Filters') ?></span>
+                                <?php elseif ($_children = $_item->getTypeInstance(true)->getChildrenIds($_item->getId(), false)): ?>
+                                    <?php $_itemProductTotal = 0;?>
+                                    <?php foreach ($_children as $_selection): ?>
+                                        <?php foreach ($_selection as $_childProduct): ?>
+                                            <?php $_itemProductTotal++ ?>
+                                        <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                    <?php if ($_itemProductTotal > 1): ?>
+                                        <span class="qty"><?php echo $_itemProductTotal ?>&nbsp;<?php echo $this->__('Filters') ?></span>
+                                    <?php else: ?>
+                                        <?php echo $this->__('%s Filter', $_item->getQty()*1) ?>
+                                    <?php endif; ?>
+                                <?php elseif ($_item->getQty() > 1): ?>
+                                    <?php $optionPackageQty = $_item->getPackageQty();?>
+                                    <?php $_itemProductTotal = $optionPackageQty ? $optionPackageQty : $_item->getQty(); ?>
+                                    <span class="qty"><?php echo $_itemProductTotal*1 ?></span>&nbsp;<span><?php echo $this->__('Filters') ?></span>
+                                <?php else: ?>
+                                    <?php $optionPackageQty = $_item->getPackageQty();?>
+                                    <?php $_itemProductTotal = $optionPackageQty ? $optionPackageQty : $_item->getQty(); ?>
+                                    <?php echo $this->__('%s Filter', $optionPackageQty*1) ?>
+                                <?php endif; ?>
+
+                                <?php if ($isTier1): ?>
+                                    <?php if (array_key_exists($_item->getPackageQty(), $oemPrices)): ?>
+                                        <?php if ($_item->getFinalPrice() < $oemPrices[$_item->getPackageQty()]): ?>
+                                            <?php $_savePrice = $oemPrices[$_item->getPackageQty()] - $_item->getFinalPrice() ?>
+                                            <div class="save-price" id="save-price-<?php echo $_item->getId() ?>">
+                                                <?php echo $this->__('Save %s', Mage::helper('core')->currency($_savePrice, true, false)) ?>
+                                            </div>
+                                            <span class="save-price-simple hidden"><?php echo Mage::helper('core')->currency($_savePrice, false, false) ?></span>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php elseif ($_item->getPackageQty() > 1):?>
+                                    <?php $pricePerUnit = $oemPrices[$_item->getPackageQty()] / $_itemProductTotal;?>
+                                    <div class="price-per-unit">
+                                        <?php echo $this->__('%s each', Mage::helper('core')->currency($pricePerUnit, true, false)) ?>
+                                    </div>
+                                <?php endif; ?>
+                            </span>
+                        <?php if ($this->getData('tier1_can_show_price') !== false): ?>
+                            <?php if ($_item->getCanShowPrice() !== false): ?>
+                                <span class="price-box">
+                                        <span class="regular-price" id="product-price-<?php echo $_item->getId() ?>">
+                                            <?php echo Mage::helper('core')->currency($_item->getFinalPrice()) ?>
+                                        </span>
+                                        <span class="price-simple hidden"><?php echo Mage::helper('core')->currency($_item->getFinalPrice(), false, false) ?></span>
+                                    </span>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <?php if ($tierPriceOutput):?>
+                    <?php $tierPrices = Mage::getModel('uswf_comparedto/product_type_price')->getPriceList($_item);?>
+                    <tr class="borderless">
+                        <td colspan="2">
+                            <table class="compare-tier-price">
+                                <col width="30">
+                                <col/>
+                                <col/>
+                                <tr>
+                                    <th class="a-center input">&nbsp;</th>
+                                    <th class="quantity-header"><?php echo $this->__('Quantity');?></th>
+                                    <th class="price"><?php echo $this->__('Unit Price');?></th>
+                                </tr>
+                                <?php foreach ($tierPrices as $qty => $tierPrice):?>
+                                    <tr>
+                                        <td class="a-center input">
+                                            <?php if ($_item->isSaleable()) : ?>
+                                                <?php $defaultOption = $product->getExtDefaultOption(); ?>
+                                                <input type="radio" autocomplete="off" id="radio-<?php echo $_item->getId() ?>-<?php echo $qty*1;?>" name="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $qty * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="css-checkbox input-text qty option-validate" onclick="product_addtocart_form<?php echo $product->getIndex() ?>checkSelection(this)" />
+                                                <label for="radio-<?php echo $_item->getId() ?>-<?php echo $qty*1;?>" class="css-label"></label>
+                                            <?php else: ?>
+                                                <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="quantity-cell a-center">
+                                            <?php echo $qty * 1; ?>
+                                        </td>
+                                        <td class="price a-center">
+                                            <?php echo Mage::helper('core')->currency($tierPrice) ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach;?>
+                            </table>
+                        </td>
+                    </tr>
+                <?php endif;?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr>
+            <td style="padding: 6px;" colspan="<?php if ($this->getData('tier1_is_saleable')): ?>4<?php else : ?>3<?php endif; ?>"><?php echo $this->__('No options of this product are available.') ?></td>
+        </tr>
+    <?php endif; ?>
+    </tbody>
+</table>

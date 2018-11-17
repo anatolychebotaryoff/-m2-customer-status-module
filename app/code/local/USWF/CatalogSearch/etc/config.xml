@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_CatalogSearch
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_CatalogSearch>
+            <version>0.0.1</version>
+        </USWF_CatalogSearch>
+    </modules>
+    <global>
+        <models>
+            <uswf_catalogsearch>
+                <class>USWF_Catalog_Model</class>
+            </uswf_catalogsearch>
+            <enterprise_catalogsearch>
+                <rewrite>
+                    <indexer_fulltext>USWF_CatalogSearch_Model_Indexer_Fulltext</indexer_fulltext>
+                </rewrite>
+            </enterprise_catalogsearch>
+        </models>
+        <events>       
+            <catalog_product_save_commit_after>
+                <observers>
+                    <enterprise_catalogsearch_fulltext>
+                        <type>disabled</type>
+                    </enterprise_catalogsearch_fulltext>
+                </observers>
+            </catalog_product_save_commit_after>
+            <catalogsearch_fulltext_shell_reindex_after>
+                <observers>
+                    <enterprise_index>
+                        <type>disabled</type>
+                    </enterprise_index>
+                </observers>
+            </catalogsearch_fulltext_shell_reindex_after>
+            <enterprise_index_exclude_process_before>
+                <observers>
+                    <enterprise_catalogsearch_fulltext>
+                        <type>disabled</type>
+                    </enterprise_catalogsearch_fulltext>
+                </observers>
+            </enterprise_index_exclude_process_before>
+        </events>
+    </global>
+</config>

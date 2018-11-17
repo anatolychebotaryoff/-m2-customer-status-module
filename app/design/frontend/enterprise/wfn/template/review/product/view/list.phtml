@@ -1,0 +1,88 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php $_items = $this->getReviewsCollection()->getItems();?>
+<div class="box-collateral box-reviews" id="customer-reviews">
+    <div class="ma-review-col1">
+        <?php if (count($_items)):?>
+            <div class="title-review">
+                <h2><?php echo $this->__('Review Snapshot') ?></h2>
+                <span class="register">&reg;by PowerReviews</span>
+                <a href="<?php echo Mage::getUrl('review/product/list', array('id'=> $this->getProductId())) ?>#review-form" class="write-review"><?php echo $this->__('Write a Review') ?></a>
+            </div>
+            <div class="title-review-list">
+                <h3>REVIEWS</h3>
+            </div>
+            <?php echo $this->getChildHtml('toolbar') ?>
+            <dl>
+            <?php foreach ($_items as $_review):?>
+                <dt>
+                    <?php $_votes = $_review->getRatingVotes(); ?>
+                    <?php if (count($_votes)): ?>
+                    <table class="ratings-table">
+                        <col width="1" />
+                        <col />
+                        <tbody>
+                            <?php foreach ($_votes as $_vote): ?>
+                            <tr>
+                                <th>
+                                    <div class="rating-box">
+                                        <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+                                    </div>
+                                </th>
+                                <td>
+                                    <?php echo $this->escapeHtml($_vote->getRatingCode()) ?>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?php endif; ?>
+                </dt>
+                <dd>
+                    <span>
+                        <?php echo $this->__('By <span class="autor">%s</span>', $this->escapeHtml($_review->getNickname())) ?> from 
+                        <?php echo $this->escapeHtml($_review->getTitle()) ?>
+                    </span>   
+                    <!--<a href="<?php /*echo $this->getReviewUrl($_review->getId()) ?>"><?php echo $this->escapeHtml($_review->getTitle())*/ ?></a>--> 
+                    
+                    <p><?php echo nl2br($this->escapeHtml($_review->getDetail())) ?></p>
+                    <small class="date"><?php echo $this->__('%s', $this->formatDate($_review->getCreatedAt()), 'long') ?></small>
+                </dd>
+            <?php endforeach; ?>
+            </dl>
+            <?php //echo $this->getChildHtml('toolbar') ?>
+        <?php endif;?>
+    </div>
+    <div class="ma-review-col2 span6">
+        <?php echo $this->getChildHtml('review_form') ?>
+        <?php
+            /*$layout = Mage::getSingleton('core/layout');
+            echo $layout->getBlock('content')->getChild('product.info')->getChild('info_tabs')->getChild('review_form')->toHtml();*/
+        ?>
+    </div>
+</div>

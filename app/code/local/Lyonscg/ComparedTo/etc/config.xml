@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_ComparedTo>
+            <version>0.1.0</version>
+        </Lyonscg_ComparedTo>
+    </modules>
+    <global>
+        <models>
+            <lyonscg_comparedto>
+                <class>Lyonscg_ComparedTo_Model</class>
+            </lyonscg_comparedto>
+        </models>
+        <blocks>
+            <lyonscg_comparedto>
+                <class>Lyonscg_ComparedTo_Block</class>
+            </lyonscg_comparedto>
+        </blocks>
+        <resources>
+            <lyonscg_comparedto_setup>
+                <setup>
+                    <module>Lyonscg_ComparedTo</module>
+                </setup>
+            </lyonscg_comparedto_setup>
+        </resources>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Lyonscg_ComparedTo before="Mage_Adminhtml">Lyonscg_ComparedTo_Adminhtml</Lyonscg_ComparedTo>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

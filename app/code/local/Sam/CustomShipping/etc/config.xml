@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Sam_CustomShipping>
+            <version>1.0.0</version>
+        </Sam_CustomShipping>
+    </modules>
+    <global>
+        <blocks>
+            <sam_customshipping>
+                <class>Sam_CustomShipping_Block</class>
+            </sam_customshipping>
+        </blocks>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <sam_customshipping>
+                    <file>sam/customshipping.xml</file>
+                </sam_customshipping>
+                <sam_customshipping_fix_store>
+                    <file>sam/customshipping-fix-store.xml</file>
+                </sam_customshipping_fix_store>
+            </updates>
+        </layout>
+        <routers>
+            <paypal>
+                <args>
+                    <modules>
+                        <sam_customshipping before="Mage_Paypal">Sam_CustomShipping</sam_customshipping>
+                    </modules>
+                </args>
+            </paypal>
+        </routers>
+    </frontend>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <Tm_SpecialPriceCountdown>
+            <active>false</active>
+            <codePool>local</codePool>            
+        </Tm_SpecialPriceCountdown>
+    </modules>
+</config>

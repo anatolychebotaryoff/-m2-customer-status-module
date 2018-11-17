@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Lyonscg_Mscc>
+			<version>0.1.0</version>
+		</Lyonscg_Mscc>
+	</modules>
+	<global>
+		<models/>
+		<blocks/>
+		<helpers/>
+	</global>
+	<admin>
+		<routers>
+			<mscc>
+				<use>admin</use>
+				<args>
+					<module>Lyonscg_Mscc</module>
+					<frontName>mscc</frontName>
+				</args>
+			</mscc>
+		</routers>
+	</admin>
+	<adminhtml>
+		<translate>
+			<modules>
+				<lyons_adminhtml>
+					<files>
+						<mscc>Lyonscg_Mscc.csv</mscc>
+					</files>
+				</lyons_adminhtml>
+			</modules>
+		</translate>
+		<menu>
+			<system>
+				<children>
+					<mscc_adminform translate="title">
+						<title>Multi-Server Cache Clear</title>
+						<action>mscc/adminhtml_myform</action>
+						<sort_order>91</sort_order>
+					</mscc_adminform>
+				</children>
+			</system>
+		</menu>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<mscc_adminform>
+									<title>Multi-Server Cache Clear</title>
+								</mscc_adminform>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<mscc>
+					<file>mscc.xml</file>
+				</mscc>
+			</updates>
+		</layout>
+	</adminhtml>
+</config>

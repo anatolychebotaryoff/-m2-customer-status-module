@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <USWF_Smartfit>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Cmsmart_Megamenu/>
+                <Cmsmart_Ajaxsearch/>
+                <Cmsmart_AjaxCart/>
+            </depends>
+        </USWF_Smartfit>
+    </modules>
+</config>

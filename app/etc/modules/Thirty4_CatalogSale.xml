@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <Thirty4_CatalogSale>
+            <active>false</active>
+            <codePool>community</codePool>
+        </Thirty4_CatalogSale>
+    </modules>
+</config> 

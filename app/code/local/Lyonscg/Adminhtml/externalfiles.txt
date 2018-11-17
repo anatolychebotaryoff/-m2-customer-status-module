@@ -1,0 +1,15 @@
+/**
+ * Lyonscg_Adminhtml
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_Adminhtml
+ * @copyright   Copyright (c) 2015 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Eugene Nazarov (enazarov@lyonscg.com)
+ */
+### Module Files Outside this Directory
+
+# Module XML File
+app/etc/modules/Lyonscg_Adminhtml.xml
+
+# Overwritten files
+app/code/local/Varien/Data/Form/Element/Text.php

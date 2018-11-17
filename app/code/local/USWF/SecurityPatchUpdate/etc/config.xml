@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_SecurityPatchUpdate>
+            <version>0.1.0</version>
+        </USWF_SecurityPatchUpdate>
+    </modules>
+    <global>
+        <resources>
+            <uswf_security_update>
+                <setup>
+                    <module>USWF_SecurityPatchUpdate</module>
+                </setup>
+            </uswf_security_update>
+        </resources>
+    </global>
+</config>

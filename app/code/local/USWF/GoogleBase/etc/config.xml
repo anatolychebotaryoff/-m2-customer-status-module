@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_GoogleBase
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_GoogleBase>
+            <version>0.0.2</version>
+        </USWF_GoogleBase>
+    </modules>
+    <global>
+        <helpers>
+            <uswf_googlebase>
+                <class>USWF_GoogleBase_Helper</class>
+            </uswf_googlebase>
+        </helpers>
+        <resources>
+            <uswf_googlebase_setup>
+                <setup>
+                    <module>USWF_GoogleBase</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+            </uswf_googlebase_setup>
+        </resources>
+    </global>
+    <default>
+        <qubit_universalvariable>
+            <QuBit_OpenTag_Settings>
+                <Gate_Enabled>1</Gate_Enabled>
+            </QuBit_OpenTag_Settings>
+        </qubit_universalvariable>
+    </default>
+</config>

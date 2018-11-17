@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<adminhtml_catalog_product_edit>
+		<reference name="head">
+			<action method="addItem"><type>skin_css</type><name>css/uswf/comparepage/style.css</name></action>
+			<action method="addItem"><type>skin_js</type><name>js/uswf/comparepage/comparepage.js</name></action>
+		</reference>
+		<reference name="product_tabs">
+			<action method="addTab">
+				<name>comparepage</name>
+				<block>uswf_comparepage/adminhtml_catalog_product_edit_tab_compare</block>
+			</action>
+		</reference>
+
+		<block type="core/text_list" name="catalog.product.edit.tab.compare.products.container">
+			<block type="uswf_comparepage/adminhtml_catalog_product_edit_tab_compare_products" name="catalog.product.edit.tab.compare.products"/>
+			<block type="adminhtml/widget_grid_serializer" name="compare_products_grid_serializer">
+				<reference name="compare_products_grid_serializer">
+					<action method="initSerializerBlock">
+						<grid_block_name>catalog.product.edit.tab.compare.products</grid_block_name>
+						<data_callback>getSelectedComparedProducts</data_callback>
+						<hidden_input_name>comparepage[compared_products]</hidden_input_name>
+						<reload_param_name>compared_position</reload_param_name>
+					</action>
+					<action method="addColumnInputName">
+						<input_name>compared_position</input_name>
+						<input_name>compared_website_id</input_name>
+					</action>
+				</reference>
+			</block>
+		</block>
+
+	</adminhtml_catalog_product_edit>
+
+	<adminhtml_catalog_product_comparedproductsgrid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="uswf_comparepage/adminhtml_catalog_product_edit_tab_compare_products" name="catalog.product.edit.tab.compare.products"/>
+		</block>
+	</adminhtml_catalog_product_comparedproductsgrid>
+
+</layout>

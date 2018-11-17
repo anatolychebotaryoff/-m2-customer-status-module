@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout>
+    <lyonscg_pagecachefilter_adminhtml_filter_index>
+        <reference name="content">
+            <block type="lyonscg_pagecachefilter/adminhtml_filter" name="pagecachefilter.filter" />
+        </reference>
+    </lyonscg_pagecachefilter_adminhtml_filter_index>
+
+    <lyonscg_pagecachefilter_adminhtml_filter_new>
+        <update handle="lyonscg_pagecachefilter_adminhtml_filter_edit" />
+    </lyonscg_pagecachefilter_adminhtml_filter_new>
+
+    <lyonscg_pagecachefilter_adminhtml_filter_edit>
+        <reference name="content">
+            <block type="lyonscg_pagecachefilter/adminhtml_filter_edit" name="pagecachefilter.filter.edit" />
+        </reference>
+        <reference name="left">
+            <block type="lyonscg_pagecachefilter/adminhtml_filter_edit_filter" name="pagecachefilter.filter.edit.filter" />
+        </reference>
+    </lyonscg_pagecachefilter_adminhtml_filter_edit>
+</layout>

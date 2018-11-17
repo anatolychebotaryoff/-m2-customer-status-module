@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/uswf/unvmod/utm.js</name>
+            </action>
+        </reference>
+        <reference name="after_body_start">
+            <block type="core/template" name="utm_js" as="utm_js" template="uswf/unvmod/utmjs.phtml" before="-"/>
+        </reference>
+    </default>
+</layout>

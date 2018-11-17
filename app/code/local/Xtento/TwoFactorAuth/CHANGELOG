@@ -1,0 +1,25 @@
+Xtento_TwoFactorAuth
+
+-------------
+  CHANGELOG
+-------------
+
+===== 1.0.0 =====
+ * Initial stable release
+
+[...]
+
+===== 1.0.4 =====
+ * Fixed an issue where the "TFA not required for certain IP" feature didn't work if the server is behind a reverse/caching proxy.
+
+===== 1.0.5 =====
+ ! Added compatibility for Magento CE 1.9.1.0 / EE 1.14.1.0
+
+===== 1.0.6 =====
+ * Fixed adminhtml controller that didn't work in some environments and led to "code is wrong" always when attempting to enable TFA.
+
+===== 1.0.7 =====
+ * Fixed a bug caused by Magento patch SUPEE-6285 that lead to "Access Denied" screens for admins that don't have full access.
+
+===== 1.0.8 =====
+ + Added ability to send the admin an email containing the QR code after setting up TFA for a new admin

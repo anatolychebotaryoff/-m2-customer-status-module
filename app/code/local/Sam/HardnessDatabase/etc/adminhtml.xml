@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <hardness module="hardness">
+            <title>Hardness of water</title>
+            <sort_order>120</sort_order>
+            <children>
+                <zipcodes module="hardness">
+                    <title>Local water personalization for DFS</title>
+                    <sort_order>0</sort_order>
+                    <action>adminhtml/hardness</action>
+                </zipcodes>
+            </children>
+        </hardness>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <hardness translate="title" module="hardness">
+                        <title>Hardness of water</title>
+                        <sort_order>120</sort_order>
+                        <children>
+                            <zipcodes translate="title">
+                                <title>Local water personalization for DFS</title>
+                                <sort_order>10</sort_order>
+                            </zipcodes>
+                        </children>
+                    </hardness>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <hardness translate="title" module="cms">
+                                        <title>Hardness of water</title>
+                                    </hardness>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,7 @@
+"My form title","Multi-Server Cache Clear"
+"This fieldset name","Functionality NOTICE"
+"Validation checkbox","Check the box to verify that you want to clear the cache on all servers."
+"Notice text","By clicking this button, you will initiate the <strong>Multi-Server Cache Clearing</strong> mechanism.<br>It will cause content to refresh, but will have a short temporary slowing effect on the site."
+"Checkbox unchecked","Please make sure the checkbox is checked."
+"Successful cache-clears","Successful cache-clears: "
+"Failed cache-clears","Failed cache-clears: "

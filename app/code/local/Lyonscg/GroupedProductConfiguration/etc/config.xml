@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_GroupedProductConfiguration>
+            <version>0.1.0</version>
+        </Lyonscg_GroupedProductConfiguration>
+    </modules>
+    <global>
+        <blocks>
+            <itoris_groupedproductconfiguration>
+                <rewrite>
+                    <product_edit>Lyonscg_GroupedProductConfiguration_Block_Product_Edit</product_edit>
+                </rewrite>
+            </itoris_groupedproductconfiguration>
+        </blocks>
+    </global>
+    <frontend>
+        <routers>
+            <groupedproductconfiguration>
+                <args>
+                    <modules>
+                        <lyonscg_groupedproductconfiguration before="Itoris_GroupedProductConfiguration">Lyonscg_GroupedProductConfiguration</lyonscg_groupedproductconfiguration>
+                    </modules>
+                </args>
+            </groupedproductconfiguration>
+        </routers>
+    </frontend>
+</config>

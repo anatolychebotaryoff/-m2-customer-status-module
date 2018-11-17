@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Bundle>
+            <version>0.1.0</version>
+        </Lyonscg_Bundle>
+    </modules>
+    <global>
+        <models>
+            <lyonscg_bundle>
+                <class>Lyonscg_Bundle_Model</class>
+            </lyonscg_bundle>
+            <bundle>
+                <rewrite>
+                    <observer>Lyonscg_Bundle_Model_Observer</observer>
+                </rewrite>
+            </bundle>
+        </models>
+    </global>
+    <frontend>
+        <routers>
+            <bundle>
+                <use>standard</use>
+                <args>
+                    <module>Lyonscg_Bundle</module>
+                    <frontName>bundle</frontName>
+                </args>
+            </bundle>
+        </routers>        
+    </frontend>
+</config>

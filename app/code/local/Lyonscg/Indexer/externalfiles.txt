@@ -1,0 +1,12 @@
+/**
+ * Lyonscg Indexer
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_Indexer
+ * @copyright   Copyright (c) 2015 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Eugene Nazarov (enazarov@lyonscg.com) 
+ */
+### Module Files Outside this Directory
+
+# Module XML File
+app/etc/modules/Lyonscg_Indexer.xml

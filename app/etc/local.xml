@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <global>
+        <install>
+            <date><![CDATA[Sat, 31 Jul 2010 20:27:41 +0000]]></date>
+        </install>
+        <crypt>
+            <key><![CDATA[9e3a98eea15db42e0dfdddc90b8b509c]]></key>
+        </crypt>
+        <disable_local_modules>false</disable_local_modules>
+        <resources>
+            <db>
+                <table_prefix><![CDATA[]]></table_prefix>
+            </db>
+            <default_setup>
+                <connection>
+                    <host><![CDATA[db-vip]]></host>
+                    <username><![CDATA[proddb]]></username>
+                    <password><![CDATA[uk5d4aUA4zXy]]></password>
+                    <dbname><![CDATA[proddb]]></dbname>
+                    <active>1</active>
+                </connection>
+            </default_setup>
+        </resources>
+<!--
+        <remote_addr_headers>
+            <header1>HTTP_X_FORWARDED_FOR</header1>
+        </remote_addr_headers>
+-->
+<!--        <session_save><![CDATA[db]]></session_save> -->
+        <session_save><![CDATA[memcache]]></session_save>
+	<session_save_path><![CDATA[tcp://memcache-vip:11211?persistent=1&weight=2&timeout=10&retry_interval=10]]></session_save_path>
+        <cache>
+            <backend><![CDATA[Cm_Cache_Backend_Redis]]></backend>
+            <backend_options>
+                <server><![CDATA[redis-vip]]></server>
+                <port><![CDATA[6379]]></port>
+                <database><![CDATA[0]]></database>
+                <!--<force_standalone><![CDATA[1]]></force_standalone>-->
+                <automatic_cleaning_factor><![CDATA[0]]></automatic_cleaning_factor>
+                <timeout>60000</timeout>
+                <read_timeout>60000</read_timeout>
+                <compress_data><![CDATA[1]]></compress_data>
+                <compress_tags><![CDATA[1]]></compress_tags>
+                <compress_threshold><![CDATA[20480]]></compress_threshold>
+                <compression_lib><![CDATA[gzip]]></compression_lib>
+                <lifetimelimit><![CDATA[86400]]></lifetimelimit>
+                <connect_retries>3</connect_retries>
+            </backend_options> 
+	</cache>
+
+    <full_page_cache>
+      <backend><![CDATA[Cm_Cache_Backend_Redis]]></backend>
+      <backend_options>
+        <server><![CDATA[redis-vip]]></server>
+            <port><![CDATA[6379]]></port>
+                <database><![CDATA[1]]></database>
+                <force_standalone><![CDATA[0]]></force_standalone>
+                <automatic_cleaning_factor><![CDATA[0]]></automatic_cleaning_factor>
+                <timeout>60000</timeout>
+                <read_timeout>60000</read_timeout>
+                <compress_data><![CDATA[1]]></compress_data>
+                <compress_tags><![CDATA[1]]></compress_tags>
+                <lifetimelimit><![CDATA[86400]]></lifetimelimit> 
+                <connect_retries>3</connect_retries>
+	</backend_options>
+    </full_page_cache>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <frontName><![CDATA[uswf_panel223]]></frontName>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

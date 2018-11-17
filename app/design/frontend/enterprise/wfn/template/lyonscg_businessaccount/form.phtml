@@ -1,0 +1,56 @@
+<?php $_class = $this->getIsInternational() ? 'international' : 'domestic'; ?>
+<div class="page-title business-account <?php echo $_class; ?>">
+    <?php if ($this->getIsInternational()): ?>
+    <h1><?php echo Mage::helper('lyonscg_businessaccount')->__('International Business Account') ?></h1>
+    <?php else: ?>
+    <h1><?php echo Mage::helper('lyonscg_businessaccount')->__('Business Account') ?></h1>
+    <?php endif;?>
+</div>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<form action="<?php echo $this->getFormAction(); ?>" id="businessAccountForm" method="post" class="<?php echo $_class; ?>">
+    <input type="hidden" name="international" value="<?php echo $this->getIsInternational() ? '1' : '0'; ?>">
+    <input type="hidden" name="uenc" value="<?php echo Mage::helper('core/url')->getEncodedUrl(); ?>">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo Mage::helper('lyonscg_businessaccount')->__('Contact Information') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo Mage::helper('lyonscg_businessaccount')->__('Name') ?></label>
+                    <div class="input-box">
+                        <input name="name" id="name" title="<?php echo Mage::helper('lyonscg_businessaccount')->__('Name') ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="email" class="required"><em>*</em><?php echo Mage::helper('lyonscg_businessaccount')->__('Email') ?></label>
+                    <div class="input-box">
+                        <input name="email" id="email" title="<?php echo Mage::helper('lyonscg_businessaccount')->__('Email') ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="telephone"><?php echo Mage::helper('lyonscg_businessaccount')->__('Telephone') ?></label>
+                    <div class="input-box">
+                        <input name="telephone" id="telephone" title="<?php echo Mage::helper('lyonscg_businessaccount')->__('Telephone') ?>" value="" class="input-text" type="text" />
+                    </div>
+                </div>
+            </li>
+            <li class="wide">
+                <label for="comment" class="required"><em>*</em><?php echo Mage::helper('lyonscg_businessaccount')->__('Comment') ?></label>
+                <div class="input-box">
+                    <textarea name="comment" id="comment" title="<?php echo Mage::helper('lyonscg_businessaccount')->__('Comment') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set form-buttons btn-only">
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button type="submit" class="button" title="<?php echo Mage::helper('lyonscg_businessaccount')->__('Submit') ?>"><span><span><?php echo Mage::helper('contacts')->__('Submit') ?></span></span></button>
+    </div>
+    <p class="required"><?php echo Mage::helper('lyonscg_businessaccount')->__('* Required Fields') ?></p>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    addEvent(window, 'load', function() {
+        var contactForm = new VarienForm('businessAccountForm', true);
+    });
+    //]]>
+</script>

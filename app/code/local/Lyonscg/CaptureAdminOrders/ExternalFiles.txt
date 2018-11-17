@@ -1,0 +1,11 @@
+/**
+ * Lyonscg_CaptureAdminOrders
+ *
+ * @category   Lyonscg
+ * @package    Lyonscg_CaptureAdminOrders
+ * @copyright  Copyright (c) 2014 Lyons Consulting Group (www.lyonscg.com)
+ * @author     Ashutosh Potdar (apotdar@lyonscg.com)
+ */
+
+# Configuration:
+app/etc/modules/Lyonscg_CaptureAdminOrders.xml

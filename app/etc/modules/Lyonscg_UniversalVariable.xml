@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_UniversalVariable>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <QuBit_UniversalVariable/>
+            </depends>
+        </Lyonscg_UniversalVariable>
+    </modules>
+</config>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<widgets>
+    <widget_category type="lyonscg_widget/category">
+        <name>Subcategories Display</name>
+        <description type="desc">Show the subcategories for a given category landing page.</description>
+        <parameters>
+            <widget_type translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <label>Widget Type</label>
+                <type>select</type>
+                <values>
+                    <sub_category translate="label">
+                        <value>sub_category</value>
+                        <label>Sub Category</label>
+                    </sub_category>
+                    <brand translate="label">
+                        <value>brand</value>
+                        <label>Brand</label>
+                    </brand>
+                </values>
+            </widget_type>
+        </parameters>
+    </widget_category>
+</widgets>

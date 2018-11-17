@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Improved Cache Clearing/Warming
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_ImprovedCache
+ * @copyright   Copyright (c) 2014 Lyons Consulting Group (http://www.lyonscg.com)
+ * @author      Nick Hughart (nhughart@lyonscg.com)
+ */
+-->
+<config>
+    <tabs>
+        <lyonscg translate="label">
+            <label>Lyonscg Extensions</label>
+            <sort_order>150</sort_order>
+        </lyonscg>
+    </tabs>
+    <sections>
+        <lyonscg_improvedcache translate="label">
+            <label>Improved Cache</label>
+            <tab>lyonscg</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable Improved Cache</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable>
+                        <logging translate="label">
+                            <label>Enable Logging</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </logging>
+                    </fields>
+                </general>
+                <flushing translate="label">
+                    <label>Targeted Cache Clear</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <block_core_clear translate="label">
+                            <label>Use Optimized Cache Clear on Rule Application</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </block_core_clear>
+                        <clear_category translate="label">
+                            <label>Targeted Clear on Category Save</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </clear_category>
+                        <clear_product translate="label">
+                            <label>Targeted Clear on Product Save</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </clear_product>
+                    </fields>
+                </flushing>
+                <warming translate="label">
+                    <label>Cache Warming</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <excludes translate="label comment">
+                            <label>Excluded Patterns for Crawling</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>One pattern per line</comment>
+                        </excludes>
+                        <enable_store_cron translate="label comment">
+                            <label>Enable Store Warming Cron</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enable cron that will warm stores.</comment>
+                        </enable_store_cron>
+                        <schedule_store_cron translate="label comments">
+                            <label>Store Cron Schedule</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Enter cron expression for when to run store warming.</comment>
+                            <depends><enable_store_cron>1</enable_store_cron></depends>
+                        </schedule_store_cron>
+                        <store_limit translate="label comment">
+                            <label>Store Crawl Page Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Number of links crawled during full store warming.</comment>
+                        </store_limit>
+                        <!-- TODO: Add cron to auto-warm pages -->
+                        <!--<enable_partial_cron translate="label comment">
+                            <label>Enable Partial Warming Cron</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enable cron that will warm pages that have been cleared.</comment>
+                        </enable_cron>
+                        <category_limit translate="label comment">
+                            <label>Category Crawl Page Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Number of links crawled when warming a single category.</comment>
+                            <depends><enable_partial_cron>1</enable_partial_cron></depends>
+                        </category_limit>
+                        <category_patterns translate="label comment">
+                            <label>Category Crawl Include Patterns</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Specifies link patterns to follow when warming a single category.</comment>
+                            <depends><enable_partial_cron>1</enable_partial_cron></depends>
+                        </category_patterns>-->
+                        <request_timeout translate="label comment">
+                            <label>Request Timeout</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Time to wait, in seconds, for a request to complete.</comment>
+                        </request_timeout>
+                        <connection_timeout translate="label comment">
+                            <label>Connection Timeout</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Time to wait, in seconds, for a connection to be made.</comment>
+                        </connection_timeout>
+                        <threads translate="label comment">
+                            <label>Number of Threads</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Number of threads to use when crawling</comment>
+                        </threads>
+                    </fields>
+                </warming>
+            </groups>
+        </lyonscg_improvedcache>
+    </sections>
+</config>

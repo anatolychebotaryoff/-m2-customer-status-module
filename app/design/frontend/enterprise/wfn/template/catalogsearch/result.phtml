@@ -1,0 +1,84 @@
+<?php if($this->getResultCount()): ?>
+<div class="page-title">
+    <?php if ($this->helper('rss/catalog')->getTagFeedUrl()): ?>
+        <a href="<?php echo $this->helper('rss/catalog')->getTagFeedUrl() ?>" class="nobr link-rss"><?php echo $this->__('Subscribe to Feed') ?></a>
+    <?php endif; ?>
+    <h1><?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Search results for '%s'", $this->helper('catalogsearch')->getEscapedQueryText()) ?></h1>
+</div>
+<div class="results-view">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php if ($messages = $this->getNoteMessages()):?>
+    <p class="note-msg">
+        <?php foreach ($messages as $message):?>
+            <?php echo $message?><br />
+        <?php endforeach;?>
+    </p>
+    <?php endif; ?>
+    <?php echo $this->getProductListHtml() ?>
+</div>
+<?php else: ?>
+<div class="page-title">
+    <h1><?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Search results for '%s'", $this->helper('catalogsearch')->getEscapedQueryText()) ?></h1>
+</div>
+<p class="note-msg">
+    <?php echo ($this->getNoResultText()) ? $this->getNoResultText() : $this->__('Your search returns no results.') ?>
+    <?php echo $this->getAdditionalHtml() ?>
+    <?php if ($messages = $this->getNoteMessages()):?>
+        <?php foreach ($messages as $message):?>
+        <br /><?php echo $message?>
+        <?php endforeach;?>
+    <?php endif; ?>
+</p>
+<?php endif; ?>
+<script type="text/javascript">
+    addEvent(window, 'load', function() {
+
+        jQuery('#content-filter-cat .block-compare').prepend('<span class="close"><img src="<?php echo $this->getSkinUrl()?>/images/button-close.png" /></span>');
+        jQuery('#content-filter-cat .content-filter-finder').prepend('<span class="close"><img src="<?php echo $this->getSkinUrl()?>/images/button-close.png" /></span>');
+
+        var filer_finder_active = false;
+        var compare_select = false;
+
+        jQuery('a.filter-finder-search').click(function(){ //alert('rulo');
+            if(compare_select){
+                jQuery('.content-selcect-compare .block-compare').hide('slow');
+                compare_select = false;
+            }
+
+            if(!filer_finder_active){
+                jQuery('.content-filter-finder').show('slow');
+                filer_finder_active = true;
+            }else{
+                jQuery('.content-filter-finder').hide('slow');
+                filer_finder_active = false;
+            }
+        });
+
+        jQuery('button.compare-select, span.select-compare-list').click(function(){ //alert('rulo');
+            if(filer_finder_active){
+                jQuery('.content-filter-finder').hide('slow');
+                filer_finder_active = false;
+            }
+
+            if(!compare_select){
+                jQuery('.content-selcect-compare .block-compare').show('slow');
+                compare_select = true;
+            }else{
+                jQuery('.content-selcect-compare .block-compare').hide('slow');
+                compare_select = false;
+            }
+        });
+
+        jQuery('#content-filter-cat .block-compare span.close').click(function(){
+            jQuery('.content-selcect-compare .block-compare').hide('slow');
+            compare_select = false;
+        });
+
+        jQuery('#content-filter-cat .content-filter-finder span.close').click(function(){
+            jQuery('.content-filter-finder').hide('slow');
+            filer_finder_active = false;
+        });
+    });
+</script>
+
+

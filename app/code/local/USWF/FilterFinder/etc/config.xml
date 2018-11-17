@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_FilterFinder
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_FilterFinder>
+            <version>0.0.1</version>
+        </USWF_FilterFinder>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_filterfinder>
+                <class>USWF_FilterFinder_Block</class>
+            </uswf_filterfinder>
+            <lyonscg_filterfinder>
+                <rewrite>
+                    <filterFinder>USWF_FilterFinder_Block_FilterFinder</filterFinder>
+                </rewrite>
+            </lyonscg_filterfinder>
+        </blocks>
+        <helpers>
+            <uswf_filterfinder>
+                <class>USWF_FilterFinder_Helper</class>
+            </uswf_filterfinder>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <filterfinder>
+                <args>
+                    <modules>
+                        <USWF_FilterFinder before="Lyonscg_FilterFinder">USWF_FilterFinder</USWF_FilterFinder>
+                    </modules>
+                </args>
+            </filterfinder>
+        </routers>
+        <layout>
+            <updates>
+                <uswf_filterfinder>
+                    <file>uswf/filterfinder.xml</file>
+                </uswf_filterfinder>
+            </updates>
+        </layout>
+    </frontend>
+</config>

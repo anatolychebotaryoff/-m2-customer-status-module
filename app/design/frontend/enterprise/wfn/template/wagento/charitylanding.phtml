@@ -1,0 +1,83 @@
+<?php
+/*block type : core/template*/
+$sku = trim(Mage::getStoreConfig('cms/waterlandingpage/donation'));
+if (!empty($sku)):
+	$product = Mage::getModel('catalog/product')->loadByAttribute('sku', $sku);
+	/*@var $product Mage_Catalog_Model_Product */
+	if ($product && $product->getId() /*&& $product->isSaleable()*/):
+?>
+	<?php $buttonTitle = $this->__('Add to Cart'); ?>
+    <form action="<?php echo $this->helper('checkout/cart')->getAddUrl($product) ?>" method="post" id="product_addtocart_form"<?php if($product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+		<div class="add-to-cart">
+			<?php if(!$product->isGrouped()): ?>
+			<label for="qty"><?php echo $this->__('Quantity:') ?></label>
+			<select name="qty" class="input qty select">
+				<?php for ($i=1; $i<=10; $i++): ?>
+				<option value="<?php echo $i?>"><?php echo $i?></option>
+				<?php endfor; ?>
+			</select>
+<?php
+/*
+			<input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+ */
+?>
+			<?php endif; ?>
+			<button type="button" title="<?php echo $buttonTitle ?>" class="btn-cart-landing" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+			<?php echo $this->getChildHtml('', true, true) ?>
+		</div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+    addEvent(window, 'load', function() {
+        productAddToCartForm = new VarienForm('product_addtocart_form');
+        productAddToCartForm.submit = function (button, url) {
+            if (this.validator.validate()) {
+                var form = this.form;
+                var oldUrl = form.action;
+
+                if (url) {
+                    form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            }
+        }.bind(productAddToCartForm);
+
+        productAddToCartForm.submitLight = function (button, url) {
+            if (this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                // Remove custom datetime validators
+                for (var methodName in Validation.methods) {
+                    if (methodName.match(/^validate-datetime-.*/i)) {
+                        delete Validation.methods[methodName];
+                    }
+                }
+
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(productAddToCartForm);
+    });
+    //]]>
+    </script>
+	<?php endif; ?>
+<?php endif; ?>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Sam_CustomShipping>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends><Mage_Paypal /></depends>
+        </Sam_CustomShipping>
+    </modules>
+</config>

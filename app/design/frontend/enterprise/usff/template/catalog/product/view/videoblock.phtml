@@ -1,0 +1,6 @@
+<?php $product = Mage::registry('current_product');
+if ($_videoUrl = $product->getVideoUrl()): ?>
+    <a class="goToVideo" href="#videoanchor">
+        <img src="<?php echo $product->getImageUrl();; ?>" alt="<?php echo $product->getName(); ?>"/>
+    </a>
+<?php endif; ?>

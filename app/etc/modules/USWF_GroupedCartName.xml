@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_GroupedCartName>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Checkout/>
+		<Lyonscg_GroupedProductConfiguration/>
+            </depends>
+        </USWF_GroupedCartName>
+    </modules>
+</config>

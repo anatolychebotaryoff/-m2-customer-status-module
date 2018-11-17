@@ -1,0 +1,58 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="ma-footer-container container">
+        <div class="footer">
+            <div class="footer-cols-wrapper">
+<!--           --><?php //echo $this->getChildHtml() ?>
+                <?php echo $this->getChildHtml('ordergroove.footer'); ?>
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links')->toHtml() ?>
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('social_links')->toHtml() ?>
+                <div class="five columns">
+                    <div class="call">
+                        <div class="call-inner">
+                            <img src="<?php echo $this->getSkinUrl('images/footer_phone_image.png'); ?>" />
+                            <h2>Give us a call:</h2>
+                            <h3>888-801-PURE (7873)</h3>
+                        </div>
+                    </div>
+                    <div class="subscribe">
+                        <?php echo $this->getChildHtml('footer.newsletter'); ?>
+
+                    </div>
+                    <a href="/worry-free-water-auto-ship-program.html"><img class="coupon" src="<?php echo $this->getSkinUrl('images/footer_subscribe_image.png'); ?>" /></a>
+                </div>
+                <div id="back-top" class="hidden-phone"></div>
+<!--            <div class="span6">-->
+<!--                --><?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('payment')->toHtml() ?>
+<!--            </div>-->
+            </div>
+        </div><!-- footer -->
+</div><!-- ma footer container -->
+<div class="container footer-sub-text">
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_icons')->toHtml() ?>
+    <address><?php echo $this->getCopyright() ?></address>
+</div>

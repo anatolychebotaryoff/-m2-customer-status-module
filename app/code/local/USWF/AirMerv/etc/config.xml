@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_AirMerv>
+            <version>0.1.0</version>
+        </USWF_AirMerv>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_airmerv>
+                <class>USWF_AirMerv_Block</class>
+            </uswf_airmerv>
+        </blocks>
+         <helpers>
+            <uswf_airmerv>
+                <class>USWF_AirMerv_Helper</class>
+            </uswf_airmerv>
+        </helpers>
+        <models>
+            <uswf_airmerv>
+                <class>USWF_AirMerv_Model</class>
+            </uswf_airmerv>
+        </models>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <uswf_airmerv before="Mage_Adminhtml">USWF_AirMerv_Adminhtml</uswf_airmerv>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

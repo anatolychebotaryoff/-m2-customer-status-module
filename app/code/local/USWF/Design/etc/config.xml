@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_Design
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_Design>
+            <version>0.0.1</version>
+        </USWF_Design>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_design>
+                <class>USWF_Design_Block</class>
+            </uswf_design>
+        </blocks>
+        <helpers>
+            <uswf_design>
+                <class>USWF_Design_Helper</class>
+            </uswf_design>
+            <core>
+                <rewrite>
+                    <js>USWF_Design_Helper_Js</js>
+                </rewrite>
+            </core>
+        </helpers>
+        <resources>
+            <uswf_design_setup>
+                <setup>
+                    <module>USWF_Design</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </uswf_design_setup>
+        </resources>
+    </global>
+</config>

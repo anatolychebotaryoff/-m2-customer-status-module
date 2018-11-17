@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <USWF_AdminCrmOrder>
+            <version>0.1.0</version>
+        </USWF_AdminCrmOrder>
+    </modules>
+    <global>
+        <helpers>
+            <uswf_admincrmorder>
+                <class>USWF_AdminCrmOrder_Helper</class>
+            </uswf_admincrmorder>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+	            <modules>
+                    <uswf_admincrmorder after="Mage_Adminhtml">USWF_AdminCrmOrder_Adminhtml_Csmenu</uswf_admincrmorder>
+                </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

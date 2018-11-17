@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_AirMerv>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Adminhtml />
+                <Mage_Widget />
+            </depends>
+        </USWF_AirMerv>
+    </modules>
+</config>

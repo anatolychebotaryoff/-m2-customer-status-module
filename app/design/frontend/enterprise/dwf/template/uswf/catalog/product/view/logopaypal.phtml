@@ -1,0 +1,41 @@
+<style>
+    <?php if (!Mage::getStoreConfigFlag('catalog/logopaypal/button_on_desktop')): ?>
+        @media only screen and (min-width: 768px) {
+            .logo-paypal {
+                display: none;
+            }
+        }
+    <?php endif ?>
+    <?php if (!Mage::getStoreConfigFlag('catalog/logopaypal/button_on_mobile')): ?>
+        @media only screen and (max-width: 767px) {
+            .logo-paypal {
+                display: none;
+            }
+        }
+        @media only screen and (max-width: 767px) and (min-width: 480px) {
+            .product-view .add-to-cart button#subscribeBtn {
+                margin-left: 235px;
+            }
+            .product-view .add-to-cart button#addToCartButton {
+                margin-left: 10px;
+            }
+        }
+    <?php endif ?>
+</style>
+
+<div class="logo-paypal">
+    <table border="0" cellpadding="10" cellspacing="0" align="center">
+        <tr>
+            <td align="center"></td>
+        </tr>
+        <tr>
+            <td align="center">
+                <a href="#" title="How PayPal Works">
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_now_accepting_pp_2line_w.png" border="0" alt="Now accepting PayPal"></a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+

@@ -1,0 +1,190 @@
+<?php $compareItems = $this->getItems(); ?>
+<?php $compareItemsId = array_flip(array_keys($compareItems->getItems())); ?>
+<?php $jsonData = Mage::helper('core')->jsonEncode($compareItemsId); ?>
+
+<div class="actions compare-action-dummy">
+    <button type="button" title="<?php echo $this->__('Compare') ?>" class="button" onclick="popWin('<?php echo $this->getUrl('catalog/product_compare/', $params = array(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl())); ?>','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')"><span><span><?php echo $this->__('Compare') ?></span></span></button>
+    <a href="<?php echo $this->getClearUrl() ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove all products from your comparison?') ?>');"><?php echo $this->__('Clear All') ?></a>
+</div>
+<div class="wrapper-compare-box">
+    <div id="compare_box"
+         class="compare_box"
+         style="">
+        <div>
+            <span id="compare_text">Compare</span>
+            <span id="compare_button"></span>
+            <div class="clear">
+            </div>
+        </div>
+        <span class="compare_image_container" style="display:none"></span>
+        <?php foreach($compareItems as $_index => $_item): ?>
+            <div class="compare_image_container" id="compare_image_containe_<?php echo $_item->getId(); ?>" data-product-id="<?php echo $_item->getId(); ?>">
+                <span class="compare_del"></span>
+                <img class="compare_image" src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(198); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_item, 'small_image'), null, true) ?>" />
+            </div>
+        <?php endforeach ?>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    jQuery(window).bind('load',function(){
+        var compareItemsId = <?php echo $jsonData; ?>;
+        jQuery("input[name*='compare_product_id']").each(function() {
+            if(typeof compareItemsId[jQuery(this).val()] != 'undefined') {
+                jQuery(this).attr( "checked", "checked");
+            }
+            if (jQuery(this).is(":checked")) {
+                jQuery(this).attr( "title", "Click to Compare");
+                jQuery(this).parent().find('.product_compare_action').attr( "title", "Click to Compare");
+            } else {
+                jQuery(this).attr( "title", "Add to Compare");
+                jQuery(this).parent().find('.product_compare_action').attr( "title", "Add to Compare");
+            }
+        });
+        jQuery(document).on("click", '.product_compare_action', function(event) {
+            var urlCompare = '<?php echo $this->getUrl('catalog/product_compare/', $params = array(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl())); ?>';
+            popWin(urlCompare,'compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes');
+        });
+        jQuery(document).on("click", '#compare_button', function(event) {
+            var urlCompare = '<?php echo $this->getUrl('catalog/product_compare/', $params = array(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl())); ?>';
+            popWin(urlCompare,'compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes');
+        });
+
+        if (jQuery('#compare_box div.compare_image_container').length > 0 && jQuery(window).width() > 767) {
+            jQuery('.wrapper-compare-box').show();
+        }
+
+        var $initCompareContainer = jQuery('.compare_image_container');
+        $initCompareContainer.bind('mouseenter',function(event){
+            jQuery('.compare_del', this).fadeTo(100, 1);
+        });
+        $initCompareContainer.bind('mouseleave',function(event){
+            jQuery('.compare_del', this).fadeTo(100, 0);
+        });
+
+        if (jQuery(".block-compare .block-content #compare-items").length < 1) {
+            jQuery('.block-compare .block-content').append("<ol id='compare-items'></ol>");
+        } else {
+            jQuery(".block-compare .actions").remove();
+            var $action = jQuery('.compare-action-dummy').clone().removeClass('compare-action-dummy');
+            jQuery('.block-compare .block-content').append($action);
+        }
+
+        $initCompareContainer.find('.compare_del').bind('click',function(event){
+            var productId = jQuery(this).parent('.compare_image_container').data('product-id');
+            var urlCompare = '<?php echo $this->getUrl('catalog/product_compare/removeItem', $params = array(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl())); ?>';
+            jQuery.ajax({
+                method: "GET",
+                url: urlCompare,
+                data: { product: productId, isAjax: true }
+            });
+
+            jQuery(this).parent('.compare_image_container').remove();
+            var compareItem = jQuery("input[name='compare_product_id["+productId+"]'");
+            compareItem.removeAttr("checked");
+            jQuery("#compare-items input.compare-item-id[value='" + productId + "'").parent().remove();
+            if (jQuery('#compare_box div.compare_image_container').length < 1) {
+                jQuery('.wrapper-compare-box').hide();
+                jQuery(".block-compare .actions").remove();
+                jQuery(".block-compare .block-content").append('<p class="empty">You have no items to compare.</p>');
+            }
+        });
+
+        jQuery('.add-to-links input[type="checkbox"]').click(function() {
+            if (jQuery(this).is(":checked")) {
+                jQuery(this).attr( "title", "Click to Compare");
+                jQuery(this).parent().find('.product_compare_action').attr( "title", "Click to Compare");
+                var urlCompare = '<?php echo $this->getUrl('catalog/product_compare/addItem', $params = array(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl())); ?>';
+                jQuery.ajax({
+                    method: "GET",
+                    url: urlCompare,
+                    data: { product: jQuery(this).val() }
+                });
+
+              //  var $image = jQuery(this).parents('.item').find('.product-image > img').clone().addClass('compare_image');
+              //  if (!$image)
+                  $image = jQuery(this).parents('.single-course').find('.product-image > img').clone().addClass('compare_image');
+console.log($image);
+                var $container = jQuery('<div class="compare_image_container"></div>');
+                $container.append('<span class="compare_del"/>');
+                $container.append($image);
+                $container.bind('mouseenter',function(event){
+                    jQuery('.compare_del', this).fadeTo(100, 1);
+                });
+                $container.bind('mouseleave',function(event){
+                    jQuery('.compare_del', this).fadeTo(100, 0);
+                });
+                $container.find('.compare_del').bind('click',function(event){
+                    var productId = jQuery(this).parent('.compare_image_container').data('product-id');
+                    var urlCompare = '<?php echo $this->getUrl('catalog/product_compare/removeItem', $params = array(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl())); ?>';
+                    jQuery.ajax({
+                        method: "GET",
+                        url: urlCompare,
+                        data: { product: productId, isAjax: true }
+                    });
+
+                    jQuery(this).parent('.compare_image_container').remove();
+                    var compareItem = jQuery("input[name='compare_product_id["+productId+"]'");
+                    compareItem.removeAttr("checked");
+                    jQuery("#compare-items input.compare-item-id[value='" + productId + "'").parent().remove();
+                    if (jQuery('#compare_box div.compare_image_container').length < 1) {
+                        jQuery('.wrapper-compare-box').hide();
+                        jQuery(".block-compare .actions").remove();
+                        jQuery(".block-compare .block-content").append('<p class="empty">You have no items to compare.</p>');
+                    }
+                });
+
+                var id = jQuery(this).val();
+                $container.attr( "id", "compare_image_containe_" + id);
+                $container.data('product-id', id);
+                jQuery("#compare_box .compare_image_container:last-child").after($container);
+                jQuery('.wrapper-compare-box').show();
+
+                // add to sidebar
+                jQuery(".block-compare .block-content .empty").remove();
+                <?php $params = array(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()); ?>
+                var url = "<?php echo $this->getUrl('catalog/product_compare/remove', $params) ?>"+"product/"+id;
+                var $compareItems = jQuery('#compare-items');
+                var $item = jQuery("<li class='item'></li>");
+                $item.append("<input type='hidden' class='compare-item-id'' value='" + id + "'>");
+                $item.append("<a href='" + url + "' title='<?php echo $this->__('Remove This Item') ?>' class='btn-remove' onclick=\"return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the compare products?') ?>');\"> <?php echo $this->__('Remove This Item') ?></a>");
+                $item.append("<p class='product-name'> </p>");
+                var $productName = jQuery(this).parents('.item').find('.product-shop .product-name > a').clone();
+                $item.find('.product-name').append($productName);
+                if (jQuery('.block-compare .block-content .actions').length < 1) {
+                    var $action = jQuery('.compare-action-dummy').clone().removeClass('compare-action-dummy');
+                    jQuery('.block-compare .block-content').append($action);
+                }
+                $compareItems.append($item);
+            } else {
+                jQuery(this).attr( "title", "Add to Compare");
+                jQuery(this).parent().find('.product_compare_action').attr( "title", "Add to Compare");
+                var urlRemoveCompare = '<?php echo $this->getUrl('catalog/product_compare/removeItem', $params = array(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl())); ?>';
+                jQuery.ajax({
+                    method: "GET",
+                    url: urlRemoveCompare,
+                    data: { product: jQuery(this).val(), isAjax: true }
+                });
+                var productId = jQuery(this).val();
+                var compareItem = jQuery("div[id='compare_image_containe_"+productId+"'");
+                if (compareItem) {
+                    compareItem.remove();
+                    jQuery("#compare-items input.compare-item-id[value='" + productId + "'").parent().remove();
+                    if (jQuery('#compare_box div.compare_image_container').length < 1) {
+                        jQuery('.wrapper-compare-box').hide();
+                        jQuery(".block-compare .actions").remove();
+                        jQuery(".block-compare .block-content").append('<p class="empty">You have no items to compare.</p>');
+                    }
+                }
+            }
+        });
+    });
+    jQuery(window).bind('resize',function(){
+        if (jQuery('#compare_box div.compare_image_container').length > 0 && jQuery(window).width() > 767) {
+            jQuery('.wrapper-compare-box').show();
+        } else {
+            jQuery('.wrapper-compare-box').hide();
+        }
+    });
+</script>

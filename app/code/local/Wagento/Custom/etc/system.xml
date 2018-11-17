@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<contacts>
+			<groups>
+				<contacts> 
+					<fields>
+						<phone translate="label">
+							<label>Phone Number</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</phone>
+						<pure translate="label">
+							<label>Pure</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>91</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</pure>
+					</fields>
+				</contacts>
+			</groups>
+		</contacts>
+		<cms>
+			<groups>
+				<waterlandingpage translate="label">
+					<label>Water Charity Landing Page</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>90</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<!--<enabled translate="label">
+							<label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enabled>-->
+						<donation translate="label">
+							<label>Donation product</label>
+							<comment><![CDATA[Put product SKU here to set it as donation product in water charity landing page]]></comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</donation>
+					</fields>
+				</waterlandingpage>
+                <watercharity translate="label">
+                    <label>Water Charity Product</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>90</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sku translate="label">
+                            <label>SKU's Charity product</label>
+                            <comment><![CDATA[Put Charity product SKU here to set it as  product in product page]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sku>
+                    </fields>
+                </watercharity>
+			</groups>
+		</cms>
+	</sections>
+</config>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg Review
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_Review
+ * @copyright   Copyright (c) 2015 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Logan Montgomery (lmontgomery@lyonscg.com)
+ */
+-->
+<config>
+    <menu>
+        <catalog>
+            <children>
+                <reviews_ratings>
+                    <children>
+                        <reviews>
+                            <children>
+                                <refresh translate="title" module="lyonscg_review">
+                                    <title>Refresh Reviews</title>
+                                    <action>adminhtml/refreshreview/index</action>
+                                </refresh>
+                            </children>
+                        </reviews>
+                    </children>
+                </reviews_ratings>
+            </children>
+        </catalog>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <catalog>
+                        <children>
+                            <reviews_ratings>
+                                <children>
+                                    <reviews>
+                                        <children>
+                                            <refreshreview translate="title" module="lyonscg_review">
+                                                <title>Refresh Reviews</title>
+                                                <sort_order>1</sort_order>
+                                            </refreshreview>
+                                        </children>
+                                    </reviews>
+                                </children>
+                            </reviews_ratings>
+                        </children>
+                    </catalog>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

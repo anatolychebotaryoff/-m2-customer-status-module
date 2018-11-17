@@ -1,0 +1,11 @@
+<config>
+    <modules>
+        <USWF_SeoSuite>
+            <active>true</active>
+            <codePool>local</codePool>
+        </USWF_SeoSuite>
+        <depends>
+            <MageWorx_SeoBase/>
+        </depends>
+    </modules>
+</config>

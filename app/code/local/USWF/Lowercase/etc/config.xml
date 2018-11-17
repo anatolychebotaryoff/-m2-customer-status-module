@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>    
+    <modules>
+        <USWF_Lowercase>
+            <version>0.1.0</version>
+        </USWF_Lowercase>
+    </modules>
+    <frontend>
+        <routers>
+            <lowercase>
+                <use>standard</use>
+                <args>
+                    <module>USWF_Lowercase</module>
+                    <frontName>lowercase</frontName>
+                </args>
+            </lowercase>
+        </routers>  
+    </frontend>
+</config>

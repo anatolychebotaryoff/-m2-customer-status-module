@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <Olark_Chatbox>
+            <active>false</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Core/>
+                <Mage_Rule/>
+                <Mage_Catalog/>
+                <Mage_Customer/>
+                <Mage_Payment/>
+                <Mage_Cms />
+            </depends>
+        </Olark_Chatbox>
+    </modules>
+</config>

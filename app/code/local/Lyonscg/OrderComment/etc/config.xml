@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_OrderComment>
+            <version>0.1.0</version>
+        </Lyonscg_OrderComment>
+    </modules>
+    <global>
+        <models>
+            <ordercomment>
+                <rewrite>
+                    <observer>Lyonscg_OrderComment_Model_Observer</observer>
+                </rewrite>
+            </ordercomment>
+        </models>
+    </global>
+</config>

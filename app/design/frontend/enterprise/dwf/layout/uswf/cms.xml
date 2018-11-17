@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <PRODUCT_TYPE_grouped translate="label" module="catalog">
+        <reference name="product.info">
+            <block type="cms/block" name="product.guarantees" as="product_guarantees" after="-">
+                <action method="setBlockId">
+                    <block_id>product_guarantees</block_id>
+                </action>
+            </block>
+        </reference>
+    </PRODUCT_TYPE_grouped>
+
+</layout>

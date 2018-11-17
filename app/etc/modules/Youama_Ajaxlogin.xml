@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <Youama_Ajaxlogin>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Youama_Ajaxlogin>
+    </modules>
+</config>

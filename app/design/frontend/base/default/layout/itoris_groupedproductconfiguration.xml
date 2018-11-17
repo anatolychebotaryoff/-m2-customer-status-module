@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout>
+	<catalog_product_view>
+		<reference name="content">
+			<block type="itoris_groupedproductconfiguration/product_edit" name="grouped_product_edit" template="itoris/groupedproductconfiguration/product/edit.phtml"/>
+		</reference>
+	</catalog_product_view>
+	<review_product_list>
+		<reference name="content">
+			<block type="itoris_groupedproductconfiguration/product_edit" name="grouped_product_edit" template="itoris/groupedproductconfiguration/product/edit.phtml"/>
+		</reference>
+	</review_product_list>
+</layout>

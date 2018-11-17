@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <catalog_category_default translate="label">
+        <reference name="catalogsearch.leftnav">
+            <action method="setTemplate">
+                <template>uswf/catalog/layer/view.phtml</template>
+            </action>
+        </reference>
+    </catalog_category_default>
+
+    <catalog_category_layered translate="label">
+        <reference name="enterprisecatalog.leftnav">
+            <action method="setTemplate">
+                <template>uswf/catalog/layer/view.phtml</template>
+            </action>
+        </reference>
+    </catalog_category_layered>
+
+    <catalogsearch_result_index translate="label">
+        <reference name="enterprisecatalog.leftnav">
+            <action method="setTemplate">
+                <template>uswf/catalog/layer/view.phtml</template>
+            </action>
+        </reference>
+    </catalogsearch_result_index>
+
+</layout>

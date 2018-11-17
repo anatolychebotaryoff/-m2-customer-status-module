@@ -1,0 +1,35 @@
+<?php $_product = $this->getProduct() ?>
+<?php $noLongerSold = $_product->getNotForSale() ? ' class="red"' : '' ?>
+<?php $helper = Mage::helper('uswf_stockcustomization'); ?>
+<?php $groupedSimpleItem = $helper->groupedSimpleItem($_product); ?>
+<?php $backordered = $helper->isBackordered($groupedSimpleItem); ?>
+<?php if (!$noLongerSold): ?>
+    <?php if ($_product->isAvailable()): ?>
+        <?php if ($backordered): ?>
+            <p class="availability in-stock"><?php echo $this->__('Availability:') ?>
+                <span>
+		    <?php $expectedInterval = $groupedSimpleItem->getStockItem()->getData('expected_ship_interval'); ?>
+		    <?php if ($expectedInterval): ?>
+
+                        <?php echo $this->__( Mage::getStoreConfig('cataloginventory/item_options/backorder_date_message') , $expectedInterval) ?>
+		    <?php else: ?>
+		        <?php echo $this->__( Mage::getStoreConfig('cataloginventory/item_options/backorder_message')) ?>
+		    <?php endif; ?>
+                </span>
+            </p>
+        <?php else: ?>
+            <p class="availability in-stock"><?php echo $this->__('Availability:') ?>
+                <span>
+                    <?php echo $this->__( Mage::getStoreConfig('cataloginventory/item_options/in_stock_message')) ?>
+                </span>
+            </p>
+        <?php endif; ?>
+    <?php else: ?>
+        <p class="availability out-of-stock">
+            <?php echo $this->__('Availability:') ?>
+            <span>
+                <?php echo $this->__( Mage::getStoreConfig('cataloginventory/item_options/out_of_stock_message')); ?>
+            </span>
+        </p>
+    <?php endif; ?>
+<?php endif; ?>

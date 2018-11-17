@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_CouponMessaging
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_CouponMessaging>
+            <version>0.0.1</version>
+        </USWF_CouponMessaging>
+    </modules>
+    <global>
+        <helpers>
+            <uswf_couponmessaging>
+                <class>USWF_CouponMessaging_Helper</class>
+            </uswf_couponmessaging>
+        </helpers>
+        <models>
+            <uswf_couponmessaging>
+                <class>USWF_CouponMessaging_Model</class>
+            </uswf_couponmessaging>
+            <lyonscg_couponmessaging>
+                <rewrite>
+                    <observer>USWF_CouponMessaging_Model_Observer</observer>
+                </rewrite>
+            </lyonscg_couponmessaging>
+        </models>
+        <events>
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <lyonscg_couponmessaging>
+                        <class>uswf_couponmessaging/observer</class>
+                        <method>salesQuoteCollectTotalsBefore</method>
+                        <type>singleton</type>
+                    </lyonscg_couponmessaging>
+                </observers>
+            </sales_quote_collect_totals_before>
+            <sales_quote_collect_totals_after>
+                <observers>
+                    <lyonscg_couponmessaging>
+                        <class>uswf_couponmessaging/observer</class>
+                        <method>salesQuoteCollectTotalsAfter</method>
+                        <type>singleton</type>
+                    </lyonscg_couponmessaging>
+                </observers>
+            </sales_quote_collect_totals_after>
+            <controller_action_postdispatch_checkout_cart_couponPost>
+                <observers>
+                    <controller_action_postdispatch_checkout_cart_couponPost_lyonscg_coupon_messaging_observer>
+                        <type>singleton</type>
+                        <class>uswf_couponmessaging/observer</class>
+                        <method>customizeMessages</method>
+                    </controller_action_postdispatch_checkout_cart_couponPost_lyonscg_coupon_messaging_observer>
+                </observers>
+            </controller_action_postdispatch_checkout_cart_couponPost>
+        </events>
+    </global>
+</config>

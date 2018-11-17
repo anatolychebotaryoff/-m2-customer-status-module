@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_OrderComment>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Magemaven_OrderComment/>
+
+            </depends>
+        </Lyonscg_OrderComment>
+    </modules>
+</config>

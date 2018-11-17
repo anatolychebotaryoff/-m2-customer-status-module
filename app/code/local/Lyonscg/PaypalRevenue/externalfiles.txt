@@ -1,0 +1,7 @@
+# Lyonscg_PaypalRevenue
+
+## Module Files Outside this Directory
+
+### Module XML File
+
+    app/etc/modules/Lyonscg_PaypalRevenue.xml

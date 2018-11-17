@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Import>
+            <version>0.1.0</version>
+        </USWF_Import>
+    </modules>
+
+    <adminhtml>
+        <events>
+            <end_process_event_catalog_product_import_save>
+                <observers>
+                    <uswf_import>
+                        <type>singleton</type>
+                        <class>USWF_Import_Model_Observer</class>
+                        <method>endProcessEventCatalogProductImportSave</method>
+                    </uswf_import>
+                </observers>
+            </end_process_event_catalog_product_import_save>
+        </events>
+    </adminhtml>
+
+</config>

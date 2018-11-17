@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_SeoSuite>
+            <version>0.1.0</version>
+        </Lyonscg_SeoSuite>
+    </modules>
+    <global>
+        <blocks>
+            <lyonscg_seosuite>
+                <class>Lyonscg_SeoSuite_Block</class>
+            </lyonscg_seosuite>
+            <review>
+                <rewrite>
+                    <helper>Lyonscg_SeoSuite_Block_Review_Helper</helper>
+                </rewrite>
+            </review>
+        </blocks>
+    </global>
+</config>

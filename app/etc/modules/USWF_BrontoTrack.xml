@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_BrontoTrack>
+            <active>false</active>
+            <codePool>local</codePool>            
+        </USWF_BrontoTrack>
+    </modules>
+</config>

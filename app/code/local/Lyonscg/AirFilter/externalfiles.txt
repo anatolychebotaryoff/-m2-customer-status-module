@@ -1,0 +1,7 @@
+List of files related to this module but located not in "/app/code/local/Lyonscg/AirFilter"
+
+    - app/etc/modules/Lyonscg_AirFilter.xml
+    - app/design/frontend/enterprise/dwf/layout/airfilter.xml
+    - app/design/frontend/enterprise/dwf/template/airfilter/airfilter.phtml
+    - app/design/frontend/enterprise/dwf/template/airfilter/resultset.phtml
+    - skin/frontend/enterprise/dwf/js/airFilter.js

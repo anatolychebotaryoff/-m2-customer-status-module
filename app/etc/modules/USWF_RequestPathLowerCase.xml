@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_RequestPathLowerCase>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Enterprise_UrlRewrite/>
+	    </depends>
+        </USWF_RequestPathLowerCase>
+    </modules>
+</config>

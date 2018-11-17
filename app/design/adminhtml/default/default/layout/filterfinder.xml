@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?php
+    /**
+    * @category    Lyonscg
+    * @package     Lyonscg_FilterFinder
+    * @copyright   Copyright (c) 2012 Lyons Consulting Group (www.lyonscg.com)
+    * @author      Shcherba Yuriy (yscherba@lyonscg.com)
+    * @author      Ashutosh Potdar (apotdar@lyonscg.com)
+    */
+?>
+<layout>
+    <adminhtml_catalog_product_new>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>filter_finder</name>
+                <block>lyonscg_filterfinder/adminhtml_catalog_product_filterfinder</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_new>
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>filter_finder</name>
+                <block>lyonscg_filterfinder/adminhtml_catalog_product_filterfinder</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+</layout>

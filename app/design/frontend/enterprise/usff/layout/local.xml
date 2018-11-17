@@ -1,0 +1,322 @@
+<!--
+Layout Changes
+
+@category   Lyons
+@package    Lyonscg
+@copyright  Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+@author     Mark Hodge (mhodge@lyonscg.com)
+-->
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/searchspring.css</name></action>
+
+            <block type="core/text" name="event.loaded" before="-">
+                <action method="setText">
+                    <text><![CDATA[
+                    <script type="text/javascript">
+                    function addEvent(element, event, fn) {
+                        if (element.addEventListener)
+                            element.addEventListener(event, fn, false);
+                        else if (element.attachEvent)
+                            element.attachEvent('on' + event, fn);
+                    }
+                    </script>
+                    ]]></text>
+                </action>
+            </block>
+
+            <action method="addJs"><script>jquery/jquery-1.7.min.js</script><group>loadgroup="jquery"</group></action>
+            <action method="addJs"><script>jquery/noconflict.js</script><group>loadgroup="after_jquery"</group></action>
+            <action method="addJs"><script>jquery/superfish.js</script><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addJs"><script>jquery/jquery.mobile.customized.min.js</script><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addJs"><script>jquery/usff/customscripts.js</script><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addJs"><script>jquery/easyTooltip.js</script><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addJs"><script>jquery/jquery.iosslider.min.js</script><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addJs"><script>uswf/jquery.bpopup.min.js</script><group>loadgroup="after_jquery" defer</group></action>
+        
+            <action method="addJs"><script>prototype/prototype.js</script><group>loadgroup="prototype"</group></action>
+            <action method="addJs"><script>prototype/validation.js</script><group>loadgroup="after_prototype"</group></action>
+            <action method="addJs"><script>scriptaculous/builder.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addJs"><script>scriptaculous/effects.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addJs"><script>scriptaculous/dragdrop.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addJs"><script>scriptaculous/controls.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addJs"><script>scriptaculous/slider.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addJs"><script>varien/js.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addJs"><script>varien/form.js</script><group>loadgroup="after_prototype"</group></action>
+            <action method="addJs"><script>mage/translate.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/ie6.js</name><group>loadgroup="after_prototype" defer</group><if>lt IE 7</if></action>
+            <action method="addItem"><type>skin_js</type><name>js/scripts.js</name><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/enterprise/catalogevent.js</name><group>loadgroup="after_prototype" defer</group></action>
+
+            <action method="addJs"><script>mage/cookies.js</script><group>loadgroup="none" async</group></action>
+            <action method="addJs"><script>lib/ccard.js</script><group>loadgroup="none" async</group></action>
+            <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><group>loadgroup="none" async</group><if>lt IE 7</if></action>
+        
+            <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
+            <block type="core/template" name="load_translate" template="page/translate.phtml"/>
+        </reference>
+        <reference name="top.links">
+            <remove name="checkout_cart_link" />
+        </reference>
+        <reference name="footer">
+            <!--<block type="newsletter/subscribe" name="footer.newsletter" template="newsletter/subscribe.phtml"/>-->
+            <block type="newsletter/subscribe" name="test" template="newsletter/qwer.phtml"/>
+        </reference>
+        <reference name="root">
+            <action method="unsetChild"><name>breadcrumbs</name></action>
+        </reference>
+    </default>
+
+    <catalog_product_view>
+        <reference name="product.info">
+            <action method="unsetChild"><name>info_tabs</name></action>
+            <block type="catalog/product_view_tabs" name="product.info.tabs" as="info_tabs" template="catalog/product/view/tabs.phtml"/>
+
+            <block type="lyonscg_replacedby/product_list_replaced" name="product.info.replaced" as="replaced_products" template="catalog/product/list/replaced.phtml">
+                <action method="setColumnCount"><columns>4</columns></action>
+                <action method="setItemLimit"><type>replaced</type><limit>4</limit></action>
+            </block>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>varien/product.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addJs"><script>varien/configurable.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name><group>loadgroup="calendar" defer</group></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><group>loadgroup="after_calendar" defer</group></action>
+        </reference>
+    </catalog_product_view>
+
+    <catalog_product_send>
+        <reference name="head">
+            <action method="addJs"><script>varien/product.js</script><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </catalog_product_send>
+
+    <catalog_product_compare_index>
+        <reference name="head">
+            <action method="addJs"><script>scriptaculous/scriptaculous.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addJs"><script>varien/product.js</script><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </catalog_product_compare_index>
+
+    <PRODUCT_TYPE_bundle>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/bundle.js</name><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </PRODUCT_TYPE_bundle>
+
+    <MAP_popup>
+        <reference name="head">
+            <action method="addItem" ifconfig="sales/msrp/enabled"><type>skin_js</type><name>js/msrp.js</name><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </MAP_popup>
+
+    <review_product_list>
+        <reference name="head">
+            <action method="addJs"><script>varien/product.js</script><group>loadgroup="after_prototype" defer</group></action>
+            <action method="addJs"><script>varien/configurable.js</script><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </review_product_list>
+
+    <!-- Redmine 376031 - add noindex header to review pages -->
+    <review_product_view>
+        <reference name="head">
+            <action method="setRobots"><robots>noindex,nofollow</robots></action>
+        </reference>
+    </review_product_view>
+
+    <!--
+    Remove the enterprisecatalog.leftnav
+    This is causing some attributes to load twice,
+    causing the layered navigation fail.  This loads
+    the attributes twice, once due to the core file
+    and second due to core file.
+    -->
+    <catalog_category_default translate="label">
+        <reference name="left">
+            <remove name="enterprisecatalog.leftnav"/>
+        </reference>
+    </catalog_category_default>
+
+    <catalog_category_layered translate="label">
+        <reference name="left">
+            <remove name="enterprisecatalog.leftnav"/>
+        </reference>
+    </catalog_category_layered>
+
+    <cms_index_index>
+        <reference name="head">
+            <block type="core/text" name="google.verification">
+                <action method="setText" before="-">
+                    <text><![CDATA[<meta name="google-site-verification" content="OzB7Um_ezBHNnADaw_KuUcV-laTxU1XCELR1jlvCxoE" /><meta name="google-site-verification" content="VhiCfu6PQHsd8CgA_XHdDMRB2-FLOnftRYOJIzhNvk0" /><META name="verify-v1" content="UGQmQyItr97AlwMpNelJGfpW2jP9akiVBPDnaAxIaKQ=" /><META name="robots" content="noodp, noydir" />
+                        ]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="cms/block" name="homepage_banner">
+                <action method="setBlockId"><block_id>fridge_homepage_banner</block_id></action>
+            </block>
+            <block type="page/html" name="featured.categories" template="lyonscg/featured-categories.phtml"/>
+            <block type="cms/block" name="homepage_brands">
+                <action method="setBlockId"><block_id>fridge_homepage_brands</block_id></action>
+            </block>
+        </reference>
+    </cms_index_index>
+
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="unsetChild"><name>external.includes</name></action>
+
+            <action method="removeItem"><type>js</type><name>mage/captcha.js</name></action>
+            <action method="removeItem"><type>js</type><name>varien/weee.js</name></action>
+            <action method="removeItem" ifconfig="payment/subscribe_pro/use_transparent_redirect"><type>skin_js</type><name>js/autoship/jquery/jquery-1.10.1.min.js</name></action>
+            <action method="removeItem" ifconfig="payment/subscribe_pro/use_transparent_redirect"><type>skin_js</type><name>js/autoship/jquery/noconflict.js</name></action>
+        </reference>
+        <reference name="foot">
+            <action method="addJs"><script>varien/accordion.js</script></action>
+            <action method="addJs"><script>js/opcheckout.js</script></action>
+            <action method="addJs"><script>mage/captcha.js</script></action>
+            <action method="addItem"><type>skin_js</type><name>js/sfc_cybersource/sop_checkout.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/opcheckout.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/autoship/checkout.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>qs/js/validationform.js</name></action>
+            <action method="addItem"><type>js</type><name>varien/weee.js</name></action>
+            <action method="addItem" ifconfig="payment/subscribe_pro/use_transparent_redirect"><type>skin_js</type><name>js/autoship/jquery/jquery-1.10.1.min.js</name></action>
+            <action method="addItem" ifconfig="payment/subscribe_pro/use_transparent_redirect"><type>skin_js</type><name>js/autoship/jquery/noconflict.js</name></action>
+
+            <block type="core/template" name="external.includes" template="sfc_cybersource/head/external_includes.phtml"/>
+        </reference>
+    </checkout_onepage_index>
+
+    <checkout_multishipping_billing>
+        <reference name="head">
+            <action method="removeItem"><type>js</type><name>varien/weee.js</name></action>
+        </reference>
+        <reference name="foot">
+            <action method="addJs"><script>js/varien/payment.js</script></action>
+            <action method="addItem"><type>js</type><name>varien/weee.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>qs/js/validationform.js</name><group>loadgroup="after_core"</group></action>
+        </reference>
+    </checkout_multishipping_billing>
+
+    <checkout_cart_index>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>varien/weee.js</name><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </checkout_cart_index>
+
+    <onestepcheckout_index_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>onestepcheckout/js/window.js</name><group>loadgroup="after_prototype"</group></action>
+            <action method="addItem"><type>skin_js</type><name>onestepcheckout/js/onestepcheckout.js</name><group>loadgroup="after_prototype"</group></action>
+            <action method="addItem"><type>skin_js</type><name>qs/js/validationform.js</name><group>loadgroup="after_prototype"</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/sfc_cybersource/sop_checkout.js</name><group>loadgroup="after_prototype"</group></action>
+        </reference>
+    </onestepcheckout_index_index>
+
+    <sfc_cybersource_index_edit>
+        <reference name="head">
+            <remove name="external.includes"/>
+            <action method="addItem"><type>skin_js</type><name>js/sfc_cybersource/hmac-sha256.js</name><group>loadgroup="none" async</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/sfc_cybersource/enc-base64-min.js</name><group>loadgroup="none" async</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/sfc_cybersource/sop_profile.js</name><group>loadgroup="after_jquery" defer</group></action>
+        </reference>
+    </sfc_cybersource_index_edit>
+
+    <sfc_cybersource_index_new>
+        <reference name="head">
+            <remove name="external.includes"/>
+            <action method="addItem"><type>skin_js</type><name>js/sfc_cybersource/hmac-sha256.js</name><group>loadgroup="none" async</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/sfc_cybersource/enc-base64-min.js</name><group>loadgroup="none" async</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/sfc_cybersource/sop_profile.js</name><group>loadgroup="after_jquery" defer</group></action>
+        </reference>
+    </sfc_cybersource_index_new>
+
+    <subscriptions_mysubscriptions_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/autoship/jquery/jquery-1.10.1.min.js</name><group>loadgroup="jquery" defer</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/autoship/jquery/ui/jquery.ui.core.min.js</name><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/autoship/jquery/ui/jquery.ui.datepicker.min.js</name><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/autoship/jquery/noconflict.js</name><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/autoship/mysubscription.js</name><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name><group>loadgroup="calendar" defer</group><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><group>loadgroup="after_calendar" defer</group><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+		</reference>
+    </subscriptions_mysubscriptions_index>
+
+    <autoship_newsubscription_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/autoship/jquery/jquery-1.10.1.min.js</name><group>loadgroup="jquery" defer</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/autoship/jquery/ui/jquery.ui.core.min.js</name><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/autoship/jquery/ui/jquery.ui.datepicker.min.js</name><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/autoship/jquery/noconflict.js</name><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addItem"><type>skin_js</type><name>js/autoship/newsubscription.js</name><group>loadgroup="after_jquery" defer</group></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name><group>loadgroup="calendar" defer</group><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><group>loadgroup="after_calendar" defer</group><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+        </reference>
+    </autoship_newsubscription_index>
+
+    <paypal_express_review>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/checkout/review.js</name><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </paypal_express_review>
+
+    <paypaluk_express_review>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/checkout/review.js</name><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </paypaluk_express_review>
+
+    <filterfinder_index_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/filterfinder.js</name><group>loadgroup="after_jquery" defer</group></action>
+        </reference>
+    </filterfinder_index_index>
+
+    <customer_account_login>
+        <reference name="head">
+            <action method="addJs"><file>mage/captcha.js</file><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </customer_account_login>
+
+    <customer_account_forgotpassword>
+        <reference name="head">
+            <action method="addJs"><file>mage/captcha.js</file><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </customer_account_forgotpassword>
+
+    <customer_account_create>
+        <reference name="head">
+            <action method="addJs"><file>mage/captcha.js</file><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </customer_account_create>
+
+    <customer_logged_in>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>varien/weee.js</name><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </customer_logged_in>
+
+    <sendfriend_product_send>
+        <reference name="head">
+            <action method="addJs"><script>varien/product.js</script><group>loadgroup="after_prototype" defer</group></action>
+        </reference>
+    </sendfriend_product_send>
+
+    <airfilter_result_index>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/airFilter.js</name><group>loadgroup="after_jquery" defer</group></action>
+        </reference>
+    </airfilter_result_index>
+
+    <calendar>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name><group>loadgroup="calendar" defer</group></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><group>loadgroup="after_calendar" defer</group></action>
+        </reference>
+    </calendar>
+</layout>

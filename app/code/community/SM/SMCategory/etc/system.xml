@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<config>
+    <sections>
+        <catalog translate="label" module="catalog">
+            <class>separator-top</class>
+            <label>Catalog</label>
+            <tab>catalog</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>40</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <best_selling translate="label">
+                    <label>Best Selling</label>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <total translate="label">
+                            <label>Total Numbers Of Products Show</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Total numbers of best selling products show in slider home page.</comment>
+                        </total>
+                    </fields>
+                </best_selling>
+            </groups>
+        </catalog>
+    </sections>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Sam_StatusCodes>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Sam_StatusCodes>
+    </modules>
+</config>

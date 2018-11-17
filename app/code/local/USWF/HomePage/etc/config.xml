@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_HomePage>
+            <version>0.1.1</version>
+        </USWF_HomePage>
+    </modules>
+    <global>
+        <models>
+            <uswf_homepage>
+                <class>USWF_HomePage_Model</class>
+                <resourceModel>uswf_homepage_resource</resourceModel>
+            </uswf_homepage>
+            <uswf_homepage_resource>
+                <class>USWF_HomePage_Model_Resource</class>
+            </uswf_homepage_resource>
+        </models>
+        <blocks>
+            <uswf_homepage>
+                <class>USWF_HomePage_Block</class>
+            </uswf_homepage>
+        </blocks>
+        <helpers>
+            <uswf_homepage>
+                <class>USWF_HomePage_Helper</class>
+            </uswf_homepage>
+        </helpers>
+        <resources>
+            <uswf_homepage_setup>
+                <setup>
+                    <module>USWF_HomePage</module>
+                </setup>
+            </uswf_homepage_setup>
+        </resources>
+        <page>
+            <layouts>
+                <uswf_homepage translate="label">
+                    <label>HP 1 column</label>
+                    <template>uswf/homepage/page/hp_1column.phtml</template>
+                    <layout_handle>home_page</layout_handle>
+                </uswf_homepage>
+            </layouts>
+        </page>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <uswf_homepage>
+                    <file>uswf/homepage.xml</file>
+                </uswf_homepage>
+            </updates>
+        </layout>
+    </frontend>
+</config>

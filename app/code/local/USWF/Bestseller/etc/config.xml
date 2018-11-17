@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Bestseller>
+            <version>0.1.0</version>
+        </USWF_Bestseller>
+    </modules>
+    <global>
+        <helpers>
+            <uswf_bestseller>
+                <class>USWF_Bestseller_Helper</class>
+            </uswf_bestseller>
+        </helpers>
+        <resources>
+            <uswf_bestseller_setup>
+                <setup>
+                    <module>USWF_Bestseller</module>
+                </setup>
+            </uswf_bestseller_setup>
+        </resources>
+        <models>
+            <uswf_bestseller>
+                <class>USWF_Bestseller_Model</class>
+            </uswf_bestseller>
+        </models>
+        <blocks>
+            <bestseller>
+                <rewrite>
+                    <widget>USWF_Bestseller_Block_Widget</widget>
+                </rewrite>
+            </bestseller>
+        </blocks>
+    </global>
+</config>

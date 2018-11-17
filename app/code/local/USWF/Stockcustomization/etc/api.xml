@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+  <api>
+    <resources>
+      <stockcustomization_product translate="title" module="stockcustomization">
+        <model>uswf_stockcustomization/product_api</model>
+        <title>Advanced Inventory API</title>
+        <acl>catalog/product</acl>
+        <methods>
+          <updateproductstock translate="title" module="stockcustomization">
+            <title>Mass Update Stock</title>
+            <method>updateproductstock</method>
+          </updateproductstock>
+        </methods>
+      </stockcustomization_product>
+    </resources>
+<!--    <resources_alias>
+      <product>stockcustomization_product</product>
+    </resources_alias>-->
+  </api>
+</config>

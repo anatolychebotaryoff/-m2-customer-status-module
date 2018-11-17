@@ -1,0 +1,93 @@
+<?php
+	$items = $this->getItems();
+	$PROP65 = false;
+	foreach ($items as $item) {
+		$product = $item->getProduct();
+		if($product->getData('prop_65_warning') == 1) {
+			$PROP65 = true;
+		}
+	}
+?>
+
+<?php if($PROP65): ?>
+<div id="region-modal" title="Attention!">
+	<div id="region-modal-mess">
+		<img src="<?php echo $this->getSkinUrl("images/warning.png") ?>" alt="WARNING!" style="float: left; height: 18px; width: auto;" />
+		<p style="text-align: justify;">WARNING: This product can expose you to chemicals including arsenic,
+			which is known to the State of California to cause cancer and birth defects or other reproductive harm.
+			For more information, go to <a href="http://www.P65Warnings.ca.gov" target="_blank" style="text-decoration: underline;">www.P65Warnings.ca.gov</a></p>
+	</div>
+</div>
+<script>
+	region_modal = jQuery("#region-modal").dialog(
+		{
+			autoOpen: false,
+			modal: true,
+			resizable: false,
+			draggable: false,
+			position: {my: "center", at: "center", of: window},
+			buttons: {
+				Ok: function () {
+					jQuery(this).dialog("close");
+				}
+			}
+		}
+	);
+
+	function getSelectedOption(elementId) {
+		var elt = document.getElementById(elementId);
+		if (elt.selectedIndex === -1)
+			return null;
+		return elt.options[elt.selectedIndex].text;
+	}
+
+	var different_address = jQuery('input[type="checkbox"][name="billing[use_for_shipping]"]');
+
+	jQuery("[name='billing[region_id]']").change(function () {
+		if (different_address[0].checked === true) {
+			if (getSelectedOption("billing:region_id") === "California") {
+				region_modal.dialog("open");
+			}
+		}
+	});
+
+	jQuery("[name='shipping[region_id]']").change(function () {
+		if (different_address[0].checked === false) {
+			if (getSelectedOption("shipping:region_id") === "California") {
+				region_modal.dialog("open");
+			}
+		}
+	});
+
+	jQuery(document).ready(function(){
+		function checkAddress(){
+			if (different_address[0].checked === true) {
+				address = getSelectedOption('billing-address-select');
+				if (address.indexOf("California") >= 0) {
+					region_modal.dialog("open");
+				}
+			} else {
+				address = getSelectedOption('shipping-address-select');
+				if (address.indexOf("California") >= 0) {
+					region_modal.dialog("open");
+				}
+			}
+		}
+
+		checkAddress();
+
+		different_address.click(function(){
+			checkAddress();
+		});
+
+		jQuery("#billing-address-select").change(function () {
+			checkAddress();
+		});
+
+		jQuery("#shipping-address-select").change(function () {
+			checkAddress();
+		});
+	});
+
+</script>
+<?php endif; ?>

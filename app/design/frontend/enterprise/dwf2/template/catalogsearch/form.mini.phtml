@@ -1,0 +1,134 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this Mage_Core_Block_Template */
+/* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
+// $catalogSearchHelper = $this->helper('catalogsearch');
+?>
+
+<link rel="stylesheet" type="text/css" href="//cdn.searchspring.net/autocomplete/autocomplete.css">
+<form id="search_mini_form" action="/search" method="get" class="search-mini-form">
+    <div class="form-search">
+        <button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span class="fa fa-search"><span><?php echo $this->__('Search') ?></span></span></button>
+        <div class="top-search-wrap">
+            <label for="search"><?php echo $this->__('Search:') ?></label>
+            <input id="search" type="text" name="q" class="input-text searchspring-query top-search" autocomplete="off" placeholder="Search"/>
+        </div>
+
+        <script type="text/javascript" src="//cdn.searchspring.net/autocomplete/searchspring-autocomplete.min.js"></script>
+        <?php
+        /*
+         * Lyons Addition.
+         * Added the following to make the searchspring process smooth allowing us to test it
+         * on development and stage servers and not pointing to production server.
+         * The issue with Search Spring is that if the Site ID is pointing to Production,
+         * all the serach results, buttons on search results page will have production url.
+         * For e.g., if you click on Add To Cart Button it will take you to production site.
+         * In order to avoid this, we got Searchspring to provide us with different management
+         * consoles for each server.
+         */
+        ?>
+        <?php
+        $currentURL = Mage::helper('core/url')->getCurrentUrl();
+        // Grab the production search spring site id.  This will be default.
+        $siteId = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/searchspring-prod', Mage::app()->getStore()->getId());
+        // Grab the Stage and Prod Urls.
+        $siteProdURL = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/prod', Mage::app()->getStore()->getId());
+        $siteStageURL = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/stage', Mage::app()->getStore()->getId());
+        // Stage Site ID
+        $stageSiteId = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/searchspring-stage', Mage::app()->getStore()->getId());
+        // Remove any white spaces, tabs
+        $siteProdURL = preg_replace("/(^\s+|\s+$)/", '', $siteProdURL);
+        $siteStageURL = preg_replace("/(^\s+|\s+$)/", '', $siteStageURL);
+        $siteId = preg_replace("/(^\s+|\s+$)/", '', $siteId);
+        $stageSiteId  = preg_replace("/(^\s+|\s+$)/", '', $stageSiteId);
+
+        // Get the IP Address.  This is to either show or hide the javascript siteId [see below].
+        // as each search is billable on production.
+        $ip_address = '';
+        // If ever the siteId is empty, then we do not want to display the javascript code below.
+        $siteIdHasValue = 0;
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) { //if from shared
+            $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+        } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {   //if from a proxy
+            $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip_address = $_SERVER['REMOTE_ADDR'];
+        }
+
+        // Get the list of IP Addresses and create an array.
+        $ignore_ip_address = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/ip_addresses', Mage::app()->getStore()->getId());
+        $hide_js = FALSE;
+
+        // Make sure that $ignore_ip_address has a value and is not empty
+        $ignore_ip_address = preg_replace("/(^\s+|\s+$)/", '', $ignore_ip_address);
+
+        // Only if there is a value in $ignore_ip_address execute the following.
+        if( isset($ignore_ip_address) && $ignore_ip_address != '' && $ignore_ip_address ) {
+            $ip_addrs = explode(",", $ignore_ip_address );
+            // Loop through each ip address and check if the client ip matches
+            // one of the ignored ip address.  if it matches, set the hide_js to true
+            // and exit the loop.
+            foreach( $ip_addrs as $ip_addr ) {
+                if( $ip_addr === $ip_address ) {
+                    $hide_js = TRUE;
+                    break;
+                }
+            }
+        }
+
+        ?>
+        <?php
+        // The following conditions are overkill, but required just in case.
+        ?>
+        <?php if (isset($siteStageURL) && $siteStageURL && $siteStageURL != '' && $stageSiteId != '' && !is_null($siteStageURL) && preg_match("/$siteStageURL/", $currentURL)): ?>
+            <?php $siteId = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/searchspring-stage', Mage::app()->getStore()->getId()); ?>
+            <?php $siteIdHasValue = 1; ?>
+        <?php elseif (isset($siteProdURL) && $siteProdURL && $siteProdURL != '' && $siteId != '' && !is_null($siteProdURL) && preg_match("/$siteProdURL/", $currentURL)): ?>
+            <?php $siteId = Mage::getStoreConfig('lyonscg_searchspringconfig_options/searchspring_field/searchspring-prod', Mage::app()->getStore()->getId()); ?>
+            <?php $siteIdHasValue = 1; ?>
+        <?php endif; ?>
+
+        <?php if (!$hide_js): ?>
+            <?php if ($siteIdHasValue): ?>
+                <script type="text/javascript">
+                    addEvent(window, 'load', function() {
+                        SearchSpring.Autocomplete.init({
+                            siteId: <?php echo "'$siteId'"; ?>,
+                            queryClass: 'searchspring-query',
+                            marketing: false
+                        });
+                    });
+                </script>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    var uenc =  "<?php $url = Mage::helper('core/url')->getCurrentUrl(); echo strtr(base64_encode($url), '+/=', '-_,') ?>";
+    var form_key = "<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>";
+</script>

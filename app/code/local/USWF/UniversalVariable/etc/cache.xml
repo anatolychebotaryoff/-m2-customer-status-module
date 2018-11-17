@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <placeholders>
+        <uswf_universalvariable_user>
+            <block>uswf_universalvariable/user</block>
+            <placeholder>UV_USER</placeholder>
+            <container>USWF_UniversalVariable_Model_PageCache_Container_User</container>
+            <cache_lifetime>86400</cache_lifetime>
+        </uswf_universalvariable_user>
+    </placeholders>
+</config>

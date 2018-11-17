@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_AdvancedReviews>
+            <version>0.1.0</version>
+        </Lyonscg_AdvancedReviews>
+    </modules>
+    <global>
+        <helpers>
+            <advancedreviews>
+                <rewrite>
+                    <data>Lyonscg_AdvancedReviews_Helper_Data</data>
+                </rewrite>
+            </advancedreviews>
+        </helpers>
+        <blocks>
+            <advancedreviews>
+                <rewrite>
+                    <ajax_pager>Lyonscg_AdvancedReviews_Block_Ajax_Pager</ajax_pager>
+                </rewrite>
+            </advancedreviews>
+        </blocks>
+        <models>
+            <review_mysql4>
+                <rewrite>
+                    <review>Lyonscg_AdvancedReviews_Model_Mysql4_Review</review>
+                </rewrite>
+            </review_mysql4>
+            <advancedreviews_mysql4>
+                <rewrite>
+                    <review>Lyonscg_AdvancedReviews_Model_Mysql4_Review</review>
+                </rewrite>
+            </advancedreviews_mysql4>
+        </models>
+    </global>
+</config>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Megamenu>
+            <version>0.1.0</version>
+        </USWF_Megamenu>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_megamenu>
+                <class>USWF_Megamenu_Block</class>
+            </uswf_megamenu>
+            <megamenu>
+                <rewrite>
+                    <catalog_category_tabs_form>USWF_Megamenu_Block_Adminhtml_Catalog_Category_Tabs_Form</catalog_category_tabs_form>
+                </rewrite>
+            </megamenu>
+        </blocks>
+    </global>
+</config>

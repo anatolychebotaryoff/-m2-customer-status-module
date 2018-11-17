@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <catalog>
+            <groups>
+                <brand_category>
+<label>Brand Categories</label>
+<frontend_type>text</frontend_type>
+<sort_order>1000</sort_order>
+<show_in_default>1</show_in_default>
+<show_in_website>1</show_in_website>
+<show_in_store>1</show_in_store>
+                    <fields>
+                        <uswf_brandcategory_roots translate="label">
+                            <label>Brand Category Roots</label>
+                            <comment>Comma-Separated list of parent categories containing brands</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </uswf_brandcategory_roots>
+                    </fields>
+                </brand_category>
+           </groups>
+        </catalog>
+    </sections>
+</config>

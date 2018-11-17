@@ -1,0 +1,74 @@
+<?php $_product = $this->getProduct(); ?>
+<?php $cookie = Mage::getSingleton('core/cookie'); ?>
+<?php $hd_groupid = $cookie->get('hd_groupid_'.$_product->getId()); ?>
+<?php if ($hd_groupid): ?>
+    <?php $_product->setCustomerGroupId($hd_groupid); ?>
+<?php endif; ?>
+<?php $snippetPrices = $_product->getFinalPrice(); ?>
+<?php $itemMsrps = $_product->getMsrp(); ?>
+
+<?php if ($_product->isGrouped()): ?>
+    <?php $snippetPrices = array(); ?>
+    <?php $itemMsrps = array(); ?>
+    <?php $_associatedProducts = $this->getParentBlock()->getAssociatedProducts($_product); ?>
+    <?php if (count($_associatedProducts) > 0): ?>
+        <?php foreach($_associatedProducts as $_item): ?>
+            <?php if ($hd_groupid): ?>
+                <?php $_item->setCustomerGroupId($hd_groupid); ?>
+            <?php endif; ?>
+            <?php $snippetPrices[] = $_item->getFinalPrice(); ?>
+            <?php $itemMsrps[] = $_item->getMsrp(); ?>
+        <?php endforeach; ?>
+        <?php $_finalPrice = reset($snippetPrices); $_msrpsPrice = reset($itemMsrps);?>
+        <div class="grouped-price">
+            <div class="price-box with-retail-price">
+                <span class="regular-price" id="product-price-<?php echo $_product->getId()?>">
+                    <?php echo Mage::helper('core')->currency($_finalPrice); ?>
+                </span>
+                <?php if ($_msrpsPrice > 0): ?>
+                    <?php $_savePercent = 100 - round(($_finalPrice / $_msrpsPrice) * 100); ?>
+                    <?php if ($_savePercent > 0 && $_msrpsPrice): ?>
+                        <span class="catalog-price-msrp">
+                            <span class="retail-price">
+                                <span class="text">MSRP: </span>
+                                <span class="price" id="product-retail-price-<?php echo $_product->getId()?>"><?php echo Mage::helper('core')->currency($_msrpsPrice, true); ?></span>
+                            </span></br>
+                            <span class="retail-savings">Save <?php echo $_savePercent ?>%</span>
+                        </span>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="grouped-price">
+            <div class="price-box"></div>
+        </div>
+    <?php endif; ?>
+<?php else: ?>
+    <div class="grouped-price">
+        <div class="price-box with-retail-price">
+            <span style="float: left" class="regular-price" id="product-price-<?php echo $_product->getId()?>">
+                <?php echo Mage::helper('core')->currency($snippetPrices); ?>
+            </span>
+            <?php if ($itemMsrps > 0): ?>
+                <?php $_savePercent = 100 - round(($snippetPrices / $itemMsrps) * 100); ?>
+                <?php if ($_savePercent > 0 && $itemMsrps): ?>
+                    <div class="catalog-price-msrp">
+                        <span class="retail-price">
+                            <span class="text">MSRP: </span>
+                            <span class="price" id="product-retail-price-<?php echo $_product->getId()?>"><?php echo Mage::helper('core')->currency($itemMsrps, true); ?></span>
+                        </span></br>
+                        <span class="retail-savings">Save <?php echo $_savePercent ?>%</span>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+
+
+
+
+
+

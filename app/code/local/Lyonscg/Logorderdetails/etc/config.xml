@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Configuration / Logorderdetails
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_Logorderdetails
+ * @copyright   Copyright (c) 2014 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<config>
+    <modules>
+        <Lyonscg_Logorderdetails>
+            <version>0.1.0</version>
+        </Lyonscg_Logorderdetails>
+    </modules>
+    <global>
+        <helpers>
+           <logorderdetails>
+               <class>Lyonscg_Logorderdetails_Helper</class>
+           </logorderdetails>
+        </helpers>
+    </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <Lyonscg_Logorderdetails>
+                            <title>Log Order Details Configuration</title>
+                            <sort_order>10</sort_order>
+                        </Lyonscg_Logorderdetails>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <lyonscg_logorderdetails>
+                                            <title>Log Order Details</title>
+                                        </lyonscg_logorderdetails>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>

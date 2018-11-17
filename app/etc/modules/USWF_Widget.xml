@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Widget>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Lyonscg_Widget/>
+            </depends>
+        </USWF_Widget>
+    </modules>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Usff>
+            <active>true</active>
+            <codePool>local</codePool>
+            <self_name>Usff Template Module</self_name>
+        </Lyonscg_Usff>
+    </modules>
+</config>

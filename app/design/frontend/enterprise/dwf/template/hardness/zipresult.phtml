@@ -1,0 +1,60 @@
+<?php
+$data = $this->getHardness();
+
+$hardness = array(
+    'less than 3 gpg' => array('Low Hardness', 'low-hard'),
+    '3-7 gpg' => array('Moderate Hardness', 'hard'),
+    '7-10 gpg' => array('Hard Water', 'hard'),
+    '10-14 gpg' => array('Very Hard Water', 'very-hard'),
+    'over 14 gpg' => array('Extremely Hard Water', 'very-hard')
+);
+
+?>
+
+<div class="row">
+    <div class="col-md-12 widget-header"><h3>DISCOVER YOUR WATER HARDNESS</h3></div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            <div class="widget-info">
+                <div class="hardness-result">
+                    <p>
+                        <?php echo $data['zip_code']; ?> <br>
+                        <?php echo $data['primary_city'] . ", " . $data['state']; ?> </p>
+                </div>
+                <p style="font-size: 20px; text-align: center;">Need to check elsewhere? <br> Searh another Zip Code
+                    below!</p>
+
+                <div class="hardness-search-form">
+                    <form id="hardness-form" type="post">
+                        <input id="zip-code" type="text" name="zipcode" value="<?php echo $data['zip_code']; ?>"
+                               placeholder="Enter 5-Digit Zip Code Here"
+                               pattern="^[0-9]{5}$" maxlength="5" required
+                               oninput="checkZipMess()">
+                        <button onclick="checkZip()">Search</button>
+                    </form>
+                </div>
+                <div class="hardness-more">
+                    <a href="<?php echo Mage::getBaseUrl(); ?>hard-water/">
+                        <p style="text-align: center; margin: 0;">Click here to learn about <br> solutions for hardness
+                            >></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6" style="max-height: 100%;">
+        <div class="info-graphic">
+            <div class="result">
+                <p>Your Area has</p>
+                <p class="<?php echo $hardness[strtolower($data['hardness_range'])][1]; ?>"><?php echo $data['hardness_range']; ?></p>
+                <p style="font-size: 20px; margin-bottom: 20px;">of hardness in your water.</p>
+                <p>Your Water is</p>
+                <p class="<?php echo $hardness[strtolower($data['hardness_range'])][1]; ?>"><?php echo $hardness[strtolower($data['hardness_range'])][0]; ?></p>
+                <p style="font-size: 14px; text-align: center; margin-top: 15px;">Hardness levels are based on averages
+                    taken <br> from EPA water quality samples in your area.</p>
+            </div>
+        </div>
+    </div>
+</div>

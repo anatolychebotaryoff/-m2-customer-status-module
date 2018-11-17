@@ -1,0 +1,13 @@
+/**
+ * Improved Cache Clearing/Warming
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_ImprovedCache
+ * @copyright   Copyright (c) 2014 Lyons Consulting Group (http://www.lyonscg.com)
+ * @author      Nick Hughart (nhughart@lyonscg.com)
+ */
+
+### Module Files Outside this Directory
+
+# Module XML File
+app/etc/modules/Lyonscg_ImprovedCache.xml

@@ -1,0 +1,121 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * Grouped product data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ * @see Mage_Catalog_Block_Product_View_Type_Grouped
+ */
+?>
+<?php $this->setPreconfiguredValue(); ?>
+<?php $_product = $this->getProduct(); ?>
+<?php $_associatedProducts = $this->getAssociatedProducts(); ?>
+<?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
+<?php $snippetPrices = array() ?>
+<?php $_notForSale = $_product->getNotForSale() ?>
+<div class="col-md-12 pdp--status pdp--header__short">
+    <div class="pdp--status__inner">
+        <div class="row">
+<?php if ($_product->isAvailable() && $_hasAssociatedProducts): ?>
+    <?php 
+        $lowestCustomPrice = PHP_INT_MAX; 
+        $lowestMsrp = PHP_INT_MAX;
+
+        $cookie = Mage::getSingleton('core/cookie');
+        $hd_groupid = $cookie->get('hd_groupid_'.$_product->getId());
+
+        if ($hd_groupid) {
+            $_product->setCustomerGroupId($hd_groupid);
+        }
+
+        foreach($_associatedProducts as $_item) {
+            if ($hd_groupid) { 
+                $_item->setCustomerGroupId($hd_groupid);
+            }
+            $itemFinalPrice = $_item->getFinalPrice();
+            $snippetPrices[] = $itemFinalPrice;
+            $itemMsrp = $_item->getMsrp();
+            $itemQty = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_item->getEntityId(), 'package_qty', Mage::app()->getStore());
+            if($itemQty && ($itemQty > 1)){
+                $lowestCustomPrice = ($itemFinalPrice/$itemQty < $lowestCustomPrice ? $itemFinalPrice/$itemQty : $lowestCustomPrice);
+                $lowestMsrp = ($itemMsrp/$itemQty < $lowestMsrp ? $itemMsrp/$itemQty : $lowestMsrp);
+            } else {
+                $lowestCustomPrice = ($itemFinalPrice < $lowestCustomPrice ? $itemFinalPrice : $lowestCustomPrice);
+                $lowestMsrp = ($itemMsrp < $lowestMsrp ? $itemMsrp : $lowestMsrp);
+            }
+        }
+        $lowestCustomPrice = $lowestCustomPrice == PHP_INT_MAX ? 0 : $lowestCustomPrice;
+        $lowestMsrp = $lowestMsrp == PHP_INT_MAX ? 0 : $lowestMsrp;
+    ?>
+
+
+<div id="availability"></div>
+
+    <div class="product--stock">
+        <?php if ($_product->isSaleable()): ?>
+<!--
+            <p class="product--stock-messaging">
+	    <i class="fa fa-check fa-lg"></i>
+            <span class="stock--accent"><?php echo $this->__('In Stock:') ?> </span>
+        </p>
+-->
+        <?php endif; ?>
+        <hr/>
+        <p class="product--guarantees inline-block">
+            <i class="fa fa-truck fa-lg"></i>
+            <span class="guarantees--accent"><b>FREE SHIPPING</b> OVER $39</span>
+        </p>
+        <p class="product--guarantees inline-block">
+            <i class="fa fa-arrow-circle-left fa-lg"></i>
+            <span class="guarantees--accent"><b>FREE RETURNS</b></span>
+        </p>
+    </div>
+<?php else: ?>
+    <?php if (!$_notForSale): ?>
+            <p class="availability out-of-stock"><?php echo $this->__('Availability:') ?> <span <?php if (Mage::helper('uswf_catalog')->isWeekend()){echo 'class="hidden"';} ?>><?php echo $this->__('Out of stock') ?></span></p>
+    <?php endif; ?>
+    <?php if ($_hasAssociatedProducts): ?>
+        <?php foreach($_associatedProducts as $_item): ?>
+            <?php 
+            if ($hd_groupid) {
+                $_item->setCustomerGroupId($hd_groupid);
+            }
+            ?>
+            <div style="display:none;"><?php echo Mage::helper('core')->currency($_item->getFinalPrice()); ?></div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+<?php echo $this->getChildHtml('product_type_data_extra') ?>
+
+<?php // This empty table is needed otherwise Itoris Grouped Product Module js file throws error ?>
+        </div>
+    </div>
+</div>
+<table class="data-table grouped-items-table" id="super-product-table">
+
+</table>
+<script type="text/javascript">addEvent(window, 'load', function(){ decorateTable('super-product-table'); });</script>

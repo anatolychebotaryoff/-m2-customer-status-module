@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <mageworx module="seosuite">
+            <label>MageWorx</label>
+            <sort_order>101</sort_order>
+        </mageworx>
+    </tabs>
+    <sections>
+        <mageworx_seo translate="label" module="seosuite">
+            <groups>
+                <seosuite translate="label" module="seosuite">
+                    <fields>                        
+                        <layerednav_nofollow translate="label">
+                            <label><![CDATA[Disallow bots from crawling layered nav filters]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                            
+                            <sort_order>999</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                                
+                        </layerednav_nofollow>
+                    </fields>
+                </seosuite>
+            </groups>
+        </mageworx_seo>
+    </sections>
+</config>

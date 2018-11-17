@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_SeoSuite>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <MageWorx_SeoBase/>
+
+            </depends>
+        </Lyonscg_SeoSuite>
+    </modules>
+</config>

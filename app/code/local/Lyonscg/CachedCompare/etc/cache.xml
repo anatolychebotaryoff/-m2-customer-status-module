@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <placeholders>
+        <cached_compare_list_sidebar>
+            <block>lyonscg_cachedcompare/product_compare_sidebar</block>
+            <placeholder>WRAPPER_COMPARELIST_SIDEBAR</placeholder>
+            <name>lyonscg_cachedcompare_sidebar</name>
+            <template>lyonscg/cachedcompare/sidebar.phtml</template>
+            <container>Lyonscg_CachedCompare_Model_Container_Sidebar_Comparelist</container>
+            <cache_lifetime>86400</cache_lifetime>
+        </cached_compare_list_sidebar>
+    </placeholders>
+</config>

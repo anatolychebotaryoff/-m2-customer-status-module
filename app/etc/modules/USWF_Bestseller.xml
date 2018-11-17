@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Bestseller>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <CapacityWebSolutions_Bestseller/>
+            </depends>
+        </USWF_Bestseller>
+    </modules>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <EcommerceTeam_CloudZoom>
+            <active>false</active>
+            <codePool>community</codePool>
+        </EcommerceTeam_CloudZoom>
+    </modules>
+</config>

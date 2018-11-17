@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_RewriteParams>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Lyonscg_RewriteParams>
+    </modules>
+</config>

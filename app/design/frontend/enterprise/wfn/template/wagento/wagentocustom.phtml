@@ -1,0 +1,21 @@
+<?php
+$cmspage_id = $this->getRequest()->getParam('page_id');
+?>
+<script type="text/javascript">
+    addEvent(window, 'load', function() {
+        var page_id = '<?php echo  (Mage::getModel('cms/page')->load($cmspage_id)->getIdentifier())?>';
+        $$('.cmsurl').each(function(link){
+            if (link.readAttribute('href').indexOf(page_id) > 0)
+            {
+                link.addClassName('selected');
+            }
+            else
+            {
+                if (link.hasClassName('selected'));
+                {
+                    link.removeClassName('selected');
+                }
+            }
+        });
+    });
+</script>

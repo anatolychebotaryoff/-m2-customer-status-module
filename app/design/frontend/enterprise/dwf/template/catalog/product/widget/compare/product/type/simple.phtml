@@ -1,0 +1,62 @@
+<table class="data-table grouped-items-table subscribePro" >
+    <tbody>
+    <?php
+        $product = $this->getProduct();
+        $isTier1 = $product->getData('is_tier1');
+        $oemPrices = $this->getData('oem_prices');
+        $prices = $this->getProduct()->getExtPrices();
+    ?>
+    <?php if ($prices): ?>
+        <input type="hidden" name="back_url" value="<?php echo Mage::helper('core/url')->getCurrentUrl() ?>"/>
+
+        <?php $index = 0;?>
+        <?php foreach ($prices as $qty => $price): ?>
+            <tr>
+                <?php if ($product->isSaleable()): ?>
+                    <?php $totalPrice = $price * $qty?>
+                    <td class="a-center input">
+                        <?php if ($product->isSaleable()) : ?>
+                            <?php $defaultOption = $product->getExtDefaultOption(); ?>
+                            <input type="radio" autocomplete="off" id="radio-<?php echo $product->getId() ?>-<?php echo $index ?>" name="super_group[<?php echo $product->getId() ?>]" maxlength="12" value="<?php echo $qty ?>" title="<?php echo $this->__('Qty') ?>" class="css-checkbox input-text qty option-validate" onclick="product_addtocart_form<?php echo $product->getIndex() ?>checkSelection(this)"<?php echo (!empty($defaultOption) && $isTier1 && $defaultOption == $qty) ? ' checked="checked"' : '' ?> />
+                            <label for="radio-<?php echo $product->getId() ?>-<?php echo $index ?>" class="css-label"></label>
+                        <?php else: ?>
+                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <span class="ind-price" id="compare-ind-price-<?php echo $product->getId() ?>">
+                            <span class="qty"><?php echo $qty ?></span>&nbsp;<span><?php echo $qty > 1 ? $this->__('Filters') : $this->__('Filter') ?></span>
+                            <?php if ($isTier1): ?>
+                                <?php if (array_key_exists($qty, $oemPrices)): ?>
+                                    <?php if ($totalPrice < $oemPrices[$qty] * $qty): ?>
+                                        <?php $_savePrice = $oemPrices[$qty] * $qty - $totalPrice ?>
+                                        <div class="save-price" id="save-price-<?php echo $product->getId() ?>-<?php echo $index ?>">
+                                            <?php echo $this->__('Save %s', Mage::helper('core')->currency($_savePrice, true, false)) ?>
+                                        </div>
+                                        <span class="save-price-simple hidden"><?php echo Mage::helper('core')->currency($_savePrice, false, false) ?></span>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php elseif ($qty > 1):?>
+                                <div class="price-per-unit">
+                                    <?php echo $this->__('%s each', Mage::helper('core')->currency($price, true, false)) ?>
+                                </div>
+                            <?php endif; ?>
+                        </span>
+                        <?php if ($this->getData('tier1_can_show_price') !== false): ?>
+                            <?php if ($product->getCanShowPrice() !== false): ?>
+                                <span class="price-box">
+                                        <span class="regular-price" id="product-price-<?php echo $product->getId() ?>-<?php echo $index ?>">
+                                            <?php echo Mage::helper('core')->currency($totalPrice) ?>
+                                        </span>
+                                        <span class="price-simple hidden"><?php echo Mage::helper('core')->currency($totalPrice, false, false) ?></span>
+                                    </span>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
+                <?php endif; ?>
+            </tr>
+            <?php $index++;?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+<layout version="0.1.0">
+
+    <paypal_express_review>
+        <!--<reference name="root">-->
+            <!--<action method="setTemplate"><template>page/empty.phtml</template></action>-->
+        <!--</reference>-->
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/sam/styles-review.css</name><params/></action>
+        </reference>
+        <reference name="paypal.express.review">
+            <action method="unsetChild"><name>shipping_method</name></action>
+            <action method="unsetChild"><name>agreements</name></action>
+        </reference>
+        <reference name="paypal.express.review.details">
+            <block type="sam_customshipping/shipping" name="sam_edit_shop_cart" as="sam_edit_shop_cart" template="paypal/express/review/cart.phtml">
+                <block type="checkout/agreements" name="paypal.express.review.details.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+                <block type="paypal/express_review" name="express.review.shipping.method" as="shipping_method" template="paypal/express/review/shipping/method.phtml"/>
+            </block>
+        </reference>
+        <block type="tax/checkout_discount" name="discount_total_renderer" template="sam/checkout/total/paypal/express/review/discount.phtml"/>
+        <block type="tax/checkout_grandtotal" name="grandtotal_total_renderer" template="sam/checkout/total/paypal/express/review/grandtotal.phtml"/>
+        <block type="tax/checkout_shipping" name="shipping_total_renderer" template="sam/checkout/total/paypal/express/review/shipping.phtml"/>
+        <block type="tax/checkout_subtotal" name="subtotal_total_renderer" template="sam/checkout/total/paypal/express/review/subtotal.phtml"/>
+        <block type="tax/checkout_grandtotal" name="grand_total_total_renderer" template="sam/checkout/total/paypal/express/review/grandtotal.phtml"/>
+    </paypal_express_review>
+
+    <paypal_express_review_details>
+        <reference name="root">
+            <block type="sam_customshipping/shipping" name="sam_edit_shop_cart" as="sam_edit_shop_cart" template="paypal/express/review/cart.phtml">
+                <block type="checkout/agreements" name="paypal.express.review.details.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+                <block type="paypal/express_review" name="express.review.shipping.method" as="shipping_method" template="paypal/express/review/shipping/method.phtml"/>
+            </block>
+        </reference>
+        <block type="tax/checkout_discount" name="discount_total_renderer" template="sam/checkout/total/paypal/express/review/discount.phtml"/>
+        <block type="tax/checkout_grandtotal" name="grandtotal_total_renderer" template="sam/checkout/total/paypal/express/review/grandtotal.phtml"/>
+        <block type="tax/checkout_shipping" name="shipping_total_renderer" template="sam/checkout/total/paypal/express/review/shipping.phtml"/>
+        <block type="tax/checkout_subtotal" name="subtotal_total_renderer" template="sam/checkout/total/paypal/express/review/subtotal.phtml"/>
+    </paypal_express_review_details>
+
+</layout>

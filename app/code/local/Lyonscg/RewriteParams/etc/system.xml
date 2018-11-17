@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+    /**
+    *
+    * System config file for Lyonscg_RequestParams
+    *
+    * @category    Lyonscg
+    * @package     Lyonscg_Rocklerapi
+    * @copyright   Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+    * @author      Todd Wolaver (twolaver@lyonscg.com)
+    *
+    */
+-->
+<config>
+    <sections>
+        <web>
+            <groups>
+                <seo>
+                    <fields>
+                        <rewrite_passthrough_params>
+                            <label>Pass-Through All Params for Redirects</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </rewrite_passthrough_params>
+                        <rewrite_allowed_params translate="label">
+                            <label>Allowed Params for Redirects</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Comma separated list of keys to allow on redirected URL rewrites. Only used when Pass-Through Redirect Params is set to "No".</comment>
+                        </rewrite_allowed_params>
+                    </fields>
+                </seo>
+            </groups>
+        </web>
+    </sections>
+</config>

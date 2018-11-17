@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <placeholders>
+        <uswf_compare_box>
+            <block>uswf_catalog/product_compare_comparebox</block>
+            <placeholder>COMPARELIST_BOX</placeholder>
+            <name>catalog.compare.box</name>
+            <template>uswf/catalog/compare/box.phtml</template>
+            <container>USWF_Catalog_Model_Container_Comparelist</container>
+            <cache_lifetime>86400</cache_lifetime>
+        </uswf_compare_box>
+    </placeholders>
+</config>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_Bundle
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_Bundle>
+            <version>0.0.1</version>
+        </USWF_Bundle>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_bundle>
+                <class>USWF_Bundle_Block</class>
+            </uswf_bundle>
+            <bundle>
+                <rewrite>
+                    <adminhtml_catalog_product_edit_tab_attributes>USWF_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes</adminhtml_catalog_product_edit_tab_attributes>
+                </rewrite>
+            </bundle>
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_edit_tab_price_tier>USWF_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Price_Tier</catalog_product_edit_tab_price_tier>
+                    <sales_order_create_items_grid>USWF_Bundle_Block_Adminhtml_Sales_Order_Create_Items_Grid</sales_order_create_items_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <uswf_bundle>
+                <class>USWF_Bundle_Helper</class>
+            </uswf_bundle>
+        </helpers>
+        <models>
+            <uswf_bundle>
+                <class>USWF_Bundle_Model</class>
+            </uswf_bundle>
+            <catalog>
+                <rewrite>
+                    <product_attribute_backend_tierprice>USWF_Bundle_Model_Product_Attribute_Backend_Tierprice</product_attribute_backend_tierprice>
+                    <product_attribute_backend_groupprice>USWF_Bundle_Model_Product_Attribute_Backend_Groupprice</product_attribute_backend_groupprice>
+                </rewrite>
+            </catalog>
+            <core>
+                <rewrite>
+                    <store>USWF_Bundle_Model_Core_Store</store>
+                </rewrite>
+            </core>
+            <product_price>
+                <class>USWF_Bundle_Model</class>
+            </product_price>
+            <bundle>
+                <rewrite>
+                    <product_price>USWF_Bundle_Model_Product_Price</product_price>
+                    <observer>USWF_Bundle_Model_Observer</observer>
+                </rewrite>
+            </bundle>
+        </models>
+        <events>
+            <page_block_html_topmenu_gethtml_before>
+                <observers>
+                    <catalog_add_topmenu_items>
+                        <class>uswf_catalog/observer</class>
+                        <method>addCatalogToTopmenuItems</method>
+                    </catalog_add_topmenu_items>
+                </observers>
+            </page_block_html_topmenu_gethtml_before>
+        </events>
+    </global>
+    <frontend>
+        <routers>
+            <bundle>
+                <use>standard</use>
+                <args>
+                    <module>USWF_Bundle</module>
+                    <frontName>bundle</frontName>
+                </args>
+            </bundle>
+        </routers>
+    </frontend>
+</config>

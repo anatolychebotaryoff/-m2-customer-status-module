@@ -1,0 +1,1010 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageWorx
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MageWorx EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.mageworx.com/LICENSE-1.0.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.mageworx.com/ for more information
+ *
+ * @category   MageWorx
+ * @package    MageWorx_SeoSuite
+ * @copyright  Copyright (c) 2013 MageWorx (http://www.mageworx.com/)
+ * @license    http://www.mageworx.com/LICENSE-1.0.html
+ */
+
+/**
+ * SEO Suite extension
+ *
+ * @category   MageWorx
+ * @package    MageWorx_SeoSuite
+ * @author     MageWorx Dev Team
+ */
+ -->
+<config>
+    <tabs>
+        <mageworx module="seosuite">
+            <label>MageWorx</label>
+            <sort_order>101</sort_order>
+        </mageworx>
+    </tabs>
+    <sections>
+        <mageworx_seo translate="label" module="seosuite">
+            <label>SEO Suite Ultimate</label>
+            <tab>mageworx</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <seosuite translate="label" module="seosuite">
+                    <label>SEO Suite</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>                        
+                        <optimized_urls translate="label">
+                            <label><![CDATA[Optimized URLs For Product And Category Enabled]]></label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>seosuite/adminhtml_system_config_frontend_optimizedurls</frontend_model>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                            
+                            <sort_order>10</sort_order>
+                            <comment>
+                            <![CDATA[<b>Re-index Catalog Rewrites after changing this setting.</b></br>                                    
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<b>Examples:</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<b>Original URLs:</b><br />  
+                                    Category:&nbsp;http://ex.com/apparel/shoes/<br />
+                                    Product:&nbsp;&nbsp;&nbsp;http://ex.com/apparel/shoes/clogs.html<br />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<b>Optimized URLs:</b><br />
+                                    Category:&nbsp;http://ex.com/shoes/<br />
+                                    Product:&nbsp;&nbsp;&nbsp;http://ex.com/shoes/clogs.html
+                            ]]>
+                            </comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                                
+                        </optimized_urls>
+                        <reviews_friendly_urls translate="label">
+                            <label>Product Reviews Friendly URLs<![CDATA[<br><br>]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </reviews_friendly_urls>
+                        <product_use_categories>
+                            <label>Use Categories Path for Product URLs</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>seosuite/adminhtml_system_config_frontend_duplicate</frontend_model>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>      
+                            <comment><![CDATA[It duplicates the standard setting in <i>System -> Catalog -> Seo</i> for convenience.<br>
+                                     Chages of this setting will influence "Product&nbsp;Canonical&nbsp;URL" setting.]]>
+                            </comment>                      
+                        </product_use_categories>
+                        <enabled translate="label">
+                            <label><![CDATA[Add Canonical URL<br>Meta Header ▾]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <comment><![CDATA[We recommend to have the same allowed values for "Product per Page on Grid/List Mode" settings in <i>System -> Configuration -> Catalog -> Frontend</i> if "Allow All Products per Page" setting is disabled.]]></comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>  
+                        <product_canonical_url translate="label comment">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Product Canonical URL</label>
+                            <comment><![CDATA[Options depends from "Use Categories Path for Product URLs" setting. Available now:<br/>
+                                     <b>Use Longest</b> will use the longest categories path for product URL<br/>
+                                     <b>Use Shortest</b> will use the shortest categories path for product URL<br/>
+                                     <b>Use Root won't use categories path for product URL.]]></comment>
+                            <frontend_type>select</frontend_type>                            
+                            <source_model>seosuite/system_config_source_product_canonical</source_model>                            
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                            
+                            <depends>
+                                <enabled>1</enabled>
+                                <product_use_categories>1</product_use_categories>
+                            </depends>
+                        </product_canonical_url>
+                        <product_canonical_url_root translate="label comment">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Product Canonical URL</label>
+                            <comment><![CDATA[Options depends from "Use Categories Path for Product URLs" setting. Only "Use Root" option available now.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_product_canonicalRoot</source_model>                            
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>                                
+                                <enabled>1</enabled>                                
+                                <product_use_categories>0</product_use_categories>
+                            </depends>                            
+                        </product_canonical_url_root>                        
+                        <canonical_associated_product translate="label comment">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Canonical Tag for Associated 
+                                   <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Products ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>42</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </canonical_associated_product>
+                        <canonical_configurable translate="label comment">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>For Configurable Products</label>                            
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_associated</source_model>
+                            <sort_order>44</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                                <canonical_associated_product>1</canonical_associated_product>
+                            </depends>
+                        </canonical_configurable> 
+                        <canonical_bundle translate="label comment">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>For Bundle Products</label>                            
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_associated</source_model>
+                            <sort_order>46</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                                <canonical_associated_product>1</canonical_associated_product>
+                            </depends>
+                        </canonical_bundle>
+                        <canonical_grouped translate="label comment">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>For Grouped Products</label>                            
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_associated</source_model>
+                            <sort_order>48</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                                <canonical_associated_product>1</canonical_associated_product>
+                            </depends>
+                        </canonical_grouped> 
+                        <enable_canonical_tag_for_layered_navigation translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Canonical Tag for <![CDATA[<br>&nbsp;&nbsp;&nbsp;&nbsp;]]>Category Layered Navigation</label>
+                            <frontend_type>select</frontend_type>      
+                            <source_model>seosuite/system_config_source_layer_canonicalCommon</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+                                <![CDATA[We do not recommend to use "Current Category" value if "Allow All Products per Page" setting<br>(<i>System -> Configuration -> Catalog -> Frontend</i>)<br>is disabled. 
+                                  <br>Please note that you can overwrite this setting for each product attribute separately using "Canonical Tag for Pages Filtered by Layered Navigation Leads to" setting (<i>Attribute -> Frontend properties</i>).]]>                                
+                            </comment>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </enable_canonical_tag_for_layered_navigation>
+                        <use_product_canonical_for_review>
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>For Review Page use<![CDATA[<br>&nbsp;&nbsp;&nbsp;&nbsp;]]>Product Canonical Tag</label>
+                            <frontend_type>select</frontend_type>      
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </use_product_canonical_for_review>
+                        <ignore_pages translate="label comment">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Ignore Pages</label>
+                            <comment><![CDATA[Canonical URL Meta Header will not be added for these pages.<br>                                    
+                                    &nbsp;&nbsp;&nbsp;&nbsp;For category: 'catalog_category_view'<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;For product:  'catalog_product_view'<br>
+                                    The values for other pages you can find out using <i>"Tools for SEO Suite extension" -><br>"Show Action Name of Page"</i>.]]>
+                            </comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </ignore_pages>    
+                        <cross_domain translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Cross Domain Canonical URL</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_crossdomain</source_model>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </cross_domain>
+                        <add_canonical_url_port>
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Canonical URL Port<![CDATA[<br><br>]]></label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </add_canonical_url_port>                                            
+                        <trailing_slash translate="label">
+                            <label><![CDATA[Trailing Slash For Canonical And Sitemap Urls<br><br>]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_slash</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment><![CDATA[Note: the trailing slash can be added to pages without suffix .html or .htm]]></comment>
+                            <show_in_store>1</show_in_store>
+                        </trailing_slash>                              
+                        <enable_ln_friendly_urls translate="label comment">
+                            <label><![CDATA[Category Layered Navigation<br>Friendly URLs ▾ ]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_ln_friendly_urls>
+                        <layered_identifier translate="label comment">                            
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Navigation Identifier</label>                          
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-alpha</validate>
+                            <comment><![CDATA[If empty, " l " is used,<br>E.g. http://example.com/apparel/<b>l</b>/price:100-200]]></comment>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>                               
+                                <enable_ln_friendly_urls>1</enable_ln_friendly_urls>
+                            </depends> 
+                        </layered_identifier>
+                        <layered_hide_attributes translate="label comment">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Hide Attribute Names</label>
+                            <comment><![CDATA[Hide Attribute Names in Layered Navigation URLs when possible.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>                                
+                                <enable_ln_friendly_urls>1</enable_ln_friendly_urls>
+                            </depends> 
+                        </layered_hide_attributes>
+                        <layered_separatort translate="label comment">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Layered Navigation
+                            <![CDATA[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Separator</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>130</sort_order>
+                            <comment><![CDATA[If empty, " : " is used,<br>E.g. http://example.com/computers/l/price<b>:</b>700-800]]></comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>                                
+                                <enable_ln_friendly_urls>1</enable_ln_friendly_urls>
+                            </depends> 
+                        </layered_separatort>
+                        <pager_url_format translate="label comment">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Pager URL Format
+                            <![CDATA[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>for Categories</label>                            
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[If empty, original URL format is used:<br/>/mobile-phones.html?p=2
+                                     <br/><b>Examples:</b>
+                                     <br/>-page[page_number] &nbsp;&nbsp; <i>will transform URL into</i>
+                                     <br/>/mobile-phones-page2.html<br/>/p/[page_number] &nbsp;&nbsp; <i>will transform URL into</i>
+                                     <br/>/mobile-phones/p/2.html
+                                     <br/>-[page_number] &nbsp; <b>is not recommended if you do have categories or layered navigation filters ending with "-[0-9]":</b>
+                                     <br/>/laptop-series-3.html, /phones-60.html, etc.</br></br>]]></comment>
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>                               
+                                <enable_ln_friendly_urls>1</enable_ln_friendly_urls>
+                            </depends> 
+                        </pager_url_format>                        
+                        <enable_link_rel translate="label comment">
+                            <label><![CDATA[Add Link Rel="next/prev"]]></label>
+                            <!--Not on pages with layered navigation-->
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_nextPrev</source_model>
+                            <!--<source_model>adminhtml/system_config_source_yesno</source_model>-->
+                            <comment><![CDATA[Note: Next/Prev functionality will be disabled if<br>"Allow All Products per Page" setting<br>(System ->Configuration -> Catalog -> Frontend)]]></comment>
+                            <sort_order>160</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                           
+                        </enable_link_rel>                                          
+                        <https_robots translate="label">
+                            <label><![CDATA[Robots Meta Header for HTTPS]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_robots</source_model>
+                            <sort_order>170</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </https_robots>
+                        <noindex_pages translate="label">
+                            <label><![CDATA[NOINDEX, FOLLOW Robots Meta Header For Pages Without Content]]></label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>seosuite/system_config_source_noindex</source_model>
+                            <sort_order>180</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </noindex_pages>
+                        <noindex_pages_user translate="label comment">
+                            <label><![CDATA[NOINDEX, FOLLOW Robots Meta Header For Additional Pages]]></label>
+                            <comment><![CDATA[Can be either a full action name or a request path. Wildcard allowed<br/>
+                                    <b>Examples</b>:<br/>&nbsp;&nbsp;&nbsp;&nbsp;review_product_*<br/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;review/product/*<br/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;rss_*<br/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;rss/*<br>
+                                    The values for other pages you can find out using "Tools for SEO Suite extension" -><br>
+                                    "Show Action Name of Page".]]>
+                            </comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>190</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </noindex_pages_user>
+                        <noindex_nofollow_pages_user translate="label comment">
+                            <label><![CDATA[NOINDEX, NOFOLLOW Robots Meta Header For Additional Pages]]></label>
+                            <comment><![CDATA[Can be either a full action name or a request path. Wildcard allowed<br/><b>Examples</b>:<br/>review_product_*<br/>review/product/*<br/>rss_*<br/>rss/*]]></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <comment><![CDATA[Higher priority than "NOINDEX, FOLLOW" setting.]]></comment>
+                        </noindex_nofollow_pages_user>               
+                        <robots_editor translate="label comment">
+                            <label><![CDATA[Robots.txt Editor]]></label>            
+                            <frontend_type>textarea</frontend_type>
+                            <backend_model>seosuite/system_config_backend_robots</backend_model>
+                            <sort_order>205</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <comment><![CDATA[Robots.txt file should be granted 777 permissions.]]></comment>
+                        </robots_editor>
+                        <status_pager_num_for_title translate="label comment">
+                            <label><![CDATA[Add Pager Number to<br>
+                                    Meta Title]]>
+                            </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_meta_pageNum</source_model>
+                            <comment><![CDATA[E.g. 'Apparel <b>| Page 3</b>']]></comment>
+                            <sort_order>210</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </status_pager_num_for_title>
+                        <status_pager_num_for_description translate="label comment">
+                            <label><![CDATA[Add Pager Number to<br>
+                                    Meta Description]]>
+                            </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_meta_pageNum</source_model>
+                            <comment><![CDATA[E.g. 'Description of apparel<b> | Page 2</b>']]></comment>
+                            <sort_order>212</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </status_pager_num_for_description>
+                        <cut_title_prefix_and_suffix translate="label comment">
+                            <label><![CDATA[Remove Default Title Prefix/Suffix<br>
+                                            for Product and Category Pages<br>]]>
+                            </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>214</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cut_title_prefix_and_suffix>
+                        <status_dynamic_meta_title translate="label">
+                            <label><![CDATA[Enable Dynamic Meta Title for<br>Product and Category Pages]]></label>
+                            <frontend_type>select</frontend_type>                            
+                            <source_model>seosuite/system_config_source_meta_dynamic_title</source_model>                            
+                            <sort_order>216</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </status_dynamic_meta_title>                        
+                        <status_dynamic_meta_description translate="label">
+                            <label><![CDATA[Enable Dynamic Meta Description<br>for Product and Category Pages]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_meta_dynamic_description</source_model>                            
+                            <sort_order>230</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </status_dynamic_meta_description>                            
+                        <status_dynamic_meta_keywords translate="label">
+                            <label><![CDATA[Enable Dynamic Meta Keywords<br>for Product and Category Pages]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>seosuite/system_config_source_meta_dynamic_keywords</source_model>
+                            <sort_order>240</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Dynamic templates use patterns from<br>Catalog -> SEO Suite Templates and don't work if appropate pattern is disabled.</i>]]></comment>
+                        </status_dynamic_meta_keywords>
+                        <extended_category_layered_navigation_meta_title translate="label">
+                            <label><![CDATA[Enable Extended Meta Title On Category Layered Navigation Pages]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>252</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[E.g. 'Phones, <b>Price $300.00 and above, Color Silver</b>'</i>]]></comment>
+                        </extended_category_layered_navigation_meta_title>
+                        <extended_category_layered_navigation_meta_description translate="label">
+                            <label><![CDATA[Enable Extended Meta Description On Category Layered Navigation Pages]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>254</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </extended_category_layered_navigation_meta_description>
+                        <template_limit translate="label">
+                            <label><![CDATA[Number of Items for One-Time Processing during Templates Applying (Applicable to Dynamic Templates only)]]></label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>258</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template_limit>                        
+                    </fields>
+                </seosuite>
+                <richsnippets translate="label" module="seosuite">
+                    <label><![CDATA[Open Graph Protocol & Rich Snippets]]></label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <product_og_enabled translate="label">
+                            <label><![CDATA[Enable Open Graph Protocol For Products]]></label>
+                            <frontend_type>select</frontend_type>
+                            <comment><![CDATA[Please visit <a target='_blank' href='http://ogp.me/'>Official site</a> for more info]]>
+                            </comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_og_enabled> 
+                        <enable translate="label">
+                            <label><![CDATA[Enable Rich Snippets ▾]]></label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>seosuite/adminhtml_system_config_frontend_richsnippet</frontend_model>
+                            <source_model>seosuite/system_config_source_richsnippets</source_model>
+                            <sort_order>20</sort_order>
+                            <comment><![CDATA[It includes entity of a product (name, image, description, aggregate rating, offering with price, availability, webpage language).
+                                    <br><a href='http://www.google.com/webmasters/tools/richsnippets' target='_blank'>Google Testing Tool</a>]]>                                
+                            </comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <enable_sku translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add SKU</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_sku>
+                        <attribute_code_sku translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>SKU Attribute Code</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-code</validate>                            
+                            <sort_order>26</sort_order>
+                            <validate>validate-code</validate>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[If empty, use default 'sku']]></comment>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_sku>1</enable_sku>
+                            </depends>
+                        </attribute_code_sku>                           
+                        <enable_payment translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Payment Methods</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_payment>
+                        <enable_delivery translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Delivery Methods</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_delivery>
+                        <enable_category translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Category ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_category>
+                        <category_deepest translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Use Deepest Category</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                            
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Set "Yes", if products are assifned to multiple categories and sub-categories in the same chain.]]></comment>                            
+                            <depends>
+                                <enable>1</enable>
+                                <enable_category>1</enable_category>
+                            </depends>
+                        </category_deepest>                      
+                        <enable_color translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Color ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_color>
+                        <attribute_code_color translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Color Attribute Code</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-code</validate>                            
+                            <sort_order>45</sort_order>
+                            <validate>validate-code</validate>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_color>1</enable_color>
+                            </depends>
+                        </attribute_code_color>                        
+                        <enable_manufacturer translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Manufacturer ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_manufacturer>
+                        <attribute_code_manufacturer translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>
+                                   Manufacturer Attribute Code</label>
+                            <frontend_type>text</frontend_type>   
+                            <validate>validate-code</validate>                         
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_manufacturer>1</enable_manufacturer>
+                            </depends>
+                        </attribute_code_manufacturer>                                                             
+                        <enable_brand translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Brand ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_brand>
+                        <attribute_code_brand translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Brand Attribute Code</label>
+                            <frontend_type>text</frontend_type>       
+                            <validate>validate-code</validate>                     
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_brand>1</enable_brand>
+                            </depends>
+                        </attribute_code_brand>                        
+                        <enable_model translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Model ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>66</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_model>
+                        <attribute_code_model translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Model Attribute Code</label>
+                            <frontend_type>text</frontend_type>     
+                            <validate>validate-code</validate>                       
+                            <sort_order>67</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_model>1</enable_model>
+                            </depends>
+                        </attribute_code_model>                        
+                        <enable_gtin translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Gtin ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>68</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_gtin>
+                        <attribute_code_gtin translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Gtin Attribute Code</label>
+                            <frontend_type>text</frontend_type>     
+                            <validate>validate-code</validate>                       
+                            <sort_order>69</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_gtin>1</enable_gtin>
+                            </depends>
+                        </attribute_code_gtin>                     
+                        <enable_weight translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Weight ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>72</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_weight>
+                        <weight_unit translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Weight Unit</label>
+                            <source_model>seosuite/system_config_source_weight_unit</source_model>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>75</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_weight>1</enable_weight>
+                            </depends>
+                        </weight_unit>                        
+                        <enable_dimensions translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Dimensions ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Dimensions are of the form<br> '[Number] {Length unit of measure}'. E.g., '7 ft', '10'.]]>
+                            </comment>                                       
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_dimensions>
+                        <dimensions_unit translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Dimensions Unit</label>
+                            <frontend_type>text</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <validate>validate-alpha</validate>
+                            <sort_order>85</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[If dimensions are digital, enter dimensionality unit<br> (E.g. <i>mm</i>, <i>inch</i>), in other case leave a field empty]]>                                
+                            </comment>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_dimensions>1</enable_dimensions>
+                            </depends>
+                        </dimensions_unit>
+                        <enable_height translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Height ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_dimensions>1</enable_dimensions>
+                            </depends>
+                        </enable_height>
+                        <attribute_code_height translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>
+                                    Height Attribute Code</label>
+                            <frontend_type>text</frontend_type>    
+                            <validate>validate-code</validate>                        
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_height>1</enable_height>
+                                <enable_dimensions>1</enable_dimensions>
+                            </depends>
+                        </attribute_code_height>                        
+                        <enable_width translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Width ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_dimensions>1</enable_dimensions>
+                            </depends>
+                        </enable_width>
+                        <attribute_code_width translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>
+                                Width Attribute Code</label>                                
+                            <frontend_type>text</frontend_type> 
+                            <validate>validate-code</validate>                           
+                            <sort_order>105</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_width>1</enable_width>
+                                <enable_dimensions>1</enable_dimensions>
+                            </depends>
+                        </attribute_code_width>
+                        <enable_depth translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Depth ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                            
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_dimensions>1</enable_dimensions>
+                            </depends>
+                        </enable_depth>
+                        <attribute_code_depth translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>
+                                Depth Attribute Code</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-code</validate>
+                            <sort_order>115</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_depth>1</enable_depth>
+                                <enable_dimensions>1</enable_dimensions>
+                            </depends>
+                        </attribute_code_depth>                        
+                        <enable_condition translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Condition ▾</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                            
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>                                
+                            </depends>
+                        </enable_condition>
+                        <attribute_code_condition translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>
+                                Condition Attribute Code</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-code</validate>                            
+                            <sort_order>125</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_condition>1</enable_condition>
+                            </depends>
+                        </attribute_code_condition>
+                        <condition_value_new translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>
+                                Condition Value For New</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_condition>1</enable_condition>
+                            </depends>
+                        </condition_value_new>
+                        <condition_value_refurbished translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>Attribute Value
+                                   <![CDATA[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>For Refurbished</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>135</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_condition>1</enable_condition>
+                            </depends>
+                        </condition_value_refurbished>
+                        <condition_value_used translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>
+                                Attribute Value For Used</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_condition>1</enable_condition>
+                            </depends>
+                        </condition_value_used>
+                        <condition_value_damaged translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>
+                                Attribute Value For Damaged</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>145</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_condition>1</enable_condition>
+                            </depends>
+                        </condition_value_damaged>
+                        <condition_value_default translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]>
+                                Default Value For Condition</label>
+                            <frontend_type>select</frontend_type>   
+                            <source_model>seosuite/system_config_source_condition</source_model>
+                            <sort_order>150</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Used if the attribute isn't found]]>
+                            </comment>
+                            <depends>
+                                <enable>1</enable>
+                                <enable_condition>1</enable_condition>
+                            </depends>
+                        </condition_value_default>
+                        <enable_seller translate="label">
+                            <label><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]>Add Seller Info</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>155</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Use information from:<br><i>System->General->Store Information</i>]]>
+                            </comment>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </enable_seller> 
+                    </fields>
+                </richsnippets>
+                <tools translate="label" module="seosuite">
+                    <label><![CDATA[Tools for SEO Suite extension]]></label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <show_action_name translate="label">
+                            <label><![CDATA[Show Action Name of Page]]></label>
+                            <frontend_type>select</frontend_type>
+                            <comment><![CDATA[Show the "full action name" for the current page (see 'ACTION NAME IS' in source code). This value can be used for  "Ignore Pages", "NOINDEX, FOLLOW" settings.]]>
+                            </comment>
+                            <source_model>seosuite/system_config_source_ActionName</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_action_name>
+                    </fields>
+                </tools>
+            </groups>
+        </mageworx_seo>
+    </sections>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <Cmsmart_Megamenu>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Cmsmart_Megamenu>
+    </modules>
+</config>

@@ -1,0 +1,28 @@
+<?php
+    $categoryList = $this->getCategoryList();
+    $includeName = $this->getIncludeName();
+    $i = 0;
+?>
+<ul>
+    <?php foreach ($categoryList as $childListing): ?>
+        <?php if ($i == 4): ?>
+            <?php $i = 0; ?>
+</ul>
+<ul>
+        <?php endif;?>
+        <?php
+            $name = $childListing->getNormName();
+        ?>
+        <li class="subCat<?php echo $i == 0 ? ' first' : ($i == 3 ? ' last' : '');?>">
+            <a href="<?php echo $childListing->getUrl();?>">
+                <div class="cat-image">
+                    <img src="<?php echo Mage::getBaseUrl('media') . 'catalog/category/' . $childListing->getThumbnail();?>" alt="<?php echo $name;?>">
+                    <?php if ($includeName):?>
+                        <div class="name"><?php echo $name;?></div>
+                    <?php endif;?>
+                </div>
+            </a>
+        </li>
+        <?php $i++;?>
+    <?php endforeach;?>
+</ul>

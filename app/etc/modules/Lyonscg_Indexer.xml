@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Lyonscg Indexer
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_Indexer
+ * @copyright   Copyright (c) 2015 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Eugene Nazarov (enazarov@lyonscg.com) 
+ */
+-->
+<config>
+    <modules>
+        <Lyonscg_Indexer>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Lyonscg_Indexer>
+    </modules>
+</config>

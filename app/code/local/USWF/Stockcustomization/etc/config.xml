@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <USWF_Stockcustomization>
+      <version>1.1.2</version>
+    </USWF_Stockcustomization>
+  </modules>
+
+  <global>
+    <helpers>
+      <uswf_stockcustomization>
+        <class>USWF_Stockcustomization_Helper</class>
+      </uswf_stockcustomization>
+    </helpers>
+    <models>
+      <uswf_stockcustomization>
+        <class>USWF_Stockcustomization_Model</class>
+      </uswf_stockcustomization>
+      <cataloginventory>
+        <rewrite>
+            <stock_item>USWF_Stockcustomization_Model_Stock_Item</stock_item>
+        </rewrite>
+      </cataloginventory>
+    </models>
+    <resources>
+      <stock_customization_setup>
+        <setup>
+          <module>USWF_Stockcustomization</module>
+        </setup>
+      </stock_customization_setup>
+    </resources>
+  </global>
+  <frontend>
+    <layout>
+      <updates>
+        <stock_customization>
+          <file>uswf/availability.xml</file>
+        </stock_customization>
+      </updates>
+    </layout>
+    <routers>
+      <uswf_stockcustomization_availability>
+        <use>standard</use>
+          <args>
+            <module>USWF_Stockcustomization_Availability</module>
+            <frontName>availability</frontName>
+          </args>
+      </uswf_stockcustomization_availability>
+    </routers>
+  </frontend>
+  <default>
+    <cataloginventory>
+        <item_options>
+           <in_stock_message>In Stock</in_stock_message>
+           <out_of_stock_message>Out of Stock</out_of_stock_message>
+           <backorder_message>Backordered Contact us for Estimated Ship Date</backorder_message> 
+           <backorder_date_message>Out of Stock Ships within %s business days</backorder_date_message> 
+        </item_options>
+    </cataloginventory>
+  </default>
+</config>

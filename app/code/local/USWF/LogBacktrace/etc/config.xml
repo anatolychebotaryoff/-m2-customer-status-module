@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_LogBacktrace>
+            <version>0.1.1</version>
+        </USWF_LogBacktrace>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_logbacktrace>
+                <class>USWF_LogBacktrace_Block</class>
+            </uswf_logbacktrace>
+        </blocks>
+        <models>
+            <uswf_logbacktrace>
+                <class>USWF_LogBacktrace_Model</class>
+            </uswf_logbacktrace>
+        </models>
+        <helpers>
+            <uswf_logbacktrace>
+                <class>USWF_LogBacktrace_Helper</class>
+            </uswf_logbacktrace>
+        </helpers>
+        <log>
+            <core>
+                <writer_model>USWF_LogBacktrace_Model_Log_Writer_Stream</writer_model>
+            </core>
+        </log>
+    </global>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <USWF_LogBacktrace before="Mage_Adminhtml">USWF_LogBacktrace</USWF_LogBacktrace>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <default>
+        <uswf_logbacktrace>
+            <general>
+                <active>1</active>
+            </general>
+        </uswf_logbacktrace>
+    </default>
+</config>

@@ -1,0 +1,552 @@
+<?php
+/**
+ * Product Compare Widget Template File
+ *
+ * @category  Lyons
+ * @package   Lyonscg_ComparedTo
+ * @author    Mark Hodge <mhodge@lyonscg.com>
+ * @copyright Copyright (c) 2014 Lyons Consulting Group (www.lyonscg.com)
+ */
+?>
+
+<?php $_helper = $this->helper('catalog/output') ?>
+<?php $_helperUV = $this->helper('uswf_universalvariable'); ?>
+<?php $products = $this->getData('products'); ?>
+
+<?php if (!empty($products)): ?>
+
+<?php $firstProduct = $products[1]; ?>
+<?php $secondProduct = $products[2]; ?>
+
+<?php // Get First Product Lowest Price if product is a grouped product ?>
+<?php $_lowestPrice = 0 ?>
+<?php $_packageQty = 0 ?>
+<?php $_firstProductAssociatedProducts = array() ?>
+<?php if ($firstProduct->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_GROUPED): ?>
+    <?php $_firstProductAssociatedProducts = $firstProduct->getTypeInstance(true)->getAssociatedProducts($firstProduct) ?>
+    <?php $_firstProductHasAssociatedProducts = count($_firstProductAssociatedProducts) > 0; ?>
+    <?php if ($_firstProductHasAssociatedProducts): ?>
+        <?php foreach($_firstProductAssociatedProducts as $_item): ?>
+            <?php if ($_lowestPrice == 0): ?>
+                <?php if ($_item->getPackageQty() > 1): ?>
+                    <?php $_lowestPrice = $_item->getFinalPrice() / $_item->getPackageQty() ?>
+                    <?php $_packageQty = $_item->getPackageQty() ?>
+                <?php else: ?>
+                    <?php $_lowestPrice = $_item->getFinalPrice() ?>
+                    <?php $_packageQty = $_item->getPackageQty() ?>
+                <?php endif; ?>
+            <?php elseif ($_item->getPackageQty() > 1): ?>
+                <?php $_itemPrice = $_item->getFinalPrice() / $_item->getPackageQty() ?>
+                <?php $_packageQty = ($_itemPrice < $_lowestPrice ? $_item->getPackageQty() : $_packageQty) ?>
+                <?php $_lowestPrice = ($_itemPrice < $_lowestPrice ? $_itemPrice : $_lowestPrice) ?>
+            <?php else: ?>
+                <?php $_packageQty = ($_item->getFinalPrice() < $_lowestPrice ? $_item->getPackageQty() : $_packageQty) ?>
+                <?php $_lowestPrice = ($_item->getFinalPrice() < $_lowestPrice ? $_item->getFinalPrice() : $_lowestPrice) ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+<?php $firstProductLowestPrice = $_lowestPrice ?>
+<?php $firstProductPackageQty = $_packageQty ?>
+
+<?php // Get Second Product Lowest Price if product is a grouped product ?>
+<?php $_lowestPrice = 0 ?>
+<?php $_packageQty = 0 ?>
+<?php $_secondProductAssociatedProducts = array() ?>
+<?php $_secondProductPrices = array() ?>
+<?php if ($secondProduct->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_GROUPED): ?>
+    <?php $_secondProductAssociatedProducts = $secondProduct->getTypeInstance(true)->getAssociatedProducts($secondProduct) ?>
+    <?php $_secondProductHasAssociatedProducts = count($_secondProductAssociatedProducts) > 0; ?>
+    <?php if ($_secondProductHasAssociatedProducts): ?>
+        <?php foreach($_secondProductAssociatedProducts as $_item): ?>
+            <?php $_secondProductPrices[$_item->getPackageQty()] = $_item->getFinalPrice() ?>
+            <?php if ($_lowestPrice == 0): ?>
+                <?php if ($_item->getPackageQty() > 1): ?>
+                    <?php $_lowestPrice = $_item->getFinalPrice() / $_item->getPackageQty() ?>
+                    <?php $_packageQty = $_item->getPackageQty() ?>
+                <?php else: ?>
+                    <?php $_lowestPrice = $_item->getFinalPrice() ?>
+                    <?php $_packageQty = $_item->getPackageQty() ?>
+                <?php endif; ?>
+            <?php elseif ($_item->getPackageQty() > 1): ?>
+                <?php $_itemPrice = $_item->getFinalPrice() / $_item->getPackageQty() ?>
+                <?php $_packageQty = ($_itemPrice < $_lowestPrice ? $_item->getPackageQty() : $_packageQty) ?>
+                <?php $_lowestPrice = ($_itemPrice < $_lowestPrice ? $_itemPrice : $_lowestPrice) ?>
+            <?php else: ?>
+                <?php $_packageQty = ($_item->getFinalPrice() < $_lowestPrice ? $_item->getPackageQty() : $_packageQty) ?>
+                <?php $_lowestPrice = ($_item->getFinalPrice() < $_lowestPrice ? $_item->getFinalPrice() : $_lowestPrice) ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+<?php $secondProductLowestPrice = $_lowestPrice ?>
+<?php $secondProductPackageQty = $_packageQty ?>
+
+<div class="compare-page container_24">
+    <div class="compare-wrapper">
+        <?php /** Product Compare **/ ?>
+        <div class="compare-products">
+        <?php foreach ($products as $productNumber => $product): ?>
+            <?php $package_qty = $product->getPackageQty(); ?>
+            <?php if (is_numeric($package_qty) && (int)$package_qty != 1) : ?>
+                <?php $variant = $package_qty.'pk'; ?>
+            <?php else : ?>
+                <?php $variant = 'single'; ?>
+            <?php endif; ?>
+            <?php $brand = $product->getAttributeText('manufacturer'); ?>
+            <?php $productCategory = $_helperUV->getAttributeValue($product->getId(), 'item_type'); ?>
+            <?php $_hasAssociatedProducts = false ?>
+            <?php $_associatedProducts = array() ?>
+            <?php if ($productNumber == '1'): ?>
+                <?php if ($_firstProductHasAssociatedProducts): ?>
+                    <?php $_hasAssociatedProducts = true ?>
+                    <?php $_associatedProducts = $_firstProductAssociatedProducts ?>
+                <?php endif; ?>
+            <?php elseif ($productNumber == '2'): ?>
+                <?php if ($_secondProductHasAssociatedProducts): ?>
+                    <?php $_hasAssociatedProducts = true ?>
+                    <?php $_associatedProducts = $_secondProductAssociatedProducts ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        <form action="<?php echo Mage::getUrl('groupedproductconfiguration/cart/add') ?>" method="post" id="product_addtocart_form<?php echo $productNumber ?>" name="product_form<?php echo $productNumber ?>"<?php if($_hasAssociatedProducts): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <div class="ind-item grid_12<?php echo $productNumber == '1' ? ' alpha first' : ' last' ?>">
+                <?php $ribbonImage = Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('compare_ribbon')->getValue('text') ?>
+                <?php if ($productNumber == '1' && !empty($ribbonImage)): ?>
+                    <div class="ribbon">
+                        <img src="<?php echo Mage::getBaseUrl('media') . $ribbonImage ?>" alt="ribbon" />
+                    </div>
+                <?php endif; ?>
+                <div class="border">
+                    <div class="<?php echo $productNumber == '1' ? 'low-cost-header' : 'current-selection-header' ?> a-center">
+                    <?php if ($productNumber == '1'): ?>
+                        <?php echo $this->__('Recommended Low-Cost Alternative') ?>
+                    <?php elseif ($productNumber == '2'): ?>
+                        <?php echo $this->__('Your Current Selection') ?>
+                    <?php endif; ?>
+                    </div>
+                    <div class="item first">
+                        <div class="left">
+                            <div class="product-image">
+                                <a href="<?php echo $product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($product, 'thumbnail'), null, true) ?>" class="product-image" onclick="onProductClick('<?php echo $product->getSku() ?>', '<?php echo $this->jsQuoteEscape($product->getName()) ?>', 'Compare', '<?php echo $productCategory ?>' , '<?php echo $variant ?>', '<?php echo $brand ?>');"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(175); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($product, 'thumbnail'), null, true) ?>" /></a>
+                            </div>
+                            <div class="clear"></div>
+                            <?php if ($product->getReview()): ?>
+                                <?php $review = $product->getReview(); ?>
+                                <?php if ($review && ($product->getRatingSummary()->getReviewsCount() > 0)): ?>
+                                    <p class="rating-links">
+                                        <a href="<?php echo $product->getProductUrl() . '#customer-reviews-header'; ?>" class="review"><?php echo $this->__('Reviews'); ?></a>
+                                    </p>
+                                    <div class="ratings">
+                                        <div class="rating-box">
+                                            <div class="rating" style="width:<?php echo $product->getRatingSummary()->getRatingSummary(); ?>%"></div>
+                                        </div>
+                                        <span class="amount">
+                                            <?php $reviewUrl = $product->getProductUrl() . '#customer-reviews-header'; ?>
+                                            <a href="#" onclick="var t = opener ? opener.window : window; t.location.href='<?php echo $reviewUrl; ?>'; return false;">
+                                                <?php echo $this->__('%d Review(s)', $product->getRatingSummary()->getReviewsCount()); ?>
+                                            </a>
+                                        </span>
+                                        <p class="rating-description">
+                                            "<?php echo $this->helper('core')->stripTags($review->getDetail()); ?>"
+                                        </p>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="right">
+                            <div class="product-name">
+                                <h1><?php echo $_helper->productAttribute($product, $product->getName() , 'name'); ?></h1>
+                                <?php if($product->getProductOptions()): ?>
+                                    <div style="font-size: 12px"><?php echo $product->getProductOptions(); ?></div>
+                                <?php endif; ?>
+                            </div>
+                            <span class="sku">
+                                <?php echo $this->__('Our#') ?> <?php echo $this->getOptionText($product, 'brand_actual', $product->getBrandActual()) . '-' . $product->getManufacturerId() ?>
+                                <?php if ($product->getIsSalable()): ?>
+                                    <p class="availability in-stock"><span><?php echo $this->__('In stock') ?></span></p>
+                                <?php else: ?>
+                                    <p class="availability out-of-stock"><span><?php echo $this->__('Out of Stock') ?></span></p>
+                                <?php endif; ?>
+                            </span>
+
+                            <table class="data-table grouped-items-table subscribePro" >
+                                <tbody>
+                                <?php if ($_hasAssociatedProducts): ?>
+                                    <?php foreach ($_associatedProducts as $_item): ?>
+                                        <?php $options = $product->getConfiguredOptions(); ?>
+                                        <?php if (!empty($options) && !in_array($_item->getPackageQty(), $options)): ?>
+                                            <?php continue; ?>
+                                        <?php endif; ?>
+                                        <?php $_finalPriceInclTax = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true) ?>
+                                        <tr>
+                                            <?php if ($firstProduct->isSaleable()): ?>
+                                                <td class="a-center input">
+                                                    <?php if ($_item->isSaleable()) : ?>
+                                                        <?php $defaultOption = $this->getData('default' . $productNumber) ?>
+                                                        <input type="radio" autocomplete="off" name="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty()*1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty option-validate" onclick="product_addtocart_form<?php echo $productNumber ?>.checkSelection(this)"<?php echo (!empty($defaultOption) && $this->getData('default' . $productNumber) == $_item->getPackageQty()) ? ' checked="checked"' : '' ?> />
+                                                    <?php else: ?>
+                                                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <span class="ind-price" id="compare-ind-price-<?php echo $_item->getId() ?>">
+                                                    <?php if ($_item->getTypeId() == 'bundle'): ?>
+                                                        <?php $selectionCollection = $_item->getTypeInstance(true)->getSelectionsCollection(
+                                                            $_item->getTypeInstance(true)->getOptionsIds($_item), $_item); ?>
+                                                        <?php $_itemProductTotal = 0; ?>
+                                                        <?php foreach ($selectionCollection as $option) : ?>
+                                                            <?php $_itemProductTotal += $option->getSelectionQty(); ?>
+                                                        <?php endforeach; ?>
+                                                        <span class="qty"><?php echo $_itemProductTotal ?>&nbsp;<?php echo $this->__('Filters') ?> - </span>
+                                                    <?php elseif ($_children = $_item->getTypeInstance(true)->getChildrenIds($_item->getId(), false)): ?>
+                                                        <?php $_itemProductTotal = 0; $_itemTotalPrice = 0; ?>
+                                                        <?php foreach ($_children as $_selection): ?>
+                                                            <?php foreach ($_selection as $_childProduct): ?>
+                                                                <?php $_itemProductTotal++ ?>
+                                                            <?php endforeach; ?>
+                                                        <?php endforeach; ?>
+                                                        <?php if ($_itemProductTotal > 1): ?>
+                                                            <span class="qty"><?php echo $_itemProductTotal ?>&nbsp;<?php echo $this->__('Filters') ?> - </span>
+                                                        <?php else: ?>
+                                                            <?php echo $this->__('%s Filter', $_item->getQty()*1) ?>
+                                                        <?php endif; ?>
+                                                    <?php elseif ($_item->getQty() > 1): ?>
+                                                        <span class="qty"><?php echo $_item->getQty()*1 ?></span>&nbsp;<span><?php echo $this->__('Filters') ?> - </span>
+                                                    <?php else: ?>
+                                                        <?php echo $this->__('%s Filter', $_item->getQty()*1) ?> -
+                                                    <?php endif; ?>
+                                                    </span>
+
+                                                    <?php if ($firstProduct->getCanShowPrice() !== false): ?>
+                                                        <?php if ($_item->getCanShowPrice() !== false): ?>
+                                                            <span class="price-box">
+                                                                <span class="regular-price" id="product-price-<?php echo $_item->getId() ?>">
+                                                                    <?php echo Mage::helper('core')->currency($_item->getFinalPrice()) ?>
+                                                                </span>
+                                                                <?php if ($productNumber == '1'): ?>
+                                                                    <?php if (array_key_exists($_item->getPackageQty(), $_secondProductPrices)): ?>
+                                                                        <?php if ($_item->getFinalPrice() < $_secondProductPrices[$_item->getPackageQty()]): ?>
+                                                                            <?php $_savePrice = $_secondProductPrices[$_item->getPackageQty()] - $_item->getFinalPrice() ?>
+                                                                            <span class="save-price" id="save-price-<?php echo $_item->getId() ?>">
+                                                                                <?php echo $this->__('Save %s', Mage::helper('core')->currency($_savePrice, true, false)) ?>
+                                                                            </span>
+                                                                            <span class="save-price-simple hidden"><?php echo Mage::helper('core')->currency($_savePrice, false, false) ?></span>
+                                                                        <?php endif; ?>
+                                                                    <?php endif; ?>
+                                                                <?php endif; ?>
+                                                                <span class="price-simple hidden"><?php echo Mage::helper('core')->currency($_item->getFinalPrice(), false, false) ?></span>
+                                                            </span>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                </td>
+                                            <?php endif; ?>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="<?php if ($firstProduct->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>"><?php echo $this->__('No options of this product are available.') ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                </tbody>
+                            </table>
+
+                            <div class="addtocart">
+                                <button type="button" title="<?php echo $this->__($productNumber == '1' ? 'Add to Cart & Save!' : 'Add to Cart') ?>" class="button btn-cart" onclick="onAddToCart('<?php echo $product->getSku() ?>', '<?php echo $_helper->productAttribute($product, $product->getName() , 'name') ?>', jQuery('.css-checkbox:checked').parents('tr').find('.item-price').val(), '1', '<?php echo $productCategory ?>', '<?php echo $variant ?>', '<?php echo $brand ?>');product_addtocart_form<?php echo $productNumber ?>.submit(this)"><span class="<?php echo $productNumber == '1' ? 'green' : '' ?>"><span><?php echo $this->__($productNumber == '1' ? 'Add to Cart & Save' : 'Add to Cart') ?></span></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php if ($this->getDataHelper()->isRegisteredFrontend()): ?>
+                <?php if (Mage::registry('product') !== null): ?>
+                    <?php Mage::unregister('product') ?>
+                <?php endif; ?>
+                <?php Mage::register('product', $product) ?>
+                <?php if ($product->getTypeId() == 'grouped'): ?>
+                    <script type="text/javascript">itorisGroupedOptions = []; opConfig = {reloadPrice : function(){}}; spConfig = {reloadPrice : function(){}}; bundle = {reloadPrice : function(){}};</script>
+                    <link rel="stylesheet" type="text/css" href="<?php echo Mage::getDesign()->getSkinUrl('itoris/groupedproductconfiguration/css/groupedproduct.css', array()) ?>"/>
+                    <div id="itoris_grouped_product_configuration">
+                        <?php $subProducts = $product->getTypeInstance(true)->getAssociatedProducts($product);?>
+                        <?php $img = array(); ?>
+                        <?php $productUrl = array(); ?>
+                        <?php //echo $this->calendarHtml();?>
+                        <?php foreach($subProducts as $subProduct): ?>
+                            <?php if ($subProduct->getHasOptions()): ?>
+                                <script type="text/javascript">
+                                    addEvent(window, 'load', function() {
+                                        window.optionsPrice<?php echo $subProduct->getId();?> = new Product.OptionsPrice(<?php echo $this->getConfig($subProduct); ?>);
+                                    });
+                                </script>
+                                <div class="itoris_grouped_product_associated_product <?php if ($subProduct->getTypeId()=='bundle') {echo 'itoris_grouped_product_bundle';}?>" id="itoris_grouped_product_<?php echo $subProduct->getId();?>" style="display: none;">
+                                    <?php echo $this->optionBlock($subProduct)->toHtml();?>
+                                </div>
+                            <?php endif; ?>
+                            <?php
+                            if ($this->getDataHelper()->getSettings()->getShowImage()) {
+                                $img[$subProduct->getId()] = (string)Mage::helper('catalog/image')->init($subProduct, 'small_image')->resize(75);
+                            }
+                            ?>
+                            <?php
+                            if ($this->getDataHelper()->getSettings()->getMakeClickable()) {
+                                $productUrl[$subProduct->getId()] = $subProduct->getProductUrl();
+                            }
+                            ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif?>
+            <?php endif?>
+        </form>
+        <?php endforeach; ?>
+        </div>
+
+        <?php /** Compare Table **/ ?>
+        <div class="row">
+            <div class="comparison grid_24 alpha">
+                <h2><?php echo $this->__('Product Comparison') ?></h2>
+                <div class="compare-content">
+                    <div class="compare-table">
+                        <div class="compare-table-row even">
+                            <div class="compare-table-cell"></div>
+                            <div class="compare-table-cell green a-center">
+                                <?php echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('compare_tier1_text')->getValue('text') ?>
+                            </div>
+                            <div class="compare-table-cell blue a-center">
+                                <?php echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('compare_current_selection_text')->getValue('text') ?>
+                            </div>
+                        </div>
+                        <div class="compare-table-row odd">
+                            <div class="compare-table-cell">
+                                <?php echo $this->__('Price Per Filter') ?>
+                            </div>
+                            <div class="compare-table-cell a-center">
+                                <?php if (!empty($firstProductLowestPrice)): ?>
+                                    <?php echo $this->__('As Low As %s per filter with %s pack', $this->helper('core')->currency($firstProductLowestPrice), $firstProductPackageQty) ?>
+                                <?php endif; ?>
+                            </div>
+                            <div class="compare-table-cell a-center">
+                                <?php if (!empty($secondProductLowestPrice)): ?>
+                                    <?php echo $this->__('As Low As %s per filter with %s pack', $this->helper('core')->currency($secondProductLowestPrice), $secondProductPackageQty) ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="compare-table-row even">
+                            <div class="compare-table-cell">
+                                <?php echo $this->__('Model') ?>
+                            </div>
+                            <div class="compare-table-cell a-center">
+                                <?php echo $firstProduct->getManufacturerId() ?>
+                            </div>
+                            <div class="compare-table-cell a-center">
+                                <?php echo $secondProduct->getManufacturerId() ?>
+                            </div>
+                        </div>
+
+                        <?php $evenOdd = 'even' ?>
+                        <?php foreach ($this->getAttributes() as $attribute): ?>
+                            <?php $evenOdd = $evenOdd == 'odd' ? 'even' : 'odd' ?>
+                            <div class="compare-table-row <?php echo $evenOdd ?>">
+                                <div class="compare-table-cell">
+                                    <?php if ($attributeObject = $this->getAttribute($attribute)): ?>
+                                        <?php echo $attributeObject->getStoreLabel() ?>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="compare-table-cell a-center">
+                                    <?php if ($value = $firstProduct->getAttributeText($attribute)): ?>
+                                        <?php if (is_array($value)): ?>
+                                            <?php echo implode(', ', $value) ?>
+                                        <?php else: ?>
+                                            <?php echo $value ?>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <?php $value = $firstProduct->getData($attribute) ?>
+                                        <?php if (is_array($value)): ?>
+                                            <?php echo implode(', ', $value) ?>
+                                        <?php else: ?>
+                                            <?php echo $value ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="compare-table-cell a-center">
+                                    <?php if ($value = $secondProduct->getAttributeText($attribute)): ?>
+                                        <?php if (is_array($value)): ?>
+                                            <?php echo implode(', ', $value) ?>
+                                        <?php else: ?>
+                                            <?php echo $value ?>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <?php $value = $secondProduct->getData($attribute) ?>
+                                        <?php if (is_array($value)): ?>
+                                            <?php echo implode(', ', $value) ?>
+                                        <?php else: ?>
+                                            <?php echo $value ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+
+                        <?php /** Add Custom values to table **/ ?>
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <?php $userDefinedText = $this->getData('user_defined' . $i . '_text') ?>
+                            <?php $userDefinedLowCost = $this->getData('user_defined' . $i . '_low_cost') ?>
+                            <?php if (strpos($userDefinedLowCost, 'wysiwyg') === 0): ?>
+                                <?php $userDefinedLowCost = '<img src="' . Mage::getBaseUrl('media') . $userDefinedLowCost . '" />' ?>
+                            <?php else: ?>
+                                <?php $userDefinedLowCost = $this->helper('core')->stripTags($userDefinedLowCost) ?>
+                            <?php endif; ?>
+                            <?php $userDefinedOem = $this->getData('user_defined' . $i . '_oem') ?>
+                            <?php if (strpos($userDefinedOem, 'wysiwyg') === 0): ?>
+                                <?php $userDefinedOem = '<img src="' . Mage::getBaseUrl('media') . $userDefinedOem . '" />' ?>
+                            <?php else: ?>
+                                <?php $userDefinedOem =$this->helper('core')->stripTags($userDefinedOem) ?>
+                            <?php endif; ?>
+                            <?php if (!empty($userDefinedText) || !empty($userDefinedLowCost) || !empty($userDefinedOem)): ?>
+                                <?php $evenOdd = $evenOdd == 'odd' ? 'even' : 'odd' ?>
+                                <div class="compare-table-row <?php echo $evenOdd ?>">
+                                    <div class="compare-table-cell">
+                                        <?php echo $this->helper('core')->stripTags($userDefinedText) ?>
+                                    </div>
+                                    <div class="compare-table-cell a-center">
+                                        <?php echo $userDefinedLowCost ?>
+                                    </div>
+                                    <div class="compare-table-cell a-center">
+                                        <?php echo $userDefinedOem ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php /** Textarea Block **/ ?>
+        <?php if ($textBlock = $this->getTextBlock()): ?>
+        <div class="row">
+            <div class="comparison grid_24 alpha">
+                <div class="textarea">
+                    <?php echo $this->helper('core')->stripTags($textBlock) ?>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php /** Instructions **/ ?>
+        <?php if ($firstProduct->getHasInstructions()): ?>
+            <div class="row">
+                <div class="comparison grid_24 alpha">
+                    <h2><?php echo $this->__('Instructions') ?></h2>
+                    <div class="compare-content">
+                        <ol class="instructions-attributes">
+                            <?php for($i = 1; $i <= 10; $i++): ?>
+                                <?php if ($instructions = $firstProduct->getData('instructions_step_' . (string) $i)): ?>
+                                    <li class="<?php echo 'instructions_step_' . $i ?>">
+                                        <label class="value"><?php echo $instructions ?></label>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endfor; ?>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
+
+<script type="text/javascript">
+    //<![CDATA[
+    addEvent(window, 'load', function() {
+        // Make product item boxes line up
+        var firstProductHeight = jQuery('.ind-item.first').height();
+        var secondProductHeight = jQuery('.ind-item.last').height();
+        if (firstProductHeight > secondProductHeight) {
+            jQuery('.ind-item.last').height(jQuery('.ind-item.first').height());
+        } else {
+            jQuery('.ind-item.first').height(jQuery('.ind-item.last').height());
+        }
+
+        // Set position of ribbon
+        jQuery('body .wrapper').css({'overflow': 'visible'});
+        var imagePosition = jQuery('.ind-item.first .product-image img').outerHeight(true) - 30;
+        jQuery('.ind-item.first .ribbon').css({'top': imagePosition + 'px'});
+
+        <?php for ($i = 1; $i <= 2; $i++): ?>
+        <?php $productFormName = 'product_addtocart_form' . $i ?>
+        <?php echo $productFormName ?> =
+        new VarienForm('<?php echo $productFormName ?>');
+        <?php echo $productFormName ?>.
+        submit = function (button, url) {
+            var canSubmit = false;
+            var options = document.product_form<?php echo $i ?>.getElementsByClassName('option-validate');
+            if (options.length == 0) {
+                canSubmit = true;
+            } else {
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].checked === true) {
+                        canSubmit = true;
+                    }
+                }
+            }
+            if (canSubmit) {
+                var form = this.form;
+                var oldUrl = form.action;
+
+                if (url) {
+                    form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            } else {
+                alert('Please specify the quantity of product(s).');
+            }
+        }.bind(<?php echo $productFormName ?>);
+
+        <?php echo $productFormName ?>.checkSelection = function (input) {
+            $$('input[type=radio]:checked').each(function (element) {
+                if (element.name != input.name) {
+                    element.checked = false;
+                }
+            });
+        }.bind(<?php echo $productFormName ?>);
+
+        <?php echo $productFormName ?>.
+        submitLight = function (button, url) {
+            if (this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                // Remove custom datetime validators
+                for (var methodName in Validation.methods) {
+                    if (methodName.match(/^validate-datetime-.*/i)) {
+                        delete Validation.methods[methodName];
+                    }
+                }
+
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(<?php echo $productFormName ?>);
+        <?php endfor; ?>
+    });
+    //]]>
+</script>
+
+

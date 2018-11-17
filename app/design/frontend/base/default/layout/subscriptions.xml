@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+	<layout version="0.1.0">
+		<customer_account>
+			<reference name="customer_account_navigation">
+				<action method="addLink" translate="label" module="customer">
+					<name>my_subscriptions</name>
+					<path>subscriptions/</path>
+					<label>My Subscriptions</label>
+				</action>
+			</reference>
+		</customer_account>
+		<subscriptions_index_index>
+			<update handle="customer_account" />
+			<reference name="my.account.wrapper">
+				<block type="subscriptions/subscriptions" name="subscriptions" template="subscriptions/subscriptions.phtml" />
+			</reference>
+			<reference name="head">
+				<action method="setTitle"><title>My Subscriptions</title></action>
+			</reference>
+		</subscriptions_index_index>
+	</layout>

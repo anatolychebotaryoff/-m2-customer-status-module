@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_CMS>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <MageWorx_SeoBase/>
+            </depends>
+        </USWF_CMS>
+    </modules>
+</config>

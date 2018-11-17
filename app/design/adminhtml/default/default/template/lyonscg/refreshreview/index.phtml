@@ -1,0 +1,15 @@
+<?php
+/**
+ * Lyonscg Review
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_Review
+ * @copyright   Copyright (c) 2015 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Logan Montgomery (lmontgomery@lyonscg.com)
+ */
+    $refreshCount = Mage::helper('lyonscg_review')->refreshCount();
+?>
+<form action="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/refreshreview/refresh'); ?>" method="GET">
+    <p id="refresh-count">There are <span><?php echo $refreshCount; ?></span> refreshable reviews.</p>
+    <input type="submit" value="<?php echo $this->__('Refresh All'); ?>" />
+</form>

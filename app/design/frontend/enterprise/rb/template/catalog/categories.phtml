@@ -1,0 +1,15 @@
+<?php $categories = $this->getHomePageCategories();?>
+<?php if ($categories):?>
+    <div class="banner_container">
+        <div class="row">
+        <?php foreach ($categories as $category):?>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                <a class="banner_content" href="<?php echo $category->getUrl();?>">
+                    <img src="<?php echo $this->getCategoryImageUrl($category);?>" alt="<?php echo $category->getName();?>">
+                    <span><span><?php echo $category->getName();?></span></span>
+                </a>
+            </div>
+        <?php endforeach;?>
+    </div>
+</div>
+<?php endif;?>

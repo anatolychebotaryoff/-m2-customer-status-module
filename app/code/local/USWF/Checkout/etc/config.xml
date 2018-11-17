@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_Checkout
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_Checkout>
+            <version>0.0.1</version>
+        </USWF_Checkout>
+    </modules>
+    <global>
+        <helpers>
+            <uswf_checkout>
+                <class>USWF_Checkout_Helper</class>
+            </uswf_checkout>
+        </helpers>
+        <models>
+            <uswf_checkout>
+                <class>USWF_Checkout_Model</class>
+            </uswf_checkout>
+            <enterprise_checkout>
+                <rewrite>
+                    <cart>USWF_Checkout_Model_Cart</cart>
+                </rewrite>
+            </enterprise_checkout>
+        </models>
+    </global>
+    <frontend>
+        <routers>
+            <checkout>
+                <args>
+                    <modules>
+                        <USWF_Checkout before="Enterprise_Checkout">USWF_Checkout</USWF_Checkout>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+    </frontend>
+</config>

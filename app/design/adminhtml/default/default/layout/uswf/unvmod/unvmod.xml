@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_sales_order_create_index>
+		<reference name="head">
+			<action method="removeItem"><type>js</type><name>mage/adminhtml/sales.js</name></action>
+			<action method="addJs"><file>mage/adminhtml/uswf/unvmod/sales.js</file></action>
+		</reference>
+		<reference name="customer">
+			<block type="core/template" template="uswf/unvmod/orderjs.phtml" after="-"/>
+		</reference>
+    </adminhtml_sales_order_create_index>
+</layout>

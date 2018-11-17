@@ -1,0 +1,32 @@
+<?php echo $this->getOrderReviewFooterJs(); ?>
+<script type="text/javascript">
+//HP, Jun:
+addEvent(window, 'load', function() {
+    var updateOrderReviewOGSettings = function () {
+
+        //Please update og_settings to reflex the ajax updates
+
+    }
+
+    checkout.defaultSubmit = checkout.submit;
+    checkout.submit = function (params, action) {
+        if (OG != undefined && OG.Controller != undefined) {
+            //Cart will update when the customer changes product qty or remove a product
+            //[Notice]: the cart will also update when the customer changes his/her address or shipping method
+            //alert('OG: update cart / remove line item');
+            OG.Controller.updateCart();
+        }
+        checkout.defaultSubmit(params, action);
+    };
+
+    checkout.defaultLightcheckoutSubmit = checkout.LightcheckoutSubmit;
+    checkout.LightcheckoutSubmit = function () {
+        if (OG != undefined && OG.Controller != undefined) {
+            //alert('OG: place order');
+            updateOrderReviewOGSettings();
+            OG.Controller.placeOrder();
+        }
+        checkout.defaultLightcheckoutSubmit();
+    };
+});
+</script>

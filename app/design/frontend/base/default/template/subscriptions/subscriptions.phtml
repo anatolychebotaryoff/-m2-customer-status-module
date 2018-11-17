@@ -1,0 +1,92 @@
+<?php /* @var $this Fridge_Subscriptions_Block_Subscriptions */ ?>
+<div class="page-title">
+	<h1><?php echo $this->__('My Subscriptions') ?></h1>
+</div>
+
+<div id="og-msi-container"></div>
+
+<?php 
+$customer = Mage::helper('customer')->getCustomer()->getData(); 
+$store_code = Mage::app()->getStore()->getCode();
+
+switch($store_code)
+{
+	case 'wfn_en':
+		$merchant_id = '';
+		$hash_key = '';
+		break;
+	case 'ff_en':
+		$merchant_id = 'cdcf9f7dfbb5b9e334399066c620af7c';
+		$hash_key = '$Qx/}x#*3Y+38QAlERsF3Ab4p)]XRd3^{NkdtL^=PMO@';
+		break;
+	case 'dfs_en';
+		$merchant_id = '';
+		$hash_key = '';
+		break;
+	default:
+		$merchant_id = '';
+		$hash_key = '';
+		break;
+}
+
+//echo 'store_code = '.$store_code;
+
+function rc4($key, $pt, $type) {
+  
+  if ($type == 'de') { $pt = base64_decode($pt); }
+  
+  $s = array();
+  for ($i=0; $i<256; $i++) { $s[$i] = $i; }
+
+  $j = 0;
+  $x;
+  for ($i=0; $i<256; $i++) {
+    $j = ($j + $s[$i] + ord($key[$i % strlen($key)])) % 256;
+    $x = $s[$i];
+    $s[$i] = $s[$j];
+    $s[$j] = $x;
+  }
+  
+  $i = 0;
+  $j = 0;
+  $ct = '';
+  $y;
+
+  for ($y=0; $y<strlen($pt); $y++) {
+    $i = ($i + 1) % 256;
+    $j = ($j + $s[$i]) % 256;
+    $x = $s[$i];
+    $s[$i] = $s[$j];
+    $s[$j] = $x;
+    $ct .= $pt[$y] ^ chr($s[($s[$i] + $s[$j]) % 256]);
+  }
+
+  if ($type == 'en') { $ct = base64_encode($ct); }
+
+  return $ct;
+}
+
+
+
+//print_r($customer);
+?>
+
+<?php if($merchant_id != ''){ ?>
+
+<script type='text/javascript'>
+	var og_settings = {
+		'merchant_id': <?php echo "'".$merchant_id."'" ?>,
+		'merchant_user_id': <?php echo "'".$customer['entity_id']."'" ?>,
+		'merchant_user_hash': <?php echo "'".rc4($hash_key,$customer['entity_id'], 'en')."'" ?>,
+		'merchant_user_email': <?php echo "'".$customer['email']."'" ?>,
+		'msi_container': 'og-msi-container',
+		'msi_width': '712px' 
+	}; 
+</script> 
+
+<script type='text/javascript' src='https://og-stage-widgets.s3.amazonaws.com/<?php echo $merchant_id; ?>/core-model.js'>
+</script>
+<script type='text/javascript' src='https://og-stage-widgets.s3.amazonaws.com/widget_core/msi_driver.js'>
+</script>
+
+<?php } ?>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Hotdeal>
+            <version>0.1.0</version>
+        </USWF_Hotdeal>
+    </modules>
+
+    <global>
+    </global>
+
+    <frontend>
+        <routers>
+            <hotdeal>
+                <args>
+                    <modules>
+                        <uswf_hotdeal before="Lyonscg_Hotdeal">USWF_Hotdeal</uswf_hotdeal>
+                    </modules>
+                </args>
+            </hotdeal>
+        </routers>
+    </frontend>
+</config>

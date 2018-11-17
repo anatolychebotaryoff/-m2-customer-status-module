@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <cms_index_index>
+        <reference name="head">
+            <block type="cms/block" name="HP_css">
+                <action method="setBlockId"><block_id>HP_css</block_id></action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="cms/block" name="HP_Hero1">
+                <action method="setBlockId"><block_id>HP_Hero1</block_id></action>
+            <action method="setCacheLifetime"><lifetime>86400</lifetime></action>
+
+            </block>
+            <block type="cms/block" name="HP_Finder">
+                <action method="setBlockId"><block_id>HP_Finder</block_id></action>
+            <action method="setCacheLifetime"><lifetime>86400</lifetime></action>
+
+            </block>
+            <block type="cms/block" name="HP_Categories">
+                <action method="setBlockId"><block_id>HP_Categories</block_id></action>
+            <action method="setCacheLifetime"><lifetime>86400</lifetime></action>
+
+            </block>
+            <block type="cms/block" name="HP_Hero2">
+                <action method="setBlockId"><block_id>HP_Hero2</block_id></action>
+            <action method="setCacheLifetime"><lifetime>86400</lifetime></action>
+
+            </block>
+            <block type="cms/block" name="HP_Top_Products">
+                <action method="setBlockId"><block_id>HP_Top_Products</block_id></action>
+            <action method="setCacheLifetime"><lifetime>86400</lifetime></action>
+
+            </block>
+            <block type="cms/block" name="HP_Resource_Center">
+                <action method="setBlockId"><block_id>HP_Resource_Center</block_id></action>
+            <action method="setCacheLifetime"><lifetime>86400</lifetime></action>
+
+            </block>
+        </reference>
+    </cms_index_index>
+
+</layout>

@@ -1,0 +1,242 @@
+<?php
+/**
+ * Template file for grouped products to show in the right nav on the pdp
+ *
+ * @category   Lyons
+ * @package    Lyonscg
+ * @copyright  Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ * @author     Mark Hodge (mhodge@lyonscg.com)
+ */
+?>
+<?php $_helperUV = $this->helper('uswf_universalvariable'); ?>
+<?php $_buttonTitle = $this->__('Add to Cart'); ?>
+<?php $this->setPreconfiguredValue(); ?>
+<?php $_product = $this->getProduct(); ?>
+<?php $package_qty = $_product->getPackageQty(); ?>
+<?php if (is_numeric($package_qty) && (int)$package_qty != 1) : ?>
+    <?php $variant = $package_qty.'pk'; ?>
+<?php else : ?>
+    <?php $variant = 'single'; ?>
+<?php endif; ?>
+<?php $brand = ($_product->getAttributeText('manufacturer') ? $this->jsQuoteEscape($_product->getAttributeText('manufacturer')) : null); ?>
+<?php $productCategory = $_helperUV->getAttributeValue($_product->getId(), 'item_type'); ?>
+<?php $_associatedProducts = $this->getAssociatedProducts(); ?>
+<?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
+<?php if ($_hasAssociatedProducts): ?>
+
+<?php $_lowestPrice = 0 ?>
+
+<?php
+    $cookie = Mage::getSingleton('core/cookie');
+    $hd_groupid = $cookie->get('hd_groupid_'.$_product->getId());
+?>
+<?php foreach($_associatedProducts as $_item): ?>
+<?php
+    if ($hd_groupid) {
+        $_item->setCustomerGroupId($hd_groupid);
+    }
+?>
+        <?php if ($_lowestPrice == 0): ?>
+            <?php if ($_item->getQty() > 1): ?>
+                <?php $_lowestPrice = $_item->getFinalPrice() / $_item->getQty() ?>
+            <?php else: ?>
+                <?php $_lowestPrice = $_item->getFinalPrice() ?>
+            <?php endif; ?>
+        <?php elseif ($_item->getQty() > 1): ?>
+            <?php $_itemPrice = $_item->getFinalPrice() / $_item->getQty() ?>
+            <?php $_lowestPrice = ($_itemPrice < $_lowestPrice ? $_itemPrice : $_lowestPrice) ?>
+        <?php else: ?>
+            <?php $_lowestPrice = ($_item->getFinalPrice() < $_lowestPrice ? $_item->getFinalPrice() : $_lowestPrice) ?>
+        <?php endif; ?>
+<?php endforeach; ?>
+
+<form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+    <div class="block block-related grouped-add-to-cart">
+        <div class="block-title" id="lowest-price">
+            <strong>
+                <div>
+                    <div><?php echo $this->__('As Low As') ?></div>
+                    <div class="price-block"><?php echo Mage::helper('core')->currency($_lowestPrice) ?></div>
+                    <span class="simple-price"><?php echo Mage::helper('core')->currency($_lowestPrice, false, false) ?></span>
+                    <div><?php echo $this->__('Per Filter') ?></div>
+                </div>
+            </strong>
+        </div>
+        <div class="block-content" style="display: block !important;">
+            <span class="title"><?php echo $this->__('Choose a quantity') ?></span>
+            <table class="data-table grouped-items-table" id="super-product-table">
+                <col />
+                <col />
+                <tbody>
+                <?php if ($_hasAssociatedProducts): ?>
+                    <?php foreach ($_associatedProducts as $_item): ?>
+                        <?php
+                            if ($hd_groupid) {
+                                $_item->setCustomerGroupId($hd_groupid);
+                            }
+                        ?>
+                        <?php $_finalPriceInclTax = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true) ?>
+                        <tr>
+                            <?php if ($_product->isSaleable()): ?>
+                                <td class="a-center input">
+                                    <?php if ($_item->isSaleable()) : ?>
+                                        <!-- Added to ensure grouped product ID is passed for parsing -->
+                                        <?php if ($_product->getData('nfs_product')) : ?>
+                                            <input type="hidden" name="nfs-product" value="1" />
+                                        <?php endif; ?>
+                                            <input type="hidden" name="grouped-product-name" value="<?php echo $_product->getName() ?>"/>
+                                            <input type="hidden" name="grouped-product-id" value="<?php echo $_product->getId() ?>"/>
+                                            <input type="hidden" name="grouped-product-url" value="<?php echo $_product->getProductUrl() ?>"/>
+                                        <input type="radio" name="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty()*1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty option-validate" onclick="window.productAddToCartForm.freeshipping(this)" />
+                                    <?php else: ?>
+                                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="image"></td>
+                                <td class="sale-price">
+                                    <?php if ($this->getCanShowProductPrice($_product)): ?>
+                                        <?php if ($this->getCanShowProductPrice($_item)): ?>
+                                            <span class="price-box">
+                                                <span class="regular-price" id="product-price-<?php echo $_item->getId() ?>">
+                                                    <?php echo Mage::helper('core')->currency($_item->getFinalPrice()) ?>
+                                                    <span class="price-simple"><?php echo Mage::helper('core')->currency($_item->getFinalPrice(), false, false) ?></span>
+                                                </span>
+                                            </span>
+                                            <span class="ind-price" id="ind-price-<?php echo $_item->getId() ?>">
+                                                <?php $packageQty = $_item->getPackageQty(); ?>
+                                                <?php $totalQty = $_item->getQty() * $packageQty; ?>
+                                                <?php if ($_item->getTypeId() == 'bundle'): ?>
+                                                    <?php $selectionCollection = $_item->getTypeInstance(true)->getSelectionsCollection($_item->getTypeInstance(true)->getOptionsIds($_item), $_item);?>
+                                                    <?php $_itemProductTotal = 0; ?>
+                                                    <?php foreach ($selectionCollection as $option) : ?>
+                                                        <?php $optionPackageQty = $option->getPackageQty();?>
+                                                        <?php $_itemProductTotal += $optionPackageQty ? $optionPackageQty  * $option->getSelectionQty() : $option->getSelectionQty(); ?>
+                                                    <?php endforeach; ?>
+                                                    <?php $_priceEach = Mage::helper('core')->currency($_item->getFinalPrice() / $_itemProductTotal) ?>
+                                                    <?php echo Mage::helper('uswf_catalog')->getFilterLabelHtml($_itemProductTotal);?>
+                                                    <br />
+                                                    <span class="each">
+                                                        <span><?php echo $_priceEach ?></span>&nbsp;<span><?php echo $this->__('each') ?></span>
+                                                    </span>
+                                                <?php elseif ($_item->getQty() > 1): ?>
+                                                    <?php $_priceEach = Mage::helper('core')->currency($_item->getFinalPrice() / $_item->getQty()*1) ?>
+                                                    <?php echo Mage::helper('uswf_catalog')->getFilterLabelHtml($totalQty);?>
+                                                    <br />
+                                                    <span class="each">
+                                                        <span><?php echo $_priceEach ?></span>&nbsp;<span><?php echo $this->__('each') ?></span>
+                                                    </span>
+                                                <?php else: ?>
+                                                    <?php echo Mage::helper('uswf_catalog')->getFilterLabelHtml($totalQty, false);?>
+                                                <?php endif; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>"><?php echo $this->__('No options of this product are available.') ?></td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+            <script type="text/javascript">addEvent(window, 'load', function(){ decorateTable('super-product-table'); });</script>
+            <div class="add-to-cart">
+                <button type="button" title="<?php echo $_buttonTitle ?>" class="button btn-cart" onclick="onAddToCart('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape($_product->getName()) ?>', '<?php echo $_product->getFinalPrice() ?>', '1', '<?php echo $productCategory ?>', '<?php echo $variant ?>', '<?php echo $brand ?>');window.productAddToCartForm.submit(this)"><span><span><?php echo $_buttonTitle ?></span></span></button>
+                <?php echo $this->getChildHtml('', true, true) ?>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    addEvent(window, 'load', function() {
+        window.productAddToCartForm = new VarienForm('product_addtocart_form');
+        window.productAddToCartForm.submit = function (button, url) {
+            var canSubmit = false;
+            ;
+            var options = document.getElementsByClassName('option-validate');
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].checked === true) {
+                    canSubmit = true;
+                }
+            }
+            if (canSubmit) {
+                var form = this.form;
+                var oldUrl = form.action;
+
+                if (url) {
+                    form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            } else {
+                alert('Please specify the quantity of product(s).');
+            }
+        }.bind(window.productAddToCartForm);
+
+        window.productAddToCartForm.freeshipping = function (input) {
+            var form = this.form;
+
+            form.select('input[type=radio]:checked').each(function (element) {
+                if (element.name != input.name) {
+                    element.checked = false;
+                } else {
+                    var price = parseFloat(element.up('tr').select('.price-box')[0].select('.price-simple')[0].innerHTML);
+                    <?php if (Mage::getStoreConfig('carriers/freeshipping/active')): ?>
+                    var freeShippingAmount = <?php echo (float) Mage::getStoreConfig('carriers/freeshipping/free_shipping_subtotal') ?>;
+
+                    if (price >= freeShippingAmount) {
+                        var freeShipping = document.getElementsByClassName('free-shipping');
+                        if (freeShipping[0]) {
+                            freeShipping[0].show();
+                        }
+                    } else {
+                        var freeShipping = document.getElementsByClassName('free-shipping');
+                        if (freeShipping[0]) {
+                            freeShipping[0].hide();
+                        }
+                    }
+                    <?php endif; ?>
+                }
+            });
+        }.bind(window.productAddToCartForm);
+
+        window.productAddToCartForm.submitLight = function (button, url) {
+            if (this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                // Remove custom datetime validators
+                for (var methodName in Validation.methods) {
+                    if (methodName.match(/^validate-datetime-.*/i)) {
+                        delete Validation.methods[methodName];
+                    }
+                }
+
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(window.productAddToCartForm);
+    });
+    //]]>
+</script>
+<?php endif; ?>

@@ -1,0 +1,71 @@
+<table class="data-table grouped-items-table subscribePro" >
+    <tbody>
+    <?php
+        $product = $this->getProduct();
+        $isTier1 = $product->getData('is_tier1');
+        $items = $product->getMervItems();
+        $quantity = $product->getExtQuantity();
+        $prices = $product->getExtPrices();
+        $oemPrices = $this->getData('oem_prices');
+        $tier1Products = $this->getData('tier1_products');
+    ?>
+    <?php if ($items): ?>
+        <?php $itemsCount = count($items); ?>
+        <?php foreach ($items as $item): ?>
+            <?php $itemsCount--;?>
+            <?php if ($merv = $item->getMerv()):?>
+                <tr>
+                    <?php if (isset($tier1Products[$merv]) && $tier1Products[$merv]->isSaleable()): ?>
+                        <?php
+                            $price = $prices[$item->getMerv()] / $quantity;
+                            $totalPrice = $prices[$item->getMerv()];
+                        ?>
+                        <td class="a-center input">
+                            <?php if ($item->isSaleable()) : ?>
+                                <input type="radio" autocomplete="off" id="radio-<?php echo $item->getId() ?>" name="super_group[<?php echo $item->getId() ?>]" maxlength="12" value="<?php echo $quantity ?>" title="<?php echo $this->__('Qty') ?>" class="css-checkbox input-text qty option-validate" onclick="product_addtocart_form<?php echo $product->getIndex() ?>checkSelection(this)"<?php echo (empty($itemsCount) && $isTier1) ? ' checked="checked"' : '' ?> />
+                                <label for="radio-<?php echo $item->getId() ?>" class="css-label"></label>
+                            <?php else: ?>
+                                <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a class="ind-price" id="compare-ind-price-<?php echo $item->getId() ?>" href="<?php echo $item->getProductUrl()?>">
+                                <span class="qty"><?php echo $quantity ?></span>&nbsp;<span><?php echo $quantity > 1 ? $this->__('Filters') : $this->__('Filter') ?></span><span class="merv-value"><?php echo ' (' . $item->getAttributeText('merv') . ')';?></span>
+                                <?php if ($isTier1): ?>
+                                    <?php if (array_key_exists($item->getMerv(), $oemPrices)): ?>
+                                        <?php if ($totalPrice < $oemPrices[$item->getMerv()]): ?>
+                                            <?php $_savePrice = $oemPrices[$item->getMerv()] - $totalPrice ?>
+                                            <div class="save-price" id="save-price-<?php echo $item->getId() ?>">
+                                                <?php echo $this->__('Save %s', Mage::helper('core')->currency($_savePrice, true, false)) ?>
+                                            </div>
+                                            <span class="save-price-simple hidden"><?php echo Mage::helper('core')->currency($_savePrice, false, false) ?></span>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php elseif ($quantity > 1):?>
+                                    <div class="price-per-unit">
+                                        <?php echo $this->__('%s each', Mage::helper('core')->currency($price, true, false)) ?>
+                                    </div>
+                                <?php endif; ?>
+                            </a>
+                            <?php if ($tier1Products[$merv]->getCanShowPrice() !== false): ?>
+                                <?php if ($item->getCanShowPrice() !== false): ?>
+                                    <span class="price-box">
+                                        <span class="regular-price" id="product-price-<?php echo $item->getId() ?>">
+                                            <?php echo Mage::helper('core')->currency($totalPrice) ?>
+                                        </span>
+                                        <span class="price-simple hidden"><?php echo Mage::helper('core')->currency($totalPrice, false, false) ?></span>
+                                    </span>
+                                <?php endif; ?>
+                            <?php endif;?>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+            <?php endif;?>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr>
+            <td style="padding: 6px;" colspan="<?php if ($this->getData('tier1_product')->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>"><?php echo $this->__('No options of this product are available.') ?></td>
+        </tr>
+    <?php endif; ?>
+    </tbody>
+</table>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Autoship>
+            <version>0.1.0</version>
+        </Lyonscg_Autoship>
+    </modules>
+    <global>
+        <blocks>
+            <lyonscg_autoship>
+                <class>Lyonscg_Autoship_Block</class>
+            </lyonscg_autoship>
+            <checkout>
+                <rewrite>
+                    <onepage_payment_methods>Lyonscg_Autoship_Block_Checkout_Onepage_Payment_Methods</onepage_payment_methods>
+                </rewrite>
+            </checkout>
+        </blocks>
+    </global>
+</config>

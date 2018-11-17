@@ -1,0 +1,17 @@
+<?php
+/**
+ * Search results title template
+ *
+ * @category     Enterprice
+ * @package      Enterprice_Usff
+ * @copyright    Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ * @author       Alexandr Pomelov (apomelov@lyonsg.com)
+ */
+?>
+
+<div class="category-title">
+    <?php if ($this->helper('rss/catalog')->getTagFeedUrl()): ?>
+        <a href="<?php echo $this->helper('rss/catalog')->getTagFeedUrl() ?>" class="nobr link-rss"><?php echo $this->__('Subscribe to Feed') ?></a>
+    <?php endif; ?>
+    <h1><?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Results for: <span>%s</span>", $this->helper('catalogsearch')->getEscapedQueryText()) ?></h1>
+</div>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USWF_RequestPathLowerCase
+ *
+ * @category    USWF
+ * @package     USWF_RequestPathLowerCase
+ */
+-->
+<config>
+    <modules>
+        <USWF_RequestPathLowerCase>
+            <version>0.1.0</version>
+        </USWF_RequestPathLowerCase>
+    </modules>
+    <global>
+        <models>
+            <USWF_RequestPathLowerCase>
+                <class>USWF_RequestPathLowerCase_Model</class>
+            </USWF_RequestPathLowerCase>
+            <enterprise_urlrewrite>
+                <rewrite>
+                    <url_rewrite>USWF_RequestPathLowerCase_Model_Url_Rewrite</url_rewrite>
+                </rewrite>
+            </enterprise_urlrewrite>
+        </models>
+    </global>
+</config>

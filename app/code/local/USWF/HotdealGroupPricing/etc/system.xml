@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <web>
+            <groups>
+                <hotdeals translate="label">
+                    <fields>
+                        <bot_agents translate="label">
+                            <label>Hotdeal Parameter User-Agents: </label>
+                            <comment>For price validator bots. Comma separated list of User Agent substrings to match. Hotdeals for these User-Agents will be allowed to apply hotdeal without cookies.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>999</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store> 
+                        </bot_agents>
+                    </fields>
+                </hotdeals>
+            </groups>
+        </web>
+    </sections>
+</config>

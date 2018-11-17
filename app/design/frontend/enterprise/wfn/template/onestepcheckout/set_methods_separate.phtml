@@ -1,0 +1,11 @@
+<?php
+
+$data = array(
+    'payment_method' => $this->getChildHtml('choose-payment-method'),
+    'summary' => $this->getChildHtml('summary'),
+    'sop_form' => $this->getChildHtml('sop_form')
+);
+
+echo Zend_Json::encode($data);
+
+?>

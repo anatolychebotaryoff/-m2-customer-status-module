@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <global>
+        <blocks>
+            <Lyonscg_Sitemapfrontend>
+                <class>Lyonscg_Sitemapfrontend_Block</class>
+            </Lyonscg_Sitemapfrontend>
+            <catalog>
+                <rewrite>
+                    <seo_sitemap_tree_category>Lyonscg_Sitemapfrontend_Block_Category</seo_sitemap_tree_category>
+                </rewrite>
+            </catalog>
+            <catalog>
+                <rewrite>
+                    <seo_sitemap_product>Lyonscg_Sitemapfrontend_Block_Product</seo_sitemap_product>
+                </rewrite>
+            </catalog>
+        </blocks>
+    </global>
+</config>

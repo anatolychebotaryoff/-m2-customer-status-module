@@ -1,0 +1,45 @@
+<config>
+    <modules>
+        <Sam_CountdownBanner>
+            <version>0.0.1</version>
+        </Sam_CountdownBanner>
+    </modules>
+    <global>
+        <blocks>
+            <countdownbanner>
+                <class>Sam_CountdownBanner_Block</class>
+            </countdownbanner>
+        </blocks>
+        <helpers>
+            <sam_countdownbanner>
+                <class>Sam_CountdownBanner_Helper</class>
+            </sam_countdownbanner>
+        </helpers>
+
+        <models>
+            <sam_countdownbanner>
+                <class>Sam_CountdownBanner_Model</class>
+            </sam_countdownbanner>
+        </models>
+        <events>
+            <customer_login>
+                <observers>
+                    <sam_countdownbanner>
+                        <type>model</type>
+                        <class>sam_countdownbanner/observer</class>
+                        <method>customerLogin</method>
+                    </sam_countdownbanner>
+                </observers>
+            </customer_login>
+        </events>
+    </global>
+    <frontend>
+	     <layout>
+           <updates>
+                <countdownbanner>
+                     <file>countdown_banner.xml</file>
+                </countdownbanner>
+            </updates>
+        </layout>
+    </frontend>
+</config>

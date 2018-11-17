@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <lyonscg translate="label">
+            <label>Lyonscg</label>
+            <sort_order>101</sort_order>
+        </lyonscg>
+    </tabs>
+    <sections>
+        <lyonscg_searchspringconfig_options translate="label">
+            <label>Search Spring Configuration</label>
+            <tab>lyonscg</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>90</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <searchspring_field translate="label">
+                    <label>Search Spring Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>10</sort_order>
+                    <fields>
+                        <stage translate="label">
+                            <label>Enter the Stage Site</label>
+                            <comment>Enter only the url without http.  For e.g., stage.discountfilterstore.com</comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>12</sort_order>
+                        </stage>
+                    </fields>
+                    <fields>
+                        <searchspring-stage translate="label">
+                            <label>Search Spring Stage Site ID</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>13</sort_order>
+                        </searchspring-stage>
+                    </fields>
+                    <fields>
+                        <prod translate="label">
+                            <label>Enter the Production Site</label>
+                            <comment>Enter only the url without http.  For e.g., www.discountfilterstore.com</comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>14</sort_order>
+                        </prod>
+                    </fields>
+                    <fields>
+                        <searchspring-prod translate="label">
+                            <label>Search Spring Production Site ID</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>15</sort_order>
+                        </searchspring-prod>
+                    </fields>
+                    <fields>
+                        <ip_addresses translate="label">
+                            <label>List Of IP Addresses for hiding the JS on Search Spring page.</label>
+                            <comment>Comma separated IP Addresses with no spaces.  http://whatismyipaddress.com/ to get the IP Address</comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>16</sort_order>
+                        </ip_addresses>
+                    </fields>
+                </searchspring_field>
+            </groups>
+        </lyonscg_searchspringconfig_options>
+    </sections>
+</config>

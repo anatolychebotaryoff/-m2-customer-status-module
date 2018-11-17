@@ -1,0 +1,24 @@
+<?php
+$isPaypalReview=false;
+$colspan = $this->getColspan();
+if(Mage::app()->getRequest()->getControllerName()=='express'&&Mage::app()->getRequest()->getRouteName()=='paypal'){
+    $isPaypalReview=true;
+    $colspan++;
+}
+?>
+<tr>
+    <td style="<?php echo $this->getStyle() ?>" class="a-left" colspan="<?php echo $colspan; ?>">
+        <div class="review-grand-total-container" style="border-bottom:none">
+            <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?><strong><?php endif; ?>
+                <div  class="review-grand-total-cell-left">
+                    <?php echo $this->escapeHtml($this->getTotal()->getTitle()); ?>
+                </div>
+            <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?></strong><?php endif; ?>
+            <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?><strong><?php endif; ?>
+                <div  class="review-grand-total-cell-right">
+                    <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?>
+                </div>
+            <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?></strong><?php endif; ?>
+        </div>
+    </td>
+</tr>

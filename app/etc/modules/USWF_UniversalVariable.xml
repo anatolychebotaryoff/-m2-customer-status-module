@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_UniversalVariable>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <QuBit_UniversalVariable/>
+                <Lyonscg_UniversalVariable/>
+                <USWF_ComparedTo/>
+                <USWF_AirFilter/>
+                <USWF_HotdealGroupPricing/>
+            </depends>
+        </USWF_UniversalVariable>
+    </modules>
+</config>

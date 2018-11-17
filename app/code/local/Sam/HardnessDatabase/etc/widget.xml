@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<widgets>
+    <hardness_zipcheck type="hardness/zipcheck">
+        <name>Hardness database by Zip code</name>
+        <description type="desc">Local water personalization for discountfilterstore.com</description>
+    </hardness_zipcheck>
+</widgets>

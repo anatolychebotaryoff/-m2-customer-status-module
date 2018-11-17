@@ -1,0 +1,100 @@
+<?php
+/**
+ * Google Analytics Enhanced E-commerce footer code
+ *
+ * @category  Lyons
+ * @package   Lyonscg_GoogleAnalytics
+ * @author    Mark Hodge <mhodge@lyonscg.com>
+ * @copyright 2014 Lyons Consulting Group (www.lyonscg.com)
+ */
+?>
+<?php /* @var $this Lyonscg_GoogleAnalytics_Block_Ga */ ?>
+<script type="text/javascript">
+<?php //echo $this->_getPageViewTrackingCode() ?>
+
+<?php
+/**
+ * Google Analytics Enhanced Ecommerce Product Click Function
+ *
+ * @param id
+ * @param name
+ * @param list
+ */
+?>
+function onProductClick(id, name, list) {
+    try {
+        ga('ec:addProduct', {
+            'id'    :   id,
+            'name'  :   name
+        });
+        ga('ec:setAction', 'click', {list: list});
+        ga('send', 'event', 'UX', 'click', list);
+    } catch (e) {}
+}
+
+<?php
+/**
+ * Google Analytics Enhanced Ecommerce Add To Cart Function
+ *
+ * @param id
+ * @param name
+ * @param price
+ * @param quantity
+ */
+?>
+function onAddToCart(id, name, price, quantity) {
+    try {
+        ga('ec:addProduct', {
+            'id'    :   id,
+            'name'  :   name,
+            'price' :   price,
+            'quantity'  :   quantity
+        });
+        ga('ec:setAction', 'add');
+        ga('send', 'event', 'UX', 'click', 'add to cart');
+    } catch (e) {}
+}
+
+<?php
+/**
+ * Google Analytics Enhanced Ecommerce Remove From Cart Function
+ *
+ * @param id
+ * @param name
+ * @param price
+ * @param quantity
+ */
+?>
+function onRemoveFromCart(id, name, price, quantity) {
+    try {
+        ga('ec:addProduct', {
+            'id'    :   id,
+            'name'  :   name,
+            'price' :   price,
+            'quantity'  :   quantity
+        });
+        ga('ec:setAction', 'remove');
+        ga('send', 'event', 'UX', 'click', 'remove from cart');
+    } catch (e) {}
+}
+
+<?php
+/**
+ * Confirm Delete
+ *
+ * @param msg
+ * @param itemId
+ * @param itemName
+ * @param itemPrice
+ * @param itemQty
+ * @returns {*}
+ */
+?>
+function confirmDeleteItem(msg, itemId, itemName, itemPrice, itemQty) {
+    var result = confirm(msg);
+    if (result) {
+        onRemoveFromCart(itemId, itemName, itemPrice, itemQty);
+    }
+    return result
+}
+</script>

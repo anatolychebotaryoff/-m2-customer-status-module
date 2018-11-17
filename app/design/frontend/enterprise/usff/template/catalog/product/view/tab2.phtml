@@ -1,0 +1,67 @@
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $product = Mage::registry('current_product'); ?>
+<?php $_product = Mage::getModel('catalog/product')->load($product->getId());
+if ($_product->getHasInstructions()): ?>
+    <div class="box-collateral box-instructions">
+        <h2><?php echo $this->__('Instructions') ?></h2>
+        <div class="box-collateral-content">
+            <?php $_instrAttributes = array(); ?>
+            <?php for($i = 0; $i < 10; $i++): ?>
+                <?php $_instrAttributes[] = 'instructions_step_' . ($i + 1); ?>
+            <?php endfor; ?>
+            <?php $attributesCollection = Mage::getResourceModel('catalog/product_attribute_collection') ?>
+            <?php $attributesCollection->addFieldToFilter('attribute_code', array('in' => $_instrAttributes)) ?>
+            <ol class="instructions-attributes">
+                <?php $_instrAttributes = array(); ?>
+                <?php foreach($attributesCollection as $attribute): ?>
+                    <?php $_attributeCode = $attribute->getAttributeCode() ?>
+                    <?php $valAtrr = $_product->getResource()->getAttribute($_attributeCode)->getFrontend()->getValue($_product) ?>
+                    <?php if (!empty($valAtrr)): ?>
+                        <?php $_instrAttributes[str_replace('instructions_step_', '', $_attributeCode)] = $valAtrr ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                <?php $i = 1; ksort($_instrAttributes) ?>
+                <?php foreach ($_instrAttributes as $key => $_instrAttribute): ?>
+                    <li class="<?php echo 'instructions_step_' . $key ?>">
+                        <label class="title"><?php echo $i . '. '; $i++; ?></label>
+                        <label class="value"><?php echo $_instrAttribute ?></label>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($_product->getHasResetInstr()): ?>
+    <div class="box-collateral box-reset">
+        <h2><?php echo $this->__('Resetting Your Filter Change Indicator') ?></h2>
+        <div class="box-collateral-content">
+            <?php $_resetAttributes = array(); ?>
+            <?php for($i = 0; $i < 5; $i++): ?>
+                <?php $_resetAttributes[] = 'instr_reset_filter_step_' . ($i + 1); ?>
+            <?php endfor; ?>
+            <?php $attributesCollection = Mage::getResourceModel('catalog/product_attribute_collection') ?>
+            <?php $attributesCollection->addFieldToFilter('attribute_code', array('in' => $_resetAttributes)) ?>
+
+            <ol class="reset-attributes">
+                <?php $_resetAttributes = array(); ?>
+                <?php foreach($attributesCollection as $attribute): ?>
+                    <?php $_attributeCode = $attribute->getAttributeCode() ?>
+                    <?php $valAtrr = $_product->getResource()->getAttribute($_attributeCode)->getFrontend()->getValue($_product) ?>
+                    <?php if (!empty($valAtrr)): ?>
+                        <?php $_resetAttributes[str_replace('instr_reset_filter_step_', '', $_attributeCode)] = $valAtrr ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                <?php $i = 1; ksort($_resetAttributes) ?>
+                <?php foreach ($_resetAttributes as $key => $_resetAttribute): ?>
+                    <li class="<?php echo 'instr_reset_filter_step_' . $key ?>">
+                        <label class="title"><?php echo $i . '. '; $i++; ?></label>
+                        <label class="value"><?php echo $_resetAttribute ?></label>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+    </div>
+<?php endif; ?>

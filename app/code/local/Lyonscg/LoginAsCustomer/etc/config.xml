@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_LoginAsCustomer>
+            <version>0.1.0</version>
+        </Lyonscg_LoginAsCustomer>
+    </modules>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <lyonscg_loginascustomer before="Inchoo_LoginAsCustomer_Adminhtml">Lyonscg_LoginAsCustomer_Adminhtml</lyonscg_loginascustomer>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <frontend>
+        <routers>
+            <inchoo_loginAsCustomer>
+                <args>
+                    <modules>
+                        <lyonscg_loginascustomer before="Inchoo_LoginAsCustomer">Lyonscg_LoginAsCustomer</lyonscg_loginascustomer>
+                    </modules>
+                </args>
+            </inchoo_loginAsCustomer>
+        </routers>
+    </frontend>
+    <global>
+        <models>
+            <inchoo_loginAsCustomer>
+                <rewrite>
+                    <observer>Lyonscg_LoginAsCustomer_Model_Observer</observer>
+                </rewrite>
+            </inchoo_loginAsCustomer>
+        </models>
+    </global>
+</config>

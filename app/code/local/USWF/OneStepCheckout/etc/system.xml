@@ -1,0 +1,99 @@
+<?xml version="1.0"?> 
+<!--
+/**
+ * system.xml
+ * 
+ * @category    USWF
+ * @package     USWF_OneStepCheckout
+ * @copyright   
+ * @author
+*/
+-->
+<config>
+    <sections>
+        <onestepcheckout>
+            <groups>
+                <registration>
+                    <fields>
+                        <create_account_behavior translate="label">
+                            <label>"Create an account for later use" behavior</label>
+                            <comment>Checked / unchecked</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>14</sort_order>
+                            <depends>
+                                <registration_mode>allow_guest</registration_mode>
+                            </depends>
+                        </create_account_behavior>
+                    </fields>
+                </registration>
+                <general>
+                    <fields>
+                        <max_height_order_review>
+                            <label>Height in "Order Review"</label>
+                            <comment>Set max height in "Order Review" with overflow scroll/default: 200px</comment>
+                        </max_height_order_review>
+                    </fields>
+                </general>
+                <google_recaptcha translate="label">
+                    <label>Google reCAPTCHA</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <google_recaptcha_enable translate="label">
+                            <label>Enable Google reCAPTCHA</label>
+                            <comment>So you can disable if conversion rate is tanking, especially conversion rate of fraudulent orders.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </google_recaptcha_enable>
+                        <google_recaptcha_validateip>
+                            <label>Enable IP Validation</label>
+                            <comment>Only enable when not using a load balancer, or using load balancer SSL termination (when IP of client is exposed)</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </google_recaptcha_validateip>
+                        <google_recaptcha_sitekey>
+                            <label>Google reCAPTCHA Site Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </google_recaptcha_sitekey>
+                        <google_recaptcha_secret>
+                            <label>Google reCAPTCHA Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </google_recaptcha_secret>
+                        <google_recaptcha_url>
+                            <label>Google reCAPTCHA Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </google_recaptcha_url>
+                    </fields>
+                </google_recaptcha>
+            </groups>
+        </onestepcheckout>
+    </sections>
+</config>

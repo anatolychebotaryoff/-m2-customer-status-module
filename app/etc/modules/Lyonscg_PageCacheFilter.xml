@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_PageCacheFilter>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Enterprise_PageCache/>
+
+            </depends>
+        </Lyonscg_PageCacheFilter>
+    </modules>
+</config>

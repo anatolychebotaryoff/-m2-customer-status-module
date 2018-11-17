@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_LayeredNav>
+            <version>1.0.0</version>
+        </USWF_LayeredNav>
+    </modules>
+    <global>
+    </global>
+</config>

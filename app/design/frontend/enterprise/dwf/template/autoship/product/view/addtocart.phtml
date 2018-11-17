@@ -1,0 +1,104 @@
+<?php
+/**
+ * Subscribe Pro - Subscriptions Management Extension
+ *
+ * PHP version 5
+ *
+ * LICENSE: This source file is subject to commercial source code license of StoreFront Consulting, Inc.
+ *
+ * @category  SFC
+ * @package   SFC_Autoship
+ * @author    Garth Brantley <garth@storefrontconsulting.com>
+ * @copyright 2009-2013 StoreFront Consulting, Inc. All Rights Reserved.
+ * @license   http://www.storefrontconsulting.com/media/downloads/ExtensionLicense.pdf StoreFront Consulting Commercial License
+ * @link      http://www.storefrontconsulting.com/autoship-subscriptions-and-recurring-billing-magento-extension/
+ *
+ */
+?>
+<?php
+$_product        = $this->getProduct();
+$_product_data   = $this->getProductData();
+$productCategory = $_product_data['category'];
+$canShowBtn      = false;
+//$configValue = Mage::getStoreConfig('web/hotdeals/hotdeal_link_param');
+//$hotDeal = Mage::registry('hotdeal'); ?>
+<?php //if(!($this->getRequest()->getParam($configValue)) && !$hotDeal && !Mage::getSingleton('core/cookie')->get('hd_groupid') ): ?>
+<?php if ( Mage::getStoreConfig( 'autoship_general/general/enabled' ) == '1' ): ?>
+	<?php if ( $_product->getSubscriptionEnabled() ) {
+		$canShowBtn = true;
+	} ?>
+	<?php $_useNewSubPage = Mage::getStoreConfig( 'autoship_subscription/subscription/use_new_subscription_page' ) == '1'; ?>
+	<?php // Do autoship version of add to cart block? ?>
+	<?php if ( $_useNewSubPage && $this->isProductAutoshipEligible() ): ?>
+		<?php $buttonTitle = $this->__( 'Subscribe Now' ); ?>
+		<?php if ( $_product->isSaleable() ): ?>
+			<div class="add-to-cart" id="subscribe" style="display:none;">
+				<?php if ( ! $_product->isGrouped() ): ?>
+					<label for="qty"><?php echo $this->__( 'Qty:' ) ?></label>
+					<input type="text" name="qty" id="qty" maxlength="12"
+						   value="<?php echo $this->getProductDefaultQty() * 1 ?>"
+						   title="<?php echo $this->__( 'Qty' ) ?>" class="input-text qty"/>
+				<?php endif; ?>
+				<button id="subscribe_button" type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart"
+						onclick="onAddToCart('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape( $_product->getName() ) ?>', '<?php echo $_product->getFinalPrice() ?>', jQuery('#qty').val(), '<?php echo $productCategory ?>' , '<?php echo $_product_data["variant"] ?>', '<?php echo $_product_data["brand"] ?>');">
+					<span><span><?php echo $buttonTitle ?></span></span></button>
+				<?php echo $this->getChildHtml( '', true, true ) ?>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
+<?php endif; ?>
+<?php //endif; ?>
+<?php // Only show add to cart button if the product is not a grouped product ?>
+<?php if ( $_product->getTypeId() !== Mage_Catalog_Model_Product_Type::TYPE_GROUPED ): ?>
+	<?php // Spit out regular version of add to cart block? ?>
+	<?php $buttonTitle = $this->__( 'Add to Cart' ); ?>
+	<?php $subscrButtonTitle = $this->__( 'Subscribe' ); ?>
+	<?php /*if ( $_product->getFinalPrice( $this->getProductDefaultQty( $this->getProduct() ) ) < $_product->getPrice() ) {
+		$canShowBtn = false;
+	} */?>
+	<?php if ( $_product->isSaleable() ): ?>
+		<div class="add-to-cart" id="add_to_cart">
+			<?php if ( ! $_product->isGrouped() ): ?>
+				<label class="subscript" for="qty"><?php echo $this->__( 'Qty:' ) ?></label>
+				<input type="text" name="qty" id="qty" maxlength="12"
+					   value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__( 'Qty' ) ?>"
+					   class="input-text qty"/>
+			<?php endif; ?>
+			<button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" id="addToCartButton"
+					onclick="onAddToCart('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape( $_product->getName() ) ?>', '<?php echo $_product->getFinalPrice() ?>', jQuery('#qty').val(), '<?php echo $productCategory ?>' , '<?php echo $_product_data["variant"] ?>', '<?php echo $_product_data["brand"] ?>');window.productAddToCartForm.submit(this)">
+				<span><span><?php echo $buttonTitle ?></span></span></button>
+			<?php echo $this->getChildHtml( '', true, true ) ?>
+			<?php if($canShowBtn): ?>
+				<button type="button" title="<?php echo $subscrButtonTitle ?>" id="subscribeBtn" class="button btn-cart"
+						onclick="onAddToCart('<?php echo $_product->getSku() ?>', '<?php echo $this->jsQuoteEscape( $_product->getName() ) ?>', '<?php echo $_product->getFinalPrice() ?>', jQuery('#qty').val(), '<?php echo $productCategory ?>' , '<?php echo $_product_data["variant"] ?>', '<?php echo $_product_data["brand"] ?>');">
+					<span><span><?php echo $subscrButtonTitle ?></span></span></button>
+				<?php if ( $_product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE ): ?>
+					<input type="radio" id="delivery-option-subscribe" class="radio delivery-option-subscribe"
+						   name="delivery-option" value="subscribe" style="display: none;"/>
+					<input type="hidden" name="delivery-interval" value="Monthly"/>
+				<?php endif; ?>
+			<?php endif; ?>
+		</div>
+	<?php endif; ?>
+	<script type="text/javascript">
+		addEvent(window, 'load', function () {
+			if ($('subscribeBtn')) {
+				$('subscribeBtn').observe('click', function () {
+					if ($('delivery-option-subscribe') !== null) {
+						$('delivery-option-subscribe').click();
+						$('addToCartButton').click();
+					}
+				});
+			}
+
+			if ($('subscribeBtnPopup')) {
+				$('subscribeBtnPopup').observe('click', function () {
+					if ($('delivery-option-subscribe') !== null) {
+						$('delivery-option-subscribe').click();
+						$('addToCartButton').click();
+					}
+				});
+			}
+		});
+	</script>
+<?php endif; ?>

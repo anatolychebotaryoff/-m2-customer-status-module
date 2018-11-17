@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_Autoship>
+            <version>0.1.0</version>
+        </USWF_Autoship>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_autoship>
+                <class>USWF_Autoship_Block</class>
+            </uswf_autoship>
+            <catalog>
+                <rewrite>
+                    <product_view>USWF_Autoship_Block_Product_View</product_view>
+                </rewrite>
+            </catalog>
+        </blocks>
+    </global>
+</config>

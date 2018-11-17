@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CacheWarmer Configuration
+ 
+ * @category    Lyonscg
+ * @package     Lyonscg_CacheWarmer
+ * @copyright   Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Richard Loerzel (rloerzel@lyonscg.com) 
+ */
+-->
+<config>
+    <modules>
+        <Lyonscg_CacheWarmer>
+            <version>1.0.0</version>
+        </Lyonscg_CacheWarmer>
+    </modules>
+    <global>
+        <models>
+           <cachewarmer>
+               <class>Lyonscg_CacheWarmer_Model</class>
+           </cachewarmer>
+        </models>
+        <helpers>
+            <cachewarmer>
+                <class>Lyonscg_CacheWarmer_Helper</class>
+            </cachewarmer>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <cachewarmer>
+                <use>admin</use>
+                <args>
+                    <module>Lyonscg_CacheWarmer</module>
+                    <frontName>cachewarmer</frontName>
+                </args>
+            </cachewarmer>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <cachewarmer>
+                    <file>cachewarmer.xml</file>
+                </cachewarmer>
+            </updates>
+        </layout>
+    </adminhtml>
+    <crontab>
+        <jobs>
+            <lyonscg_cachewarmer_reheat>
+                <schedule>
+                    <cron_expr>0 2 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>cachewarmer/cache::reheat</model>
+                </run>
+            </lyonscg_cachewarmer_reheat>
+        </jobs>
+    </crontab>
+    <default>
+        <cachewarmer>
+            <setting>
+                <max_execution_time>0</max_execution_time>
+                <memory_limit>2048M</memory_limit>
+                <proc_nice>16</proc_nice>
+                <batch_size>5</batch_size>
+            </setting>
+        </cachewarmer>
+    </default>
+</config>

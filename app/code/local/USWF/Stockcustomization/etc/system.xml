@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<config>
+    <sections>
+        <cataloginventory>
+            <groups>
+                <item_options>
+                    <fields>
+                        <in_stock_message>
+                            <label>In Stock Message</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <value>In Stock</value>
+                        </in_stock_message>
+                        <out_of_stock_message>
+                            <label>Out of Stock Message</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1001</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <value>Out of Stock</value>
+                        </out_of_stock_message>
+                        <backorder_message>
+                            <label>Backorder Message</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1002</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <value>Backordered</value>
+                        </backorder_message>
+                        <backorder_date_message>
+                            <label>Backorder Message with Expected Ship</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1003</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <value>Out of Stock Ships within %s business days</value>
+                        </backorder_date_message>
+                    </fields>
+                </item_options>
+            </groups>
+        </cataloginventory>
+    </sections>
+</config>

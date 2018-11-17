@@ -1,0 +1,16 @@
+<config>
+    <modules>
+        <Wagento_CmsHierarchy>
+            <version>0.0.1</version>
+        </Wagento_CmsHierarchy>
+    </modules>
+    <global>
+        <blocks>
+            <page>
+                <rewrite>
+                    <html_breadcrumbs>Wagento_CmsHierarchy_Block_Breadcrumbs</html_breadcrumbs>
+                </rewrite>
+            </page>
+        </blocks>
+    </global>
+</config>

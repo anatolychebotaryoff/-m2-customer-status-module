@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_SeoSuite
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_SeoSuite>
+            <version>0.0.2</version>
+        </USWF_SeoSuite>
+    </modules>
+    <global>
+        <models>
+            <uswf_seosuite>
+                <class>USWF_SeoSuite_Model</class>
+                <resourceModel>uswf_seosuite_resource</resourceModel>
+            </uswf_seosuite>
+            <uswf_seosuite_resource>
+                <class>USWF_SeoSuite_Model</class>
+            </uswf_seosuite_resource>
+        </models>
+        <resources>
+            <uswf_seosuite_setup>
+                <setup>
+                    <module>USWF_SeoSuite</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+            </uswf_seosuite_setup>
+        </resources>
+        <blocks>
+            <page>
+                <rewrite>
+                    <html_head>USWF_SeoSuite_Block_Page_Html_Head</html_head>
+                </rewrite>
+            </page>
+        </blocks>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <seosuite>
+                        <type>singleton</type>
+                        <class>USWF_SeoSuite_Controller_Router</class>
+                        <method>initControllerRouters</method>
+                    </seosuite>
+                </observers>
+            </controller_front_init_routers>
+            <controller_action_predispatch_catalog>
+                <observers>
+                    <seosuite>
+                        <type>singleton</type>
+                        <class>USWF_SeoSuite_Controller_Router</class>
+                        <method>parseLayeredParams</method>
+                    </seosuite>
+                </observers>
+            </controller_action_predispatch_catalog>
+        </events>
+    </global>
+    <adminhtml>
+        <events>
+            <adminhtml_cms_page_edit_tab_meta_prepare_form>
+                <observers>
+                    <uswf_seosuite_adminhtml_cms_page_edit_tab_meta_prepare_form>
+                        <type>singleton</type>
+                        <class>uswf_seosuite/observer</class>
+                        <method>addFormFieldsForCmsPage</method>
+                    </uswf_seosuite_adminhtml_cms_page_edit_tab_meta_prepare_form>
+                </observers>
+            </adminhtml_cms_page_edit_tab_meta_prepare_form>
+            <adminhtml_catalog_category_edit_prepare_form>
+                <observers>
+                    <uswf_seosuite_adminhtml_catalog_product_edit_prepare_form>
+                        <type>singleton</type>
+                        <class>uswf_seosuite/observer</class>
+                        <method>addJsToAttribute</method>
+                    </uswf_seosuite_adminhtml_catalog_product_edit_prepare_form>
+                </observers>
+            </adminhtml_catalog_category_edit_prepare_form>
+        </events>
+    </adminhtml>
+</config>

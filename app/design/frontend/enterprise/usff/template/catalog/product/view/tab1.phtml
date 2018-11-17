@@ -1,0 +1,85 @@
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $product = Mage::registry('current_product'); ?>
+<?php $_product = Mage::getModel('catalog/product')->load($product->getId());?>
+<?php $compatibleList = Mage::helper('uswf_catalog')->getProductCompatibleList($_product);?>
+<?php if (count($compatibleList)): ?>
+    <div class="box-collateral box-compatible">
+        <h2><?php echo $this->__('The %s is comparable with the following part numbers', $_product->getSku()) ?></h2>
+        <div class="box-collateral-content">
+            <table class="data-table" id="box-compatible-table">
+                <tbody>
+            <?php $_columns = count($compatibleList) < 6 ? 1 : (count($compatibleList) < 12 ? 2 : 4); ?>
+            <?php $_rows = ceil(count($compatibleList) / $_columns) ?>
+            <?php $chunks = array_chunk($compatibleList, $_rows);?>
+            <?php for ($i = 0; $i < $_rows; $i++): ?>
+                <tr>
+                    <?php for ($j = 0; $j < $_columns; $j++): ?>
+                        <?php $element = array_shift($chunks[$j]);?>
+                        <td>
+                        <?php if (isset($element['brand'])):?>
+                            <b><?php echo $element['brand']?></b>
+                        <?php elseif (isset($element['part'])):?>
+                            <?php echo $element['part']?>
+                        <?php endif;?>
+                        </td>
+                    <?php endfor; ?>
+                </tr>
+            <?php endfor; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php if ($_siteSearch = $_product->getUpcsSitesearch()): ?>
+    <div class="box-collateral box-replacement">
+        <h2><?php echo $this->__('Replacement for the Following UPC') ?></h2>
+        <div class="box-collateral-content">
+            <table class="data-table" id="box-sitesearch-table">
+                <tbody>
+                <?php $_siteSearch = explode('|', $_siteSearch) ?>
+                <?php $_columns = count($_siteSearch) < 6 ? 1 : (count($_siteSearch) < 12 ? 2 : 4); ?>
+                <?php $_rows = ceil(count($_siteSearch) / $_columns) ?>
+                <?php for ($i = 0; $i < $_rows; $i++): ?>
+                    <tr>
+                        <?php for ($j = 0; $j < $_columns; $j++): ?>
+                            <td><?php echo array_shift($_siteSearch) ?></td>
+                        <?php endfor; ?>
+                    </tr>
+                <?php endfor; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>
+<?php if ($_replacement = $_product->getSystemModelsShow()): ?>
+    <div class="box-collateral box-replacement">
+        <h2><?php echo $this->__('Fits the Following Model Numbers') ?></h2>
+        <div class="box-collateral-content">
+            <table class="data-table" id="box-replacement-table">
+                <tbody>
+                <?php $_replacement = explode('|', $_replacement) ?>
+                <?php $_columns = count($_replacement) < 6 ? 1 : (count($_replacement) < 12 ? 2 : 4); ?>
+                <?php $_rows = ceil(count($_replacement) / $_columns) ?>
+                <?php for ($i = 0; $i < $_rows; $i++): ?>
+                    <tr>
+                        <?php for ($j = 0; $j < $_columns; $j++): ?>
+                            <td><?php echo array_shift($_replacement) ?></td>
+                        <?php endfor; ?>
+                    </tr>
+                <?php endfor; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>
+<?php if ($_videoUrl = $_product->getVideoUrl()): ?>
+    <div class="video-box box-collateral" id="videoanchor">
+        <h2><?php echo $this->__('Video') ?></h2>
+        <div class="box-collateral-content">
+            <div class="video">
+                <iframe width="480" height="360" data-src="<?php echo $_videoUrl ?>" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Configuration / CaptureAdminOrders
+ *
+ * @category    USWF
+ * @package     USWF_CaptureAdminOrders
+ */
+-->
+<config>
+    <modules>
+        <USWF_CaptureAdminOrders>
+            <version>0.0.1</version>
+        </USWF_CaptureAdminOrders>
+    </modules>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <uswf_captureadminorders before="Lyonscg_LoginAsCustomer_Adminhtml">USWF_CaptureAdminOrders_Adminhtml</uswf_captureadminorders>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <global>
+        <models>
+            <captureadminorders>
+                <rewrite>
+                    <observer>USWF_CaptureAdminOrders_Model_Observer</observer>
+                </rewrite>
+            </captureadminorders>
+        </models>
+    </global>
+</config>

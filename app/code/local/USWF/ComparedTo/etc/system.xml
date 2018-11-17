@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * system.xml
+ *
+ * @category    USWF
+ * @package     USWF_ComparedTo
+ * @copyright
+ * @author
+*/
+-->
+<config>
+    <sections>
+        <uswf_comparedto translate="label">
+            <label>Compared To</label>
+            <tab>lyonscg</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>151</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <images translate="label">
+                    <label>Manage images</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>20</sort_order>
+                    <fields>
+                        <top_hor_banner translate="label tooltip comment">
+                            <label>Top horizontal banner</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">comparedto</upload_dir>
+                            <base_url type="media" scope_info="1">comparedto</base_url>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </top_hor_banner>
+                        <tier1_ribbon_left translate="label tooltip comment">
+                            <label>Tier1 Ribbon Left Pos.</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">comparedto</upload_dir>
+                            <base_url type="media" scope_info="1">comparedto</base_url>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tier1_ribbon_left>
+                        <tier1_ribbon_right translate="label tooltip comment">
+                            <label>Tier1 Ribbon Right Pos.</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">comparedto</upload_dir>
+                            <base_url type="media" scope_info="1">comparedto</base_url>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tier1_ribbon_right>
+                        <oem_ribbon_left translate="label tooltip comment">
+                            <label>OEM Ribbon Left Pos.</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">comparedto</upload_dir>
+                            <base_url type="media" scope_info="1">comparedto</base_url>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </oem_ribbon_left>
+                        <oem_ribbon_right translate="label tooltip comment">
+                            <label>OEM Ribbon Right Pos.</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">comparedto</upload_dir>
+                            <base_url type="media" scope_info="1">comparedto</base_url>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </oem_ribbon_right>
+                        <bottom_banner translate="label tooltip comment">
+                            <label>Bottom banner</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">comparedto</upload_dir>
+                            <base_url type="media" scope_info="1">comparedto</base_url>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </bottom_banner>
+                        <bottom_banner_enabled translate='label'>
+                            <label>Enable Bottom Banner</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>3</sort_order>
+                        </bottom_banner_enabled>
+
+
+
+                    </fields>
+                </images>
+                <tabs translate="label">
+                    <label>Tabs Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>30</sort_order>
+                    <fields>
+                        <faq_header translate="label">
+                            <label>F.A.Q. Header Text</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </faq_header>
+                        <faq_header_image translate="label">
+                            <label>F.A.Q. Header Image</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">comparedto</upload_dir>
+                            <base_url type="media" scope_info="1">comparedto</base_url>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>20</sort_order>
+                        </faq_header_image>
+                        <faq_line_question_1>
+                            <label>F.A.Q. question 1</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>110</sort_order>
+                        </faq_line_question_1>
+                        <faq_line_answer_1>
+                            <label>F.A.Q. answer 1</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>111</sort_order>
+                        </faq_line_answer_1>
+                        <faq_line_question_2>
+                            <label>F.A.Q. question 1</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>120</sort_order>
+                        </faq_line_question_2>
+                        <faq_line_answer_2>
+                            <label>F.A.Q. answer 2</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>121</sort_order>
+                        </faq_line_answer_2>
+                        <faq_line_question_3>
+                            <label>F.A.Q. question 3</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>130</sort_order>
+                        </faq_line_question_3>
+                        <faq_line_answer_3>
+                            <label>F.A.Q. answer 3</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>131</sort_order>
+                        </faq_line_answer_3>
+                        <faq_line_question_4>
+                            <label>F.A.Q. question 4</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>140</sort_order>
+                        </faq_line_question_4>
+                        <faq_line_answer_4>
+                            <label>F.A.Q. answer 4</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>141</sort_order>
+                        </faq_line_answer_4>
+                        <faq_line_question_5>
+                            <label>F.A.Q. question 5</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>150</sort_order>
+                        </faq_line_question_5>
+                        <faq_line_answer_5>
+                            <label>F.A.Q. answer 5</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>151</sort_order>
+                        </faq_line_answer_5>
+                        <faq_line_question_6>
+                            <label>F.A.Q. question 6</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>160</sort_order>
+                        </faq_line_question_6>
+                        <faq_line_answer_6>
+                            <label>F.A.Q. answer 6</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>161</sort_order>
+                        </faq_line_answer_6>
+                        <faq_line_question_7>
+                            <label>F.A.Q. question 7</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>170</sort_order>
+                        </faq_line_question_7>
+                        <faq_line_answer_7>
+                            <label>F.A.Q. answer 7</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>171</sort_order>
+                        </faq_line_answer_7>
+                        <faq_line_question_8>
+                            <label>F.A.Q. question 8</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>180</sort_order>
+                        </faq_line_question_8>
+                        <faq_line_answer_8>
+                            <label>F.A.Q. answer 8</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>181</sort_order>
+                        </faq_line_answer_8>
+                        <faq_line_question_9>
+                            <label>F.A.Q. question 9</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>190</sort_order>
+                        </faq_line_question_9>
+                        <faq_line_answer_9>
+                            <label>F.A.Q. answer 9</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>191</sort_order>
+                        </faq_line_answer_9>
+                        <faq_line_question_10>
+                            <label>F.A.Q. question 10</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>200</sort_order>
+                        </faq_line_question_10>
+                        <faq_line_answer_10>
+                            <label>F.A.Q. answer 10</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>201</sort_order>
+                        </faq_line_answer_10>
+                    </fields>
+                </tabs>
+
+                <labels translate="label">
+                    <label>Labels Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>40</sort_order>
+                    <fields>
+                        <top_marketing_message_tier1 translate="label">
+                            <label>Top Marketing Messages - Tier1</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </top_marketing_message_tier1>
+                        <top_marketing_message_oem translate="label">
+                            <label>Top Marketing Messages - OEM</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>20</sort_order>
+                        </top_marketing_message_oem>
+
+                        <ribbon_text_tier1 translate="label">
+                            <label>Ribbon Text- Tier1</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>30</sort_order>
+                        </ribbon_text_tier1>
+                        <ribbon_text_oem translate="label">
+                            <label>Ribbon Text - OEM</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>40</sort_order>
+                        </ribbon_text_oem>
+                        <rating translate='label'>
+                            <label>Enable Rating</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>50</sort_order>
+                        </rating>
+                        <add_to_cart_button_text_tier1 translate="label">
+                            <label>Add To Cart Button Text - Tier1</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>60</sort_order>
+                        </add_to_cart_button_text_tier1>
+                        <add_to_cart_button_secondary_text_tier1 translate="label">
+                            <label>Add To Cart Button Secondary Text - Tier1</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>70</sort_order>
+                        </add_to_cart_button_secondary_text_tier1>
+                        <add_to_cart_button_text_oem translate="label">
+                            <label>Add To Cart Button Text - OEM</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>80</sort_order>
+                        </add_to_cart_button_text_oem>
+                        <enabled_tabs translate="label">
+                            <label>Enabled Tabs</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>USWF_ComparedTo_Model_system_config_source_tabs</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>90</sort_order>
+                        </enabled_tabs>
+                        <checkmarks_conf_tier1 translate="label">
+                            <label>Checkmarks Tier1</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>USWF_ComparedTo_Model_system_config_source_CheckmarksTier1</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>100</sort_order>
+                        </checkmarks_conf_tier1>
+                        <checkmarks_tier1 translate="label">
+                            <label>Checkmarks Items Tier1</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>110</sort_order>
+                        </checkmarks_tier1>
+                        <checkmarks_conf_oem translate="label">
+                            <label>Checkmarks OEM</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>USWF_ComparedTo_Model_system_config_source_CheckmarksOem</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>120</sort_order>
+                        </checkmarks_conf_oem>
+                        <checkmarks_oem translate="label">
+                            <label>Checkmarks Items OEM</label>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>130</sort_order>
+                        </checkmarks_oem>
+
+
+
+
+                    </fields>
+                 </labels>
+
+
+
+
+
+
+
+
+
+            </groups>
+        </uswf_comparedto>
+    </sections>
+</config>

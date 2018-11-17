@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Rccw>
+            <version>0.1.0</version>
+        </Lyonscg_Rccw>
+    </modules>
+    <global>
+        <models>
+            <lyonscg_rccw>
+                <class>Lyonscg_Rccw_Model</class>
+            </lyonscg_rccw>
+        </models>
+    </global>
+    <crontab>
+        <jobs>
+            <lyonscg_rccw_run>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>lyonscg_rccw/observer::run</model>
+                </run>
+            </lyonscg_rccw_run>
+        </jobs>
+    </crontab>
+</config>

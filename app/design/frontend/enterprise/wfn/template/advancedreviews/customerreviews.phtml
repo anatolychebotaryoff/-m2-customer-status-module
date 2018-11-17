@@ -1,0 +1,51 @@
+<?php
+/**
+* aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE-ENTERPRISE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento ENTERPRISE edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento ENTERPRISE edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_AdvancedReviews
+ * @version    2.2.4
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE-ENTERPRISE.txt
+ */
+?>
+<?php
+?>
+<div class="product-view" id="need-to-modyfiy">
+<?php echo  $this->getChildHtml('advancedreviews_stdreviews'); ?>
+</div>
+<style type="text/css">
+    .modifyed-product-view {
+        border-top: none !important;
+    }
+    .modifyed-main-col {
+        padding-top: 0px !important;
+    }
+</style>
+<script type="text/javascript">
+    addEvent(window, 'load', function() {
+        try {
+            $('need-to-modyfiy').addClassName('modifyed-product-view');
+            $('need-to-modyfiy').parentNode.addClassName('modifyed-main-col');
+        } catch (e) {
+            console.log(e.message);
+        }
+    });
+</script>

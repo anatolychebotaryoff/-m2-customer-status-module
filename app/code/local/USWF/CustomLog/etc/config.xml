@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <USWF_CustomLog>
+            <version>0.0.1</version>
+        </USWF_CustomLog>
+    </modules>
+     <frontend>
+        <routers>
+            <customlog>
+                <use>standard</use>
+                <args>
+                    <module>USWF_CustomLog</module>
+                    <frontName>customlog</frontName>
+                </args>
+            </customlog>
+        </routers>   
+    </frontend>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <USWF_Lowercase>
+            <active>false</active>
+            <codePool>local</codePool>
+        </USWF_Lowercase>
+    </modules>
+</config>

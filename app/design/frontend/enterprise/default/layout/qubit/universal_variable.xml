@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <block type="uswf_universalvariable/user" name="uv_user" template="qubit/uv_user.phtml"/>
+            <block type="universal_variable_main/uv" name="universal_variable" as="universal_variable" template="qubit/universal_variable.phtml">
+                <action method="setCacheLifetime">
+                    <s>null</s>
+                </action>
+            </block>
+        </reference>
+    </default>
+</layout>

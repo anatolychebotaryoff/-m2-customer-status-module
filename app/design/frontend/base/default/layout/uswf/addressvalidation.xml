@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addItem" ifconfig="addressvalidation/default/active">
+                <type>skin_js</type>
+                <name>js/uswf/validationform.js</name>
+                <group>loadgroup="after_prototype" defer</group>
+            </action>
+            <action method="addCss" ifconfig="addressvalidation/default/active">
+                <name>css/uswf/addressvalidation.css</name>
+            </action>
+            <!--Duplicates USWF_Addressvalidation_Model_Observer-->
+            <action method="removeItem" ifconfig="addressvalidation/default/active">
+                <type>skin_js</type>
+                <name>qs/js/validationform.js</name>
+            </action>
+        </reference>
+    </default>
+</layout>

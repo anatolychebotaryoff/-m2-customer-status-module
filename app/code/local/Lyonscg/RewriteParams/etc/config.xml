@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_RewriteParams
+ *
+ * @category    Lyonscg
+ * @package     Lyonscg_RewriteParams
+ * @copyright   Copyright (c) 2013 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<config>
+    <modules>
+        <Lyonscg_RewriteParams>
+            <version>0.1.0</version>
+        </Lyonscg_RewriteParams>
+    </modules>
+    <global>
+        <models>
+            <lyonscg_rewriteparams>
+                <class>Lyonscg_RewriteParams_Model</class>
+            </lyonscg_rewriteparams>
+        </models>
+        <helpers>
+            <lyonscg_rewriteparams>
+                <class>Lyonscg_RewriteParams_Helper</class>
+            </lyonscg_rewriteparams>
+        </helpers>
+        <request_rewrite>
+            <model>lyonscg_rewriteparams/url_rewrite_request</model>
+        </request_rewrite>
+    </global>
+</config>

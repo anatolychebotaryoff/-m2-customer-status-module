@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <uswf_unvmod translate="title" module="uswf_unvmod">
+                                        <title>USWF Admin</title>
+                                        <sort_order>200</sort_order>
+                                    </uswf_unvmod>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

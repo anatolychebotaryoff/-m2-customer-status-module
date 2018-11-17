@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_PreviewCart>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Lyonscg_ReplacedBy/>
+            </depends>
+        </USWF_PreviewCart>
+    </modules>
+</config>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_HotdealGroupPricing>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Lyonscg_Hotdeal/>
+            </depends>
+        </USWF_HotdealGroupPricing>
+    </modules>
+</config>

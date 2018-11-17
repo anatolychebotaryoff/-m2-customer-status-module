@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <uswf_googleplaces translate="title" module="uswf_googleplaces">
+                                        <title>Google Places</title>
+                                        <sort_order>200</sort_order>
+                                    </uswf_googleplaces>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

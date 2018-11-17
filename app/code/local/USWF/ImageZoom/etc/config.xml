@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_ImageZoom
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_ImageZoom>
+            <version>0.0.1</version>
+        </USWF_ImageZoom>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_imagezoom>
+                <class>USWF_ImageZoom_Block</class>
+            </uswf_imagezoom>
+        </blocks>
+        <helpers>
+            <uswf_imagezoom>
+                <class>USWF_ImageZoom_Helper</class>
+            </uswf_imagezoom>
+        </helpers>
+        <models>
+            <uswf_imagezoom>
+                <class>USWF_ImageZoom_Model</class>
+            </uswf_imagezoom>
+        </models>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <uswf_imagezoom module="uswf_imagezoom">
+                    <file>uswf/imagezoom.xml</file>
+                </uswf_imagezoom>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <catalog>
+            <imagezoom>
+                <enabled>1</enabled>
+                <zoom_type>standard</zoom_type>
+                <zoom_width>300</zoom_width>
+                <zoom_height>300</zoom_height>
+                <big_image_width>1200</big_image_width>
+                <big_image_height>1200</big_image_height>
+                <zoom_offset_x>10</zoom_offset_x>
+                <zoom_offset_y>0</zoom_offset_y>
+                <zoom_position>right</zoom_position>
+                <preload_images>1</preload_images>
+                <preload_text>Loading zoom</preload_text>
+                <title>1</title>
+                <lens>1</lens>
+                <image_opacity>0.4</image_opacity>
+                <show_effect>show</show_effect>
+                <hide_effect>hide</hide_effect>
+                <fadein_speed>600</fadein_speed>
+                <fadeout_speed>2000</fadeout_speed>
+                <lightbox_enabled>1</lightbox_enabled>
+            </imagezoom>
+        </catalog>
+    </default>
+    <websites>
+        <dfs>
+            <catalog>
+                <imagezoom>
+                    <zoom_width>305</zoom_width>
+                    <zoom_height>305</zoom_height>
+                </imagezoom>
+            </catalog>
+        </dfs>
+        <ff>
+            <catalog>
+                <imagezoom>
+                    <zoom_width>307</zoom_width>
+                    <zoom_height>307</zoom_height>
+                </imagezoom>
+            </catalog>
+        </ff>
+        <wfn>
+            <catalog>
+                <imagezoom>
+                    <zoom_width>347</zoom_width>
+                    <zoom_height>347</zoom_height>
+                </imagezoom>
+            </catalog>
+        </wfn>
+    </websites>
+</config>

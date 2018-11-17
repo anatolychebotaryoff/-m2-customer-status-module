@@ -1,0 +1,32 @@
+<?php
+/**
+ * Subscribe Pro - Subscriptions Management Extension
+ *
+ * PHP version 5
+ *
+ * LICENSE: This source file is subject to commercial source code license of StoreFront Consulting, Inc.
+ *
+ * @category  SFC
+ * @package   SFC_Autoship
+ * @author    Garth Brantley <garth@storefrontconsulting.com>
+ * @author    Dennis Rogers <dennis@storefrontconsulting.com>
+ * @copyright 2009-2013 StoreFront Consulting, Inc. All Rights Reserved.
+ * @license   http://www.storefrontconsulting.com/media/downloads/ExtensionLicense.pdf StoreFront Consulting Commercial License
+ * @link      http://www.storefrontconsulting.com/autoship-subscriptions-and-recurring-billing-magento-extension/
+ *
+ */
+?>
+<?php
+$productId = $this->getProduct()->getId();
+?>
+<?php if (Mage::getStoreConfig('autoship_general/general/enabled') == '1'): ?>
+    <?php if (Mage::getStoreConfig('autoship_subscription/subscription/use_new_subscription_page') != '1'): ?>
+        <?php if ($this->isProductAutoshipEligible()): ?>
+            <div class="checker">
+                <input type="radio" onclick="" class="radio delivery-option-one-time" name="delivery-option" value="one-time-delivery" checked="checked"/>
+                <input type="radio" onclick="" class="radio delivery-option-subscribe" name="delivery-option" value="subscribe" />
+                <input type="hidden" name="delivery-interval" value="Monthly"/>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_CompatibleSearch>
+            <version>0.1.0</version>
+        </USWF_CompatibleSearch>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <uswf_compatiblesearch>
+                    <file>uswf/compatiblesearch.xml</file>
+                </uswf_compatiblesearch>
+            </updates>
+        </layout>
+    </frontend>
+</config>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_ComparedTo
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_ComparedTo>
+            <version>0.0.2</version>
+        </USWF_ComparedTo>
+    </modules>
+    <global>
+        <blocks>
+            <uswf_comparedto>
+                <class>USWF_ComparedTo_Block</class>
+            </uswf_comparedto>
+        </blocks>
+        <helpers>
+            <uswf_comparedto>
+                <class>USWF_ComparedTo_Helper</class>
+            </uswf_comparedto>
+        </helpers>
+        <models>
+            <uswf_comparedto>
+                <class>USWF_ComparedTo_Model</class>
+            </uswf_comparedto>
+        </models>
+        <resources>
+            <uswf_comparedto_setup>
+                <setup>
+                    <module>USWF_ComparedTo</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </uswf_comparedto_setup>
+        </resources>
+    </global>
+    <websites>
+        <wfn>
+            <uswf_comparedto>
+                <images>
+                    <top_hor_banner>wfn-tier1_has_365_days.png</top_hor_banner>
+                    <tier1_ribbon_left>wfn-tier1-ribbon-left.png</tier1_ribbon_left>
+                    <tier1_ribbon_right>wfn-tier1-ribbon-right.png</tier1_ribbon_right>
+                    <oem_ribbon_left>wfn-oem-ribbon-left.png</oem_ribbon_left>
+                    <oem_ribbon_right>wfn-oem-ribbon-right.png</oem_ribbon_right>
+                </images>
+            </uswf_comparedto>
+        </wfn>
+        <ff>
+            <uswf_comparedto>
+                <images>
+                    <top_hor_banner>ff-tier1_has_365_days.png</top_hor_banner>
+                    <tier1_ribbon_left>ff-tier1-ribbon-left.png</tier1_ribbon_left>
+                    <tier1_ribbon_right>ff-tier1-ribbon-right.png</tier1_ribbon_right>
+                    <oem_ribbon_left>ff-oem-ribbon-left.png</oem_ribbon_left>
+                    <oem_ribbon_right>ff-oem-ribbon-right.png</oem_ribbon_right>
+                </images>
+            </uswf_comparedto>
+        </ff>
+        <dfs>
+            <uswf_comparedto>
+                <images>
+                    <top_hor_banner>dfs-tier1_has_365_days.png</top_hor_banner>
+                    <tier1_ribbon_left>dfs-tier1-ribbon-left.png</tier1_ribbon_left>
+                    <tier1_ribbon_right>dfs-tier1-ribbon-right.png</tier1_ribbon_right>
+                    <oem_ribbon_left>dfs-oem-ribbon-left.png</oem_ribbon_left>
+                    <oem_ribbon_right>dfs-oem-ribbon-right.png</oem_ribbon_right>
+                  <!--  <bottom_banner>bottom_banner.png</bottom_banner>
+                    <bottom_banner_enabled>0</bottom_banner_enabled> -->
+                </images>
+            </uswf_comparedto>
+        </dfs>
+    </websites>
+    <default>
+        <uswf_comparedto>
+            <tabs>
+                <faq_header>Tier1 Brand filters offer exceptional Quality and Value. Our products are proven to perform with rigorous testing protocols, offering similar quality as brand name OEM products but at a much lower price. We are proud of our quality - all Tier 1 filters have a 365 days no hassle return policy and are independently NSF 42 certified</faq_header>
+                <faq_header_image>comparedto/faq-tier1.png</faq_header_image>
+                <faq_line_question_1>Do Tier1 products work as well as the named OEM brand?</faq_line_question_1>
+                <faq_line_answer_1>Tier1 filters offer exceptional Quality and Value. Our products are proven to perform with rigorous testing protocols, offering similar quality as brand name OEM products but at much lower price. We are proud of our quality - all Tier1 filters have 365 days no hassle return policy and are independently NSF 42 certified.</faq_line_answer_1>
+                <faq_line_question_2>Are Tier1 filters guaranteed to fit my refrigerator model?</faq_line_question_2>
+                <faq_line_answer_2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</faq_line_answer_2>
+                <faq_line_question_3>Is there any difference in filtration between Tier1 brand filters and their OEM counterparts?</faq_line_question_3>
+                <faq_line_answer_3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</faq_line_answer_3>
+                <faq_line_question_4>Why are Tier1 brand filters so much cheaper than the name brand?</faq_line_question_4>
+                <faq_line_answer_4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</faq_line_answer_4>
+                <faq_line_question_5>What kind of refrigerator filters does Tier1 brand use?</faq_line_question_5>
+                <faq_line_answer_5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</faq_line_answer_5>
+                <faq_line_question_6>What product guarantee do you offer if they do not work?</faq_line_question_6>
+                <faq_line_answer_6>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</faq_line_answer_6>
+                <faq_line_question_7>What is the filter life of Tier1 filters compared to OEM brand filters?</faq_line_question_7>
+                <faq_line_answer_7>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</faq_line_answer_7>
+                <faq_line_question_8>Can I speak to a live person to address my filtration needs?</faq_line_question_8>
+                <faq_line_answer_8>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</faq_line_answer_8>
+                <faq_line_question_9>What is your price match guarantee?</faq_line_question_9>
+                <faq_line_answer_9>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</faq_line_answer_9>
+                <faq_line_question_10></faq_line_question_10>
+                <faq_line_answer_10></faq_line_answer_10>
+            </tabs>
+            <labels>
+              <top_marketing_message_tier1>Premium Quality Alternative</top_marketing_message_tier1>
+              <top_marketing_message_oem>Your Current Selection</top_marketing_message_oem>
+              <ribbon_text_tier1>Similar OEM Quality, Lower Price</ribbon_text_tier1>
+              <ribbon_text_oem>100% Genuine OEM Parts</ribbon_text_oem>
+              <rating>1</rating>
+              <add_to_cart_button_text_tier1>ADD TO CART</add_to_cart_button_text_tier1>
+              <add_to_cart_button_secondary_text_tier1>AND SAVE!</add_to_cart_button_secondary_text_tier1>
+              <add_to_cart_button_text_oem>ADD TO CART</add_to_cart_button_text_oem>
+              <checkmarks_conf_tier1>0</checkmarks_conf_tier1>
+              <checkmarks_conf_oem>0</checkmarks_conf_oem>
+            </labels>
+
+        </uswf_comparedto>
+    </default>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <USWF_ComparedTo before="Mage_Adminhtml">USWF_ComparedTo_Adminhtml</USWF_ComparedTo>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

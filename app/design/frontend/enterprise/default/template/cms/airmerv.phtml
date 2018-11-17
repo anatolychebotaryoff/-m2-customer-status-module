@@ -1,0 +1,415 @@
+<?php
+
+$products = $this->getProductCollection();
+
+
+$products->addAttributeToSort('merv')
+    ->setPageSize(4)
+    ->addAttributeToSelect('*');
+
+$param = Mage::app()->getRequest()->getParam('sku');
+
+if ($param) {
+
+    foreach ($products as $product) {
+
+        if (strtolower($product->getSku()) == strtolower($param)) {
+
+            Mage::register('current_product', $product);
+
+            $productJsonData = Mage::helper('mageworx_seomarkup/json_product')->getJsonProductData( $product ); 
+            if ($productJsonData) {
+                echo '<script type="application/ld+json">' . json_encode($productJsonData) . '</script>';
+            }
+        }
+
+    }
+}
+
+
+
+function sortMerv($a, $b) {
+
+  $_a = explode(":", $a->getData('merv_value'));
+  $_b = explode(":", $b->getData('merv_value'));
+
+
+  return ((int) $_a[1] < (int) $_b[1]) ? -1 : 1;
+   
+
+}
+
+
+    $_products = $products->getItems();
+
+    usort($_products, 'sortMerv');
+
+
+    echo Mage::helper('uswf_airmerv')->getJsonCollectionData($products);
+
+?>
+
+
+<style>
+
+  .recommended:before {
+    content: "RECOMMENDED PRODUCT";
+    position: absolute;
+    background: #0d8ae9;
+    color: white;
+    width: 95%;
+    top: 0;
+    left: 0; 
+    margin: 5px; 
+    display: block;	
+    padding: 3px 0;
+    box-sizing: border-box;
+  }
+
+  .merv_comparison {
+    line-height: 150%;
+    font-size: 12px;
+    margin: 0;
+    padding: 0 !important;
+    width: 100%;
+    max-width: 940px;
+  }
+
+  .merv_description {
+    width: 100%;
+    margin-bottom: 1em;
+    background: #f5f5f5;
+    list-style-type: none;
+    transition: all 0.25s;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-top: 1em;
+  }
+
+  .merv_description:hover {
+    box-shadow: 1px 1px 8px rgba(0,0,0, .4);
+  }
+
+  .merv_description .merv_header {
+    padding: 3px;
+    display: block;
+    text-transform: uppercase;
+    color: #fff;
+    background: #333;
+    border-bottom: 1px solid #ccc;
+    text-shadow: 1px 1px 1px rgba(100, 100, 100, 0.3);
+  }
+
+  .merv_description #merv-6 {
+    background-color: #fcfcfc;
+    color: #333;
+  }
+
+  .merv_description #merv-8 {
+    background-color: #548b3d;
+  }
+
+  .merv_description #merv-11 {
+    background-color: #c90000;
+  }
+
+  .merv_description #merv-13 {
+    background-color: #0055a6;
+  }
+
+  .merv_description strong {
+    align-content: center;
+    font-size: 13px;
+    padding: 5px;
+    margin: 0;
+  }
+
+  .merv_description h3 {
+    text-transform: uppercase;
+    font-size: 26px;
+    padding: 5px;
+    margin: 0;
+  }
+
+  .merv_description .features {
+    margin: 0;
+    color: #000;
+  }
+
+  .merv_description .features li {
+    padding: 8px 15px;
+  /*  border-bottom: 1px solid #ccc; */
+    font-size: 14px;
+    list-style-type: none;
+  }
+
+  .merv_description .features li.neg {
+    opacity: 0.3;
+  }
+
+  .green {
+    color: green;
+  }
+
+  .red {
+    color: red;
+  }
+
+  .cta {
+    padding: 10px 16px;
+  }
+  .cta .action_button {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
+    background: linear-gradient(#999, #888);
+    padding: 5px 0;
+    font-size: 18px;
+    line-height: 1.33;
+    text-align: center;
+    text-transform: uppercase;
+    box-shadow: 0 -1px 0px rgba(50,50,50, .2) inset;
+  }
+
+  .temp-cta {
+    max-width: 320px;
+    padding: 10px 0;
+  }
+
+  .merv_description:hover .action_button {
+    background: linear-gradient(#949494, #848484);
+  }
+
+  .cta .action_button:hover {
+    background: linear-gradient(#666, #777);
+  }
+
+  .table td,
+  .table th {
+    padding: 5px 0;
+  }
+
+  .table th {
+   font-weight: bold;
+  }
+
+  .micron {
+    margin-bottom: 0;
+  }
+
+  .micron th {
+    /*border-bottom: 1px solid #ccc;
+    text-decoration: underline;*/
+  }
+
+  .merv_description .micron td {
+    border: 0px solid #ccc;
+  }
+
+  .merv_description .micron td:nth-of-type(1) {
+    padding-left: 1.5em;
+  }
+
+  .merv_description .micron td:nth-of-type(2),
+  .merv_description .micron th:nth-of-type(2) {
+    text-align: center;
+  }
+
+.button-insta {
+  width: 85%;
+  height: 50px;
+  margin: 10% 2% 0 6%;
+  position: relative;
+  display: block;
+  background-color: #008de9;
+  border-radius: 1px;
+  border-bottom: 2px solid #165398;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 20px;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out;
+  -moz-transition: background-color 0.2s ease-in-out;
+  -o-transition: background-color 0.2s ease-in-out;
+  -ms-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+
+}
+
+.products-column {
+  text-align: center;
+  width: 100%;
+  border: solid 1px #d3d3d3;
+  height: 500px;
+  padding-top: 14px;
+
+}
+
+.product-image {
+  margin: 2px 0 5px 2px;
+  padding: 2px
+}
+
+.product-image-merv {
+  margin: 0 2px 2px 5px;
+  padding: 4px;
+
+}
+
+.product-name {
+  margin: 10px;
+  padding: 10px;
+  min-height: 92px;
+}
+
+
+
+
+/*  SECTIONS  */
+.section {
+  clear: both;
+  padding: 0px;
+  margin: 0px;
+  margin-left: 0.5%;
+  max-width: 930px;
+}
+
+/*  COLUMN SETUP  */
+.col {
+  display: block;
+  float:left;
+  margin: 1% 0 1% 1%;
+}
+.col:first-child { margin-left: 0; }
+
+/*  GROUPING  */
+.group:before,
+.group:after { content:""; display:table; }
+.group:after { clear:both;}
+.group { zoom:1; /* For IE 6/7 */ }
+
+/*  GRID OF FOUR  */
+.span_4_of_4 {
+  width: 100%;
+}
+.span_3_of_4 {
+  width: 74.75%;
+}
+.span_2_of_4 {
+  width: 49.5%;
+}
+.span_1_of_4 {
+  width: 24.25%;
+}
+
+/*  GO FULL WIDTH BELOW 480 PIXELS */
+@media only screen and (min-width: 700px) and (max-width: 965px) {
+  .col {  margin: 1% 0 1% 0%; }
+  .span_1_of_4, .span_2_of_4, .span_3_of_4, .span_4_of_4 { width: 49%; margin: 1% 1% 1% 0 }
+  .image-merv {margin: 8% 0 0 2%;}
+  .product-image-merv { margin-left: 1%;}
+
+}
+
+@media only screen and (max-width: 699px) {
+  .col {  margin: 1% 0 1% 0%; }
+  .span_1_of_4, .span_2_of_4, .span_3_of_4, .span_4_of_4 { width: 100%; }
+  .text { padding-right: 18%; }
+  .pricing-info {
+    margin: 10px;
+    padding-right: 5px;
+  }
+  .price {
+    margin-right: 15px;
+  }
+}
+
+@media only screen and (min-width: 650) and (max-width: 770) {
+  .product-name {margin: 5px; padding: 5px;}
+  .image-merv {margin: 1% 2% 0 0; padding: 0;}
+
+}
+
+.pricing-info {
+  margin-left: 1em;
+  padding-top: 2em;
+}
+
+.recommended { 
+    border: 5px solid #0d8ae9; 
+}
+
+</style>
+
+<!-- Tier1 Products Air -->
+<div class="dfs-bootstrap">
+<div class="section group">
+  <!-- product one -->
+
+  <?php foreach($_products as $product): ?>  
+  <div class="col-sm-3" style="padding:5px;">
+    <div class="products-column<?php if (strtolower($param) == strtolower($product->getSku())) echo " recommended"; ?>">
+
+      <!-- image -->
+         <div class="product-image">
+           <a href="<?php echo $product->getProductUrl(); ?>" title="<?php echo $product->getName(); ?>" class="product-image" onclick="onProductClick('<?php echo $product->getSku(); ?>', '<?php echo $product->getName(); ?>', 'Category', '' , '<?php echo $product->getPackageSize(); ?>', '<?php echo $product->getBrand(); ?>' );"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(198) ?>" alt="<?php echo $product->getName(); ?>" /></a>
+         </div>
+
+      <!-- product name -->
+          <div class="product-name">
+              <a href="<?php echo $product->getProductUrl(); ?>"><?php echo $product->getName(); ?></a>
+          </div>
+
+      <!-- review -->
+          <div style="padding-left: 20px; padding-bottom: 20px; min-height: 38px" class="yotpo bottomLine"
+            data-product-id="<?php echo $product->getId(); ?>">
+          </div>
+
+      <!-- Price -->
+          <div class="product-view" style="margin-top: 1em;">
+            <?php $price = $product->getFinalPrice(); ?>
+            <p class="grouped-price"><?php if ($price): ?>$<?php echo $product->getFinalPrice(); endif; ?></p>
+          </div>
+
+    <!-- ADD TO CART -->
+            <button style="margin-bottom: 15px;" type="button" title="Add to Cart" class="btn btn-lg btn-primary btn-cart" onclick="onAddToCart('<?php echo $product->getSku(); ?>', '<?php echo $product->getName(); ?>','<?php echo $product->getFinalPrice(); ?>', '1', '20x25x1 Air Filter Replacements', '<?php echo $product->getPackageSize(); ?>', '<?php echo $product->getBrand(); ?>' );setLocation('<?php if ($product->getTypeId() == 'bundle'): ?>/bundle<?php endif; ?>/cart/add/id/<?php echo $product->getId(); ?>')"><span><span>Add to Cart</span></span>
+            </button>
+
+    </div>
+    <div class="merv-column">
+        <?php $merv_id = str_replace(":", "", $product->getAttributeText('merv')); ?>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($merv_id)->toHtml(); ?> 
+    </div>
+  </div>
+  <?php endforeach; ?>
+  <?php $category_id = $this->getCategory(); 
+        $category = Mage::getModel('catalog/category');
+        if ($category->checkId($category_id)): ?>
+  <?php $category = $category->load($category_id); ?> 
+
+
+
+          <div style="padding: 50px 0 0 10px;">
+            <h1 style="clear:both;"><?php echo $category->getName(); ?>  Air Filter Replacements</h1>
+                <p>Choose between a number of different <?php echo $category->getName(); ?> air filters that will fit your furnace or air conditioner, each having its own unique benefits and features. When choosing consider what features are important to you: brand, quality level, efficiency, or allergen type. Whether you want to reduce pollen and pet dander or dust mites and bacteria, find the right <?php echo $category->getName(); ?> air filter for your home.</p>
+          </div>
+
+              <div class="grid_10">
+                <div class="temp-cta">
+                  <div class="cta temp-cta">
+                    <a href="<?php echo $category->getUrl(); ?>" class="action_button">Shop More Air Filters</a>
+                  </div>
+                </div>
+              </div>
+  <?php endif; ?>
+
+
+
+
+</div>

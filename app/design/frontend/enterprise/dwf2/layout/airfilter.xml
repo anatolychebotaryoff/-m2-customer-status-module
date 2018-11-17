@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <airfilter_index_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <reference name="breadcrumbs">
+                <action method="addCrumb">
+                    <crumbname>home</crumbname>
+                    <crumbinfo>
+                        <label>Home</label>
+                        <title>Home Page</title>
+                        <link>/</link>
+                    </crumbinfo>
+                </action>
+                <action method="addCrumb">
+                    <crumbname>AirFilter</crumbname>
+                    <crumbinfo>
+                        <label>Air Filter</label>
+                        <title>Air Filter</title>
+                    </crumbinfo>
+                </action>
+            </reference>
+            <block type="airfilter/airfilter" name="airfilter" template="airfilter/airfilter.phtml">
+                <block type="cms/block" name="airFilterLanding">
+                    <action method="setBlockId"><block_id>air_filter_landing</block_id></action>
+                </block>
+                <block type="cms/block" name="orFindByFilter">
+                    <action method="setBlockId"><block_id>or_find_by_brand</block_id></action>
+                </block>
+            </block>
+        </reference>
+    </airfilter_index_index>
+    <airfilter_result_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/airFilter.js</name><group>loadgroup="after_jquery" defer</group></action>
+        </reference>
+        <reference name="content">
+            <block type="airfilter/resultset" name="resultset" template="airfilter/resultset.phtml"/>
+        </reference>
+    </airfilter_result_index>
+</layout>

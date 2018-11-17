@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* config.xml
+*
+* @category    USWF
+* @package     USWF_Popup
+* @copyright
+* @author
+*/
+-->
+<config>
+    <modules>
+        <USWF_Popup>
+            <version>0.0.1</version>
+        </USWF_Popup>
+    </modules>
+    <global>
+        <helpers>
+            <uswf_popup>
+                <class>USWF_Popup_Helper</class>
+            </uswf_popup>
+        </helpers>
+        <models>
+            <uswf_popup>
+                <class>USWF_Popup_Model</class>
+            </uswf_popup>
+        </models>
+        <resources>
+            <uswf_popup_setup>
+                <setup>
+                    <module>USWF_Popup</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </uswf_popup_setup>
+        </resources>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <uswf_popup module="uswf_popup">
+                    <file>uswf/popup.xml</file>
+                </uswf_popup>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <uswf_popup translate="title" module="uswf_popup">
+                                            <title>USWF Popup</title>
+                                            <sort_order>100</sort_order>
+                                        </uswf_popup>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <default>
+        <uswf_popup>
+            <configuration>
+                <enabled>0</enabled>
+                <first_time_user>1</first_time_user>
+                <ignore_platform>mobile</ignore_platform>
+                <page_type>cms_page,home_page,product_page,category_page,cart_page,search_page,other_page</page_type>
+                <display_on_mobile>0</display_on_mobile>
+                <delay>5000</delay>
+                <popup_animation>simple</popup_animation>
+                <animation_speed>600</animation_speed>
+                <overlay_color>#000000</overlay_color>
+                <overlay_opacity>0.6</overlay_opacity>
+            </configuration>
+        </uswf_popup>
+    </default>
+</config>

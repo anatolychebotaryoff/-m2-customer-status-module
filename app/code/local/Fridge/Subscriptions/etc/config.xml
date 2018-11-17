@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config>
+	<global>
+		<modules>
+		<Fridge_Subscriptions>
+			<version>0.1.0</version>
+		</Fridge_Subscriptions>
+		</modules>
+		<blocks>
+			<subscriptions>
+				<rewrite>
+					<subscriptions>Fridge_Subscriptions_Block_Subscriptions</subscriptions>
+				</rewrite>
+			</subscriptions>
+		</blocks>
+	</global>
+	<frontend>
+		<routers>
+			<subscriptions>
+				<use>standard</use>
+				<args>
+					  <module>Fridge_Subscriptions</module>
+					  <frontName>subscriptions</frontName>
+				</args>
+			</subscriptions>
+		</routers>
+		<layout>
+			<updates>
+				<subscriptions>
+					<file>subscriptions.xml</file>
+				</subscriptions>
+			</updates>
+		</layout>
+	</frontend>
+</config>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <cms_index_index>
+        <reference name="head">
+			<action method="addCss" ifconfig="featuredproductslider/featuredproductslider_config/enabled"><stylesheet>magentothem/css/ma.featuredslider.css</stylesheet></action>
+			<action method="addJs" ifconfig="featuredproductslider/featuredproductslider_config/enabled"><script>magentothem/ma.jq.slide.js</script><group>loadgroup="after_jquery" defer</group></action>
+			<action method="addJs" ifconfig="featuredproductslider/featuredproductslider_config/enabled"><script>magentothem/ma.flexslider.js</script><group>loadgroup="after_jquery" defer</group></action>     
+		</reference>
+        <reference name="content">
+            <block type="featuredproductslider/featuredproductslider" before="cms_content_static" name="featuredproductslider" template="magentothem/featuredproductslider/featuredproductslider.phtml" />
+        </reference>
+    </cms_index_index>
+</layout> 

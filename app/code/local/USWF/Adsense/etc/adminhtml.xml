@@ -1,0 +1,22 @@
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <uswf_adsense translate="title" module="uswf_adsense">
+                                        <title>USWF Adsense</title>
+                                        <sort_order>100</sort_order>
+                                    </uswf_adsense>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

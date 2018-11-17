@@ -1,0 +1,47 @@
+<?php $_product = Mage::registry('product'); ?>
+<?php $compatibleList = Mage::helper('uswf_catalog')->getProductCompatibleList($_product);?>
+<?php $partList = array(); ?>
+<?php $msg = '<p>'.'Success! Your part number is listed as a comparable part.'.'</p>'; ?>
+<?php $msgFail = '<p>'.'Unfortunately your part number was not found on our list of comparable parts. If you are unsure of what part you need please call our water experts at 1-800-277-3458 and they will be happy to assist you!'.'</p>'; ?>
+
+<?php foreach($compatibleList as $el): ?>
+    <?php if (array_key_exists('part',$el)): ?>
+        <?php $partList[] = $el['part']; ?>
+    <?php endif ?>
+<?php endforeach ?>
+
+<div class="box-compatible-search">
+    <div class="box-search">
+        <label for="autocomplet_compatible_search">Make sure this fits your model:</label>
+        <input type="text" id="autocomplet_compatible_search" class="ui-autocomplete-input" autocomplete="off" placeholder="Enter model number"/>
+        <button type="button" title="Search" id="compatibleSearch" class="button" onclick="">
+            <span><span>Search</span></span>
+        </button>
+        <img class="ajax-loader" src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>">
+    </div>
+</div>
+<div class="box-compatible-search box-search-result"></div>
+<script type="text/javascript">
+    jQuery("#autocomplet_compatible_search").keypress(function( event ) {
+        if ( event.which == 13 ) {
+            jQuery("#compatibleSearch").click();
+        }
+    });
+    var partNumbersString = '|<?php echo implode('|', $partList); ?>|';
+    var partNumbers = <?php echo json_encode($partList); ?>;
+    jQuery( "#autocomplet_compatible_search" ).autocomplete( {source:partNumbers});
+    jQuery("#compatibleSearch").click(function (event) {
+        var part = jQuery.trim(jQuery('#autocomplet_compatible_search').val());
+        if (part) {
+            jQuery('.box-search .ajax-loader').css({display: 'inline-flex'});
+            var pattern = '(\\|' + part + '\\|)';
+            var re = new RegExp(pattern, 'i');
+            if (partNumbersString.search(re) != -1) {
+                jQuery('.box-compatible-search.box-search-result').html('<?php echo $msg; ?>');
+            } else {
+                jQuery('.box-compatible-search.box-search-result').html('<?php echo $msgFail; ?>');
+            }
+            jQuery('.box-search .ajax-loader').css({display: 'none'});
+        }
+    });
+</script>

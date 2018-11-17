@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <ro_page>
+        <reference name="content">
+            <action method="unsetChild">
+                <name>product.info</name>
+            </action>
+        </reference>
+
+        <reference name="cms.wrapper">
+            <action method="insert">
+                <blockName>product.info</blockName>
+            </action>
+        </reference>
+
+        <reference name="product.info">
+            <action method="setTemplate">
+                <template>uswf/cms/ro/product/view.phtml</template>
+            </action>
+        </reference>
+    </ro_page>
+
+</layout>

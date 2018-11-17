@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <Cmsmart_AjaxCart>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Cmsmart_AjaxCart>
+    </modules>
+</config> 

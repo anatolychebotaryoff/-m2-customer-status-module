@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Searchspringconfig>
+            <version>0.1.0</version>
+        </Lyonscg_Searchspringconfig>
+    </modules>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <Lyonscg_Searchspringconfig>
+                            <title>Search Spring Config Module</title>
+                            <sort_order>10</sort_order>
+                        </Lyonscg_Searchspringconfig>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <lyonscg_searchspringconfig_options>
+                                            <title>Search Spring Configuration</title>
+                                        </lyonscg_searchspringconfig_options>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>

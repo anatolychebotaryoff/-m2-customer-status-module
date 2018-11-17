@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Autoship>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <SFC_Autoship/>
+
+            </depends>
+        </Lyonscg_Autoship>
+    </modules>
+</config>

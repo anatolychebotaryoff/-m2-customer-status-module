@@ -1,0 +1,161 @@
+<?php if (!$this->getRequest()->isXmlHttpRequest()): ?>
+<div class="main-container col1-layout ffbg">
+    <div class="container_24">
+        <div class="wrapper">
+            <div class="grid_24">
+                <div class="main">
+                    <div class="wrapper">
+                        <div class="col-main alpha grid_24 omega">
+                            <div class="padding-s">
+                                <?php echo $this->getLayout()->getBlock('root')->getChildHtml('messages'); ?>
+                                <div class="filterfinder">
+                                    <dl class="searcholder">
+                                        <dt>or</dt>
+                                        <dd>
+                                            <p>Do you know your filter or refrigerator model number?</p>
+                                            <?php echo $this->getChildHtml('ffsearch') ?>
+                                        </dd>
+                                    </dl>
+                                    <div class="infoplate"><strong>4 quick steps</strong> to finding your fridge filter:</div>
+                                    <ul class="infolist">
+                                        <li><strong>4 quick steps</strong> to finding your fridge filter:</li>
+                                        <li>You're <strong>almost half way</strong> to a great replacement filter:</li>
+                                        <li>Only <strong>2 more steps</strong> to clean healthy water!</li>
+                                        <li><strong>One click</strong> to pure refreshment.</li>
+                                        <li><strong>Have Fun!</strong></li>
+                                    </ul>
+                                    <?php $stepsData = $this->allSteps; ?>
+                                    <div class="ffcontent">
+                                        <?php $_filters = $this->getFilters(); $i = 0; ?>
+                                        <?php foreach ($stepsData as $_optionId => $item): $i++; ?>
+                                            <div class="step holder<?php echo $i; ?>
+                                            <?php echo ($i - 1 <= $this->currentStep) ? 'active' : ''; ?>">
+                                                <div class="clicker step<?php echo $i; ?>">
+                                                    <span class="stepstyle">STEP <?php echo $i; ?>: </span>
+                                                    <span class="info" title="<?php echo $this->__($_filters[$_optionId]->getFrontendLabel()); ?>">
+                                                            <?php
+                                                            if ($this->steps[$_optionId] !== NULL) {
+                                                                if (preg_match("/^\d+$/", $this->steps[$_optionId])) {
+                                                                    echo $stepsData[$_optionId][$this->steps[$_optionId]]['label'];
+                                                                } else {
+                                                                    echo $this->steps[$_optionId];
+                                                                }
+                                                            } else
+                                                                echo $this->__($_filters[$_optionId]->getFrontendLabel());
+                                                            ?>
+                                                        </span>
+                                                </div>
+                                                <div class="disable">&nbsp;</div>
+                                                <?php if ($item !== NULL): ?>
+                                                    <ul class="options">
+                                                        <?php foreach ($item as $value): ?>
+                                                            <li>
+                                                                <a class="steplink"
+                                                                   href="<?php echo $this->getOptionUrl($value['label'], $_optionId); ?>">
+                                                                    <?php if ($value['imgUrl'] && strpos($value['imgUrl'], '<img') !== false): ?>
+                                                                        <?php if (strpos($value['imgUrl'], 'alt=""')): ?>
+                                                                            <?php $value['imgUrl'] = str_replace('alt=""', 'alt="' . $value['label'] . '"', $value['imgUrl']) ?>
+                                                                        <?php endif; ?>
+                                                                        <?php echo $value['imgUrl'] ?>
+                                                                    <?php else: ?>
+                                                                        <img src="<?php echo $value['imgUrl']; ?>"
+                                                                             alt="<?php echo $value['label']; ?>"/>
+                                                                    <?php endif; ?>
+                                                                </a>
+                                                            </li>
+                                                        <?php endforeach; ?>
+                                                    </ul>
+                                                <?php else: ?>
+                                                    <div class="options">
+                                                        <img class="progressbar"
+                                                             src="<?php echo $this->getSkinUrl('images/loading_icon.gif') ?>"
+                                                             alt="progress bar"/>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <div class="clear">&nbsp;</div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                                <?php if ($category = Mage::getModel('catalog/category')->loadByAttribute('url_key', 'refrigerator-water-filters')): ?>
+                                    <button class="button filterfinder-browseall" onclick="setLocation('<?php echo $category->getUrl();?>');"><span><span><?php echo $this->__('Browse All Categories') ?></span></span></button>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+<div class="main-container col1-layout">
+    <div class="container_24">
+        <div class="wrapper">
+            <div class="grid_24">
+                <div class="main">
+                    <div class="wrapper">
+                        <div class="col-main alpha grid_24 omega">
+                            <div class="padding-s">
+                                <div class="filterfinder">
+                                    <?php if ($this->currentStep == 4): ?>
+                                        <div id="productList" class="visible">
+                                            <div id="forreplace" class="title">&nbsp;</div>
+                                            <div class="category-products">
+                                                <?php $productList = $this->getLayout()->createBlock('lyonscg_filterfinder/product_list');
+                                                $productList->setProductCollection($this->prepareProductCollection());
+                                                $productList->setTemplate('filterfinder/list.phtml');
+                                                echo $productList->toHtml();
+                                                ?>
+                                            </div>
+                                        </div>
+                                    <?php else: ?>
+                                        <div id="productList">
+                                            <div id="forreplace" class="title">Preparing Products:</div>
+                                            <div class="category-products">
+                                                <div class="options">
+                                                    <img class="progressbar"
+                                                         src="<?php echo $this->getSkinUrl('images/loading_icon.gif') ?>"
+                                                         alt="progress bar"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php if (!$this->getRequest()->isXmlHttpRequest()): ?>
+<script type="text/javascript">
+    addEvent(window, 'load', function() {
+        window.pageCount = 1;
+
+        window.currentStep = <?php echo $this->currentStep; ?>;
+
+        /**
+         * In dependensy of current step we show/not show default result heading
+         */
+        <?php if ($this->currentStep == 4){
+            echo 'setProductsTitle();';
+        }?>
+
+        window.waitHtml = '<div class="options">' +
+        '<img class="progressbar" src="<?php echo $this->getSkinUrl('images/loading_icon.gif') ?>" alt="progress bar"/>' +
+        '</div>';
+
+        window.waitProductHtml = '<div id="forreplace" class="title">Preparing Products:</div><div class="category-products">' +
+        '<div class="options"><img class="progressbar" ' +
+        'src="<?php echo $this->getSkinUrl('images/loading_icon.gif') ?>" alt="progress bar"/></div></div>';
+
+        window.waitCollection = '<div class="options"><img class="progressbar" ' +
+        'src="<?php echo $this->getSkinUrl('images/loading_icon.gif') ?>" alt="progress bar"/></div></div>';
+    });
+</script>
+<?php endif; ?>

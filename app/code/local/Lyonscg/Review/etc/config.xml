@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_Review>
+            <version>0.2.0</version>
+        </Lyonscg_Review>
+    </modules>
+    <global>
+        <models>
+            <review>
+                <rewrite>
+                    <review>Lyonscg_Review_Model_Review</review>
+                </rewrite>
+            </review>
+        </models>
+        <helpers>
+            <lyonscg_review>
+                <class>Lyonscg_Review_Helper</class>
+            </lyonscg_review>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Lyonscg_Review after="Mage_Adminhtml">Lyonscg_Review</Lyonscg_Review>
+                    </modules>
+                </args>
+            </adminhtml>>
+        </routers>
+    </admin>
+</config>

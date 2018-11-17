@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Wagento_Custom>
+			<active>true</active>
+			<codePool>local</codePool>
+		</Wagento_Custom>
+	</modules>
+</config>

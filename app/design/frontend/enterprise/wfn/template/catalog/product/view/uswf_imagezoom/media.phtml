@@ -1,0 +1,86 @@
+<?php
+    /** @var $this Mage_Catalog_Block_Product_View_Media */
+    /** @var $product Mage_Catalog_Model_Product */
+    $product = $this->getProduct();
+    /** @var $outputHelper Mage_Core_Block_Abstract */
+    $outputHelper = $this->helper('catalog/output');
+?>
+
+<script>
+    addEvent(window, 'load', function() {
+        count = 0;
+        jQuery('.iosSlider .slider #item').each(function () {
+            count++;
+        });
+        if (count > 3) {
+            jQuery('.iosSlider').iosSlider({
+                snapToChildren: true,
+                desktopClickDrag: true,
+                keyboardControls: true,
+                onSliderLoaded: sliderTest,
+                onSlideStart: sliderTest,
+                onSlideComplete: slideComplete,
+                navNextSelector: jQuery('.next'),
+                navPrevSelector: jQuery('.prev')
+            });
+            jQuery('.next, .prev').css({'display': 'block'});
+        }
+        function sliderTest(args) {
+            try {
+                //console.log(args);
+            } catch (err) {
+            }
+        }
+        function slideComplete(args) {
+            jQuery('.next, .prev').removeClass('unselectable');
+            if (args.currentSlideNumber == 1) {
+                jQuery('.prev').addClass('unselectable');
+            } else if (args.currentSliderOffset == args.data.sliderMax) {
+                jQuery('.next').addClass('unselectable');
+            }
+        }
+
+        <?php if (Mage::helper('uswf_imagezoom')->isZoomEnabled()):?>
+            jQuery('.uswf-zoom').jqzoom(<?php echo Mage::helper('uswf_imagezoom')->getImageZoomOptions()?>);
+        <?php endif;?>
+    });
+</script>
+
+<p class="product-image">
+    <?php echo Mage::helper('uswf_banners')->getPDPBanner($product);?>
+    <a href="<?php echo Mage::helper('uswf_imagezoom')->getBigImageHtml($product)?>" class="uswf-zoom" title="<?php echo $this->escapeHtml($this->getImageLabel());?>" rel="pdp-gallery"
+        <?php echo (Mage::helper('uswf_imagezoom')->isLightBoxEnabled()) ? 'data-lightbox="pdp-gallery" data-title="' . $this->escapeHtml($this->getImageLabel()) . '"' : '';?>>
+        <img src="<?php echo $this->helper('catalog/image')->init($product, 'image')->resize(397, 381)?>" alt="<?php echo $this->escapeHtml($this->getImageLabel());?>" />
+    </a>
+</p>
+
+<?php if (count($this->getGalleryImages()) > 0): ?>
+    <div class="more-views">
+        <h2><?php echo $this->__('More Views') ?></h2>
+        <div class="container imagezoom">
+            <div class="iosSlider">
+                <div class="slider">
+                <?php $index = 0; ?>
+                <?php foreach ($this->getGalleryImages() as $_image): ?>
+                    <div id="item">
+                        <a class="<?php echo (Mage::helper('uswf_imagezoom')->isZoomEnabled() && ($_image->getFile() == $product->getImage())) ? 'zoomThumbActive' : ''?> zoomThumbNotActive"
+                           href="<?php echo Mage::helper('uswf_imagezoom')->getBigImageHtml($product, $_image->getFile())?>" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
+                           rel="{gallery: 'pdp-gallery', smallimage: '<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile())->resize(397, 381);?>',largeimage: '<?php echo Mage::helper('uswf_imagezoom')->getBigImageHtml($product, $_image->getFile())?>'}"
+                            <?php echo (Mage::helper('uswf_imagezoom')->isLightBoxEnabled() && ($_image->getFile() != $product->getImage())) ? 'data-lightbox="pdp-gallery" data-title="' . $this->escapeHtml($_image->getLabel()) . '"' : '';?>>
+                                <img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail', $_image->getFile())->resize(57, 57);?>" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>"/>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+                </div>
+            </div>
+            <div class = 'next'></div>
+            <div class = 'prev unselectable'></div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($product->getData('country_of_manufacture') == 'US'):?>
+    <div class="made-in">
+        <label>Made in U.S.A.</label>
+    </div>
+<?php endif;?>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Lyonscg_UniversalVariable>
+            <version>0.1.0</version>
+        </Lyonscg_UniversalVariable>
+    </modules>
+    <global>
+        <models>
+            <lyonscg_universalvariable>
+                <class>Lyonscg_UniversalVariable_Model</class>
+            </lyonscg_universalvariable>
+            <universal_variable_main>
+                <rewrite>
+                    <page_observer>Lyonscg_UniversalVariable_Model_Page_Observer</page_observer>
+                </rewrite>
+            </universal_variable_main>
+        </models>
+    </global>
+    <frontend>
+        <events>
+            <lyonscg_universalvariable_cache_observer>
+                <observers>
+                    <Lyonscg_UniversalVariable_Model_Page_Observer>
+                        <type>singleton</type>
+                        <class>universal_variable_main/page_observer</class>
+                        <method>setUniversalVariable</method>
+                    </Lyonscg_UniversalVariable_Model_Page_Observer>
+                </observers>
+            </lyonscg_universalvariable_cache_observer>
+        </events>
+    </frontend>
+</config>

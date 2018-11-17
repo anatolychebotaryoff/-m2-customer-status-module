@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- SMARTFIT EXTENSION-->
+<config>
+    <modules>
+        <Cmsmart_Ajaxsearch>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Cmsmart_Ajaxsearch>
+    </modules>
+</config> 

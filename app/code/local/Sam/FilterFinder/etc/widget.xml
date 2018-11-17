@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<widgets>
+    <sam_filterfinder_fridge type="sam_filterfinder/fridge">
+        <name>Fridge finder</name>
+        <description type="desc">Dynamic Fridge Finder</description>
+    </sam_filterfinder_fridge>
+</widgets>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+<modules>
+    <USWF_ParameterDispatch>
+        <version>0.1.0</version>
+    </USWF_ParameterDispatch>
+</modules>
+
+<global>
+    <blocks>
+        <USWF_ParameterDispatch>
+            <class>USWF_ParameterDispatch_Block</class>
+        </USWF_ParameterDispatch>
+    </blocks>
+
+    <helpers>
+        <USWF_ParameterDispatch>
+            <class>USWF_ParameterDispatch_Helper</class>
+        </USWF_ParameterDispatch>
+    </helpers>
+</global>
+
+<admin>
+    <routers>
+        <adminhtml>
+            <args>
+                <modules>
+                    <USWF_ParameterDispatch after="Mage_Adminhtml">USWF_ParameterDispatch_Adminhtml</USWF_ParameterDispatch>
+                </modules>
+            </args>
+        </adminhtml>
+    </routers>
+</admin>
+</config>

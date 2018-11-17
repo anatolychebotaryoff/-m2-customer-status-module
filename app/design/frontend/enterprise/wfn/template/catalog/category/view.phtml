@@ -1,0 +1,121 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @see Mage_Catalog_Block_Category_View
+ */
+?>
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = $this->getCurrentCategory();
+    $_imgHtml   = '';
+    if ($_imgUrl = $_category->getImageUrl()) {
+        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->escapeHtml($_category->getName()).'" title="'.$this->escapeHtml($_category->getName()).'" /></p>';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+?>
+<h1>
+<?php echo $this->escapeHtml($_category->getName()) ?>
+</h1>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?php if($_imgUrl): ?>
+    <?php echo $_imgHtml ?>
+<?php endif; ?>
+
+    <?php
+    $cmsHelper = Mage::helper('cms');
+    $processor = $cmsHelper->getPageTemplateProcessor();
+    $_description = $processor->filter($this->getCurrentCategory()->getDescription());
+    if($_description):
+    ?>
+    <div class="category-description std">
+        <?php echo $_description ?>
+    </div>
+    <?php endif;?>
+
+<?php if($this->isContentMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+
+<?php elseif($this->isMixedMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+    <?php echo $this->getProductListHtml() ?>
+
+<?php else: ?>
+    <?php echo $this->getProductListHtml() ?>
+<?php endif; ?>
+<script type="text/javascript">
+    addEvent(window, 'load', function() {
+
+        jQuery('#content-filter-cat .block-compare').prepend('<span class="close"><img src="<?php echo $this->getSkinUrl()?>/images/button-close.png" /></span>');
+        jQuery('#content-filter-cat .content-filter-finder').prepend('<span class="close"><img src="<?php echo $this->getSkinUrl()?>/images/button-close.png" /></span>');
+
+        var filer_finder_active = false;
+        var compare_select = false;
+
+        jQuery('a.filter-finder-search').click(function(){ //alert('rulo');
+            if(compare_select){
+                jQuery('.content-selcect-compare .block-compare').hide('slow');
+                compare_select = false;
+            }
+
+            if(!filer_finder_active){
+                jQuery('.content-filter-finder').show('slow');
+                filer_finder_active = true;
+            }else{
+                jQuery('.content-filter-finder').hide('slow');
+                filer_finder_active = false;
+            }
+        });
+
+        jQuery('button.compare-select, span.select-compare-list').click(function(){ //alert('rulo');
+            if(filer_finder_active){
+                jQuery('.content-filter-finder').hide('slow');
+                filer_finder_active = false;
+            }
+
+            if(!compare_select){
+                jQuery('.content-selcect-compare .block-compare').show('slow');
+                compare_select = true;
+            }else{
+                jQuery('.content-selcect-compare .block-compare').hide('slow');
+                compare_select = false;
+            }
+        });
+
+        jQuery('#content-filter-cat .block-compare span.close').click(function(){
+            jQuery('.content-selcect-compare .block-compare').hide('slow');
+            compare_select = false;
+        });
+
+        jQuery('#content-filter-cat .content-filter-finder span.close').click(function(){
+            jQuery('.content-filter-finder').hide('slow');
+            filer_finder_active = false;
+        });
+    });
+</script>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <USWF_EpsPreferredImage>
+            <version>1.0.0</version>
+        </USWF_EpsPreferredImage>
+    </modules>
+    <global>
+        <models>
+            <catalog>
+                <rewrite>
+                    <resource_product>USWF_EpsPreferredImage_Model_Catalog_Resource_Product</resource_product>
+                </rewrite>
+            </catalog>
+        </models>
+        <resources>
+            <uswf_epspreferredimage_setup>
+                <setup>
+                    <module>USWF_EpsPreferredImage</module>
+                </setup>
+            </uswf_epspreferredimage_setup>
+        </resources>
+    </global>
+</config>
