@@ -1,0 +1,26 @@
+{
+    "name": "chebotaryoff/customer-status",
+    "version": "1.0.0",
+    "type": "magento2-module",
+    "description": "Customer status module",
+    "repositories": {
+        "dev-package": {
+            "type": "vcs",
+            "url": "git@github.com:anatolychebotaryoff/-m2-customer-status-module.git"
+        }
+    },
+    "require": {
+        "magento/module-backend": "100.2.*|100.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.2.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Chebotaryoff\\CustomerStatus\\": ""
+        }
+    }
+}
