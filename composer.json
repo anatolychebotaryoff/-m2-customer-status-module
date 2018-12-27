@@ -3,12 +3,12 @@
     "version": "1.0.0",
     "type": "magento2-module",
     "description": "Customer status module",
-    "repositories": {
-        "dev-package": {
+    "repositories": [
+        {
             "type": "vcs",
-            "url": "git@github.com:anatolychebotaryoff/-m2-customer-status-module.git"
+            "url": "git@github.com:anatolychebotaryoff/m2-customer-status-module.git"
         }
-    },
+    ],
     "require": {
         "magento/module-backend": "100.2.*|100.1.*"
     },
